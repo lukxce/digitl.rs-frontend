@@ -13,6 +13,11 @@ const nextConfig = {
         hostname: "fastly.picsum.photos",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "api.digitl.rs",
+        pathname: "/**",
+      },
     ],
   },
 };
