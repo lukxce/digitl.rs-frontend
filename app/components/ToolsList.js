@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "motion/react";
+import Image from "next/image";
 import { useRef } from "react";
 import { scrollRevealEase } from "../../lib/scrollReveal";
-import styles from "./ToolsList.module.css";
-import Image from "next/image";
 import FigmaIcon from "../assets/figma.svg";
-import PhotoshopIcon from "../assets/photoshop.svg";
 import FramerIcon from "../assets/framer.svg";
+import PhotoshopIcon from "../assets/photoshop.svg";
+import styles from "./ToolsList.module.css";
 
 export default function ToolsList() {
   const ref = useRef(null);
@@ -27,7 +27,9 @@ export default function ToolsList() {
       percentage: 70,
     },
     {
-      icon: <Image src={PhotoshopIcon} alt="Photoshop" width={26} height={26} />,
+      icon: (
+        <Image src={PhotoshopIcon} alt="Photoshop" width={26} height={26} />
+      ),
       title: "Adobe Photoshop",
       description: "Raster graphics editor",
       percentage: 60,
@@ -38,7 +40,6 @@ export default function ToolsList() {
     <div className={styles.root} ref={ref}>
       {steps.map((step) => (
         <div className={styles.step} key={step.title}>
-          
           {/* 🔵 Animated fill */}
           <motion.div
             className={styles.fill}
@@ -54,10 +55,7 @@ export default function ToolsList() {
             <div className={styles.stepDescription}>{step.description}</div>
           </div>
 
-          <div className={styles.stepPercentage}>
-            {step.percentage}%
-          </div>
-
+          <div className={styles.stepPercentage}>{step.percentage}%</div>
         </div>
       ))}
     </div>

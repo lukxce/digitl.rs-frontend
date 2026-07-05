@@ -1,16 +1,18 @@
-import MotionTitleBlock from "../components/MotionTitleBlock";
-import ScrollReveal from "../components/ScrollReveal";
-import styles from "../innerPage.module.css";
-import LinkCard from "../components/LinkCard";
-import ClientsLogosCarousel from "../components/ClientsLogosCarousel";
-import Subscribe from "../components/Subscribe";
-import ContactForm from "../components/ContactForm";
 import { tryGetClientShowcases } from "../../lib/clientShowcases.js";
 import AvatarInfo from "../components/AvatarInfo";
+import ClientsLogosCarousel from "../components/ClientsLogosCarousel";
+import ContactForm from "../components/ContactForm";
+import LinkCard from "../components/LinkCard";
+import MotionTitleBlock from "../components/MotionTitleBlock";
+import ScrollReveal from "../components/ScrollReveal";
+import Subscribe from "../components/Subscribe";
+import styles from "../innerPage.module.css";
 
 export const metadata = {
   title: "Projects",
-  description: "Selected work and experiments.",
+  description:
+    "A selection of projects we've built for clients across different industries.",
+  alternates: { canonical: "/projects" },
 };
 
 export default async function ProjectsPage() {
@@ -19,11 +21,12 @@ export default async function ProjectsPage() {
   return (
     <main className={styles.page}>
       <MotionTitleBlock
-        title="My work"
-        subtitle="Check out some of my favorite & most recent projects."
+        title="Our work"
+        subtitle="A selection of projects we've built for clients across different industries."
         className={styles.titleContainer}
         width={300}
         subtitleWidthMobile={200}
+        as="h1"
       />
       <div className={styles.cardColumn}>
         {workCards.map((card) => (

@@ -81,10 +81,9 @@
   color: #0a0a0a;
   scroll-margin-top: 120px;
 
-font-size: 26px;
-line-height: 130%;
-letter-spacing: -0.04em;
-
+  font-size: 26px;
+  line-height: 130%;
+  letter-spacing: -0.04em;
 }
 
 .h3 {
@@ -154,7 +153,10 @@ letter-spacing: -0.04em;
 
 .p + .h2,
 .p + .h3,
-.p + .h4 {
+.p + .h4,
+.list + .h2,
+.list + .h3,
+.list + .h4 {
   margin-top: 16px;
 }
 
@@ -257,29 +259,29 @@ letter-spacing: -0.04em;
     gap: 10px;
   }
 
-  .imageRowThreeLayout{
+  .imageRowThreeLayout {
     gap: 10px;
   }
 
-  .h2{
+  .h2 {
     font-size: 24px;
     margin-top: 0;
     padding: 0 10px 0;
   }
 
-  .h3{
+  .h3 {
     font-size: 20px;
     margin-top: 0;
     padding: 0 10px 0;
   }
 
-  .h4{
+  .h4 {
     font-size: 18px;
     margin-top: 0;
     padding: 0 10px 0;
   }
 
-  .p{
+  .p {
     font-size: 16px;
     margin: 20px 0 0;
     padding: 0 10px 0;
@@ -287,7 +289,10 @@ letter-spacing: -0.04em;
 
   .p + .h2,
   .p + .h3,
-  .p + .h4 {
+  .p + .h4,
+  .list + .h2,
+  .list + .h3,
+  .list + .h4 {
     margin-top: 30px;
   }
 
@@ -295,16 +300,16 @@ letter-spacing: -0.04em;
     font-size: 16px;
   }
 
-  .imageRowBreakout{
+  .imageRowBreakout {
     margin-top: 40px;
     margin-bottom: 40px;
   }
 
-  .dynamicBlock{
+  .dynamicBlock {
     gap: 0px;
   }
 
-  .listItem{
+  .listItem {
     font-size: 16px;
   }
 }

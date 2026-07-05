@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
-import { tryFindArticle, tryGetArticlesForHome } from "../../../lib/articles.js";
-import { buildJournalOutline } from "../../../lib/pageOutline.js";
+import {
+  tryFindArticle,
+  tryGetArticlesForHome,
+} from "../../../lib/articles.js";
+import AvatarInfo from "../../components/AvatarInfo";
 import ClientsLogosCarousel from "../../components/ClientsLogosCarousel";
 import ContactForm from "../../components/ContactForm";
-import DetailPageOutline from "../../components/DetailPageOutline";
 import JournalArticleContent from "../../components/JournalArticleContent";
 import JournalList from "../../components/JournalList";
 import MotionTitleBlock from "../../components/MotionTitleBlock";
@@ -12,7 +14,6 @@ import StrapiBlocksRenderer from "../../components/StrapiBlocksRenderer";
 import Subscribe from "../../components/Subscribe";
 import innerStyles from "../../innerPage.module.css";
 import styles from "./article.module.css";
-import AvatarInfo from "../../components/AvatarInfo";
 
 function blocksToPlainText(blocks) {
   if (blocks == null) return "";
@@ -45,7 +46,6 @@ export async function generateMetadata(props) {
   const params = await props.params;
   const slug = params.slug;
   const article = await tryFindArticle(slug);
-  console.log(article);
   if (!article) {
     return { title: "Article" };
   }
@@ -57,9 +57,24 @@ export async function generateMetadata(props) {
         : typeof article.subtitle === "string"
           ? article.subtitle
           : blocksToPlainText(article.blocks).slice(0, 160);
+  const canonicalPath = `/journal/${encodeURIComponent(article.slug)}`;
   return {
     title: article.title,
     description: desc,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      type: "article",
+      url: canonicalPath,
+      title: article.title,
+      description: desc,
+      publishedTime: article.publishedAt ?? undefined,
+      images: article.coverUrl ? [{ url: article.coverUrl }] : undefined,
+    },
+    twitter: {
+      card: article.coverUrl ? "summary_large_image" : "summary",
+      title: article.title,
+      description: desc,
+    },
   };
 }
 
@@ -85,30 +100,27 @@ export default async function JournalArticlePage(props) {
       imageUrl: entry.coverUrl,
     }));
 
-  const outline = buildJournalOutline({
-    hasKeyTakeaways: (article.keyTakeaways?.length ?? 0) > 0,
-    contentBlocks: article.blocks,
-  });
-
   return (
-    <main className={`${innerStyles.pageDetail} ${innerStyles.pageDetailTop} ${innerStyles.pageJournal}`.trim()}>
+    <main
+      className={`${innerStyles.pageDetail} ${innerStyles.pageDetailTop} ${innerStyles.pageJournal}`.trim()}
+    >
       {/* <DetailPageOutline items={outline}> */}
-        <JournalArticleContent
-          title={article.title}
-          description={article.description}
-          author={article.author}
-          publishedAt={article.publishedAt}
-          coverUrl={article.coverUrl}
-          beforeCover={
-            (article.keyTakeaways?.length ?? 0) > 0
-              ? <ShowcaseKeyTakeaways items={article.keyTakeaways} />
-              : null
-          }
-        >
-          {hasBlocks
-            ? <StrapiBlocksRenderer blocks={article.blocks} />
-            : <p className={styles.empty}>No body content for this entry.</p>}
-        </JournalArticleContent>
+      <JournalArticleContent
+        title={article.title}
+        description={article.description}
+        author={article.author}
+        publishedAt={article.publishedAt}
+        coverUrl={article.coverUrl}
+        beforeCover={
+          (article.keyTakeaways?.length ?? 0) > 0
+            ? <ShowcaseKeyTakeaways items={article.keyTakeaways} />
+            : null
+        }
+      >
+        {hasBlocks
+          ? <StrapiBlocksRenderer blocks={article.blocks} />
+          : <p className={styles.empty}>No body content for this entry.</p>}
+      </JournalArticleContent>
       {/* </DetailPageOutline> */}
 
       <MotionTitleBlock

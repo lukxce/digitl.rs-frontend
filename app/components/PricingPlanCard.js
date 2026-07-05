@@ -121,54 +121,54 @@ export default function PricingPlanCard({ planId }) {
   return (
     <article className={styles.card} aria-live="polite">
       <div className={styles.cardContent}>
-      <header className={styles.top}>
-        <div className={styles.header}>
-          <div className={styles.headerLeft}>
-            <span className={styles.step}>{detail.step}</span>
-            <span className={styles.dots} aria-hidden>
-              <span
-                className={`${styles.dot} ${
-                  detail.activeDotIndex === 0 ? styles.dotActive : ""
-                }`}
-              />
-              <span
-                className={`${styles.dot} ${
-                  detail.activeDotIndex === 1 ? styles.dotActive : ""
-                }`}
-              />
-              <span
-                className={`${styles.dot} ${
-                  detail.activeDotIndex === 2 ? styles.dotActive : ""
-                }`}
-              />
-            </span>
+        <header className={styles.top}>
+          <div className={styles.header}>
+            <div className={styles.headerLeft}>
+              <span className={styles.step}>{detail.step}</span>
+              <span className={styles.dots} aria-hidden>
+                <span
+                  className={`${styles.dot} ${
+                    detail.activeDotIndex === 0 ? styles.dotActive : ""
+                  }`}
+                />
+                <span
+                  className={`${styles.dot} ${
+                    detail.activeDotIndex === 1 ? styles.dotActive : ""
+                  }`}
+                />
+                <span
+                  className={`${styles.dot} ${
+                    detail.activeDotIndex === 2 ? styles.dotActive : ""
+                  }`}
+                />
+              </span>
+            </div>
+            <div className={styles.headerRight}>
+              <span className={styles.doneLabel}>{detail.doneInLabel}</span>
+              <span className={styles.doneValue}>
+                {detail.doneInValue}
+                <ClockIcon className={styles.clock} />
+              </span>
+            </div>
           </div>
-          <div className={styles.headerRight}>
-            <span className={styles.doneLabel}>{detail.doneInLabel}</span>
-            <span className={styles.doneValue}>
-              {detail.doneInValue}
-              <ClockIcon className={styles.clock} />
-            </span>
-          </div>
-        </div>
-      </header>
+        </header>
 
-      <div className={styles.titleBlock}>
-        <div className={styles.titleRow}>
-          <h2 className={styles.planName}>{detail.name}</h2>
-          <div className={styles.priceWrap}>
-            <span className={styles.price}>{detail.price}</span>
-            <span className={styles.priceSuffix}>{detail.priceUnit}</span>
+        <div className={styles.titleBlock}>
+          <div className={styles.titleRow}>
+            <h2 className={styles.planName}>{detail.name}</h2>
+            <div className={styles.priceWrap}>
+              <span className={styles.price}>{detail.price}</span>
+              <span className={styles.priceSuffix}>{detail.priceUnit}</span>
+            </div>
           </div>
+          <p className={`${styles.subtitleText} ${styles.subtitle}`}>
+            {detail.subtitle}
+          </p>
         </div>
-        <p className={`${styles.subtitleText} ${styles.subtitle}`}>
-        {detail.subtitle}
-      </p>
-      </div>
 
-      <div className={styles.ctaRow}>
-        <CtaButton title={detail.ctaTitle} action={detail.ctaAction} />
-      </div>
+        <div className={styles.ctaRow}>
+          <CtaButton title={detail.ctaTitle} action={detail.ctaAction} />
+        </div>
       </div>
 
       <div className={styles.features}>

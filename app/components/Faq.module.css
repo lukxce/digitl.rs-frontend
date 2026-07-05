@@ -1,21 +1,21 @@
 .root {
-    width: 100%;
-    max-width: 550px;
-    font-family: var(--font-manrope), system-ui, sans-serif;
-    align-self: center;
-    margin-top: 100px;
-    margin-bottom: 0;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  max-width: 550px;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  align-self: center;
+  margin-top: 100px;
+  margin-bottom: 0;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .rootInner {
- display: flex;
- flex-direction: column;
- align-items: center;
- gap: 7px;
- margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  margin-top: 60px;
 }
 
 .list {
@@ -32,7 +32,6 @@
 }
 
 .item {
-  width: 100%;
   width: 550px;
   border: 1px solid #e9e9e9;
   border-radius: 50px;
@@ -156,7 +155,6 @@
 }
 
 @media (max-width: 640px) {
-
   .rootInner {
     margin-top: 40px;
   }
@@ -165,27 +163,27 @@
     width: 100%;
   }
 
-  .question{
+  .question {
     font-size: 14px;
   }
 
-  .answer{
+  .answer {
     font-size: 15px;
   }
 
-  .list{
-    gap: 6px
+  .list {
+    gap: 6px;
   }
 
-  .followUpText{
+  .followUpText {
     font-size: 12px;
   }
 
-  .askLink{
+  .askLink {
     font-size: 13px;
   }
 
-  .askArrow{
+  .askArrow {
     width: 13px;
   }
 }

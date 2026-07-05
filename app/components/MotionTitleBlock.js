@@ -32,6 +32,7 @@ export default function MotionTitleBlock({
   align = "center",
   hasImage,
   delay = 0,
+  as,
 }) {
   return (
     <ScrollReveal
@@ -49,6 +50,7 @@ export default function MotionTitleBlock({
         subtitleWidthMobile={subtitleWidthMobile}
         align={align}
         hasImage={hasImage}
+        as={as}
       />
     </ScrollReveal>
   );

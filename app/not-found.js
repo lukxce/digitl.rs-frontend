@@ -1,11 +1,7 @@
-import { tryGetArticlesForHome } from "../lib/articles.js";
-import { tryGetClientShowcases } from "../lib/clientShowcases.js";
 import AvatarInfo from "./components/AvatarInfo";
 import ClientsLogosCarousel from "./components/ClientsLogosCarousel";
 import ContactForm from "./components/ContactForm";
 import JournalArticleContent from "./components/JournalArticleContent";
-import JournalList from "./components/JournalList";
-import LinkCard from "./components/LinkCard";
 import MotionTitleBlock from "./components/MotionTitleBlock";
 import NotFoundShowcaseHeader from "./components/NotFoundShowcaseHeader";
 import Subscribe from "./components/Subscribe";
@@ -15,21 +11,7 @@ export const metadata = {
   title: "Page not found",
 };
 
-export default async function NotFound() {
-  const [articles, showcases] = await Promise.all([
-    tryGetArticlesForHome(10),
-    tryGetClientShowcases(10),
-  ]);
-
-  const moreArticles = articles.slice(0, 3).map((entry) => ({
-    slug: entry.slug,
-    title: entry.title,
-    publishedAt: entry.publishedAt,
-    imageUrl: entry.coverUrl,
-  }));
-
-  const moreProjects = showcases.slice(0, 3);
-
+export default function NotFound() {
   return (
     <main className={innerStyles.pageProject}>
       <JournalArticleContent
@@ -38,10 +20,7 @@ export default async function NotFound() {
         backHref="/"
         lead={<NotFoundShowcaseHeader />}
         backLabel={false}
-      >
-      </JournalArticleContent>
-
-
+      ></JournalArticleContent>
 
       <MotionTitleBlock
         title="Join 150+ professionals elevating their brand"

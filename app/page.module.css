@@ -188,7 +188,6 @@ a.secondary {
   }
 }
 
-
 .clientQuoteBold {
   font-size: 14px;
   font-weight: 600;
@@ -210,8 +209,8 @@ a.secondary {
   text-align: center;
   gap: 16px;
   text-align: center;
-    align-items: center;
-    /* margin: auto 65px; */
+  align-items: center;
+  /* margin: auto 65px; */
   width: 450px;
 }
 
@@ -223,8 +222,7 @@ a.secondary {
   line-height: 140%;
   letter-spacing: -4%;
   text-align: left;
-    width: 100%;
-  
+  width: 100%;
 }
 
 .journeyTitleSubtitle {
@@ -236,7 +234,6 @@ a.secondary {
   color: #747474;
   text-align: left;
 }
-
 
 @media (max-width: 600px) {
   .main {
@@ -270,7 +267,7 @@ a.secondary {
     margin-top: 20px;
   }
 
-  .journeyTitleSubtitle{
+  .journeyTitleSubtitle {
     font-size: 15px;
   }
 }

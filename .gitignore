@@ -1,1 +1,21 @@
-node_modules
+# dependencies
+node_modules/
+
+# next.js build output
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# env files (secrets & machine-specific config)
+.env
+.env.*
+
+# vercel
+.vercel/
+
+# macOS
+.DS_Store
+
+# misc
+npm-debug.log*

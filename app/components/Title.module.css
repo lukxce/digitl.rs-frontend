@@ -8,7 +8,7 @@
   line-height: 1;
   font-weight: 600;
   max-width: var(--title-max-width, 370px);
-  margin: 0 auto 24px;
+  margin: 0 auto 30px;
   color: #000;
   font-family: var(--font-manrope), system-ui, sans-serif;
   letter-spacing: -5%;
@@ -18,7 +18,7 @@
 .subtitle {
   max-width: var(--subtitle-max-width, 300px);
   margin: 0 auto;
-  color: #8B8B8B;
+  color: #8b8b8b;
   font-size: 17px;
   font-weight: 600;
   font-family: var(--font-manrope), system-ui, sans-serif;
@@ -41,17 +41,20 @@
 
 @media (max-width: 640px) {
   .title {
-    font-size:34px;
+    font-size: 34px;
     max-width: var(--title-max-width-mobile, var(--title-max-width, 370px));
     margin-bottom: 18px;
   }
 
   .subtitle {
     font-size: 15px;
-    max-width: var(--subtitle-max-width-mobile, var(--subtitle-max-width, 250px));
+    max-width: var(
+      --subtitle-max-width-mobile,
+      var(--subtitle-max-width, 250px)
+    );
   }
 
-  .root{
+  .root {
     margin-bottom: 0;
   }
 

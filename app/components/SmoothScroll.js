@@ -1,7 +1,8 @@
 "use client";
 
-import { ReactLenis } from "lenis/react";
-import { useEffect, useState } from "react";
+import { ReactLenis, useLenis } from "lenis/react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 function shouldEnableLenis() {
   if (typeof window === "undefined") {
@@ -14,6 +15,44 @@ function shouldEnableLenis() {
   const mobileViewport = window.matchMedia("(max-width: 768px)").matches;
 
   return !reduceMotion && !mobileViewport;
+}
+
+/**
+ * Lenis keeps its own scroll position, so on route change the page could
+ * stay scrolled where the previous page was (or land mid-lerp). Reset to
+ * top on navigation — except for anchor links and back/forward, where the
+ * browser/Lenis anchor handling should win.
+ */
+function ScrollToTopOnRouteChange() {
+  const lenis = useLenis();
+  const pathname = usePathname();
+  const isFirstRender = useRef(true);
+  const isHistoryNav = useRef(false);
+
+  useEffect(() => {
+    const onPopState = () => {
+      isHistoryNav.current = true;
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (isHistoryNav.current) {
+      isHistoryNav.current = false;
+      return;
+    }
+    if (window.location.hash) {
+      return;
+    }
+    lenis?.scrollTo(0, { immediate: true, force: true });
+  }, [pathname, lenis]);
+
+  return null;
 }
 
 export default function SmoothScroll({ children }) {
@@ -61,6 +100,7 @@ export default function SmoothScroll({ children }) {
         anchors: true,
       }}
     >
+      <ScrollToTopOnRouteChange />
       {children}
     </ReactLenis>
   );

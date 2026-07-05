@@ -1,28 +1,31 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import clientsAvatar from "../assets/clients.png";
-import storyBackground from "../assets/girl-laptop.png";
-import handPhone from "../assets/hand-phone.png";
-import phoneFrame from "../assets/phone.png";
-import starsSvg from "../assets/stars.svg";
 import {
   scrollRevealBaseDelay,
   scrollRevealEase,
   scrollRevealViewport,
 } from "../../lib/scrollReveal";
+import storyBackground from "../assets/girl-laptop.png";
+import handPhone from "../assets/hand-phone.png";
+import phoneFrame from "../assets/phone.png";
+import starsSvg from "../assets/stars.svg";
 import styles from "./PhoneInHand.module.css";
 
-const STORY_DURATION_MS = 10_000;
+const STORY_DURATION_MS = 5_000;
 
 const phoneVariants = {
   hidden: { y: 120, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    transition: { duration: 0.9, ease: scrollRevealEase, delay: scrollRevealBaseDelay },
+    transition: {
+      duration: 0.9,
+      ease: scrollRevealEase,
+      delay: scrollRevealBaseDelay,
+    },
   },
 };
 
@@ -31,7 +34,11 @@ const sidePanelLeftVariants = {
   visible: {
     x: 0,
     opacity: 1,
-    transition: { duration: 1.5, ease: scrollRevealEase, delay: scrollRevealBaseDelay },
+    transition: {
+      duration: 1.5,
+      ease: scrollRevealEase,
+      delay: scrollRevealBaseDelay,
+    },
   },
 };
 
@@ -40,34 +47,32 @@ const sidePanelRightVariants = {
   visible: {
     x: 0,
     opacity: 1,
-    transition: { duration: 1.5, ease: scrollRevealEase, delay: scrollRevealBaseDelay },
+    transition: {
+      duration: 1.5,
+      ease: scrollRevealEase,
+      delay: scrollRevealBaseDelay,
+    },
   },
 };
 
 const STORIES = [
   {
     id: "1",
-    name: "Alex Morgan",
-    role: "Product Lead, Northwind",
-    body: "Client satisfaction went through the roof after the redesign. Every flow finally feels obvious.",
-    reviewer: "Stanley Black",
+    body: "They delivered exceptional work, creative and detailed, perfectly aligned with our vision. Highly recommend!",
+    reviewer: "Jessica Stone",
     reviewerRole: "Creative Director at Lumina",
   },
   {
     id: "2",
-    name: "Jordan Lee",
-    role: "Marketing Director, Acme",
-    body: "We finally have a story that matches how good the product is. Retention looks stronger every week.",
-    reviewer: "Stanley Black",
-    reviewerRole: "Creative Director at Lumina",
+    body: "Working with the guys from digitl was a game-changer for our company. The website design they created not only looks stunning but also improved our user engagement significantly.",
+    reviewer: "John Carter",
+    reviewerRole: "Creative Lead at Garnish",
   },
   {
     id: "3",
-    name: "Sam Rivera",
-    role: "Founder, Brightline",
-    body: "The level of care in every screen makes us look like a much bigger team than we are.",
-    reviewer: "Stanley Black",
-    reviewerRole: "Creative Director at Lumina",
+    body: "We transformed our outdated website into a sleek, modern portfolio that stands out. A fantastic team to collaborate with!",
+    reviewer: "Rachel Simmons",
+    reviewerRole: "Product Manager at Brightline Solutions",
   },
 ];
 
@@ -136,11 +141,13 @@ export default function PhoneInHand() {
           />
           <div className={styles.screen}>
             <button
+              type="button"
               className={styles.tapLeft}
               onClick={handleLeft}
               aria-label="Previous"
             />
             <button
+              type="button"
               className={styles.tapRight}
               onClick={handleRight}
               aria-label="Next"
@@ -182,18 +189,19 @@ export default function PhoneInHand() {
                 </div>
 
                 <header className={styles.storyHeader}>
-                  <div className={styles.avatarRing}>
+                  <div className={styles.brandMeta}>
                     <Image
-                      src={clientsAvatar}
-                      alt=""
-                      width={40}
-                      height={40}
-                      className={styles.avatar}
+                      src="https://api.digitl.me/uploads/icon_1ea74e1afa.png"
+                      alt="Digitl"
+                      width={32}
+                      height={32}
+                      className={styles.brandLogo}
+                      unoptimized
                     />
-                  </div>
-                  <div className={styles.meta}>
-                    <p className={styles.posterName}>{story.name}</p>
-                    <p className={styles.posterRole}>{story.role}</p>
+                    <div>
+                      <p className={styles.posterName}>Digitl</p>
+                      <p className={styles.posterRole}>Marketing Agency</p>
+                    </div>
                   </div>
                 </header>
 
@@ -208,7 +216,9 @@ export default function PhoneInHand() {
                   />
                   <p className={styles.storyBodyText}>{story.body}</p>
                   <p className={styles.storyBodyReviewer}>{story.reviewer}</p>
-                  <p className={styles.storyBodyReviewerRole}>{story.reviewerRole}</p>
+                  <p className={styles.storyBodyReviewerRole}>
+                    {story.reviewerRole}
+                  </p>
                 </div>
               </div>
             </div>

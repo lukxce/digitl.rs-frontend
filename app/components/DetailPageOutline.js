@@ -1,6 +1,6 @@
-import OnThisPageNav from "./OnThisPageNav";
 import styles from "./DetailPageOutline.module.css";
 import { OutlineProvider } from "./detailPageOutlineContext";
+import OnThisPageNav from "./OnThisPageNav";
 
 /**
  * @param {{

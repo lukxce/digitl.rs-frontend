@@ -1,6 +1,6 @@
-import styles from "./Title.module.css";
 import Image from "next/image";
 import clientsImage from "../assets/clients.png";
+import styles from "./Title.module.css";
 
 function toCssLength(value) {
   if (value == null) return undefined;
@@ -15,11 +15,14 @@ export default function Title({
   hasImage,
   subtitleWidth,
   subtitleWidthMobile,
-  align = 'center',
+  align = "center",
+  as: Heading = "h2",
 }) {
   const headerStyle = {
     ...(width != null && { "--title-max-width": toCssLength(width) }),
-    ...(widthMobile != null && { "--title-max-width-mobile": toCssLength(widthMobile) }),
+    ...(widthMobile != null && {
+      "--title-max-width-mobile": toCssLength(widthMobile),
+    }),
     ...((subtitleWidth ?? width) != null && {
       "--subtitle-max-width": toCssLength(subtitleWidth ?? width),
     }),
@@ -33,23 +36,24 @@ export default function Title({
       className={styles.root}
       style={Object.keys(headerStyle).length ? headerStyle : undefined}
     >
-      <h1 className={`${styles.title} ${align === 'left' ? styles.titleLeft : ''}`.trim()} style={{ textAlign: align }}>{title}</h1>
-      {hasImage && (
-        <Image src={clientsImage} alt="Title Image" />
-      )}
+      <Heading
+        className={`${styles.title} ${align === "left" ? styles.titleLeft : ""}`.trim()}
+        style={{ textAlign: align }}
+      >
+        {title}
+      </Heading>
+      {hasImage && <Image src={clientsImage} alt="Title Image" />}
       {subtitle != null &&
-        (typeof subtitle === "string" ? (
-          <p
-            className={`${styles.subtitle} ${hasImage ? styles.subtitleWithImage : ""}`}
-            dangerouslySetInnerHTML={{ __html: subtitle }}
-          />
-        ) : (
-          <p
-            className={`${styles.subtitle} ${hasImage ? styles.subtitleWithImage : ""}`}
-          >
-            {subtitle}
-          </p>
-        ))}
+        (typeof subtitle === "string"
+          ? <p
+              className={`${styles.subtitle} ${hasImage ? styles.subtitleWithImage : ""}`}
+              dangerouslySetInnerHTML={{ __html: subtitle }}
+            />
+          : <p
+              className={`${styles.subtitle} ${hasImage ? styles.subtitleWithImage : ""}`}
+            >
+              {subtitle}
+            </p>)}
     </header>
   );
 }

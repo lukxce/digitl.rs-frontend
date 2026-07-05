@@ -1,8 +1,8 @@
 "use client";
 
-import OnThisPageNav from "./OnThisPageNav";
 import styles from "./DetailPageOutline.module.css";
 import { useOutlineItems } from "./detailPageOutlineContext";
+import OnThisPageNav from "./OnThisPageNav";
 
 export default function DetailPageOutlineMobileNav() {
   const items = useOutlineItems();

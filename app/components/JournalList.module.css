@@ -63,8 +63,8 @@
   transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
   transform-origin: center center;
   display: flex;
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .thumbImg {
@@ -88,7 +88,6 @@
 .titleText {
   display: block;
   overflow: hidden;
-  display: block;
   overflow-wrap: break-word;
   white-space: normal;
 }
@@ -141,6 +140,8 @@
 }
 
 .viewAllLink {
+  padding: 12px 10px;
+  margin: -12px -10px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -205,7 +206,7 @@
     height: 54px;
   }
 
-  .container{
+  .container {
     margin-top: 60px;
     margin-bottom: 60px;
   }

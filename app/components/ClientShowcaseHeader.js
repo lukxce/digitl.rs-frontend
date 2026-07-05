@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "motion/react";
+import Image from "next/image";
+import { canOptimizeImage } from "../../lib/imageHosts.js";
 import stripeSvg from "../assets/stripe.svg";
+import styles from "./ClientShowcaseHeader.module.css";
 import heroStyles from "./HeroCard/HeroCard.module.css";
 import journalStyles from "./JournalList.module.css";
-import styles from "./ClientShowcaseHeader.module.css";
 
 function formatPublishedDate(iso) {
   if (!iso) return "—";
@@ -18,10 +19,6 @@ function formatPublishedDate(iso) {
   } catch {
     return "—";
   }
-}
-
-function isRemoteImageSrc(src) {
-  return typeof src === "string" && /^https?:\/\//.test(src);
 }
 
 function IconCategory() {
@@ -95,7 +92,6 @@ function VisitWebsiteArrow({ className }) {
  * }} props
  */
 export default function ClientShowcaseHeader({
-  title,
   coverUrl,
   coverAlt = "",
   clientName,
@@ -166,14 +162,18 @@ export default function ClientShowcaseHeader({
                       className={styles.coverImage}
                       sizes="(max-width: 640px) 100vw, 532px"
                       priority
-                      unoptimized={isRemoteImageSrc(coverUrl)}
+                      unoptimized={!canOptimizeImage(coverUrl)}
                     />
                   </figure>
                 : null}
 
               <div className={styles.cardBody}>
-                <ul className={`${journalStyles.list} ${styles.metaList}`.trim()}>
-                  <li className={`${journalStyles.item} ${styles.metaItem}`.trim()}>
+                <ul
+                  className={`${journalStyles.list} ${styles.metaList}`.trim()}
+                >
+                  <li
+                    className={`${journalStyles.item} ${styles.metaItem}`.trim()}
+                  >
                     <div className={journalStyles.rowLink}>
                       <span className={journalStyles.thumb}>
                         <span className={journalStyles.thumbInner}>
@@ -184,7 +184,7 @@ export default function ClientShowcaseHeader({
                                 width={56}
                                 height={56}
                                 className={journalStyles.thumbImg}
-                                unoptimized={isRemoteImageSrc(clientImageUrl)}
+                                unoptimized={!canOptimizeImage(clientImageUrl)}
                               />
                             : null}
                         </span>
@@ -202,7 +202,9 @@ export default function ClientShowcaseHeader({
                     </div>
                   </li>
 
-                  <li className={`${journalStyles.item} ${styles.metaItem}`.trim()}>
+                  <li
+                    className={`${journalStyles.item} ${styles.metaItem}`.trim()}
+                  >
                     <div className={journalStyles.rowLink}>
                       <span className={journalStyles.thumb}>
                         <span
@@ -214,7 +216,9 @@ export default function ClientShowcaseHeader({
                       <span
                         className={`${journalStyles.title} ${styles.metaLabel}`.trim()}
                       >
-                        <span className={journalStyles.titleText}>Category</span>
+                        <span className={journalStyles.titleText}>
+                          Category
+                        </span>
                       </span>
                       <span
                         className={`${journalStyles.date} ${styles.metaValue}`.trim()}
@@ -224,7 +228,9 @@ export default function ClientShowcaseHeader({
                     </div>
                   </li>
 
-                  <li className={`${journalStyles.item} ${styles.metaItem}`.trim()}>
+                  <li
+                    className={`${journalStyles.item} ${styles.metaItem}`.trim()}
+                  >
                     <div className={journalStyles.rowLink}>
                       <span className={journalStyles.thumb}>
                         <span
@@ -257,7 +263,9 @@ export default function ClientShowcaseHeader({
                         rel="noopener noreferrer"
                       >
                         <span>Visit website</span>
-                        <VisitWebsiteArrow className={styles.visitWebsiteArrow} />
+                        <VisitWebsiteArrow
+                          className={styles.visitWebsiteArrow}
+                        />
                       </a>
                     </div>
                   : null}

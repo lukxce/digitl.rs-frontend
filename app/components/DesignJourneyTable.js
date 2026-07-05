@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -11,8 +11,8 @@ import {
 import dotsSvg from "../assets/dots.svg";
 import doubleCheck from "../assets/double-checkmark.svg";
 import girlLaptop from "../assets/girl-laptop.png";
-import styles from "./DesignJourneyTable.module.css";
 import CtaButton from "./CtaButton";
+import styles from "./DesignJourneyTable.module.css";
 
 const ROWS = [
   {

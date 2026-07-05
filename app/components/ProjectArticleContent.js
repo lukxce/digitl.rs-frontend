@@ -1,16 +1,16 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import DetailPageOutlineMobileNav from "./DetailPageOutlineMobileNav";
 import {
-  scrollRevealDistance,
-  scrollRevealEase,
-  scrollRevealDuration,
   scrollRevealBaseDelay,
+  scrollRevealDistance,
+  scrollRevealDuration,
+  scrollRevealEase,
   scrollRevealStagger,
 } from "../../lib/scrollReveal";
+import DetailPageOutlineMobileNav from "./DetailPageOutlineMobileNav";
 import styles from "./projectArticle.module.css";
 
 const sectionVariants = {
@@ -78,30 +78,30 @@ export default function JournalArticleContent({
     return index;
   };
 
-  const backLink = (
-    backLabel ? <Link href={backHref} className={styles.back}>
-      <span className={styles.backIcon} aria-hidden>
-        <svg
-          className={styles.backArrow}
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title>Back</title>
-          <path
-            d="M19 12H5M12 19l-7-7 7-7"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-      {backLabel}
-    </Link> : null
-  );
+  const backLink = backLabel
+    ? <Link href={backHref} className={styles.back}>
+        <span className={styles.backIcon} aria-hidden>
+          <svg
+            className={styles.backArrow}
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Back</title>
+            <path
+              d="M19 12H5M12 19l-7-7 7-7"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+        {backLabel}
+      </Link>
+    : null;
 
   const authorName = author?.name ?? null;
   const authorImageUrl = author?.imageUrl ?? null;
@@ -112,9 +112,7 @@ export default function JournalArticleContent({
 
   const articleHeader = (
     <>
-      {showTitle
-        ? <h1 className={styles.h1}>{title}</h1>
-        : null}
+      {showTitle ? <h1 className={styles.h1}>{title}</h1> : null}
       {showMeta
         ? <div className={styles.meta}>
             {authorName || authorImageUrl
@@ -135,7 +133,10 @@ export default function JournalArticleContent({
                 </div>
               : null}
             {publishedLabel
-              ? <time className={styles.date} dateTime={publishedAt ?? undefined}>
+              ? <time
+                  className={styles.date}
+                  dateTime={publishedAt ?? undefined}
+                >
                   {publishedLabel}
                 </time>
               : null}

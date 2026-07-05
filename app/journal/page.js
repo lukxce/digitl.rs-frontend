@@ -1,39 +1,45 @@
+import { tryGetArticlesForHome } from "../../lib/articles";
+import AvatarInfo from "../components/AvatarInfo";
+import ClientsLogosCarousel from "../components/ClientsLogosCarousel";
+import ContactForm from "../components/ContactForm";
+import JournalList from "../components/JournalList";
 import MotionTitleBlock from "../components/MotionTitleBlock";
 import ScrollReveal from "../components/ScrollReveal";
-import styles from "../innerPage.module.css";
-import JournalList from "../components/JournalList";
-import { tryGetArticlesForHome } from "../../lib/articles";
-import ClientsLogosCarousel from "../components/ClientsLogosCarousel";
 import Subscribe from "../components/Subscribe";
-import ContactForm from "../components/ContactForm";
-import AvatarInfo from "../components/AvatarInfo";
+import styles from "../innerPage.module.css";
 
 export const metadata = {
   title: "Journal",
-  description: "Notes, updates, and longer-form writing.",
+  description:
+    "The Digitl Journal: articles on marketing, growth, and building brands that stand out.",
+  alternates: { canonical: "/journal" },
 };
 
 export default async function JournalPage() {
-  const articles = await tryGetArticlesForHome(10);
+  const articles = await tryGetArticlesForHome(100);
   return (
     <main className={`${styles.page}`.trim()}>
       <MotionTitleBlock
-        title="Journal"
-        subtitle="A space where I share updates, insights, and reflections on design, creativity, and growth. "
+        title="The Digitl Journal"
+        subtitle="Articles on marketing, growth, and building brands that stand out."
         className={styles.titleContainer}
         width={500}
-        subtitleWidthMobile={300}
+        subtitleWidth={300}
+        subtitleWidthMobile={280}
+        as="h1"
       />
-      {articles.length > 0 && <JournalList
+      {articles.length > 0 && (
+        <JournalList
           limit={700}
-          hasLink={false} 
+          hasLink={false}
           items={articles.map((a) => ({
             slug: a.slug,
             title: a.title,
             publishedAt: a.publishedAt,
             imageUrl: a.coverUrl,
           }))}
-        />}
+        />
+      )}
 
       <MotionTitleBlock
         title="Join 150+ professionals elevating their brand"

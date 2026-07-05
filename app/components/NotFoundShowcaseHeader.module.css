@@ -9,47 +9,47 @@
   justify-content: space-between;
 }
 
-.hole {
-  border: 1px solid #EAEAEA;
+.hole.hole {
+  border: 1px solid #eaeaea;
   background-color: #fff;
   width: 63px;
   height: 19px;
   border-radius: 46px;
   position: absolute;
-top: 12px;
-left: 50%;
-transform: translateX(-42%);
+  top: 12px;
+  left: 50%;
+  transform: translateX(-42%);
 }
 
-.inner {
+.inner.inner {
   padding-bottom: 20px;
 }
 
 .title {
-    font-size: 141px;
-    font-weight: 600;
-    line-height: 1.2;
-    color: #111827;
-    margin-bottom: 20px;
-    letter-spacing: -5%;
+  font-size: 141px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #111827;
+  margin-bottom: 20px;
+  letter-spacing: -5%;
 }
 
 .description {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1.2;
-    color: #111827;
-    margin-bottom: 10px;
-    letter-spacing: -5%;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #111827;
+  margin-bottom: 10px;
+  letter-spacing: -5%;
 }
 
 .subDescription {
-    font-size: 17px;
-    font-weight: 600;
-    line-height: 1.5;
-    color: #6b7280;
-    margin-bottom: 70px;
-    letter-spacing: -5%;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #6b7280;
+  margin-bottom: 70px;
+  letter-spacing: -5%;
 }
 
 .profile {
@@ -141,11 +141,11 @@ transform: translateX(-42%);
     height: 650px;
   }
 
-  .hole {
+  .hole.hole {
     transform: translate(-42%);
   }
 
-  .inner {
+  .inner.inner {
     padding-top: 44px;
   }
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import styles from "./CTAButtons.module.css";
 import CtaButton from "../CtaButton";
+import styles from "./CTAButtons.module.css";
 
 export default function CTAButtons({
   primaryHref = "#",

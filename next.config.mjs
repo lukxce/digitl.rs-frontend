@@ -5,13 +5,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "picsum.photos",
-        pathname: "/**",
+        hostname: "api.digitl.me",
+        pathname: "/uploads/**",
       },
       {
-        protocol: "https",
-        hostname: "fastly.picsum.photos",
-        pathname: "/**",
+        protocol: "http",
+        hostname: "localhost",
+        port: "1337",
+        pathname: "/uploads/**",
       },
       {
         protocol: "https",

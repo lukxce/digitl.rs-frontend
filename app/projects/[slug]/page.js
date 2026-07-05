@@ -3,24 +3,21 @@ import {
   tryFindClientShowcase,
   tryGetClientShowcases,
 } from "../../../lib/clientShowcases.js";
-import { buildShowcaseOutline } from "../../../lib/pageOutline.js";
+import AvatarInfo from "../../components/AvatarInfo";
 import ClientShowcaseHeader from "../../components/ClientShowcaseHeader";
 import ClientsLogosCarousel from "../../components/ClientsLogosCarousel";
 import ContactForm from "../../components/ContactForm";
-import DetailPageOutline, {
-  DetailPageOutlineMobileNav,
-} from "../../components/DetailPageOutline";
-import ProjectArticleContent from "../../components/ProjectArticleContent";
+import { DetailPageOutlineMobileNav } from "../../components/DetailPageOutline";
 import LinkCard from "../../components/LinkCard";
 import MotionTitleBlock from "../../components/MotionTitleBlock";
+import ProjectArticleContent from "../../components/ProjectArticleContent";
+import ProjectBlocksRenderer from "../../components/ProjectBlocksRenderer";
 import ShowcaseKeyTakeaways from "../../components/ShowcaseKeyTakeaways";
 import ShowcaseSuccessRate from "../../components/ShowcaseSuccessRate";
-import ProjectBlocksRenderer from "../../components/ProjectBlocksRenderer";
 import Subscribe from "../../components/Subscribe";
+import Title from "../../components/Title";
 import innerStyles from "../../innerPage.module.css";
 import articleStyles from "../../journal/[slug]/article.module.css";
-import AvatarInfo from "../../components/AvatarInfo";
-import Title from "../../components/Title";
 
 function blocksToPlainText(blocks) {
   if (blocks == null) return "";
@@ -57,13 +54,28 @@ export async function generateMetadata(props) {
   }
 
   const description =
+    showcase.description ??
     showcase.category ??
     showcase.subtitle ??
     blocksToPlainText(showcase.content).slice(0, 160);
+  const canonicalPath = `/projects/${encodeURIComponent(showcase.slug)}`;
 
   return {
     title: showcase.title,
     description,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      type: "article",
+      url: canonicalPath,
+      title: showcase.title,
+      description,
+      images: showcase.coverUrl ? [{ url: showcase.coverUrl }] : undefined,
+    },
+    twitter: {
+      card: showcase.coverUrl ? "summary_large_image" : "summary",
+      title: showcase.title,
+      description,
+    },
   };
 }
 
@@ -87,55 +99,57 @@ export default async function ClientShowcasePage(props) {
     )
     .slice(0, 3);
 
-  const outline = buildShowcaseOutline({
-    title: showcase.title,
-    hasSuccessRate: showcase.successRate.length > 0,
-    hasKeyTakeaways: (showcase.keyTakeaways?.length ?? 0) > 0,
-    contentBlocks: showcase.content,
-  });
-
   return (
     <main className={innerStyles.pageDetail}>
       {/* <DetailPageOutline items={outline}> */}
-        <ProjectArticleContent
+      <ProjectArticleContent
+        title={showcase.title}
+        showTitle={false}
+        showMobileOutline={false}
+        backHref="/projects"
+        backLabel="Back to projects"
+        lead={
+          <ClientShowcaseHeader
+            title={showcase.title}
+            coverUrl={showcase.coverUrl}
+            coverAlt={showcase.backgroundAlt}
+            clientName={showcase.clientName}
+            clientImageUrl={showcase.thumbSrc}
+            clientImageAlt={showcase.thumbAlt}
+            category={showcase.category}
+            publishedAt={showcase.publishedAt}
+            websiteUrl={showcase.websiteUrl}
+          />
+        }
+      >
+        <Title
           title={showcase.title}
-          showTitle={false}
-          showMobileOutline={false}
-          backHref="/projects"
-          backLabel="Back to projects"
-          lead={
-            <ClientShowcaseHeader
-              title={showcase.title}
-              coverUrl={showcase.coverUrl}
-              coverAlt={showcase.backgroundAlt}
-              clientName={showcase.clientName}
-              clientImageUrl={showcase.thumbSrc}
-              clientImageAlt={showcase.thumbAlt}
-              category={showcase.category}
-              publishedAt={showcase.publishedAt}
-              websiteUrl={showcase.websiteUrl}
-            />
-          }
-        >
-          <Title title={showcase.title} sectionId="project-overview" align="left" />
-          {showcase.description
-            ? <p className={innerStyles.showcaseDescription}>{showcase.description}</p>
+          sectionId="project-overview"
+          align="left"
+          as="h1"
+        />
+        {showcase.description
+          ? <p className={innerStyles.showcaseDescription}>
+              {showcase.description}
+            </p>
+          : null}
+        <div className={innerStyles.showcaseInsights}>
+          {showcase.successRate.length > 0
+            ? <ShowcaseSuccessRate items={showcase.successRate} />
             : null}
-          <div className={innerStyles.showcaseInsights}>
-            {showcase.successRate.length > 0
-              ? <ShowcaseSuccessRate items={showcase.successRate} />
-              : null}
-            {(showcase.keyTakeaways?.length ?? 0) > 0
-              ? <>
-                  <DetailPageOutlineMobileNav />
-                  <ShowcaseKeyTakeaways items={showcase.keyTakeaways} />
-                </>
-              : <DetailPageOutlineMobileNav />}
-          </div>
-          {hasContent
-            ? <ProjectBlocksRenderer blocks={showcase.content} />
-            : <p className={articleStyles.empty}>No project details for this entry.</p>}
-        </ProjectArticleContent>
+          {(showcase.keyTakeaways?.length ?? 0) > 0
+            ? <>
+                <DetailPageOutlineMobileNav />
+                <ShowcaseKeyTakeaways items={showcase.keyTakeaways} />
+              </>
+            : <DetailPageOutlineMobileNav />}
+        </div>
+        {hasContent
+          ? <ProjectBlocksRenderer blocks={showcase.content} />
+          : <p className={articleStyles.empty}>
+              No project details for this entry.
+            </p>}
+      </ProjectArticleContent>
       {/* </DetailPageOutline> */}
 
       <MotionTitleBlock

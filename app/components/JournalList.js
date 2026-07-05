@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { canOptimizeImage } from "../../lib/imageHosts.js";
 import {
   getScrollRevealTransition,
   scrollRevealDistance,
@@ -86,7 +87,8 @@ function JournalRow({ item }) {
             width={56}
             height={56}
             className={styles.thumbImg}
-            unoptimized={hasRemoteImage}
+            sizes="56px"
+            unoptimized={hasRemoteImage && !canOptimizeImage(item.imageUrl)}
           />
         </span>
       </span>
@@ -111,7 +113,12 @@ function JournalRow({ item }) {
  *   }>;
  * }} props
  */
-export default function JournalList({ items = [], limit = 3, hasLink = true, marginTop = 40 }) {
+export default function JournalList({
+  items = [],
+  limit = 3,
+  hasLink = true,
+  marginTop = 40,
+}) {
   const reduceMotion = useReducedMotion() === true;
 
   if (!items.length) {
@@ -137,7 +144,11 @@ export default function JournalList({ items = [], limit = 3, hasLink = true, mar
       className={styles.container}
       style={{ marginTop: marginTop }}
       aria-label="Journal entries"
-      initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: scrollRevealDistance }}
+      initial={
+        reduceMotion
+          ? { opacity: 1, y: 0 }
+          : { opacity: 0, y: scrollRevealDistance }
+      }
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={scrollRevealViewport}
       transition={getScrollRevealTransition(0, reduceMotion)}
@@ -153,12 +164,14 @@ export default function JournalList({ items = [], limit = 3, hasLink = true, mar
           >
             {listContent}
           </motion.ul>}
-      {hasLink && (<div className={styles.viewAllFooter}>
+      {hasLink && (
+        <div className={styles.viewAllFooter}>
           <Link href="/journal" className={styles.viewAllLink}>
             <span className={styles.viewAllLabel}>View all</span>
             <ViewAllArrowIcon className={styles.viewAllArrow} />
-          </Link>        
-      </div>)}
+          </Link>
+        </div>
+      )}
     </motion.section>
   );
 }

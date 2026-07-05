@@ -39,7 +39,10 @@ export default function OnThisPageNav({
                 if (lenis && target) {
                   lenis.scrollTo(target, { offset: 0 });
                 } else {
-                  target?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  target?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
                 }
                 window.history.replaceState(null, "", `#${item.id}`);
               }}

@@ -150,23 +150,23 @@
     padding: 0 10px;
   }
 
-  .articleLayout{
+  .articleLayout {
     margin: 0;
   }
 
-  .bodyWrap{
+  .bodyWrap {
     margin-bottom: 0px;
   }
 
-  .back{
+  .back {
     font-size: 13px;
   }
 
-  .authorName{
+  .authorName {
     font-size: 14px;
   }
 
-  .date{
+  .date {
     font-size: 13px;
   }
 }

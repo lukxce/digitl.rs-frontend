@@ -3,11 +3,11 @@
   --edge-fade: #ffffff;
   width: 100%;
   max-width: 530px;
-  margin: 40px auto 80px;
+  margin: 0px auto 66px;
 }
 
 .label {
-  margin: 0 0 26px;
+  margin: 0 0 8px;
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -20,7 +20,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  padding: 8px 0;
+  padding: 0;
 }
 
 .viewport::before,
@@ -57,7 +57,7 @@
   width: max-content;
   align-items: center;
   gap: 43px;
-  animation: clientsMarquee 32s linear infinite;
+  animation: clientsMarquee 12s linear infinite;
 }
 
 .logoItem {
@@ -94,7 +94,7 @@
     margin: 40px auto 40px;
   }
 
-  .label{
+  .label {
     font-size: 12px;
   }
 }

@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { canOptimizeImage } from "../../lib/imageHosts.js";
 import {
   getScrollRevealTransition,
   scrollRevealDistance,
@@ -36,10 +37,6 @@ function ArrowIcon() {
   );
 }
 
-function isRemoteImageSrc(src) {
-  return typeof src === "string" && /^https?:\/\//.test(src);
-}
-
 export default function LinkCard({
   href,
   backgroundSrc,
@@ -51,13 +48,17 @@ export default function LinkCard({
 }) {
   const prefersReducedMotion = useReducedMotion();
   const reduceMotion = prefersReducedMotion === true;
-  const backgroundUnoptimized = isRemoteImageSrc(backgroundSrc);
-  const thumbUnoptimized = isRemoteImageSrc(thumbSrc);
+  const backgroundUnoptimized = !canOptimizeImage(backgroundSrc);
+  const thumbUnoptimized = !canOptimizeImage(thumbSrc);
 
   return (
     <motion.div
       className={styles.reveal}
-      initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: scrollRevealDistance }}
+      initial={
+        reduceMotion
+          ? { opacity: 1, y: 0 }
+          : { opacity: 0, y: scrollRevealDistance }
+      }
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={reduceMotion ? undefined : viewport}
       transition={getScrollRevealTransition(0, reduceMotion)}

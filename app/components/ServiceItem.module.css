@@ -88,12 +88,11 @@
   letter-spacing: -4%;
 }
 
-
 @media (max-width: 640px) {
-  .title{
+  .title {
     font-size: 19px;
   }
-  .description{
+  .description {
     font-size: 14px;
   }
 }

@@ -10,12 +10,39 @@ const manrope = Manrope({
   display: "swap",
 });
 
+const SITE_URL = "https://www.digitl.me";
+const SITE_NAME = "Digitl";
+const SITE_TITLE = "Digitl | Full-Service Marketing Agency";
+const SITE_DESCRIPTION =
+  "Digitl is a full-service marketing agency for businesses that want real results: paid advertising, web design and development, SEO, social media and branding.";
+
 export const metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Digitl",
+    default: SITE_TITLE,
     template: "%s · Digitl",
   },
-  description: "Digitl frontend",
+  description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {

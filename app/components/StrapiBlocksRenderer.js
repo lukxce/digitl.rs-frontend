@@ -4,6 +4,8 @@ import {
   createHeadingQueue,
   extractContentHeadings,
 } from "../../lib/blockHeadings.js";
+import { canOptimizeImage } from "../../lib/imageHosts.js";
+import { escapeHtml, safeLinkHref } from "../../lib/sanitizeHtml.js";
 import { strapiMediaUrl, toAbsoluteStrapiUrl } from "../../lib/strapiMedia.js";
 import styles from "./StrapiBlocksRenderer.module.css";
 
@@ -13,11 +15,12 @@ const MARKDOWN_EMPHASIS_RE = /\*([^*]+)\*/g;
 
 /** @param {string} text */
 function renderInlineMarkdown(text) {
-  const withLinks = text.replace(MARKDOWN_LINK_RE, '<a href="$2">$1</a>');
-  const withEmphasis = withLinks.replace(
-    MARKDOWN_EMPHASIS_RE,
-    "<em>$1</em>",
+  const escaped = escapeHtml(text);
+  const withLinks = escaped.replace(
+    MARKDOWN_LINK_RE,
+    (_match, label, href) => `<a href="${safeLinkHref(href)}">${label}</a>`,
   );
+  const withEmphasis = withLinks.replace(MARKDOWN_EMPHASIS_RE, "<em>$1</em>");
   return withEmphasis;
 }
 
@@ -197,7 +200,7 @@ function renderImageRow(images, key) {
         height={800}
         className={styles.blockImage}
         sizes={figureSizes}
-        unoptimized
+        unoptimized={!canOptimizeImage(image.url)}
       />
     </figure>
   );
@@ -234,14 +237,13 @@ function renderImageRows(images, keyPrefix) {
 
 /** @param {Record<string, unknown>} block */
 function extractBlocksJsonImage(block) {
-  if (!block || typeof block !== "object" || block.type !== "image") return null;
+  if (!block || typeof block !== "object" || block.type !== "image")
+    return null;
   const url = imageBlockUrl(block);
   if (!url) return null;
   const media = block.image ?? block.media ?? block.file;
   const alt =
-    imageAltFromMedia(
-      media && typeof media === "object" ? media : null,
-    ) ||
+    imageAltFromMedia(media && typeof media === "object" ? media : null) ||
     imageAltFromMedia(
       media &&
         typeof media === "object" &&
@@ -308,7 +310,9 @@ function renderBlockSequence(blocks, keyPrefix, headingQueue) {
 
   const flushImages = () => {
     if (!pendingImages.length) return;
-    nodes.push(...renderImageRows(pendingImages, `${keyPrefix}-img-${nodes.length}`));
+    nodes.push(
+      ...renderImageRows(pendingImages, `${keyPrefix}-img-${nodes.length}`),
+    );
     pendingImages = [];
   };
 
@@ -320,7 +324,9 @@ function renderBlockSequence(blocks, keyPrefix, headingQueue) {
       const sliderImages = extractSliderImages(block);
       if (sliderImages.length > 0) {
         flushImages();
-        nodes.push(...renderImageRows(sliderImages, `${keyPrefix}-slider-${i}`));
+        nodes.push(
+          ...renderImageRows(sliderImages, `${keyPrefix}-slider-${i}`),
+        );
         continue;
       }
 
@@ -462,7 +468,8 @@ function renderBlock(block, key, headingQueue) {
             return (
               <li key={liKey} className={styles.listItem}>
                 {(Array.isArray(li.children) ? li.children : []).map(
-                  (inner, k) => renderBlock(inner, `${liKey}-${k}`, headingQueue),
+                  (inner, k) =>
+                    renderBlock(inner, `${liKey}-${k}`, headingQueue),
                 )}
               </li>
             );
@@ -520,9 +527,11 @@ function renderDynamicComponent(item, key, headingQueue) {
     return (
       <blockquote key={key} className={styles.blockquote}>
         {body ? <p className={styles.quoteBody}>{String(body)}</p> : null}
-        {attribution ? (
-          <cite className={styles.quoteAttribution}>{String(attribution)}</cite>
-        ) : null}
+        {attribution
+          ? <cite className={styles.quoteAttribution}>
+              {String(attribution)}
+            </cite>
+          : null}
       </blockquote>
     );
   }

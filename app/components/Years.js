@@ -1,10 +1,10 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "motion/react";
 import {
   scrollRevealDistance,
-  scrollRevealEase,
   scrollRevealDuration,
+  scrollRevealEase,
   scrollRevealStaggerDelay,
   scrollRevealViewport,
 } from "../../lib/scrollReveal";

@@ -99,7 +99,6 @@
   }
 }
 
-
 .statusError,
 .statusSuccess {
   font-family: var(--font-manrope), system-ui, sans-serif;
@@ -131,7 +130,7 @@
 }
 
 @media screen and (max-width: 640px) {
-.unsubscribe {
-  font-size: 12px;
-}
+  .unsubscribe {
+    font-size: 12px;
+  }
 }

@@ -6,7 +6,7 @@
   padding: 8px;
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 46px;
-  background: #F6F6F6;
+  background: #f6f6f6;
   color: #111827;
   font-family: var(--font-manrope), system-ui, sans-serif;
   margin-top: 26px;
@@ -203,15 +203,13 @@
   min-width: 0;
   margin: 0;
   color: #4b5563;
-font-weight: 600;
-font-size: 16px;
-line-height: 100%;
-letter-spacing: -4%;
-color: #171717;
-opacity: 0.5;
-
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: -4%;
+  color: #171717;
+  opacity: 0.5;
 }
-
 
 .cardContent {
   background-color: #fff;
@@ -229,34 +227,34 @@ opacity: 0.5;
     padding: 0 36px 36px 36px;
   }
 
-  .featureText{
+  .featureText {
     font-size: 14px;
   }
 
-  .planName{
-  font-size: 30px;
+  .planName {
+    font-size: 30px;
   }
 
-  .subtitleText{
+  .subtitleText {
     margin: 15px 0 0;
     font-size: 14px;
   }
 
-  .price{
-  font-size: 25px;
+  .price {
+    font-size: 25px;
   }
 
-  .ctaRow{
+  .ctaRow {
     width: 100%;
     display: flex;
     margin-top: 15px;
   }
 
-  .titleRow{
+  .titleRow {
     flex-direction: column;
   }
 
-  .cardContent{
+  .cardContent {
     padding: 34px;
   }
 
@@ -264,7 +262,7 @@ opacity: 0.5;
     height: 670px;
   }
 
-  .titleBlock{
+  .titleBlock {
     flex: 3;
   }
 }

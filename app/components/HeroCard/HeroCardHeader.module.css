@@ -18,9 +18,7 @@
   flex-shrink: 0;
   width: 60px;
   height: 60px;
-  border-radius: 50%;
   overflow: hidden;
-  background: #d1d5db;
 }
 
 .meta {
@@ -50,6 +48,8 @@
 
 .socialLink {
   display: flex;
+  padding: 8px;
+  margin: -8px;
   color: #374151;
   opacity: 0.45;
   transition:
@@ -72,7 +72,7 @@
 
   .left {
     flex-direction: row;
-        width: 85%;
+    width: 85%;
   }
 
   .meta {
@@ -94,7 +94,7 @@
     font-size: 13px;
   }
 
-  .avatarWrap{
+  .avatarWrap {
     width: 54px;
     height: 54px;
   }

@@ -1,26 +1,45 @@
 import Image from "next/image";
-import logoMock from "../assets/logo-mock.svg";
+import primaDental from "../assets/primadental logo.webp";
+import startupsRs from "../assets/startups.rs logo.webp";
+import thermiq from "../assets/thermiq logo.webp";
 import styles from "./ClientsLogosCarousel.module.css";
 
-const LOGO_COUNT = 5;
-const items = Array.from({ length: LOGO_COUNT }, (_, id) => id);
+const logos = [
+  { src: primaDental, alt: "Prima Dental", height: 96 },
+  { src: startupsRs, alt: "Startups.rs", height: 36 },
+  { src: thermiq, alt: "Thermiq", height: 77 },
+];
 
 function LogoRow({ keyPrefix }) {
-  return items.map((id) => (
-    <div key={`${keyPrefix}-${id}`} className={styles.logoItem}>
-      <Image src={logoMock} alt="" width={104} height={28} unoptimized />
+  return logos.map((logo) => (
+    <div key={`${keyPrefix}-${logo.alt}`} className={styles.logoItem}>
+      <Image
+        src={logo.src}
+        alt={logo.alt}
+        height={logo.height}
+        width={200}
+        style={{ height: `${logo.height}px`, width: "auto" }}
+        unoptimized
+      />
     </div>
   ));
 }
 
-export default function ClientsLogosCarousel({ title, marginTop, marginBottom }) {
+export default function ClientsLogosCarousel({
+  title,
+  marginTop,
+  marginBottom,
+}) {
   const style = {
     ...(marginTop != null && { marginTop }),
     ...(marginBottom != null && { marginBottom }),
   };
 
   return (
-    <div className={styles.root} style={Object.keys(style).length ? style : undefined}>
+    <div
+      className={styles.root}
+      style={Object.keys(style).length ? style : undefined}
+    >
       {title && <p className={styles.label}>{title}</p>}
       <div className={styles.viewport}>
         <div className={styles.track}>

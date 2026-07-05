@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import styles from "./ContactForm.module.css";
-import logo from "../assets/figma.svg";
 import Image from "next/image";
+import { useState } from "react";
+import digitlLogo from "../assets/digitl-logo.png";
+import styles from "./ContactForm.module.css";
+
+export const MESSAGE_MAX_LENGTH = 4000;
 
 /**
  * @param {{ onSubmit?: (data: { email: string; text: string }) => void }} props
@@ -11,6 +13,8 @@ import Image from "next/image";
 export default function ContactForm({ onSubmit }) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  // Honeypot: real users never see or fill this field, bots do.
+  const [company, setCompany] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -33,6 +37,7 @@ export default function ContactForm({ onSubmit }) {
           data: {
             email: trimmedEmail,
             text: trimmedMessage,
+            company,
           },
         }),
       });
@@ -55,18 +60,19 @@ export default function ContactForm({ onSubmit }) {
   }
 
   return (
-    <section id="contact" className={styles.outer} aria-labelledby="contact-form-title">
+    <section
+      id="contact"
+      className={styles.outer}
+      aria-labelledby="contact-form-title"
+    >
       <div className={styles.inner}>
         <header className={styles.header}>
           <h2 id="contact-form-title" className={styles.title}>
-            Ready to
-            <br />
-            get started?
+            Contact
           </h2>
           <p className={styles.subtitle}>
-            {
-              "Fill out the form, or reach out directly. I'll respond within 24 hours."
-            }
+            Fill out the form or reach out directly. We typically respond within
+            one business day.
           </p>
         </header>
 
@@ -90,6 +96,23 @@ export default function ContactForm({ onSubmit }) {
             onChange={(e) => setMessage(e.target.value)}
             aria-label="Message"
             rows={5}
+            maxLength={MESSAGE_MAX_LENGTH}
+          />
+          <input
+            type="text"
+            name="company"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "-9999px",
+              width: 1,
+              height: 1,
+              opacity: 0,
+            }}
           />
           <button
             type="submit"
@@ -104,24 +127,32 @@ export default function ContactForm({ onSubmit }) {
         {success ? <p className={styles.statusSuccess}>Message sent.</p> : null}
 
         <footer className={styles.footer}>
-          <p className={styles.chatLabel}>{"Let's chat!"}</p>
+          <p className={styles.chatLabel}>Prefer phone or email?</p>
           <p className={styles.phone}>
-            <a className={styles.phoneLink} href="tel:+15108956500">
-              (510) 895-6500
+            <a className={styles.phoneLink} href="tel:+38641962522">
+              (+386) 41 962 522
             </a>
           </p>
           <p className={styles.email}>
-            <a className={styles.emailLink} href="mailto:hello@praxis.com">
-              hello@praxis.com
+            <a className={styles.emailLink} href="mailto:hello@digitl.me">
+              hello@digitl.me
             </a>
           </p>
-          <p className={styles.copyright}>© Copyright 2026. All rights Reserved.</p>
+          <p className={styles.copyright}>
+            © {new Date().getFullYear()}. All rights reserved.
+          </p>
         </footer>
       </div>
       <div className={styles.createdBy}>
         <p className={styles.disclaimer}>Created by</p>
-        <Image src={logo} alt="Logo" width={100} height={100} className={styles.logo} />
-        <p className={styles.disclaimerBold}>Anatolii Dmitrienko</p>
+        <Image
+          src={digitlLogo}
+          alt="Digitl"
+          width={32}
+          height={32}
+          className={styles.logo}
+        />
+        <p className={styles.disclaimerBold}>Digitl</p>
       </div>
     </section>
   );
