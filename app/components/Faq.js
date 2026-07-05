@@ -38,29 +38,29 @@ const faqItemVariants = {
 
 const FAQS = [
   {
-    question: "What types of businesses do you work with?",
+    question: "Koliko brzo možemo da krenemo?",
     answer:
-      "We work with a wide range of businesses, from local companies to established brands, across industries where clear marketing and results matter.",
+      "Zavisi od obima i trenutnih kapaciteta. Ako postoji prostor za saradnju, obično krećemo u roku od 1–2 nedelje nakon inicijalnog dogovora.",
   },
   {
-    question: "How long does it take to start working together?",
+    question: "Šta ako nismo sigurni šta nam tačno treba?",
     answer:
-      "Most projects start within one to two weeks after an initial conversation, depending on scope, priorities, and availability.",
+      "To je čest slučaj. U prvim koracima pomažemo da se definišu prioriteti i fokus, pre nego što se krene u egzekuciju.",
   },
   {
-    question: "Do you work on ongoing marketing or one-time projects?",
+    question: "Da li radite samo kompletne projekte ili i pojedinačne usluge?",
     answer:
-      "Both. Some clients need ongoing support, while others hire us for specific projects like a website, campaign, or brand refresh.",
+      "Radimo i jedno i drugo. Možemo preuzeti kompletan marketing ili konkretan segment (npr. oglase, sajt ili SEO), ali samo ako postoji jasan cilj i način da se rezultat meri. Ne radimo zadatke „reda radi“.",
   },
   {
-    question: "Do you offer contracts or long-term commitments?",
+    question: "Kako izgleda komunikacija tokom saradnje?",
     answer:
-      "We don’t lock clients into long contracts. Work is scoped clearly upfront, and ongoing collaborations are based on mutual fit and results.",
+      "Komunikacija je direktna i unapred dogovorena. Imate kontakt sa ljudima koji rade na projektu, redovne update-ove i jasan ritam rada. Bez posrednika, bez čekanja i bez nejasnih odgovora.",
   },
   {
-    question: "What services do you offer?",
+    question: "Sa kakvim firmama najčešće radite?",
     answer:
-      "We provide paid advertising, SEO, website design and development, branding, and marketing strategy. We focus on practical work that supports real business needs.",
+      "Najčešće radimo sa firmama koje žele da unaprede prodaju, rast ili pozicioniranje i razumeju da marketing mora imati ulogu u poslovanju. Veličina firme nije presudna.",
   },
 ];
 
@@ -208,7 +208,7 @@ export default function Faq() {
   return (
     <section className={styles.root} aria-labelledby="faq-title">
       <ScrollReveal className={styles.titleContainer}>
-        <Title title="FAQ" />
+        <Title title="Imate još pitanja pre nego što krenemo?" width={480} />
       </ScrollReveal>
       {reduceMotion
         ? <ul className={styles.list}>{listContent}</ul>
@@ -223,9 +223,9 @@ export default function Faq() {
           </motion.ul>}
       <ScrollReveal delay={0.24}>
         <div className={styles.rootInner}>
-          <p className={styles.followUpText}>Have more questions?</p>
+          <p className={styles.followUpText}>Imate dodatna pitanja?</p>
           <Link href="/#contact" className={styles.askLink}>
-            <span>We’re happy to help</span>
+            <span>Javite se</span>
             <AskArrowIcon className={styles.askArrow} />
           </Link>
         </div>

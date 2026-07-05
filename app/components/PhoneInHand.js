@@ -200,7 +200,7 @@ export default function PhoneInHand() {
                     />
                     <div>
                       <p className={styles.posterName}>Digitl</p>
-                      <p className={styles.posterRole}>Marketing Agency</p>
+                      <p className={styles.posterRole}>Marketing Agencija</p>
                     </div>
                   </div>
                 </header>

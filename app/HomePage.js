@@ -25,37 +25,37 @@ import styles from "./page.module.css";
 const services = [
   {
     key: "paid-advertising",
-    title: "Paid Advertising (Search & Social)",
+    title: "Plaćeno oglašavanje (Search & Social)",
     description:
-      "We plan, run, and manage paid campaigns across search and social platforms, focusing on efficient spend, clear messaging, and consistent lead or sales generation.",
+      "Upravljamo kampanjama na Google-u i društvenim mrežama, od inicijalne postavke do svakodnevne optimizacije i kontrole rezultata.",
     Icon: IconProduct,
   },
   {
     key: "web-design",
-    title: "Website Design & Development",
+    title: "Web dizajn & razvoj",
     description:
-      "We design and build clear, professional websites that explain what you do, build trust, and make it easy for visitors to take the next step.",
+      "Dizajniramo i razvijamo web sajtove koji su jasni, brzi i funkcionalni, sa fokusom na korisničko iskustvo, strukturu i lako održavanje.",
     Icon: IconWeb,
   },
   {
     key: "seo",
     title: "Search Engine Optimization (SEO)",
     description:
-      "We improve your search presence by fixing technical issues, improving site structure, and optimizing content so your business appears more often in relevant searches.",
+      "Radimo tehnički SEO, strukturu sajta i sadržaj, sa fokusom na indeksaciju, performanse i vidljivost na pretrazi kroz dugoročno održiva rešenja.",
     Icon: IconStrategy,
   },
   {
     key: "social",
-    title: "Social Content & Presence",
+    title: "Upravljanje društvenim mrežama",
     description:
-      "We help shape your social presence with clear messaging and consistent visuals, ensuring your brand looks professional and aligned across platforms.",
+      "Vodimo prisustvo na društvenim mrežama kroz planiranje sadržaja, objave i osnovnu analitiku, sa ciljem jasne komunikacije i doslednog nastupa.",
     Icon: IconMotion,
   },
   {
     key: "branding",
-    title: "Branding & Visual Identity",
+    title: "Branding & identitet",
     description:
-      "We design brand identities, including logos and brand guidelines, that establish consistency, clarity, and credibility across digital platforms, advertising, and marketing assets.",
+      "Gradimo vizuelne identitete, brand book-ove i smernice koje omogućavaju doslednu primenu brenda kroz sve kanale komunikacije.",
     Icon: IconBrand,
   },
 ];
@@ -67,15 +67,16 @@ export default function HomePage({ articles = [], showcases = [] }) {
         <HeroCard
           primaryCtaHref="/contact"
           secondaryCtaHref="/#what-we-do"
-          headlineLines={["Where marketing meets real business results."]}
+          headlineLines={["Marketing koji daje rezultate"]}
         />
         <ScrollReveal>
-          <ClientsLogosCarousel title="Trusted by:" />
+          <ClientsLogosCarousel title="Izabrali su Digitl" />
         </ScrollReveal>
 
         <MotionTitleBlock
-          title="Work that speaks for itself"
-          subtitle="From strategy to execution, <br> here's what that looks like in practice."
+          title="Odabrani projekti"
+          subtitle="Primeri saradnji i rezultata koje smo ostvarili sa klijentima."
+          subtitleWidth={260}
           subtitleWidthMobile={200}
           className={styles.titleContainer}
           marginTop={10}
@@ -98,10 +99,10 @@ export default function HomePage({ articles = [], showcases = [] }) {
 
         <div id="what-we-do" style={{ scrollMarginTop: "20px" }}>
           <MotionTitleBlock
-            title="What we do"
-            subtitle="The core marketing services we handle for our clients."
+            title="Naše usluge"
+            subtitle="Kompletan set usluga za moderan marketing."
             className={styles.titleContainer}
-            subtitleWidth={220}
+            subtitleWidth={180}
             widthMobile={200}
           />
 
@@ -149,8 +150,8 @@ export default function HomePage({ articles = [], showcases = [] }) {
         </ScrollReveal> */}
 
         <MotionTitleBlock
-          title="Trusted by our clients"
-          subtitle="<b>What clients say</b> <br> about working with us."
+          title="Kako izgleda raditi sa nama"
+          subtitle="<b>Preporuke klijenata</b><br />koji marketing shvataju ozbiljno."
           hasImage={true}
           width={520}
           className={styles.titleContainer}
@@ -182,8 +183,8 @@ export default function HomePage({ articles = [], showcases = [] }) {
 
         <MotionTitleBlock
           width={500}
-          title="The Digitl Journal"
-          subtitle="Practical thoughts on marketing, growth, and building brands that stand out."
+          title="Digitl Blog"
+          subtitle="Praktični uvidi o marketingu, rastu i izgradnji brendova koji se izdvajaju."
           subtitleWidth={310}
           subtitleWidthMobile={300}
           marginTop={80}

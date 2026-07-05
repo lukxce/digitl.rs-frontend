@@ -75,7 +75,7 @@
   position: relative;
   z-index: 1;
   width: 532px;
-  padding: 36px 40px 28px;
+  padding: 30px 50px 50px;
   border-radius: 32px;
   margin: auto;
   background-color: #fff;
@@ -93,7 +93,7 @@
 }
 
 .headline {
-  margin: 0 0 20px;
+  margin: 0 0 32px;
   font-size: 70px;
   font-weight: 600;
   line-height: 90%;
@@ -106,7 +106,7 @@
   align-items: center;
   gap: 8px;
   padding: 6px 14px 6px 10px;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
   border-radius: 999px;
   background: #f6f6f6;
 }
@@ -129,8 +129,8 @@
 
 .description {
   margin: 0;
-  max-width: 280px;
-  font-size: 16px;
+  max-width: 380px;
+  font-size: 17px;
   font-weight: 600;
   line-height: 140%;
   letter-spacing: -4%;
@@ -163,8 +163,16 @@
 }
 
 .metaText {
-  opacity: 0.5;
   text-align: center;
+}
+
+.metaTextStrong {
+  color: #171717;
+}
+
+.metaTextMuted {
+  color: #6b7280;
+  font-weight: 500;
 }
 
 .metaLink {

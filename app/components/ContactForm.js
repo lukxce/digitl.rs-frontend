@@ -68,11 +68,11 @@ export default function ContactForm({ onSubmit }) {
       <div className={styles.inner}>
         <header className={styles.header}>
           <h2 id="contact-form-title" className={styles.title}>
-            Contact
+            Kreirajmo brend koji se izdvaja.
           </h2>
           <p className={styles.subtitle}>
-            Fill out the form or reach out directly. We typically respond within
-            one business day.
+            U vremenu kada se pažnja meri sekundama, brendovi koji prave
+            razliku su oni koji grade iskustva, a ne samo sadržaj.
           </p>
         </header>
 
@@ -90,11 +90,11 @@ export default function ContactForm({ onSubmit }) {
           />
           <textarea
             name="message"
-            placeholder="Message"
+            placeholder="Poruka"
             className={`${styles.field} ${styles.textarea}`.trim()}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            aria-label="Message"
+            aria-label="Poruka"
             rows={5}
             maxLength={MESSAGE_MAX_LENGTH}
           />
@@ -119,7 +119,7 @@ export default function ContactForm({ onSubmit }) {
             className={styles.submit}
             disabled={isSubmitting}
           >
-            Send message
+            Pošalji poruku
           </button>
         </form>
 
@@ -127,7 +127,7 @@ export default function ContactForm({ onSubmit }) {
         {success ? <p className={styles.statusSuccess}>Message sent.</p> : null}
 
         <footer className={styles.footer}>
-          <p className={styles.chatLabel}>Prefer phone or email?</p>
+          <p className={styles.chatLabel}>Više vam odgovara telefon ili mejl?</p>
           <p className={styles.phone}>
             <a className={styles.phoneLink} href="tel:+38641962522">
               (+386) 41 962 522

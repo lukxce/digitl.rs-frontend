@@ -9,9 +9,9 @@ import Subscribe from "../components/Subscribe";
 import styles from "../innerPage.module.css";
 
 export const metadata = {
-  title: "Projects",
+  title: "Projekti",
   description:
-    "A selection of projects we've built for clients across different industries.",
+    "Izbor projekata koje smo realizovali za klijente iz različitih industrija.",
   alternates: { canonical: "/projects" },
 };
 
@@ -21,8 +21,8 @@ export default async function ProjectsPage() {
   return (
     <main className={styles.page}>
       <MotionTitleBlock
-        title="Our work"
-        subtitle="A selection of projects we've built for clients across different industries."
+        title="Naš rad"
+        subtitle="Izbor projekata koje smo realizovali za klijente iz različitih industrija."
         className={styles.titleContainer}
         width={300}
         subtitleWidthMobile={200}

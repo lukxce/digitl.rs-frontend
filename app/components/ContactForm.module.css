@@ -3,7 +3,7 @@
   display: flex;
   width: 100%;
   max-width: 550px;
-  height: 870px;
+  min-height: 870px;
   flex-direction: column;
   align-self: center;
   margin-top: 48px;
@@ -24,7 +24,7 @@
   flex: 1;
   flex-direction: column;
   margin: 0 auto;
-  padding: 44px 36px 40px;
+  padding: 44px 36px 60px;
   border-radius: 38px;
   background-color: #fff;
 }
@@ -39,6 +39,7 @@
 
 .title {
   margin: 0 0 28px;
+  max-width: 400px;
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 50px;
   font-weight: 600;
@@ -49,7 +50,7 @@
 
 .subtitle {
   margin: 0 0 28px;
-  max-width: 230px;
+  max-width: 260px;
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 17px;
   font-weight: 600;
@@ -161,13 +162,13 @@
 }
 
 .footer {
-  margin-top: 10px;
+  margin-top: 0;
   padding-top: 8px;
   text-align: center;
 }
 
 .chatLabel {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 14px;
   font-weight: 500;
@@ -194,7 +195,7 @@
 }
 
 .email {
-  margin: 0 0 20px;
+  margin: 0 0 22px;
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-weight: 600;
   line-height: 1.2;

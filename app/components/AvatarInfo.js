@@ -16,7 +16,7 @@ import { defaultSocialLinks } from "./socialIcons";
  */
 export default function AvatarInfo({
   name = "Digitl",
-  role = "Full-service marketing for businesses",
+  role = "Full-Stack marketing agencija",
   imageSrc = digitlLogo,
   imageAlt = "Digitl logo",
   socialLinks = defaultSocialLinks,

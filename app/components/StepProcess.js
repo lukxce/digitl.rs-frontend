@@ -64,20 +64,20 @@ export default function StepProcess() {
 
   const steps = [
     {
-      title: "Discovery & Audit",
-      description: "We understand your business, goals and data",
+      title: "Razumevanje",
+      description: "Upoznajemo biznis, ciljeve i postojeće aktivnosti.",
     },
     {
-      title: "Strategy & Direction",
-      description: "We define focus, priorities, and growth roadmap.",
+      title: "Planiranje",
+      description: "Postavljamo prioritete i jasan plan rada.",
     },
     {
-      title: "Execution & Optimization",
-      description: "We launch, test, iterate, and scale what actually works.",
+      title: "Lansiranje",
+      description: "Pokrećemo, testiramo i skaliramo marketing aktivnosti.",
     },
     {
-      title: "Reporting & Growth",
-      description: "Clear reporting, insights, and next-step decisions.",
+      title: "Optimizacija",
+      description: "Analiziramo rezultate i unapređujemo performanse.",
     },
   ];
 
@@ -90,16 +90,10 @@ export default function StepProcess() {
         </motion.div>
 
         <div className={styles.mainStepText}>
-          <h3 className={styles.mainStepTitle}>How we work</h3>
+          <h3 className={styles.mainStepTitle}>Kako radimo</h3>
           <p className={styles.mainStepDescription}>
-            <span className={styles.mainStepDescriptionBold}>
-              A proven process
-            </span>{" "}
-            designed to keep things clear, efficient, and focused from{" "}
-            <span className={styles.mainStepDescriptionBold}>
-              start to finish
-            </span>
-            .
+            Strukturisan proces koji povezuje strategiju, egzekuciju i merljive
+            rezultate.
           </p>
         </div>
 
@@ -178,7 +172,7 @@ export default function StepProcess() {
       })}
 
       <Link href="/#contact" className={styles.launchLink}>
-        <span>Start a conversation</span>
+        <span>Zakaži razgovor</span>
         <LaunchArrowIcon className={styles.launchArrow} />
       </Link>
     </div>

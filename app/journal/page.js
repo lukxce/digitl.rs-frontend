@@ -9,9 +9,9 @@ import Subscribe from "../components/Subscribe";
 import styles from "../innerPage.module.css";
 
 export const metadata = {
-  title: "Journal",
+  title: "Blog",
   description:
-    "The Digitl Journal: articles on marketing, growth, and building brands that stand out.",
+    "Digitl Blog: članci o marketingu, rastu i izgradnji brendova koji se izdvajaju.",
   alternates: { canonical: "/journal" },
 };
 
@@ -20,8 +20,8 @@ export default async function JournalPage() {
   return (
     <main className={`${styles.page}`.trim()}>
       <MotionTitleBlock
-        title="The Digitl Journal"
-        subtitle="Articles on marketing, growth, and building brands that stand out."
+        title="Digitl Blog"
+        subtitle="Članci o marketingu, rastu i izgradnji brendova koji se izdvajaju."
         className={styles.titleContainer}
         width={500}
         subtitleWidth={300}

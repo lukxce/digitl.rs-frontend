@@ -1,9 +1,9 @@
 .root {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 2px;
-  text-align: right;
+  text-align: left;
 }
 
 .row {
@@ -40,14 +40,16 @@
 
 .slots {
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: -0.02em;
-  color: #111827;
+  color: #1f2937;
+  white-space: nowrap;
 }
 
 .period {
   margin: 0;
+  margin-left: 16px;
   font-size: 12px;
   font-weight: 500;
   color: #6b7280;
@@ -68,5 +70,9 @@
 
   .slots {
     font-size: 12px;
+  }
+
+  .period {
+    margin-left: 0;
   }
 }

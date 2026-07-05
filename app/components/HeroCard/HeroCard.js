@@ -1,6 +1,5 @@
 import { motion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
 import { Fragment } from "react";
 import locationIcon from "../../assets/location.svg";
 import stripeSvg from "../../assets/stripe.svg";
@@ -37,20 +36,20 @@ import digitlLogo from "../../assets/digitl-logo.png";
 /** Full-viewport portfolio hero with floating `stripe.svg` tab and soft card. */
 export default function HeroCard({
   name = "Digitl",
-  subtitle = "Full-service marketing for businesses",
+  subtitle = "Full-Service marketing agencija",
   headlineLines = ["Design that moves", "products forward"],
-  description = "We build brands that stand out, convert harder, and scale faster.",
-  socialProofLabel = "Helping 50+ companies grow",
+  description = "Nismo klasična agencija, već produženi deo marketing tima - uključeni u razmišljanje, planiranje i donošenje odluka.",
+  socialProofLabel = "50+ uspešnih saradnji",
   progressActiveCount = 2,
   avatarSrc = digitlLogo,
   avatarAlt = "Digitl logo",
-  availabilitySlotsLabel = "2 open slots",
-  availabilityPeriodLabel = "for June",
-  location = "London",
+  availabilitySlotsLabel = "2 slobodna mesta",
+  availabilityPeriodLabel = "za Februar",
+  location = "Beograd / London",
   primaryCtaHref = "/contact",
-  primaryCtaLabel = "Get started",
+  primaryCtaLabel = "Zakaži razgovor",
   secondaryCtaHref = "/projects",
-  secondaryCtaLabel = "What we do",
+  secondaryCtaLabel = "Naši projekti",
   socialLinks,
   className = "",
 }) {
@@ -139,13 +138,22 @@ export default function HeroCard({
                 className={styles.metaRowLocationIcon}
               />
               <p className={styles.metaText}>
-                Based in {location}, working with businesses worldwide.
+                <span className={styles.metaTextStrong}>{location}</span>
+                <span className={styles.metaTextMuted}>
+                  {" "}
+                  · Projekti širom sveta
+                </span>
               </p>
             </div>
-            <Link href="/#faq" className={styles.metaLink}>
-              <span>FAQ</span>
+            <a
+              href="https://www.digitl.me"
+              className={styles.metaLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>English Website</span>
               <ViewAllArrowIcon className={styles.metaArrow} />
-            </Link>
+            </a>
           </div>
         </div>
       </section>
