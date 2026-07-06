@@ -80,3 +80,4 @@ STRAPI_API_TOKEN=your_strapi_api_token_here
 - `app/` — Routes, layouts, pages, and API route handlers
 - `app/components/` — UI components
 - `lib/` — Strapi helpers, article/showcase normalization, outline utilities
+ 
