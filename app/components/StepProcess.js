@@ -92,8 +92,9 @@ export default function StepProcess() {
         <div className={styles.mainStepText}>
           <h3 className={styles.mainStepTitle}>Kako radimo</h3>
           <p className={styles.mainStepDescription}>
-            Strukturisan proces koji povezuje strategiju, egzekuciju i merljive
-            rezultate.
+            <span className={styles.mainStepDescriptionBold}>Strukturisan</span>{" "}
+            proces koji povezuje strategiju, egzekuciju i merljive{" "}
+            <span className={styles.mainStepDescriptionBold}>rezultate</span>.
           </p>
         </div>
 

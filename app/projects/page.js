@@ -5,7 +5,6 @@ import ContactForm from "../components/ContactForm";
 import LinkCard from "../components/LinkCard";
 import MotionTitleBlock from "../components/MotionTitleBlock";
 import ScrollReveal from "../components/ScrollReveal";
-import Subscribe from "../components/Subscribe";
 import styles from "../innerPage.module.css";
 
 export const metadata = {
@@ -43,19 +42,19 @@ export default async function ProjectsPage() {
         ))}
       </div>
       <MotionTitleBlock
-        title="Join 150+ professionals elevating their brand"
-        subtitle="Discover design insights, project updates, and tips to elevate your work straight to your inbox."
+        title="Klijenti sa kojima gradimo rezultate"
+        subtitle="Pridružite se brendovima koji su marketing prepustili timu koji ga shvata ozbiljno."
         className={styles.titleContainer}
-        width={600}
-        subtitleWidth={425}
-        subtitleWidthMobile={350}
+        width={440}
+        subtitleWidth={380}
+        subtitleWidthMobile={320}
       />
       <ScrollReveal>
         <ClientsLogosCarousel />
       </ScrollReveal>
-      <ScrollReveal delay={0.08}>
+      {/* <ScrollReveal delay={0.08}>
         <Subscribe />
-      </ScrollReveal>
+      </ScrollReveal> */}
       <ScrollReveal delay={0.16}>
         <AvatarInfo />
       </ScrollReveal>

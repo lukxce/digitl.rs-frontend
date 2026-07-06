@@ -34,6 +34,10 @@
   margin-left: 0;
 }
 
+.titleStandalone {
+  margin-bottom: 0;
+}
+
 .subtitle b {
   font-weight: 600;
   color: #1f2937;
@@ -54,11 +58,19 @@
     );
   }
 
+  .subtitleWithImage {
+    font-size: 13px;
+  }
+
   .root {
     margin-bottom: 0;
   }
 
   .titleLeft {
     margin-left: 10px;
+  }
+
+  .titleStandalone {
+    margin-bottom: 0;
   }
 }

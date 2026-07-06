@@ -37,7 +37,7 @@ export default function Title({
       style={Object.keys(headerStyle).length ? headerStyle : undefined}
     >
       <Heading
-        className={`${styles.title} ${align === "left" ? styles.titleLeft : ""}`.trim()}
+        className={`${styles.title} ${align === "left" ? styles.titleLeft : ""} ${subtitle == null ? styles.titleStandalone : ""}`.trim()}
         style={{ textAlign: align }}
       >
         {title}

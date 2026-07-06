@@ -91,7 +91,7 @@
 
 @media screen and (max-width: 640px) {
   .root {
-    margin: 40px auto 40px;
+    margin: 20px auto 40px;
   }
 
   .label {

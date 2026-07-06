@@ -4,7 +4,6 @@ import ContactForm from "./components/ContactForm";
 import JournalArticleContent from "./components/JournalArticleContent";
 import MotionTitleBlock from "./components/MotionTitleBlock";
 import NotFoundShowcaseHeader from "./components/NotFoundShowcaseHeader";
-import Subscribe from "./components/Subscribe";
 import innerStyles from "./innerPage.module.css";
 
 export const metadata = {
@@ -23,15 +22,15 @@ export default function NotFound() {
       ></JournalArticleContent>
 
       <MotionTitleBlock
-        title="Join 150+ professionals elevating their brand"
-        subtitle="Discover design insights, project updates, and tips to elevate your work straight to your inbox."
+        title="Klijenti sa kojima gradimo rezultate"
+        subtitle="Pridružite se brendovima koji su marketing prepustili timu koji ga shvata ozbiljno."
         className={`${innerStyles.titleContainer} ${innerStyles.joinTitle}`}
-        width={600}
-        subtitleWidth={425}
-        subtitleWidthMobile={350}
+        width={440}
+        subtitleWidth={380}
+        subtitleWidthMobile={320}
       />
       <ClientsLogosCarousel />
-      <Subscribe />
+      {/* <Subscribe /> */}
       <AvatarInfo />
       <ContactForm />
     </main>

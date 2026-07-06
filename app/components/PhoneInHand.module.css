@@ -340,7 +340,8 @@
 @media (max-width: 480px) {
   .root {
     padding: 0;
-    margin-top: 24px;
+    margin-top: 12px;
+    margin-bottom: 20px;
   }
   .storyBody {
     overflow: hidden;
