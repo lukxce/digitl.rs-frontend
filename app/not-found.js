@@ -7,14 +7,14 @@ import NotFoundShowcaseHeader from "./components/NotFoundShowcaseHeader";
 import innerStyles from "./innerPage.module.css";
 
 export const metadata = {
-  title: "Page not found",
+  title: "Stranica nije pronađena",
 };
 
 export default function NotFound() {
   return (
     <main className={innerStyles.pageProject}>
       <JournalArticleContent
-        title="Page not found"
+        title="Stranica nije pronađena"
         showTitle={false}
         backHref="/"
         lead={<NotFoundShowcaseHeader />}

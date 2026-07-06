@@ -18,7 +18,7 @@
   position: absolute;
   top: 12px;
   left: 50%;
-  transform: translateX(-42%);
+  transform: translateX(-50%);
 }
 
 .inner.inner {
@@ -142,7 +142,7 @@
   }
 
   .hole.hole {
-    transform: translate(-42%);
+    transform: translate(-50%);
   }
 
   .inner.inner {

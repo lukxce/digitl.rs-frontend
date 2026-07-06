@@ -207,6 +207,7 @@ export default function JournalArticleContent({
             animate="visible"
             custom={leadIndex}
             variants={sectionVariants}
+            style={{ width: "100%" }}
           >
             {lead}
           </motion.div>

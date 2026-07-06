@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   font-family: var(--font-manrope), system-ui, sans-serif;
-  padding: 0rem 1rem 100px;
+  padding: 0rem 10px 100px;
   max-width: 1010px;
   margin: 0 auto;
   width: 100%;
@@ -102,7 +102,7 @@
   }
 
   .pageProject {
-    padding: 0rem 1rem 0rem;
+    padding: 0rem 10px 0rem;
     margin-bottom: 10px;
   }
 

@@ -10,7 +10,7 @@ import heroStyles from "./HeroCard/HeroCard.module.css";
 import stylesNotFound from "./NotFoundShowcaseHeader.module.css";
 
 const NAME = "Digitl";
-const ROLE = "Full-service marketing for businesses";
+const ROLE = "Full-Stack marketing agencija";
 
 function IconDribbble() {
   return (
@@ -138,11 +138,11 @@ export default function NotFoundShowcaseHeader() {
                 </div>
                 <div className={stylesNotFound.content}>
                   <h1 className={stylesNotFound.title}>404</h1>
-                  <p className={stylesNotFound.description}>Page not found</p>
+                  <p className={stylesNotFound.description}>Stranica nije pronađena</p>
                   <p className={stylesNotFound.subDescription}>
-                    The page you are looking for could not be found
+                    Stranica koju tražite ne postoji
                   </p>
-                  <CtaButton action="/" title="Go home" />
+                  <CtaButton action="/" title="Nazad na početnu" />
                 </div>
               </div>
             </div>
