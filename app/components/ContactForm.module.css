@@ -271,6 +271,7 @@
 
   .title {
     font-size: 34px;
+    max-width: 275px;
   }
 
   .subtitle {

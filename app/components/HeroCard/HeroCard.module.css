@@ -256,7 +256,7 @@
   }
 
   .shell {
-    height: 900px;
+    height: auto;
   }
 
   .outer {
@@ -289,6 +289,7 @@
 
   .description {
     text-align: left;
+    font-size: 15px;
   }
 
   .footer {
@@ -298,6 +299,14 @@
 
   .metaRow {
     justify-content: center;
+  }
+
+  .metaText {
+    font-size: 12px;
+  }
+
+  .metaLink {
+    font-size: 13px;
   }
 
   .stripeImg {

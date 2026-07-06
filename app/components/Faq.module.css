@@ -155,6 +155,10 @@
 }
 
 @media (max-width: 640px) {
+  .root {
+    margin-top: 40px;
+  }
+
   .rootInner {
     margin-top: 40px;
   }
@@ -173,6 +177,7 @@
 
   .list {
     gap: 6px;
+    margin-top: 40px;
   }
 
   .followUpText {

@@ -12,7 +12,6 @@ import PhoneInHand from "./components/PhoneInHand";
 import ScrollReveal from "./components/ScrollReveal";
 import ServiceItem from "./components/ServiceItem";
 import StepProcess from "./components/StepProcess";
-import Subscribe from "./components/Subscribe";
 import {
   IconBrand,
   IconMotion,
@@ -154,6 +153,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
           subtitle="<b>Preporuke klijenata</b><br />koji marketing shvataju ozbiljno."
           hasImage={true}
           width={520}
+          widthMobile={270}
           className={styles.titleContainer}
         />
 
@@ -201,11 +201,11 @@ export default function HomePage({ articles = [], showcases = [] }) {
         />
 
         <MotionTitleBlock
-          title="Join 150+ professionals elevating their brand"
-          subtitle="Discover design insights, project updates, and tips to elevate your work straight to your inbox."
-          width={600}
-          subtitleWidth={425}
-          subtitleWidthMobile={350}
+          title="Klijenti sa kojima gradimo rezultate"
+          subtitle="Pridružite se brendovima koji su marketing prepustili timu koji ga shvata ozbiljno."
+          width={440}
+          subtitleWidth={380}
+          subtitleWidthMobile={320}
           className={styles.titleContainer}
         />
 
@@ -213,9 +213,9 @@ export default function HomePage({ articles = [], showcases = [] }) {
           <ClientsLogosCarousel />
         </ScrollReveal>
 
-        <ScrollReveal>
+        {/* <ScrollReveal>
           <Subscribe />
-        </ScrollReveal>
+        </ScrollReveal> */}
 
         <ScrollReveal style={{ scrollMarginTop: "0px" }}>
           <AvatarInfo />

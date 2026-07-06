@@ -11,7 +11,6 @@ import JournalList from "../../components/JournalList";
 import MotionTitleBlock from "../../components/MotionTitleBlock";
 import ShowcaseKeyTakeaways from "../../components/ShowcaseKeyTakeaways";
 import StrapiBlocksRenderer from "../../components/StrapiBlocksRenderer";
-import Subscribe from "../../components/Subscribe";
 import innerStyles from "../../innerPage.module.css";
 import styles from "./article.module.css";
 
@@ -136,14 +135,15 @@ export default async function JournalArticlePage(props) {
         : null}
 
       <MotionTitleBlock
-        title="Join 150+ professionals elevating their brand"
-        subtitle="Discover design insights, project updates, and tips to elevate your work straight to your inbox."
+        title="Klijenti sa kojima gradimo rezultate"
+        subtitle="Pridružite se brendovima koji su marketing prepustili timu koji ga shvata ozbiljno."
         className={innerStyles.titleContainer}
-        width={600}
-        subtitleWidth={425}
+        width={440}
+        subtitleWidth={380}
+        subtitleWidthMobile={320}
       />
       <ClientsLogosCarousel />
-      <Subscribe />
+      {/* <Subscribe /> */}
       <AvatarInfo />
       <ContactForm />
     </main>

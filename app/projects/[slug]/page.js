@@ -14,7 +14,6 @@ import ProjectArticleContent from "../../components/ProjectArticleContent";
 import ProjectBlocksRenderer from "../../components/ProjectBlocksRenderer";
 import ShowcaseKeyTakeaways from "../../components/ShowcaseKeyTakeaways";
 import ShowcaseSuccessRate from "../../components/ShowcaseSuccessRate";
-import Subscribe from "../../components/Subscribe";
 import Title from "../../components/Title";
 import innerStyles from "../../innerPage.module.css";
 import articleStyles from "../../journal/[slug]/article.module.css";
@@ -178,15 +177,15 @@ export default async function ClientShowcasePage(props) {
         : null}
 
       <MotionTitleBlock
-        title="Join 150+ professionals elevating their brand"
-        subtitle="Discover design insights, project updates, and tips to elevate your work straight to your inbox."
+        title="Klijenti sa kojima gradimo rezultate"
+        subtitle="Pridružite se brendovima koji su marketing prepustili timu koji ga shvata ozbiljno."
         className={innerStyles.titleContainer}
-        width={600}
-        subtitleWidth={425}
-        subtitleWidthMobile={350}
+        width={440}
+        subtitleWidth={380}
+        subtitleWidthMobile={320}
       />
       <ClientsLogosCarousel />
-      <Subscribe />
+      {/* <Subscribe /> */}
       <AvatarInfo />
       <ContactForm />
     </main>
