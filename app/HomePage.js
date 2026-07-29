@@ -124,7 +124,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
           <StepProcess />
         </ScrollReveal>
 
-        <MotionTitleBlock
+        {/* <MotionTitleBlock
           title="Naši alati, vaša prednost"
           subtitle="Pogledajte kako naša ekspertiza sa ovim alatima donosi bolje rezultate."
           className={styles.titleContainer}
@@ -147,7 +147,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
 
         <ScrollReveal>
           <DesignJourneyTable />
-        </ScrollReveal>
+        </ScrollReveal> */}
 
         <MotionTitleBlock
           title="Kako izgleda raditi sa nama"
@@ -158,7 +158,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
 
         <PhoneInHand />
 
-        <MotionTitleBlock
+        {/* <MotionTitleBlock
           title="Fleksibilni planovi za svaku potrebu"
           subtitle="Bilo da krećete ispočetka ili vam treba kompletna promena, izaberite plan koji odgovara vašem projektu."
           width={425}
@@ -170,7 +170,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
 
         <ScrollReveal>
           <PricingPlans />
-        </ScrollReveal>
+        </ScrollReveal> */}
 
         <div id="faq">
           <ScrollReveal>
@@ -178,7 +178,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
           </ScrollReveal>
         </div>
 
-        <CtaWithImageBackground />
+        {/* <CtaWithImageBackground /> */}
 
         <MotionTitleBlock
           width={500}
@@ -207,9 +207,9 @@ export default function HomePage({ articles = [], showcases = [] }) {
           className={styles.titleContainer}
         />
 
-        <ScrollReveal>
+        {/* <ScrollReveal>
           <ClientsLogosCarousel marginTop={60} marginBottom={60} />
-        </ScrollReveal>
+        </ScrollReveal> */}
 
         <ScrollReveal>
           <Subscribe />
