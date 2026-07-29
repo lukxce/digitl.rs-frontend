@@ -163,8 +163,14 @@ transform: translateX(-50%);
 }
 
 .metaText {
-  color: #171717;
+  color: rgba(23, 23, 23, 0.6);
+  font-weight: 600;
   text-align: center;
+}
+
+.metaTextStrong {
+  color: #171717;
+  font-weight: 600;
 }
 
 .metaLink {

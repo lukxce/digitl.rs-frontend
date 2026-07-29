@@ -140,7 +140,7 @@ export default function HeroCard({
           <div className={styles.metaRowLocation}>
           <Image src={locationIcon} alt="Location" width={11} height={11} className={styles.metaRowLocationIcon} />
           <p className={styles.metaText}>
-            {location} · Projekti širom sveta
+            <span className={styles.metaTextStrong}>{location}</span> · Projekti širom sveta
           </p>
           </div>
           <Link href="/#faq" className={styles.metaLink}>
