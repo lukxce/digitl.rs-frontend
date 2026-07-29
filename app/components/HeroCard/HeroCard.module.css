@@ -163,7 +163,7 @@ transform: translateX(-50%);
 }
 
 .metaText {
-  opacity: 0.5;
+  color: #171717;
   text-align: center;
 }
 
@@ -178,7 +178,7 @@ transform: translateX(-50%);
 }
 
 .metaRowLocationIcon {
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .metaRowLocation {
