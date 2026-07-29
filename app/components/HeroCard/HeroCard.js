@@ -44,7 +44,7 @@ export default function HeroCard({
     "prave rezultate.",
   ],
   description =
-    "Nismo klasična agencija, već produženi deo vašeg marketing tima, uključeni u razmišljanje, planiranje i donošenje odluka.",
+    "Gradimo brendove koji se izdvajaju, konvertuju bolje i rastu brže. Vodimo ceo marketing kao jedan sistem: plaćeno, web, SEO i brend.",
   socialProofLabel = "50+ uspešnih saradnji",
   progressActiveCount = 2,
   avatarSrc = DEFAULT_AVATAR,
