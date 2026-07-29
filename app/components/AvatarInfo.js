@@ -1,4 +1,5 @@
 import Image from "next/image";
+import digitlLogo from "../assets/digitl-logo.png";
 import styles from "./AvatarInfo.module.css";
 
 function IconDribbble() {
@@ -50,7 +51,7 @@ const defaultSocialLinks = [
 export default function AvatarInfo({
   name = "Digitl",
   role = "Full-Service marketing agencija",
-  imageSrc = "https://picsum.photos/seed/digitl-hero-avatar/160/160?grayscale",
+  imageSrc = digitlLogo,
   imageAlt = "Profile photo",
   socialLinks = defaultSocialLinks,
   className = "",

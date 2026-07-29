@@ -1,13 +1,13 @@
 import Image from "next/image";
+import elektromil from "../assets/elektromil-logo.svg";
 import primaDental from "../assets/primadental logo.webp";
-import startupsRs from "../assets/startups.rs logo.webp";
 import thermiq from "../assets/thermiq logo.webp";
 import styles from "./ClientsLogosCarousel.module.css";
 
 const logos = [
   { src: primaDental, alt: "Prima Dental", height: 96 },
-  { src: startupsRs, alt: "Startups.rs", height: 36 },
   { src: thermiq, alt: "Thermiq", height: 77 },
+  { src: elektromil, alt: "Elektromil", height: 40 },
 ];
 
 function LogoRow({ keyPrefix }) {
