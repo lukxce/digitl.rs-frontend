@@ -38,29 +38,29 @@ const faqItemVariants = {
 
 const FAQS = [
   {
-    question: "What types of businesses do you work with?",
+    question: "Koliko brzo možemo da krenemo?",
     answer:
-      "We work with a wide range of businesses, from local companies to established brands, across industries where clear marketing and results matter.",
+      "Obično u roku od 1 do 2 nedelje nakon dogovora, zavisno od obima i kapaciteta.",
   },
   {
-    question: "How long does it take to start working together?",
+    question: "Šta ako nismo sigurni šta nam tačno treba?",
     answer:
-      "Most projects start within one to two weeks after an initial conversation, depending on scope, priorities, and availability.",
+      "Zato i postoji prvi razgovor. Pogledamo brojeve i kažemo vam šta je prioritet, a šta može da čeka.",
   },
   {
-    question: "Do you work on ongoing marketing or one-time projects?",
+    question: "Radite samo kompletne projekte ili i pojedinačne usluge?",
     answer:
-      "Both. Some clients need ongoing support, while others hire us for specific projects like a website, campaign, or brand refresh.",
+      "Oba, ali najbolje radimo kao stalni partner koji vodi ceo marketing.",
   },
   {
-    question: "Do you offer contracts or long-term commitments?",
+    question: "Kako izgleda komunikacija tokom saradnje?",
     answer:
-      "We don’t lock clients into long contracts. Work is scoped clearly upfront, and ongoing collaborations are based on mutual fit and results.",
+      "Direktno i redovno. Radite sa ljudima koji donose odluke, ne sa account menadžerom.",
   },
   {
-    question: "What services do you offer?",
+    question: "Sa kakvim firmama najčešće radite?",
     answer:
-      "We provide paid advertising, SEO, website design and development, branding, and marketing strategy. We focus on practical work that supports real business needs.",
+      "Od lokalnih biznisa do etabliranih brendova, svuda gde se marketing meri rezultatom.",
   },
 ];
 
@@ -209,7 +209,7 @@ export default function Faq() {
   return (
     <section className={styles.root} aria-labelledby="faq-title">
       <ScrollReveal className={styles.titleContainer}>
-        <Title title="FAQ" />
+        <Title title="Imate još pitanja pre nego što krenemo?" />
       </ScrollReveal>
       {reduceMotion ? (
         <ul className={styles.list}>{listContent}</ul>
@@ -226,9 +226,9 @@ export default function Faq() {
       )}
       <ScrollReveal delay={0.24}>
         <div className={styles.rootInner}>
-          <p className={styles.followUpText}>Have more questions?</p>
+          <p className={styles.followUpText}>Imate dodatna pitanja?</p>
           <Link href="/#contact" className={styles.askLink}>
-            <span>We’re happy to help</span>
+            <span>Javite se</span>
             <AskArrowIcon className={styles.askArrow} />
           </Link>
         </div>

@@ -38,26 +38,26 @@ const DEFAULT_AVATAR =
 /** Full-viewport portfolio hero with floating `stripe.svg` tab and soft card. */
 export default function HeroCard({
   name = "Digitl",
-  subtitle = "Full-service marketing for businesses",
+  subtitle = "Full-Service marketing agencija",
   headlineLines = [
-    "Design that moves",
-    "products forward",
+    "Marketing koji donosi",
+    "prave rezultate.",
   ],
   description =
-    "We build brands that stand out, convert harder, and scale faster.",
-  socialProofLabel = "Helping 50+ companies grow",
+    "Nismo klasična agencija, već produženi deo vašeg marketing tima, uključeni u razmišljanje, planiranje i donošenje odluka.",
+  socialProofLabel = "50+ uspešnih saradnji",
   progressActiveCount = 2,
   avatarSrc = DEFAULT_AVATAR,
   avatarAlt = "Profile photo",
-  availabilitySlotsLabel = "2 open slots",
-  availabilityPeriodLabel = "for June",
-  location = "London",
+  availabilitySlotsLabel = "2 slobodna mesta",
+  availabilityPeriodLabel = "za avgust",
+  location = "Beograd / London",
   templateHref = "#",
   templateLabel = "Praxis template →",
   primaryCtaHref = "/contact",
-  primaryCtaLabel = "Get started",
+  primaryCtaLabel = "Zakaži razgovor",
   secondaryCtaHref = "/projects",
-  secondaryCtaLabel = "What we do",
+  secondaryCtaLabel = "Naši projekti",
   socialLinks,
   className = "",
 }) {
@@ -140,11 +140,11 @@ export default function HeroCard({
           <div className={styles.metaRowLocation}>
           <Image src={locationIcon} alt="Location" width={11} height={11} className={styles.metaRowLocationIcon} />
           <p className={styles.metaText}>
-            Based in {location}, working with businesses worldwide.
+            {location} · Projekti širom sveta
           </p>
           </div>
           <Link href="/#faq" className={styles.metaLink}>
-            <span>FAQ</span>
+            <span>English Website</span>
             <ViewAllArrowIcon className={styles.metaArrow} />
           </Link>
         </div>

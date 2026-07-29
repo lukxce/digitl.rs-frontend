@@ -49,7 +49,7 @@ const defaultSocialLinks = [
  */
 export default function AvatarInfo({
   name = "Digitl",
-  role = "Full-service marketing for businesses",
+  role = "Full-Service marketing agencija",
   imageSrc = "https://picsum.photos/seed/digitl-hero-avatar/160/160?grayscale",
   imageAlt = "Profile photo",
   socialLinks = defaultSocialLinks,

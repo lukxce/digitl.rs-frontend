@@ -29,39 +29,39 @@ import AvatarInfo from "./components/AvatarInfo";
 
 const services = [
   {
-    key: "product",
-    title: "Product design",
+    key: "ads",
+    title: "Plaćeno oglašavanje (Search & Social)",
     description:
-      "End-to-end flows, prototypes, and UI systems so your product feels clear, fast, and trustworthy from first use to power features.",
+      "Kampanje na Google-u i mrežama, postavljene i skalirane da donose prodaju, ne samo klikove.",
     Icon: IconProduct,
   },
   {
-    key: "brand",
-    title: "Brand & identity",
-    description:
-      "Visual language, typography, and art direction that tell a consistent story across web, print, and social touchpoints.",
-    Icon: IconBrand,
-  },
-  {
     key: "web",
-    title: "Web experiences",
+    title: "Web dizajn & razvoj",
     description:
-      "Marketing sites and product surfaces built with performance, accessibility, and responsive layouts in mind.",
+      "Brzi sajtovi napravljeni da konvertuju, da plaćeni saobraćaj pretvore u kupce.",
     Icon: IconWeb,
   },
   {
-    key: "motion",
-    title: "Motion & interaction",
+    key: "seo",
+    title: "Search Engine Optimization (SEO)",
     description:
-      "Micro-interactions and motion specs that guide attention, explain hierarchy, and make interfaces feel alive without noise.",
+      "Budite prvi tamo gde kupci traže rešenje, na Google-u i u AI pretrazi.",
+    Icon: IconStrategy,
+  },
+  {
+    key: "social",
+    title: "Upravljanje društvenim mrežama",
+    description:
+      "Dosledan brend na mrežama koji podržava sve ostale kanale.",
     Icon: IconMotion,
   },
   {
-    key: "strategy",
-    title: "Design strategy",
+    key: "brand",
+    title: "Branding & identitet",
     description:
-      "Workshops, audits, and roadmaps that align stakeholders on priorities before pixels, so execution stays focused.",
-    Icon: IconStrategy,
+      "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",
+    Icon: IconBrand,
   },
 ];
 
@@ -71,15 +71,15 @@ export default function HomePage({ articles = [], showcases = [] }) {
       <main className={styles.main} data-article-count={articles.length}>
         <HeroCard
           primaryCtaHref="/contact"
-          headlineLines={["Where marketing meets real business results."]}
+          headlineLines={["Marketing koji donosi prave rezultate."]}
         />
         <ScrollReveal>
-          <ClientsLogosCarousel title="Trusted by:" />
+          <ClientsLogosCarousel title="Izabrali su Digitl" />
         </ScrollReveal>
 
         <MotionTitleBlock
-          title="Work that speaks for itself"
-          subtitle="From strategy to execution, <br> here's what that looks like in practice."
+          title="Odabrani projekti"
+          subtitle="Primeri saradnji i rezultata koje smo ostvarili sa klijentima."
           subtitleWidthMobile={200}
           className={styles.titleContainer}
           marginTop={10}
@@ -101,8 +101,8 @@ export default function HomePage({ articles = [], showcases = [] }) {
         </div>
 
         <MotionTitleBlock
-          title="What we do"
-          subtitle="The core marketing services we handle for our clients."
+          title="Naše usluge"
+          subtitle="Kompletan marketing kao jedan sistem, ne meni nepovezanih usluga."
           className={styles.titleContainer}
           widthMobile={200}
         />
@@ -125,8 +125,8 @@ export default function HomePage({ articles = [], showcases = [] }) {
         </ScrollReveal>
 
         <MotionTitleBlock
-          title="My toolkit, your advantage"
-          subtitle="See how my expertise with these tools drives better results."
+          title="Naši alati, vaša prednost"
+          subtitle="Pogledajte kako naša ekspertiza sa ovim alatima donosi bolje rezultate."
           className={styles.titleContainer}
         />
 
@@ -137,10 +137,10 @@ export default function HomePage({ articles = [], showcases = [] }) {
         <ScrollReveal>
           <Years />
           <div className={styles.journeyContainer}>
-            <h2 className={styles.journeyTitleTitle}>My journey through design</h2>
+            <h2 className={styles.journeyTitleTitle}>Naš put kroz dizajn</h2>
             <p className={styles.journeyTitleSubtitle}>
-              Explore the milestones and experiences that have shaped my career,
-              year by year.
+              Pogledajte ključne prekretnice i iskustva koja su oblikovala našu karijeru,
+              godinu po godinu.
             </p>
           </div>
         </ScrollReveal>
@@ -150,8 +150,8 @@ export default function HomePage({ articles = [], showcases = [] }) {
         </ScrollReveal>
 
         <MotionTitleBlock
-          title="Trusted by our clients"
-          subtitle="<b>What clients say</b> <br> about working with us."
+          title="Kako izgleda raditi sa nama"
+          subtitle="Preporuke klijenata koji marketing shvataju ozbiljno."
           hasImage={true}
           className={styles.titleContainer}
         />
@@ -159,8 +159,8 @@ export default function HomePage({ articles = [], showcases = [] }) {
         <PhoneInHand />
 
         <MotionTitleBlock
-          title="Flexible plans for every need"
-          subtitle="Whether you’re starting fresh or need a complete overhaul, choose the plan that fits your project."
+          title="Fleksibilni planovi za svaku potrebu"
+          subtitle="Bilo da krećete ispočetka ili vam treba kompletna promena, izaberite plan koji odgovara vašem projektu."
           width={425}
           subtitleWidth={350}
           widthMobile={300}
@@ -182,8 +182,8 @@ export default function HomePage({ articles = [], showcases = [] }) {
 
         <MotionTitleBlock
           width={500}
-          title="The Digitl Journal"
-          subtitle="Practical thoughts on marketing, growth, and building brands that stand out."
+          title="Blog"
+          subtitle="Praktični uvidi o marketingu, rastu i izgradnji brendova koji se izdvajaju."
           subtitleWidth={310}
           subtitleWidthMobile={300}
           className={styles.titleContainer}
@@ -199,8 +199,8 @@ export default function HomePage({ articles = [], showcases = [] }) {
         />
 
         <MotionTitleBlock
-          title="Join 150+ professionals elevating their brand"
-          subtitle="Discover design insights, project updates, and tips to elevate your work straight to your inbox."
+          title="Klijenti sa kojima gradimo rezultate"
+          subtitle="Pridružite se brendovima koji su marketing prepustili timu koji ga shvata ozbiljno."
           width={600}
           subtitleWidth={425}
           subtitleWidthMobile={350}

@@ -59,13 +59,13 @@ export default function ContactForm({ onSubmit }) {
       <div className={styles.inner}>
         <header className={styles.header}>
           <h2 id="contact-form-title" className={styles.title}>
-            Ready to
+            Napravimo brend
             <br />
-            get started?
+            koji se izdvaja.
           </h2>
           <p className={styles.subtitle}>
             {
-              "Fill out the form, or reach out directly. I'll respond within 24 hours."
+              "U vremenu kada se pažnja meri sekundama, razliku prave brendovi koji grade iskustva, ne samo sadržaj."
             }
           </p>
         </header>
@@ -96,7 +96,7 @@ export default function ContactForm({ onSubmit }) {
             className={styles.submit}
             disabled={isSubmitting}
           >
-            Send message
+            Pošalji poruku
           </button>
         </form>
 
@@ -106,13 +106,13 @@ export default function ContactForm({ onSubmit }) {
         <footer className={styles.footer}>
           <p className={styles.chatLabel}>{"Let's chat!"}</p>
           <p className={styles.phone}>
-            <a className={styles.phoneLink} href="tel:+15108956500">
-              (510) 895-6500
+            <a className={styles.phoneLink} href="tel:+38641962522">
+              (+386) 41 962 522
             </a>
           </p>
           <p className={styles.email}>
-            <a className={styles.emailLink} href="mailto:hello@praxis.com">
-              hello@praxis.com
+            <a className={styles.emailLink} href="mailto:hello@digitl.rs">
+              hello@digitl.rs
             </a>
           </p>
           <p className={styles.copyright}>© Copyright 2026. All rights Reserved.</p>
