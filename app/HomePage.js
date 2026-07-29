@@ -186,6 +186,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
           subtitle="Praktični uvidi o marketingu, rastu i izgradnji brendova koji se izdvajaju."
           subtitleWidth={310}
           subtitleWidthMobile={300}
+          marginTop={80}
           className={styles.titleContainer}
         />
 
