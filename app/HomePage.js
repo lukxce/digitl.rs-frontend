@@ -1,17 +1,19 @@
 "use client";
 
-import AvatarInfo from "./components/AvatarInfo";
 import ClientsLogosCarousel from "./components/ClientsLogosCarousel";
 import ContactForm from "./components/ContactForm";
+import CtaWithImageBackground from "./components/CtaWithImageBackground";
+import DesignJourneyTable from "./components/DesignJourneyTable";
 import Faq from "./components/Faq";
-import HeroCard from "./components/HeroCard";
 import JournalList from "./components/JournalList";
 import LinkCard from "./components/LinkCard";
 import MotionTitleBlock from "./components/MotionTitleBlock";
 import PhoneInHand from "./components/PhoneInHand";
+import PricingPlans from "./components/PricingPlans";
 import ScrollReveal from "./components/ScrollReveal";
 import ServiceItem from "./components/ServiceItem";
 import StepProcess from "./components/StepProcess";
+import Subscribe from "./components/Subscribe";
 import {
   IconBrand,
   IconMotion,
@@ -19,42 +21,46 @@ import {
   IconStrategy,
   IconWeb,
 } from "./components/serviceIcons";
+import ToolsList from "./components/ToolsList";
+import Years from "./components/Years";
 import styles from "./page.module.css";
+import HeroCard from "./components/HeroCard";
+import AvatarInfo from "./components/AvatarInfo";
 
 const services = [
   {
-    key: "paid-advertising",
+    key: "ads",
     title: "Plaćeno oglašavanje (Search & Social)",
     description:
-      "Upravljamo kampanjama na Google-u i društvenim mrežama, od inicijalne postavke do svakodnevne optimizacije i kontrole rezultata.",
+      "Kampanje na Google-u i mrežama, postavljene i skalirane da donose prodaju, ne samo klikove.",
     Icon: IconProduct,
   },
   {
-    key: "web-design",
+    key: "web",
     title: "Web dizajn & razvoj",
     description:
-      "Dizajniramo i razvijamo web sajtove koji su jasni, brzi i funkcionalni, sa fokusom na korisničko iskustvo, strukturu i lako održavanje.",
+      "Brzi sajtovi napravljeni da konvertuju, da plaćeni saobraćaj pretvore u kupce.",
     Icon: IconWeb,
   },
   {
     key: "seo",
     title: "Search Engine Optimization (SEO)",
     description:
-      "Radimo tehnički SEO, strukturu sajta i sadržaj, sa fokusom na indeksaciju, performanse i vidljivost na pretrazi kroz dugoročno održiva rešenja.",
+      "Budite prvi tamo gde kupci traže rešenje, na Google-u i u AI pretrazi.",
     Icon: IconStrategy,
   },
   {
     key: "social",
     title: "Upravljanje društvenim mrežama",
     description:
-      "Vodimo prisustvo na društvenim mrežama kroz planiranje sadržaja, objave i osnovnu analitiku, sa ciljem jasne komunikacije i doslednog nastupa.",
+      "Dosledan brend na mrežama koji podržava sve ostale kanale.",
     Icon: IconMotion,
   },
   {
-    key: "branding",
+    key: "brand",
     title: "Branding & identitet",
     description:
-      "Gradimo vizuelne identitete, brand book-ove i smernice koje omogućavaju doslednu primenu brenda kroz sve kanale komunikacije.",
+      "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",
     Icon: IconBrand,
   },
 ];
@@ -65,8 +71,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
       <main className={styles.main} data-article-count={articles.length}>
         <HeroCard
           primaryCtaHref="/contact"
-          secondaryCtaHref="/#what-we-do"
-          headlineLines={["Marketing koji daje rezultate"]}
+          headlineLines={["Marketing koji donosi", "prave rezultate."]}
         />
         <ScrollReveal>
           <ClientsLogosCarousel title="Izabrali su Digitl" />
@@ -75,7 +80,6 @@ export default function HomePage({ articles = [], showcases = [] }) {
         <MotionTitleBlock
           title="Odabrani projekti"
           subtitle="Primeri saradnji i rezultata koje smo ostvarili sa klijentima."
-          subtitleWidth={260}
           subtitleWidthMobile={200}
           className={styles.titleContainer}
           marginTop={10}
@@ -96,36 +100,33 @@ export default function HomePage({ articles = [], showcases = [] }) {
           ))}
         </div>
 
-        <div id="what-we-do" style={{ scrollMarginTop: "20px" }}>
-          <MotionTitleBlock
-            title="Naše usluge"
-            subtitle="Kompletan set usluga za moderan marketing."
-            className={styles.titleContainer}
-            subtitleWidth={180}
-            widthMobile={200}
-          />
+        <MotionTitleBlock
+          title="Naše usluge"
+          subtitle="Kompletan marketing kao jedan sistem, ne meni nepovezanih usluga."
+          className={styles.titleContainer}
+          widthMobile={200}
+        />
 
-          <div className={styles.servicesList}>
-            {services.map(({ key, title, description, Icon }, index) => (
-              <ScrollReveal key={key} delay={index * 0.08}>
-                <ServiceItem
-                  icon={<Icon />}
-                  title={title}
-                  description={description}
-                  initialOpen={index === 0}
-                />
-              </ScrollReveal>
-            ))}
-          </div>
+        <div className={styles.servicesList}>
+          {services.map(({ key, title, description, Icon }, index) => (
+            <ScrollReveal key={key} delay={index * 0.08}>
+              <ServiceItem
+                icon={<Icon />}
+                title={title}
+                description={description}
+                initialOpen={index === 0}
+              />
+            </ScrollReveal>
+          ))}
         </div>
 
         <ScrollReveal>
           <StepProcess />
         </ScrollReveal>
 
-        {/* <MotionTitleBlock
-          title="My toolkit, your advantage"
-          subtitle="See how my expertise with these tools drives better results."
+        <MotionTitleBlock
+          title="Naši alati, vaša prednost"
+          subtitle="Pogledajte kako naša ekspertiza sa ovim alatima donosi bolje rezultate."
           className={styles.titleContainer}
         />
 
@@ -136,32 +137,30 @@ export default function HomePage({ articles = [], showcases = [] }) {
         <ScrollReveal>
           <Years />
           <div className={styles.journeyContainer}>
-            <h2 className={styles.journeyTitleTitle}>My journey through design</h2>
+            <h2 className={styles.journeyTitleTitle}>Naš put kroz dizajn</h2>
             <p className={styles.journeyTitleSubtitle}>
-              Explore the milestones and experiences that have shaped my career,
-              year by year.
+              Pogledajte ključne prekretnice i iskustva koja su oblikovala našu karijeru,
+              godinu po godinu.
             </p>
           </div>
         </ScrollReveal>
 
         <ScrollReveal>
           <DesignJourneyTable />
-        </ScrollReveal> */}
+        </ScrollReveal>
 
         <MotionTitleBlock
           title="Kako izgleda raditi sa nama"
-          subtitle="<b>Preporuke klijenata</b><br />koji marketing shvataju ozbiljno."
+          subtitle="Preporuke klijenata koji marketing shvataju ozbiljno."
           hasImage={true}
-          width={520}
-          widthMobile={270}
           className={styles.titleContainer}
         />
 
         <PhoneInHand />
 
-        {/* <MotionTitleBlock
-          title="Flexible plans for every need"
-          subtitle="Whether you’re starting fresh or need a complete overhaul, choose the plan that fits your project."
+        <MotionTitleBlock
+          title="Fleksibilni planovi za svaku potrebu"
+          subtitle="Bilo da krećete ispočetka ili vam treba kompletna promena, izaberite plan koji odgovara vašem projektu."
           width={425}
           subtitleWidth={350}
           widthMobile={300}
@@ -171,7 +170,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
 
         <ScrollReveal>
           <PricingPlans />
-        </ScrollReveal> */}
+        </ScrollReveal>
 
         <div id="faq">
           <ScrollReveal>
@@ -179,15 +178,14 @@ export default function HomePage({ articles = [], showcases = [] }) {
           </ScrollReveal>
         </div>
 
-        {/* <CtaWithImageBackground /> */}
+        <CtaWithImageBackground />
 
         <MotionTitleBlock
           width={500}
-          title="Digitl Blog"
+          title="Blog"
           subtitle="Praktični uvidi o marketingu, rastu i izgradnji brendova koji se izdvajaju."
           subtitleWidth={310}
           subtitleWidthMobile={300}
-          marginTop={80}
           className={styles.titleContainer}
         />
 
@@ -203,21 +201,21 @@ export default function HomePage({ articles = [], showcases = [] }) {
         <MotionTitleBlock
           title="Klijenti sa kojima gradimo rezultate"
           subtitle="Pridružite se brendovima koji su marketing prepustili timu koji ga shvata ozbiljno."
-          width={440}
-          subtitleWidth={380}
-          subtitleWidthMobile={320}
+          width={600}
+          subtitleWidth={425}
+          subtitleWidthMobile={350}
           className={styles.titleContainer}
         />
 
         <ScrollReveal>
-          <ClientsLogosCarousel />
+          <ClientsLogosCarousel marginTop={60} marginBottom={60} />
         </ScrollReveal>
 
-        {/* <ScrollReveal>
+        <ScrollReveal>
           <Subscribe />
-        </ScrollReveal> */}
+        </ScrollReveal>
 
-        <ScrollReveal style={{ scrollMarginTop: "0px" }}>
+        <ScrollReveal>
           <AvatarInfo />
         </ScrollReveal>
 

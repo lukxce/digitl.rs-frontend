@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useId, useState } from "react";
 import {
@@ -11,9 +11,9 @@ import {
   scrollRevealStaggerDelay,
   scrollRevealViewport,
 } from "../../lib/scrollReveal";
-import styles from "./Faq.module.css";
 import ScrollReveal from "./ScrollReveal";
 import Title from "./Title";
+import styles from "./Faq.module.css";
 
 const easeOut = [0.22, 1, 0.36, 1];
 
@@ -40,27 +40,27 @@ const FAQS = [
   {
     question: "Koliko brzo možemo da krenemo?",
     answer:
-      "Zavisi od obima i trenutnih kapaciteta. Ako postoji prostor za saradnju, obično krećemo u roku od 1–2 nedelje nakon inicijalnog dogovora.",
+      "Obično u roku od 1 do 2 nedelje nakon dogovora, zavisno od obima i kapaciteta.",
   },
   {
     question: "Šta ako nismo sigurni šta nam tačno treba?",
     answer:
-      "To je čest slučaj. U prvim koracima pomažemo da se definišu prioriteti i fokus, pre nego što se krene u egzekuciju.",
+      "Zato i postoji prvi razgovor. Pogledamo brojeve i kažemo vam šta je prioritet, a šta može da čeka.",
   },
   {
-    question: "Da li radite samo kompletne projekte ili i pojedinačne usluge?",
+    question: "Radite samo kompletne projekte ili i pojedinačne usluge?",
     answer:
-      "Radimo i jedno i drugo. Možemo preuzeti kompletan marketing ili konkretan segment (npr. oglase, sajt ili SEO), ali samo ako postoji jasan cilj i način da se rezultat meri. Ne radimo zadatke „reda radi“.",
+      "Oba, ali najbolje radimo kao stalni partner koji vodi ceo marketing.",
   },
   {
     question: "Kako izgleda komunikacija tokom saradnje?",
     answer:
-      "Komunikacija je direktna i unapred dogovorena. Imate kontakt sa ljudima koji rade na projektu, redovne update-ove i jasan ritam rada. Bez posrednika, bez čekanja i bez nejasnih odgovora.",
+      "Direktno i redovno. Radite sa ljudima koji donose odluke, ne sa account menadžerom.",
   },
   {
     question: "Sa kakvim firmama najčešće radite?",
     answer:
-      "Najčešće radimo sa firmama koje žele da unaprede prodaju, rast ili pozicioniranje i razumeju da marketing mora imati ulogu u poslovanju. Veličina firme nije presudna.",
+      "Od lokalnih biznisa do etabliranih brendova, svuda gde se marketing meri rezultatom.",
   },
 ];
 
@@ -185,42 +185,45 @@ export default function Faq() {
   const listContent = FAQS.map((item, index) => {
     const faqItem = (
       <FaqItem
-        key={item.question}
         initialOpen={index === 0}
         question={item.question}
         answer={item.answer}
       />
     );
 
-    return reduceMotion
-      ? <li key={item.question} className={styles.listItem}>
-          {faqItem}
-        </li>
-      : <motion.li
-          key={item.question}
-          className={styles.listItem}
-          variants={faqItemVariants}
-        >
-          {faqItem}
-        </motion.li>;
+    return reduceMotion ? (
+      <li key={item.question} className={styles.listItem}>
+        {faqItem}
+      </li>
+    ) : (
+      <motion.li
+        key={item.question}
+        className={styles.listItem}
+        variants={faqItemVariants}
+      >
+        {faqItem}
+      </motion.li>
+    );
   });
 
   return (
     <section className={styles.root} aria-labelledby="faq-title">
       <ScrollReveal className={styles.titleContainer}>
-        <Title title="Imate još pitanja pre nego što krenemo?" width={480} />
+        <Title title="Imate još pitanja pre nego što krenemo?" />
       </ScrollReveal>
-      {reduceMotion
-        ? <ul className={styles.list}>{listContent}</ul>
-        : <motion.ul
-            className={styles.list}
-            variants={faqListVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={scrollRevealViewport}
-          >
-            {listContent}
-          </motion.ul>}
+      {reduceMotion ? (
+        <ul className={styles.list}>{listContent}</ul>
+      ) : (
+        <motion.ul
+          className={styles.list}
+          variants={faqListVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={scrollRevealViewport}
+        >
+          {listContent}
+        </motion.ul>
+      )}
       <ScrollReveal delay={0.24}>
         <div className={styles.rootInner}>
           <p className={styles.followUpText}>Imate dodatna pitanja?</p>

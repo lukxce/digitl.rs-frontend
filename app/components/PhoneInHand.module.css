@@ -297,7 +297,7 @@
   font-weight: 500;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.95);
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   justify-content: end;
   flex-direction: column;

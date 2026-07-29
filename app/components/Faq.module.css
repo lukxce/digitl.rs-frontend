@@ -1,25 +1,26 @@
 .root {
-  width: 100%;
-  max-width: 550px;
-  font-family: var(--font-manrope), system-ui, sans-serif;
-  align-self: center;
-  margin-top: 100px;
-  margin-bottom: 0;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+    width: 100%;
+    max-width: 550px;
+    font-family: var(--font-manrope), system-ui, sans-serif;
+    align-self: center;
+    margin-top: 50px;
+    margin-bottom: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .rootInner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
-  margin-top: 60px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 7px;
+ margin-top: 60px;
 }
 
 .list {
   margin: 0;
+  margin-top: 30px;
   padding: 0;
   list-style: none;
   display: flex;
@@ -34,7 +35,7 @@
 .item {
   width: 550px;
   border: 1px solid #e9e9e9;
-  border-radius: 50px;
+  border-radius: 40px;
   background: #ffffff;
   overflow: hidden;
 }
@@ -47,7 +48,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 16px 22px 16px 28px;
+  padding: 19px 19px 19px 30px;
   border: none;
   background: none;
   cursor: pointer;
@@ -67,7 +68,7 @@
   font-size: 16px;
   font-weight: 600;
   line-height: 140%;
-  letter-spacing: -4%;
+  letter-spacing: -0.64px;
   color: #171717;
   font-family: var(--font-manrope);
 }
@@ -80,7 +81,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: #f6f6f6;
+  background-color: #f0f0f0;
   color: #171717;
 }
 
@@ -96,17 +97,16 @@
 }
 
 .panelInner {
-  padding: 0 28px 22px;
+  padding: 0 77px 32px 30px;
 }
 
 .answer {
   margin: 0;
   font-size: 17px;
   font-weight: 600;
-  line-height: 145%;
-  color: #171717;
-  opacity: 0.5;
-  letter-spacing: -4%;
+  line-height: 130%;
+  color: rgba(23, 23, 23, 0.6);
+  letter-spacing: -0.34px;
 }
 
 .followUpText {
@@ -117,7 +117,7 @@
   font-size: 13px;
   font-weight: 600;
   line-height: 130%;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.52px;
   text-align: center;
   color: #17171780;
 }
@@ -155,9 +155,6 @@
 }
 
 @media (max-width: 640px) {
-  .root {
-    margin-top: 40px;
-  }
 
   .rootInner {
     margin-top: 40px;
@@ -167,28 +164,27 @@
     width: 100%;
   }
 
-  .question {
+  .question{
     font-size: 14px;
   }
 
-  .answer {
+  .answer{
     font-size: 15px;
   }
 
-  .list {
-    gap: 6px;
-    margin-top: 40px;
+  .list{
+    gap: 6px
   }
 
-  .followUpText {
+  .followUpText{
     font-size: 12px;
   }
 
-  .askLink {
+  .askLink{
     font-size: 13px;
   }
 
-  .askArrow {
+  .askArrow{
     width: 13px;
   }
 }
