@@ -71,7 +71,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
       <main className={styles.main} data-article-count={articles.length}>
         <HeroCard
           primaryCtaHref="/contact"
-          headlineLines={["Marketing koji daje", "prave rezultate."]}
+          headlineLines={["Marketing koji donosi", "prave rezultate."]}
         />
         <ScrollReveal>
           <ClientsLogosCarousel title="Izabrali su Digitl" />
