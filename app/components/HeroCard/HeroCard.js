@@ -50,7 +50,7 @@ export default function HeroCard({
   avatarSrc = DEFAULT_AVATAR,
   avatarAlt = "Profile photo",
   availabilitySlotsLabel = "2 slobodna mesta",
-  availabilityPeriodLabel = "za avgust",
+  availabilityPeriodLabel = "za septembar",
   location = "Beograd / London",
   templateHref = "#",
   templateLabel = "Praxis template →",
