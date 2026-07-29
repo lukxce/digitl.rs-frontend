@@ -1,5 +1,5 @@
 import Image from "next/image";
-import elektromil from "../assets/elektromil-logo.svg";
+import elektromil from "../assets/elektromil-logo.webp";
 import primaDental from "../assets/primadental logo.webp";
 import thermiq from "../assets/thermiq logo.webp";
 import styles from "./ClientsLogosCarousel.module.css";
