@@ -66,10 +66,10 @@ export default function NotFoundShowcaseHeader() {
                     <Image
                       src={digitlLogo}
                       alt=""
-                      width={60}
-                      height={60}
+                      width={44}
+                      height={44}
                       className={stylesNotFound.avatar}
-                      sizes="60px"
+                      sizes="44px"
                     />
                   </div>
                   <div className={stylesNotFound.meta}>

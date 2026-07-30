@@ -14,6 +14,40 @@ import StrapiBlocksRenderer from "../../components/StrapiBlocksRenderer";
 import innerStyles from "../../innerPage.module.css";
 import styles from "./article.module.css";
 
+function extractFirstParagraph(blocks) {
+  if (!Array.isArray(blocks)) return [null, blocks];
+  for (let i = 0; i < blocks.length; i++) {
+    const block = blocks[i];
+    if (!block || typeof block !== "object") continue;
+    if (block.type === "paragraph" && !block.__component && Array.isArray(block.children)) {
+      const text = block.children.map((c) => c.text ?? "").join("");
+      if (text.trim()) return [text.trim(), [...blocks.slice(0, i), ...blocks.slice(i + 1)]];
+    }
+    if (block.__component) {
+      const comp = block.__component;
+      if (comp.includes("rich-text") || comp.includes("richtext") || comp.includes("paragraph")) {
+        const bodyKey = ["body", "content", "text", "richText", "copy"].find((k) => Array.isArray(block[k]));
+        if (bodyKey) {
+          const inner = block[bodyKey];
+          const pIdx = inner.findIndex((b) => b?.type === "paragraph" && Array.isArray(b?.children));
+          if (pIdx !== -1) {
+            const text = inner[pIdx].children.map((c) => c.text ?? "").join("");
+            if (text.trim()) {
+              const newInner = [...inner.slice(0, pIdx), ...inner.slice(pIdx + 1)];
+              const remaining = [...blocks.slice(0, i), ...(newInner.length > 0 ? [{ ...block, [bodyKey]: newInner }] : []), ...blocks.slice(i + 1)];
+              return [text.trim(), remaining];
+            }
+          }
+        }
+      }
+      continue;
+    }
+    if (block.type === "heading" || block.type === "image") continue;
+    break;
+  }
+  return [null, blocks];
+}
+
 function blocksToPlainText(blocks) {
   if (blocks == null) return "";
   if (typeof blocks === "string") {
@@ -83,10 +117,12 @@ export default async function JournalArticlePage(props) {
   const article = await tryFindArticle(slug);
   if (!article) notFound();
 
+  const [introText, remainingBlocks] = extractFirstParagraph(article.blocks);
+
   const hasBlocks =
-    article.blocks != null &&
-    (typeof article.blocks === "string" ||
-      (Array.isArray(article.blocks) && article.blocks.length > 0));
+    remainingBlocks != null &&
+    (typeof remainingBlocks === "string" ||
+      (Array.isArray(remainingBlocks) && remainingBlocks.length > 0));
 
   const articles = await tryGetArticlesForHome(10);
   const moreArticles = articles
@@ -107,6 +143,7 @@ export default async function JournalArticlePage(props) {
       <JournalArticleContent
         title={article.title}
         description={article.description}
+        intro={introText}
         author={article.author}
         publishedAt={article.publishedAt}
         coverUrl={article.coverUrl}
@@ -117,7 +154,7 @@ export default async function JournalArticlePage(props) {
         }
       >
         {hasBlocks
-          ? <StrapiBlocksRenderer blocks={article.blocks} />
+          ? <StrapiBlocksRenderer blocks={remainingBlocks} />
           : <p className={styles.empty}>No body content for this entry.</p>}
       </JournalArticleContent>
       {/* </DetailPageOutline> */}

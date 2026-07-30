@@ -65,6 +65,7 @@ export default function JournalArticleContent({
   backLabel = "Go back",
   lead = null,
   afterCover = null,
+  intro = null,
   showTitle = true,
   showMobileOutline = true,
   children,
@@ -148,6 +149,7 @@ export default function JournalArticleContent({
             <p className={styles.description}>{description}</p>
           </>
         : null}
+      {intro ? <p className={styles.intro}>{intro}</p> : null}
     </>
   );
 

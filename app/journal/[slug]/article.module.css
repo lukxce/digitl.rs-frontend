@@ -94,6 +94,16 @@
   color: #1a1a1a;
 }
 
+.intro {
+  margin: 18px 0 0;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.04em;
+  color: #1a1a1a;
+}
+
 .cover {
   position: relative;
   width: 100%;
