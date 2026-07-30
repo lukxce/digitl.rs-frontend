@@ -15,6 +15,23 @@ import innerStyles from "../../innerPage.module.css";
 import styles from "./article.module.css";
 
 function extractFirstParagraph(blocks) {
+  if (typeof blocks === "string") {
+    const s = blocks.trim();
+    if (s.startsWith("<")) {
+      const m = s.match(/^<p[^>]*>([\s\S]*?)<\/p>/i);
+      if (m) {
+        const text = m[1].replace(/<[^>]*>/g, "").trim();
+        if (text) return [text, s.slice(m[0].length).trim()];
+      }
+    } else {
+      const parts = s.split(/\n\s*\n/);
+      if (parts.length > 1) {
+        const first = parts[0].replace(/^#+\s+/gm, "").trim();
+        if (first && !first.startsWith("![")) return [first, parts.slice(1).join("\n\n")];
+      }
+    }
+    return [null, blocks];
+  }
   if (!Array.isArray(blocks)) return [null, blocks];
   for (let i = 0; i < blocks.length; i++) {
     const block = blocks[i];
@@ -38,6 +55,11 @@ function extractFirstParagraph(blocks) {
               return [text.trim(), remaining];
             }
           }
+        }
+        const strKey = ["body", "content", "text", "richText", "copy"].find((k) => typeof block[k] === "string");
+        if (strKey) {
+          const [intro, rest] = extractFirstParagraph(block[strKey]);
+          if (intro) return [intro, [...blocks.slice(0, i), ...(rest ? [{ ...block, [strKey]: rest }] : []), ...blocks.slice(i + 1)]];
         }
       }
       continue;

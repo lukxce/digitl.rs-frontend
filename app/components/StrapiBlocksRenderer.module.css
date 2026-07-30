@@ -61,7 +61,7 @@
   font-size: 18px;
   line-height: 140%;
   letter-spacing: -0.04em;
-  color: #171717;
+  color: rgba(23, 23, 23, 0.5);
   font-weight: 600;
   margin: 18px 0 10px;
 }
@@ -99,7 +99,7 @@
   font-size: 18px;
   line-height: 1.55;
   letter-spacing: -0.04em;
-  color: #171717;
+  color: rgba(23, 23, 23, 0.5);
   font-weight: 600;
 }
 
