@@ -101,7 +101,7 @@
   font-weight: 600;
   line-height: 1.4;
   letter-spacing: -0.04em;
-  color: #1a1a1a;
+  color: rgba(23, 23, 23, 0.5);
 }
 
 .cover {
