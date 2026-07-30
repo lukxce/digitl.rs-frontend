@@ -110,7 +110,7 @@ export default async function JournalArticlePage(props) {
         author={article.author}
         publishedAt={article.publishedAt}
         coverUrl={article.coverUrl}
-        beforeCover={
+        afterCover={
           (article.keyTakeaways?.length ?? 0) > 0
             ? <ShowcaseKeyTakeaways items={article.keyTakeaways} />
             : null

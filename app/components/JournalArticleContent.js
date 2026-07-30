@@ -49,7 +49,7 @@ function formatPublishedDate(iso) {
  *   backHref?: string;
  *   backLabel?: string;
  *   lead?: import("react").ReactNode;
- *   beforeCover?: import("react").ReactNode;
+ *   afterCover?: import("react").ReactNode;
  *   showTitle?: boolean;
  *   showMobileOutline?: boolean;
  *   children: import("react").ReactNode;
@@ -64,7 +64,7 @@ export default function JournalArticleContent({
   backHref = "/journal",
   backLabel = "Go back",
   lead = null,
-  beforeCover = null,
+  afterCover = null,
   showTitle = true,
   showMobileOutline = true,
   children,
@@ -180,9 +180,9 @@ export default function JournalArticleContent({
 
         {showMobileOutline ? <DetailPageOutlineMobileNav /> : null}
 
-        {beforeCover}
-
         {cover}
+
+        {afterCover}
 
         <div className={`${styles.articleMain} ${styles.bodyWrap}`}>
           {children}
@@ -195,8 +195,8 @@ export default function JournalArticleContent({
   const leadIndex = lead ? nextIndex() : null;
   const headerIndex = showHeader ? nextIndex() : null;
   const mobileOutlineIndex = showMobileOutline ? nextIndex() : null;
-  const beforeCoverIndex = beforeCover ? nextIndex() : null;
   const coverIndex = cover ? nextIndex() : null;
+  const afterCoverIndex = afterCover ? nextIndex() : null;
   const bodyIndex = nextIndex();
 
   return (
@@ -246,17 +246,6 @@ export default function JournalArticleContent({
           </motion.div>
         : null}
 
-      {beforeCover && beforeCoverIndex != null
-        ? <motion.div
-            initial="hidden"
-            animate="visible"
-            custom={beforeCoverIndex}
-            variants={sectionVariants}
-          >
-            {beforeCover}
-          </motion.div>
-        : null}
-
       {cover && coverIndex != null
         ? <motion.figure
             className={styles.cover}
@@ -276,6 +265,17 @@ export default function JournalArticleContent({
               unoptimized
             />
           </motion.figure>
+        : null}
+
+      {afterCover && afterCoverIndex != null
+        ? <motion.div
+            initial="hidden"
+            animate="visible"
+            custom={afterCoverIndex}
+            variants={sectionVariants}
+          >
+            {afterCover}
+          </motion.div>
         : null}
 
       <motion.div
