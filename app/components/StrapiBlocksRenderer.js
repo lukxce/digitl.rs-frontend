@@ -11,6 +11,7 @@ import styles from "./StrapiBlocksRenderer.module.css";
 
 const MARKDOWN_IMAGE_RE = /^!\[(.*?)\]\((.*?)\)$/;
 const MARKDOWN_LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
+const MARKDOWN_BOLD_RE = /\*\*([^*]+)\*\*/g;
 const MARKDOWN_EMPHASIS_RE = /\*([^*]+)\*/g;
 
 /** @param {string} text */
@@ -20,7 +21,8 @@ function renderInlineMarkdown(text) {
     MARKDOWN_LINK_RE,
     (_match, label, href) => `<a href="${safeLinkHref(href)}">${label}</a>`,
   );
-  const withEmphasis = withLinks.replace(MARKDOWN_EMPHASIS_RE, "<em>$1</em>");
+  const withBold = withLinks.replace(MARKDOWN_BOLD_RE, "<strong>$1</strong>");
+  const withEmphasis = withBold.replace(MARKDOWN_EMPHASIS_RE, "<em>$1</em>");
   return withEmphasis;
 }
 
