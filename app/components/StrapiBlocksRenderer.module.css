@@ -66,6 +66,10 @@
   margin: 18px 0 10px;
 }
 
+.p strong {
+  color: #171717;
+}
+
 .p a {
   color: #2a29ff;
   text-decoration: underline;
