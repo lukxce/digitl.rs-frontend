@@ -15,6 +15,7 @@
 .inner.inner {
   height: auto;
   margin-bottom: 2rem;
+  padding-bottom: 0;
 }
 
 .card.card {
@@ -148,14 +149,13 @@
 
 @media (max-width: 640px) {
   .root {
-    width: calc(100% + 3rem);
-    max-width: 100vw;
-    margin: 0 -1.5rem 2rem;
+    width: 100%;
+    margin: 0 auto 2rem;
   }
 
   .shell {
     height: auto;
-    width: 96%;
+    width: 100%;
   }
 
   .outer.outer {
@@ -167,7 +167,7 @@
     width: 100%;
     max-width: 100%;
     margin: -18px auto 2rem;
-    padding: 32px 6px 2px;
+    padding: 32px 6px 0;
     border-radius: 46px;
   }
 
@@ -185,7 +185,7 @@
   }
 
   .cardBody {
-    padding: 6px 0 12px;
+    padding: 6px 0 14px;
   }
 
   .metaItem {
@@ -210,7 +210,7 @@
   }
 
   .hole {
-    transform: translate(-42%);
+    transform: translate(-50%);
   }
 
   .metaList {
