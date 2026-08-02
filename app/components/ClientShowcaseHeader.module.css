@@ -8,16 +8,16 @@
   height: 900px;
 }
 
-.outer {
+.outer.outer {
   width: 100%;
 }
 
-.inner {
+.inner.inner {
   height: auto;
   margin-bottom: 2rem;
 }
 
-.card {
+.card.card {
   overflow: hidden;
   padding: 0;
 }
@@ -30,6 +30,7 @@
   background-color: #f6f6f6;
   height: 386px;
   border-radius: 40px;
+  overflow: hidden;
 }
 
 .coverImage {
@@ -41,12 +42,12 @@
 }
 
 .cardBody {
-  padding: 6px 0 28px;
+  padding: 6px 0 20px;
   background-color: #f6f6f6;
 }
 
 .metaList {
-  margin: 0 0 25px;
+  margin: 0 0 20px;
 }
 
 .metaItem {
@@ -87,7 +88,12 @@
 .visitWebsiteWrap {
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 532px;
+  margin: 0 auto;
   padding: 0 10px;
+  box-sizing: border-box;
 }
 
 .visitWebsiteLink {
@@ -152,12 +158,12 @@
     width: 96%;
   }
 
-  .outer {
+  .outer.outer {
     height: auto;
     animation: none;
   }
 
-  .inner {
+  .inner.inner {
     width: 100%;
     max-width: 100%;
     margin: -18px auto 2rem;
@@ -165,7 +171,7 @@
     border-radius: 46px;
   }
 
-  .card {
+  .card.card {
     width: 100%;
     max-width: 100%;
   }
