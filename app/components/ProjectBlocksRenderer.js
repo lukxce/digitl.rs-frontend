@@ -467,10 +467,7 @@ function renderBlock(block, key, headingQueue) {
             const liKey = `${key}-li-${li.type ?? "item"}-${String(li.children?.[0]?.text ?? "").slice(0, 24)}`;
             return (
               <li key={liKey} className={styles.listItem}>
-                {(Array.isArray(li.children) ? li.children : []).map(
-                  (inner, k) =>
-                    renderBlock(inner, `${liKey}-${k}`, headingQueue),
-                )}
+                {renderInlines(Array.isArray(li.children) ? li.children : [])}
               </li>
             );
           })}
