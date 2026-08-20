@@ -45,6 +45,8 @@ export async function generateStaticParams() {
   return showcases.map((s) => ({ slug: s.slug }));
 }
 
+export const revalidate = 60;
+
 export async function generateMetadata(props) {
   const params = await props.params;
   const showcase = await tryFindClientShowcase(params.slug);

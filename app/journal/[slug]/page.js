@@ -97,6 +97,8 @@ export async function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
 
+export const revalidate = 60;
+
 export async function generateMetadata(props) {
   const params = await props.params;
   const slug = params.slug;

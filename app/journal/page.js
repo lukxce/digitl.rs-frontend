@@ -7,6 +7,8 @@ import MotionTitleBlock from "../components/MotionTitleBlock";
 import ScrollReveal from "../components/ScrollReveal";
 import styles from "../innerPage.module.css";
 
+export const revalidate = 60;
+
 export const metadata = {
   title: "Blog",
   description:
