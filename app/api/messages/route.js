@@ -1,4 +1,4 @@
-import { createMessage } from "../../../lib/messages.js";
+import { createMessage } from "../../../lib/cms.js";
 
 const MESSAGE_MAX_LENGTH = 4000;
 const EMAIL_MAX_LENGTH = 254;

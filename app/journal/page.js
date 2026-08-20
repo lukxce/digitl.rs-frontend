@@ -1,4 +1,4 @@
-import { tryGetArticlesForHome } from "../../lib/articles";
+import { tryGetArticlesForHome } from "../../lib/cms.js";
 import AvatarInfo from "../components/AvatarInfo";
 import ClientsLogosCarousel from "../components/ClientsLogosCarousel";
 import ContactForm from "../components/ContactForm";

@@ -1,4 +1,4 @@
-import { tryGetClientShowcases } from "../../lib/clientShowcases.js";
+import { tryGetClientShowcases } from "../../lib/cms.js";
 import AvatarInfo from "../components/AvatarInfo";
 import ClientsLogosCarousel from "../components/ClientsLogosCarousel";
 import ContactForm from "../components/ContactForm";

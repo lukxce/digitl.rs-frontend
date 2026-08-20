@@ -19,6 +19,11 @@ const nextConfig = {
         hostname: "api.digitl.rs",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        pathname: "/images/**",
+      },
     ],
   },
 };

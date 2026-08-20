@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import {
   tryFindClientShowcase,
   tryGetClientShowcases,
-} from "../../../lib/clientShowcases.js";
+} from "../../../lib/cms.js";
 import AvatarInfo from "../../components/AvatarInfo";
 import ClientShowcaseHeader from "../../components/ClientShowcaseHeader";
 import ClientsLogosCarousel from "../../components/ClientsLogosCarousel";
@@ -11,7 +11,7 @@ import { DetailPageOutlineMobileNav } from "../../components/DetailPageOutline";
 import LinkCard from "../../components/LinkCard";
 import MotionTitleBlock from "../../components/MotionTitleBlock";
 import ProjectArticleContent from "../../components/ProjectArticleContent";
-import ProjectBlocksRenderer from "../../components/ProjectBlocksRenderer";
+import ProjectBlocksRendererAuto from "../../components/ProjectBlocksRendererAuto";
 import ShowcaseKeyTakeaways from "../../components/ShowcaseKeyTakeaways";
 import ShowcaseSuccessRate from "../../components/ShowcaseSuccessRate";
 import Title from "../../components/Title";
@@ -144,7 +144,7 @@ export default async function ClientShowcasePage(props) {
             : <DetailPageOutlineMobileNav />}
         </div>
         {hasContent
-          ? <ProjectBlocksRenderer blocks={showcase.content} />
+          ? <ProjectBlocksRendererAuto blocks={showcase.content} />
           : <p className={articleStyles.empty}>
               No project details for this entry.
             </p>}

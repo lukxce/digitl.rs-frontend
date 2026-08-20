@@ -1,4 +1,4 @@
-import { createSubscriber } from "../../../lib/subscribers.js";
+import { createSubscriber } from "../../../lib/cms.js";
 
 const EMAIL_MAX_LENGTH = 254;
 
