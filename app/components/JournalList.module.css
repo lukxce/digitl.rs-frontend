@@ -196,9 +196,9 @@
   }
 
   .rowLink {
-    max-height: 74px;
-    padding: 0px 20px 0px 5px;
+    max-height: none;
     min-height: 66px;
+    padding: 8px 20px 8px 5px;
   }
 
   .thumb {
