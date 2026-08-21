@@ -85,8 +85,7 @@
 .description {
     font-size: 16px;
     font-weight: 600;
-    color: #17171780;
-    opacity: 0.5;
+    color: rgba(23, 23, 23, 0.7);
     line-height: 130%;
     letter-spacing: -0.04em;
     font-family: var(--font-manrope);
