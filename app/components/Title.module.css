@@ -11,7 +11,7 @@
   margin: 0 auto 30px;
   color: #000;
   font-family: var(--font-manrope), system-ui, sans-serif;
-  letter-spacing: -5%;
+  letter-spacing: -0.05em;
   text-align: center;
 }
 
@@ -22,7 +22,7 @@
   font-size: 17px;
   font-weight: 600;
   font-family: var(--font-manrope), system-ui, sans-serif;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
 }
 
 .subtitleWithImage {

@@ -119,7 +119,7 @@
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 50px;
   font-weight: 600;
-  letter-spacing: -5%;
+  letter-spacing: -0.05em;
   margin: 0 0 0.5rem;
   color: #000000;
   line-height: 100%;

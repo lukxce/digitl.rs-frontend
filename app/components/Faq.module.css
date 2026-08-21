@@ -33,7 +33,8 @@
 }
 
 .item {
-  width: 550px;
+  width: 100%;
+  max-width: 550px;
   border: 1px solid #e9e9e9;
   border-radius: 40px;
   background: #ffffff;

@@ -44,7 +44,7 @@
   font-size: 38px;
   font-weight: 600;
   line-height: 1.12;
-  letter-spacing: -5%;
+  letter-spacing: -0.05em;
   color: #171717;
 }
 
@@ -58,7 +58,7 @@
   color: #17171780;
   max-width: 300px;
   margin-bottom: 20px;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
 }
 
 .form {
@@ -84,7 +84,7 @@
   line-height: 1.2;
   color: #171717;
   outline: none;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
 }
 
 .field::placeholder{
@@ -126,7 +126,7 @@
   color: #fff;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
 }
 
 .submit:hover {
@@ -152,7 +152,7 @@
   font-weight: 500;
   line-height: 1.3;
   text-align: center;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
 }
 
 .statusError {
@@ -174,7 +174,7 @@
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   color: #6b7280;
 }
 
@@ -184,7 +184,7 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 1.25;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
 }
 
 .phoneLink {
@@ -201,7 +201,7 @@
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
 }
 
 .emailLink {
@@ -220,7 +220,7 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 100%;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   color: #171717;
   opacity: 0.5;
 }
@@ -231,7 +231,7 @@
   font-size: 13px;
   font-weight: 600;
   line-height: 100%;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   color: #17171780;
   display: flex;
     justify-content: center;

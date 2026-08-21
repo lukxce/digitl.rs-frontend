@@ -31,7 +31,7 @@
   line-height: 1.2;
   color: #111827;
   margin-bottom: 20px;
-  letter-spacing: -5%;
+  letter-spacing: -0.05em;
 }
 
 .description {
@@ -40,7 +40,7 @@
   line-height: 1.2;
   color: #111827;
   margin-bottom: 10px;
-  letter-spacing: -5%;
+  letter-spacing: -0.05em;
 }
 
 .subDescription {
@@ -49,7 +49,7 @@
   line-height: 1.5;
   color: #6b7280;
   margin-bottom: 70px;
-  letter-spacing: -5%;
+  letter-spacing: -0.05em;
 }
 
 .profile {

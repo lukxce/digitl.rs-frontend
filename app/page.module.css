@@ -107,7 +107,8 @@
 
 .servicesList {
   align-self: stretch;
-  width: 450px;
+  width: 100%;
+  max-width: 450px;
   margin: 30px auto;
 }
 
@@ -211,7 +212,8 @@ a.secondary {
   text-align: center;
   align-items: center;
   /* margin: auto 65px; */
-  width: 450px;
+  width: 100%;
+  max-width: 450px;
 }
 
 .journeyTitleTitle {
@@ -220,7 +222,7 @@ a.secondary {
   font-style: SemiBold;
   font-size: 22px;
   line-height: 140%;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   text-align: left;
   width: 100%;
 }
@@ -230,7 +232,7 @@ a.secondary {
   font-weight: 600;
   font-size: 17px;
   line-height: 140%;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   color: #747474;
   text-align: left;
 }

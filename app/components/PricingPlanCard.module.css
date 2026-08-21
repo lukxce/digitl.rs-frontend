@@ -171,7 +171,7 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 100%;
-  letter-spacing: -5%;
+  letter-spacing: -0.05em;
   margin-bottom: 24px;
   color: #171717;
 }
@@ -205,7 +205,7 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 100%;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   color: #171717;
   opacity: 0.5;
 }

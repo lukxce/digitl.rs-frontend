@@ -203,7 +203,7 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 100%;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   color: #fff;
   margin-top: 40px;
   margin-bottom: 8px;
@@ -214,7 +214,7 @@
   font-weight: 600;
   font-size: 12px;
   line-height: 100%;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   color: #fff;
   opacity: 0.6;
 }
@@ -307,7 +307,7 @@
   margin-top: 20px;
   font-size: 22px;
   font-weight: 600;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   line-height: 120%;
 }
 
@@ -380,7 +380,7 @@
   .storyBodyText {
     font-size: 19px;
     font-weight: 600;
-    letter-spacing: -4%;
+    letter-spacing: -0.04em;
     line-height: 140%;
   }
 }
