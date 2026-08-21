@@ -109,21 +109,6 @@ export default function ClientShowcaseHeader({
       ? websiteUrl.trim()
       : null;
 
-  // nofollow own rank-and-rent sites to avoid PBN signals
-  const nofollowDomains = ["molernis.rs", "servisklimenis.rs"];
-  const needsNofollow = (() => {
-    if (!visitWebsiteUrl) return false;
-    try {
-      const host = new URL(visitWebsiteUrl).hostname.replace(/^www\./, "");
-      return nofollowDomains.includes(host);
-    } catch {
-      return false;
-    }
-  })();
-  const visitRel = needsNofollow
-    ? "noopener noreferrer nofollow"
-    : "noopener noreferrer";
-
   return (
     <section className={styles.root} aria-label="Project overview">
       <motion.div
@@ -275,7 +260,7 @@ export default function ClientShowcaseHeader({
                         href={visitWebsiteUrl}
                         className={styles.visitWebsiteLink}
                         target="_blank"
-                        rel={visitRel}
+                        rel="noopener noreferrer"
                       >
                         <span>Visit website</span>
                         <VisitWebsiteArrow
