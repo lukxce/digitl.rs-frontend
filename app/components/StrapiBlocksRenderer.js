@@ -13,6 +13,7 @@ const MARKDOWN_IMAGE_RE = /^!\[(.*?)\]\((.*?)\)$/;
 const MARKDOWN_LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
 const MARKDOWN_BOLD_RE = /\*\*([^*]+)\*\*/g;
 const MARKDOWN_EMPHASIS_RE = /\*([^*]+)\*/g;
+const MARKDOWN_BLOCK_HINT_RE = /(?:^|\n)\s*(?:#{1,3}\s|!\[|[-*]\s)/;
 
 /** @param {string} text */
 function renderInlineMarkdown(text) {
@@ -440,12 +441,22 @@ function renderBlock(block, key, headingQueue) {
   const type = block.type;
 
   switch (type) {
-    case "paragraph":
+    case "paragraph": {
+      // Detect markdown pasted into a single paragraph block: if the
+      // combined text contains heading, image, or list markers, parse it
+      // as markdown instead of rendering literal text.
+      const children = Array.isArray(block.children) ? block.children : [];
+      const fullText = children.map((c) => (c && c.text != null ? String(c.text) : "")).join("");
+      if (fullText.includes("\n") && MARKDOWN_BLOCK_HINT_RE.test(fullText)) {
+        const parsed = renderMarkdownBody(fullText, key, headingQueue);
+        if (parsed) return <Fragment key={key}>{parsed}</Fragment>;
+      }
       return (
         <p key={key} className={styles.p}>
-          {renderInlines(Array.isArray(block.children) ? block.children : [])}
+          {renderInlines(children)}
         </p>
       );
+    }
     case "heading": {
       const level =
         typeof block.level === "number"
@@ -616,6 +627,10 @@ export default function StrapiBlocksRenderer({ blocks }) {
           dangerouslySetInnerHTML={{ __html: blocks }}
         />
       );
+    }
+    const markdown = renderMarkdownBody(blocks, "str", headingQueue);
+    if (markdown) {
+      return <div className={styles.prose}>{markdown}</div>;
     }
     return <div className={styles.prosePlain}>{blocks}</div>;
   }
