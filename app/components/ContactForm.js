@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import styles from "./ContactForm.module.css";
-import logo from "../assets/figma.svg";
 import Image from "next/image";
 
 /**
@@ -117,11 +116,6 @@ export default function ContactForm({ onSubmit }) {
           </p>
           <p className={styles.copyright}>© Copyright 2026. All rights Reserved.</p>
         </footer>
-      </div>
-      <div className={styles.createdBy}>
-        <p className={styles.disclaimer}>Created by</p>
-        <Image src={logo} alt="Logo" width={100} height={100} className={styles.logo} />
-        <p className={styles.disclaimerBold}>Anatolii Dmitrienko</p>
       </div>
     </section>
   );

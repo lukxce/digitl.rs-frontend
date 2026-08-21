@@ -13,28 +13,27 @@
 .phoneWrap {
   position: relative;
   width: min(420px, 88vw);
-  right: 53px;
   overflow: visible;
 }
 .sidePanelLeft,
 .sidePanelRight {
   position: absolute;
-  top: 48px;
-  width: 339px;
-  height: 732px;
-  border-radius: 44px;
+  top: 2%;
+  width: 92%;
+  height: 96%;
+  border-radius: 43px;
   pointer-events: none;
   z-index: 1;
 }
 
 .sidePanelLeft {
   background: linear-gradient(270deg, #f3f3f3 0%, #ffffff 100%);
-  left: calc(96px - 379px);
+  left: calc(-88% - 40px);
 }
 
 .sidePanelRight {
   background: linear-gradient(270deg, #ffffff 0%, #f3f3f3 100%);
-  left: calc(96px + 379px);
+  left: calc(96% + 40px);
 }
 
 .phoneGroup {
@@ -43,26 +42,24 @@
 }
 
 .handImage {
-  display: block;
-  width: 730px;
-  height: auto;
+  display: none;
 }
 
 .phoneImage {
-  display: none;
+  display: block;
   width: 100%;
   height: auto;
 }
 
 .screen {
-  left: 96px;
-  height: 732px;
-  pointer-events: auto;
-  border-radius: 44px;
   position: absolute;
-  width: 339px;
+  left: 4%;
+  top: 2%;
+  width: 92%;
+  height: 96%;
+  border-radius: 43px;
+  pointer-events: auto;
   overflow: hidden;
-  top: 48px;
 }
 
 .tapLeft,
@@ -351,30 +348,13 @@
   }
 
   .phoneWrap {
-    right: 0;
     width: 100%;
     margin-inline: auto;
-  }
-
-  .handImage {
-    display: none;
-  }
-
-  .phoneImage {
-    display: block;
   }
 
   .sidePanelLeft,
   .sidePanelRight {
     display: none;
-  }
-
-  .screen {
-    border-radius: 43px;
-    width: 92%;
-    height: 96%;
-    top: 2%;
-    left: 4%;
   }
 
   .storyBodyText {

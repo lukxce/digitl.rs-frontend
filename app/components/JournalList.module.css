@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 550px;
   margin-top: 30px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   padding: 8px;
   border-radius: 46px;
   background-color: #f6f6f6;
@@ -135,8 +135,8 @@
 .viewAllFooter {
   display: flex;
   justify-content: flex-end;
-  margin-top: 16px;
-  padding: 0 12px 6px;
+  margin-top: 4px;
+  padding: 0 12px 0;
 }
 
 .viewAllLink {
@@ -152,7 +152,7 @@
   color: #171717;
   text-decoration: none;
   border-radius: 8px;
-  margin: 10px auto;
+  margin: 2px auto;
 }
 
 .viewAllLink:focus-visible {
@@ -192,7 +192,7 @@
 
   .viewAllLink {
     font-size: 13px;
-    margin: 5px auto;
+    margin: 2px auto;
   }
 
   .rowLink {

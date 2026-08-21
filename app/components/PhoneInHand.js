@@ -9,7 +9,6 @@ import {
   scrollRevealViewport,
 } from "../../lib/scrollReveal";
 import storyBackground from "../assets/girl-laptop.png";
-import handPhone from "../assets/hand-phone.png";
 import phoneFrame from "../assets/phone.png";
 import starsSvg from "../assets/stars.svg";
 import styles from "./PhoneInHand.module.css";
@@ -123,14 +122,6 @@ export default function PhoneInHand() {
           whileInView="visible"
           viewport={scrollRevealViewport}
         >
-          <Image
-            src={handPhone}
-            alt=""
-            width={420}
-            height={560}
-            className={styles.handImage}
-            priority={false}
-          />
           <Image
             src={phoneFrame}
             alt=""
