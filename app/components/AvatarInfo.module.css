@@ -50,7 +50,7 @@
   display: flex;
   padding: 8px;
   margin: -8px;
-  color: #374151;
+  color: rgba(23, 23, 23, 0.5);
   opacity: 0.45;
   transition:
     opacity 0.2s ease,

@@ -9,7 +9,7 @@
   font-weight: 600;
   max-width: var(--title-max-width, 370px);
   margin: 0 auto 30px;
-  color: #000;
+  color: #171717;
   font-family: var(--font-manrope), system-ui, sans-serif;
   letter-spacing: -0.05em;
   text-align: center;
@@ -39,8 +39,8 @@
 }
 
 .subtitle b {
-  font-weight: 600;
-  color: #1f2937;
+  font-weight: 700;
+  color: #171717;
 }
 
 @media (max-width: 640px) {
