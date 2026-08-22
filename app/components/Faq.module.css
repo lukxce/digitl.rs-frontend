@@ -104,9 +104,9 @@
 .answer {
   margin: 0;
   font-size: 17px;
-  font-weight: 600;
-  line-height: 130%;
-  color: rgba(23, 23, 23, 0.75);
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(23, 23, 23, 0.7);
   letter-spacing: -0.34px;
 }
 
@@ -120,7 +120,7 @@
   line-height: 130%;
   letter-spacing: -0.52px;
   text-align: center;
-  color: rgba(23, 23, 23, 0.65);
+  color: rgba(23, 23, 23, 0.5);
 }
 
 .askLink {

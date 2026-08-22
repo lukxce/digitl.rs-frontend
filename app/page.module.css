@@ -3,7 +3,7 @@
   --foreground: #fff;
 
   --text-primary: #000;
-  --text-secondary: #666;
+  --text-secondary: rgba(23, 23, 23, 0.6);
 
   --button-primary-hover: #383838;
   --button-secondary-hover: #f2f2f2;
@@ -51,7 +51,7 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(23, 23, 23, 0.65);
+  color: rgba(23, 23, 23, 0.5);
 }
 
 .articleList {
@@ -91,7 +91,7 @@
   flex-shrink: 0;
   font-size: 13px;
   font-weight: 500;
-  color: rgba(23, 23, 23, 0.55);
+  color: rgba(23, 23, 23, 0.5);
 }
 
 .cardColumn {
@@ -133,7 +133,9 @@
 .intro p {
   max-width: 440px;
   font-size: 18px;
-  line-height: 32px;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: -0.02em;
   text-wrap: balance;
   color: var(--text-secondary);
 }
@@ -219,7 +221,7 @@ a.secondary {
 .journeyTitleTitle {
   font-family: var(--font-manrope);
   font-weight: 600;
-  font-style: SemiBold;
+
   font-size: 22px;
   line-height: 140%;
   letter-spacing: -0.04em;
@@ -229,11 +231,11 @@ a.secondary {
 
 .journeyTitleSubtitle {
   font-family: var(--font-manrope);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 17px;
   line-height: 140%;
   letter-spacing: -0.04em;
-  color: #747474;
+  color: rgba(23, 23, 23, 0.6);
   text-align: left;
 }
 

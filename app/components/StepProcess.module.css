@@ -84,9 +84,9 @@
 
 .description {
     font-size: 16px;
-    font-weight: 600;
-    color: rgba(23, 23, 23, 0.7);
-    line-height: 130%;
+    font-weight: 500;
+    color: rgba(23, 23, 23, 0.65);
+    line-height: 1.45;
     letter-spacing: -0.04em;
     font-family: var(--font-manrope);
     flex: 1;

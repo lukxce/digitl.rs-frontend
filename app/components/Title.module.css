@@ -18,9 +18,9 @@
 .subtitle {
   max-width: var(--subtitle-max-width, 300px);
   margin: 0 auto;
-  color: #8b8b8b;
+  color: rgba(23, 23, 23, 0.6);
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 500;
   font-family: var(--font-manrope), system-ui, sans-serif;
   letter-spacing: -0.04em;
 }

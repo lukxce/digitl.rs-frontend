@@ -82,9 +82,9 @@
   margin: 0;
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 16px;
-  font-weight: 600;
-  line-height: 130%;
-  color: #747474;
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(23, 23, 23, 0.65);
   letter-spacing: -0.04em;
 }
 

@@ -28,7 +28,7 @@
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  color: #111827;
+  color: #171717;
 }
 
 .role {
@@ -36,7 +36,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 1.35;
-  color: #6b7280;
+  color: rgba(23, 23, 23, 0.5);
 }
 
 .socialRow {
