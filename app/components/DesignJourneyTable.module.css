@@ -55,7 +55,7 @@
   line-height: 120%;
   letter-spacing: -0.04em;
   font-weight: 600;
-  color: #747474;
+  color: rgba(23, 23, 23, 0.5);
   flex: 0.7;
 }
 
@@ -125,7 +125,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 1.4;
-  color: #23232399;
+  color: rgba(23, 23, 23, 0.6);
   letter-spacing: -0.04em;
 }
 
@@ -134,7 +134,7 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
-  color: #232323;
+  color: #171717;
   letter-spacing: -0.04em;
 }
 

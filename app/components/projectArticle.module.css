@@ -128,7 +128,7 @@
 .date {
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: rgba(23, 23, 23, 0.5);
 }
 
