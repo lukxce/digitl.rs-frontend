@@ -100,7 +100,7 @@ transform: translateX(-50%);
   font-weight: 600;
   line-height: 90%;
   letter-spacing: -0.05em;
-  color: #111111;
+  color: #171717;
 }
 
 .socialProof {
@@ -116,7 +116,7 @@ transform: translateX(-50%);
 .stars {
   display: flex;
   gap: 2px;
-  color: #111111;
+  color: #171717;
   font-size: 11px;
   line-height: 1;
   letter-spacing: -0.05em;
@@ -125,7 +125,7 @@ transform: translateX(-50%);
 .socialProofText {
   font-size: 11px;
   font-weight: 600;
-  color: #374151;
+  color: rgba(23, 23, 23, 0.5);
   letter-spacing: -0.01em;
 }
 
@@ -133,11 +133,10 @@ transform: translateX(-50%);
   margin: 0;
   max-width: 280px;
   font-size: 16px;
-  font-weight: 600;
-  line-height: 140%;
+  font-weight: 500;
+  line-height: 1.45;
   letter-spacing: -0.04em;
-  color: #171717;
-  opacity: 0.5;
+  color: rgba(23, 23, 23, 0.6);
 }
 
 .metaRow {
@@ -210,7 +209,7 @@ transform: translateX(-50%);
   display: block;
   flex-shrink: 0;
   transition: transform 0.28s ease;
-  color: #1c1cff;
+  color: #2a29ff;
   opacity: 1;
 }
 
@@ -234,20 +233,20 @@ transform: translateX(-50%);
   margin: 0;
   font-size: 13px;
   font-weight: 500;
-  color: #9ca3af;
+  color: rgba(23, 23, 23, 0.5);
 }
 
 .templateLink {
   font-size: 13px;
   font-weight: 600;
-  color: #374151;
+  color: rgba(23, 23, 23, 0.5);
   text-decoration: none;
   letter-spacing: -0.01em;
   transition: color 0.2s ease;
 }
 
 .templateLink:hover {
-  color: #111827;
+  color: #171717;
 }
 
 @media (max-width: 640px) {
