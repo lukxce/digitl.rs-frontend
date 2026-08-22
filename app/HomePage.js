@@ -86,7 +86,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
         />
 
         <div className={styles.cardColumn}>
-          {showcases.map((card) => (
+          {showcases.slice(0, 2).map((card) => (
             <LinkCard
               key={card.id ?? card.title}
               href={card.href}
@@ -98,6 +98,27 @@ export default function HomePage({ articles = [], showcases = [] }) {
               subtitle={card.subtitle}
             />
           ))}
+          {showcases.length > 2 && (
+            <a href="/projects" className={styles.viewAllLink}>
+              <span>Pogledajte sve projekte</span>
+              <svg
+                className={styles.viewAllArrow}
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M7 17L17 7M17 7H9M17 7V15"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+          )}
         </div>
 
         <MotionTitleBlock
@@ -200,8 +221,8 @@ export default function HomePage({ articles = [], showcases = [] }) {
         />
 
         <MotionTitleBlock
-          title="Klijenti sa kojima gradimo rezultate"
-          subtitle="Pridružite se brendovima koji su marketing prepustili timu koji ga shvata ozbiljno."
+          title="Budite u toku"
+          subtitle="Praktični marketing saveti, jednom do dva puta mesečno. Odjava u bilo kom trenutku."
           width={600}
           subtitleWidth={425}
           subtitleWidthMobile={350}
