@@ -29,7 +29,7 @@
   font-size: 141px;
   font-weight: 600;
   line-height: 1.2;
-  color: #111827;
+  color: #171717;
   margin-bottom: 20px;
   letter-spacing: -0.05em;
 }
@@ -38,16 +38,16 @@
   font-size: 24px;
   font-weight: 600;
   line-height: 1.2;
-  color: #111827;
+  color: #171717;
   margin-bottom: 10px;
   letter-spacing: -0.05em;
 }
 
 .subDescription {
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
-  color: #6b7280;
+  color: rgba(23, 23, 23, 0.6);
   margin-bottom: 70px;
   letter-spacing: -0.05em;
 }
@@ -84,7 +84,7 @@
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  color: #111827;
+  color: #171717;
 }
 
 .role {
@@ -93,7 +93,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 1.35;
-  color: #6b7280;
+  color: rgba(23, 23, 23, 0.5);
 }
 
 .socialRow {

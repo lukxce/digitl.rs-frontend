@@ -90,7 +90,7 @@
   font-size: 26px;
   font-weight: 500;
   line-height: 1.5;
-  color: #1a1a1a;
+  color: rgba(23, 23, 23, 0.75);
 }
 
 .cover {
@@ -121,7 +121,7 @@
   font-weight: 600;
   letter-spacing: -0.05em;
   margin: 0 0 0.5rem;
-  color: #000000;
+  color: #171717;
   line-height: 100%;
 }
 
@@ -129,7 +129,7 @@
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #17171780;
+  color: rgba(23, 23, 23, 0.5);
 }
 
 .empty {
