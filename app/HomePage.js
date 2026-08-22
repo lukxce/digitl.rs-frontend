@@ -65,6 +65,16 @@ const services = [
   },
 ];
 
+/** Local mockup overrides for showcase background images. */
+const SHOWCASE_MOCKUPS = [
+  { match: /klima/i, src: "/showcases/klima-servis-nis.png" },
+  { match: /moler/i, src: "/showcases/moler-nis.png" },
+];
+function getShowcaseMockup(card) {
+  const hay = `${card.slug ?? ""} ${card.title ?? ""} ${card.href ?? ""}`;
+  return SHOWCASE_MOCKUPS.find((m) => m.match.test(hay))?.src ?? null;
+}
+
 export default function HomePage({ articles = [], showcases = [] }) {
   return (
     <div className={styles.page}>
@@ -86,18 +96,21 @@ export default function HomePage({ articles = [], showcases = [] }) {
         />
 
         <div className={styles.cardColumn}>
-          {showcases.slice(0, 2).map((card) => (
-            <LinkCard
-              key={card.id ?? card.title}
-              href={card.href}
-              backgroundSrc={card.backgroundSrc}
-              backgroundAlt={card.backgroundAlt}
-              thumbSrc={card.thumbSrc}
-              thumbAlt={card.thumbAlt}
-              title={card.title}
-              subtitle={card.subtitle}
-            />
-          ))}
+          {showcases.slice(0, 2).map((card) => {
+            const mockup = getShowcaseMockup(card);
+            return (
+              <LinkCard
+                key={card.id ?? card.title}
+                href={card.href}
+                backgroundSrc={mockup ?? card.backgroundSrc}
+                backgroundAlt={card.backgroundAlt}
+                thumbSrc={card.thumbSrc}
+                thumbAlt={card.thumbAlt}
+                title={card.title}
+                subtitle={card.subtitle}
+              />
+            );
+          })}
           {showcases.length > 2 && (
             <a href="/projects" className={styles.viewAllLink}>
               <span>Pogledajte sve projekte</span>
@@ -222,7 +235,7 @@ export default function HomePage({ articles = [], showcases = [] }) {
 
         <MotionTitleBlock
           title="Budite u toku"
-          subtitle="Praktični marketing saveti, jednom do dva puta mesečno. Odjava u bilo kom trenutku."
+          subtitle="Trendovi, taktike i uvidi iz sveta marketinga koji vam pomažu da rastete brže — jednom do dva puta mesečno, direktno u inbox."
           width={600}
           subtitleWidth={425}
           subtitleWidthMobile={350}

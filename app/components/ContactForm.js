@@ -105,8 +105,8 @@ export default function ContactForm({ onSubmit }) {
         <footer className={styles.footer}>
           <p className={styles.chatLabel}>{"Let's chat!"}</p>
           <p className={styles.phone}>
-            <a className={styles.phoneLink} href="tel:+38641962522">
-              (+386) 41 962 522
+            <a className={styles.phoneLink} href="tel:+381641338383">
+              (+381) 64 133 83 83
             </a>
           </p>
           <p className={styles.email}>
