@@ -66,10 +66,7 @@ const services = [
 ];
 
 /** Local mockup overrides for showcase background images. */
-const SHOWCASE_MOCKUPS = [
-  { match: /klim/i, src: "/showcases/klima-servis-nis.png" },
-  { match: /moler/i, src: "/showcases/moler-nis.png" },
-];
+const SHOWCASE_MOCKUPS = [];
 function getShowcaseMockup(card) {
   const hay = `${card.slug ?? ""} ${card.title ?? ""} ${card.href ?? ""}`;
   return SHOWCASE_MOCKUPS.find((m) => m.match.test(hay))?.src ?? null;
