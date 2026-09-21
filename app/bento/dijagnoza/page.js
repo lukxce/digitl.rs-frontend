@@ -1,0 +1,68 @@
+import { sanityClient } from "../../../lib/sanity/client.js";
+import { tryGetArticlesForHome } from "../../../lib/cms.js";
+import DijagnozaGrid from "../../_bento/DijagnozaGrid";
+
+export const revalidate = 60;
+
+export const metadata = {
+  title: "digitl — odakle vam stižu klijenti?",
+  robots: { index: false, follow: false },
+};
+
+/** @param {string} text */
+function firstSentence(text) {
+  if (typeof text !== "string") return null;
+  return text.split(/(?<=\.)\s+/)[0]?.trim() || null;
+}
+
+/** Clients keyed by slug so an answer can select the closest story. */
+async function getClients() {
+  try {
+    const rows = await sanityClient.fetch(
+      `*[_type == "clientShowcase"]{
+        title, clientName, category, "slug": slug,
+        "before": keyTakeaways[0].description,
+        "metrics": successRate[]{title, subtitle}
+      }`,
+    );
+
+    return rows
+      .map((r) => {
+        const slug = typeof r.slug === "string" ? r.slug : r.slug?.current;
+        const after = (r.metrics ?? [])
+          .filter((m) => m?.title && m?.subtitle)
+          .slice(0, 2)
+          .map((m) => ({ value: m.title, label: m.subtitle }));
+        if (!slug || after.length === 0) return null;
+        return {
+          slug,
+          href: `/projects/${slug}`,
+          clientName: r.clientName ?? r.title,
+          category: r.category ?? "",
+          before: firstSentence(r.before) ?? "",
+          after,
+        };
+      })
+      .filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+export default async function DijagnozaPage() {
+  const [clients, articles] = await Promise.all([
+    getClients(),
+    tryGetArticlesForHome(3),
+  ]);
+
+  return (
+    <DijagnozaGrid
+      clients={clients}
+      articles={articles.map(({ slug, title, publishedAt }) => ({
+        slug,
+        title,
+        publishedAt,
+      }))}
+    />
+  );
+}

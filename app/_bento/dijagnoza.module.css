@@ -1,0 +1,1052 @@
+/* The homepage as a diagnostic. One answer drives the diagram, the gap,
+   the case study, the objection and the contact form. The page also warms
+   from grey to blue across the track, so finishing it is the payoff. */
+
+.stage {
+  --progress: 0;
+  --ink: #16161a;
+  --ink-2: rgba(22, 22, 26, 0.58);
+  --ink-3: rgba(22, 22, 26, 0.42);
+  --grey: #e7e7ea;
+  --card: #fff;
+  --line: #dcdcdf;
+  --blue: #2a29ff;
+  --lime: #c8f072;
+  --danger: #b42318;
+
+  /* Cap the card height; without it the chapters stretch to the window. */
+  --h: clamp(430px, calc(100svh - 190px), 700px);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--grey);
+  color: var(--ink);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, #1a19d8, var(--blue) 55%, #4a49ff);
+  opacity: calc(var(--progress) * var(--progress) * 0.97);
+  pointer-events: none;
+}
+
+/* ── bar ─────────────────────────────────────────────────── */
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 34px 0;
+  flex: none;
+}
+
+.logo {
+  height: 22px;
+  width: auto;
+  filter: invert(var(--progress));
+}
+
+/* These sit on the wash, so they travel with it. */
+.hint,
+.reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: color-mix(
+    in srgb,
+    #fff calc(var(--progress) * 100%),
+    rgba(22, 22, 26, 0.45)
+  );
+}
+
+.reset {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid
+    color-mix(
+      in srgb,
+      rgba(255, 255, 255, 0.4) calc(var(--progress) * 100%),
+      var(--line)
+    );
+  background: none;
+  cursor: pointer;
+}
+
+.hintArrow {
+  display: flex;
+  animation: nudge 1.8s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hintArrow {
+    animation: none;
+  }
+}
+
+/* ── track ───────────────────────────────────────────────── */
+.track {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 18px 34px 40px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  cursor: grab;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+.track[data-dragging] {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.chapter {
+  flex: 0 0 auto;
+  width: var(--w, 330px);
+  height: var(--h);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-height: 0;
+}
+
+.chapterHead {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  flex: none;
+}
+
+.chapterNum {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: color-mix(
+    in srgb,
+    var(--lime) calc(var(--progress) * 100%),
+    var(--blue)
+  );
+}
+
+.chapterTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: color-mix(
+    in srgb,
+    #fff calc(var(--progress) * 100%),
+    rgba(22, 22, 26, 0.45)
+  );
+}
+
+.chapterBody {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+/* ── card base ───────────────────────────────────────────── */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  border-radius: 24px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+a.card {
+  transition: transform 0.18s ease;
+}
+a.card:hover {
+  transform: translateY(-2px);
+}
+
+.eyebrow,
+.eyebrowLight {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.smallNote {
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--ink-2);
+}
+
+.round {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+}
+
+a.card:hover .round {
+  background: var(--blue);
+  color: #fff;
+  border-color: transparent;
+}
+
+.allLink {
+  flex: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 13px 13px 19px;
+  font-size: 14.5px;
+  font-weight: 650;
+}
+
+/* ── 01 the question ─────────────────────────────────────── */
+.question {
+  flex: 1;
+  justify-content: flex-end;
+  padding: 26px;
+}
+.kicker {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--ink-3);
+}
+
+.questionTitle {
+  margin: auto 0 0;
+  font-size: 34px;
+  font-weight: 650;
+  line-height: 1.06;
+  letter-spacing: -0.05em;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 20px;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 11px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #fafafb;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  transition:
+    border-color 0.16s ease,
+    background 0.16s ease;
+}
+
+.option:hover {
+  border-color: var(--blue);
+}
+
+.optionOn {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+.optionLabel {
+  font-size: 14.5px;
+  font-weight: 700;
+}
+.optionSub {
+  font-size: 11.5px;
+  color: var(--ink-2);
+}
+.optionOn .optionSub {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── 02 the system ───────────────────────────────────────── */
+.diagramCard {
+  flex: 1;
+  justify-content: center;
+  gap: 14px;
+  padding: 22px 26px;
+}
+.diagram {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.diagramNote {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+.wires {
+  fill: none;
+}
+
+.wire {
+  stroke: var(--blue);
+  stroke-width: 2;
+  stroke-dasharray: 6 8;
+  opacity: 0.4;
+  transition:
+    opacity 0.4s ease,
+    stroke 0.4s ease;
+}
+
+/* Answered: what they have runs solid, what's missing stays dashed. */
+.wireOn {
+  stroke-dasharray: none;
+  opacity: 0.9;
+  stroke-width: 2.6;
+}
+
+.wireOff {
+  opacity: 0.28;
+  animation: flow 1.6s linear infinite;
+  animation-delay: var(--d, 0s);
+}
+
+.wireOut {
+  stroke: var(--blue);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wireOff {
+    animation: none;
+  }
+}
+
+.node {
+  fill: #f4f4f7;
+  stroke: var(--line);
+  stroke-width: 1.5;
+  transition:
+    fill 0.4s ease,
+    stroke 0.4s ease;
+}
+
+.nodeOn {
+  fill: rgba(42, 41, 255, 0.1);
+  stroke: var(--blue);
+}
+.nodeOff {
+  fill: transparent;
+  stroke: rgba(22, 22, 26, 0.18);
+  stroke-dasharray: 5 5;
+}
+
+.nodeDot {
+  fill: rgba(22, 22, 26, 0.25);
+  transition: fill 0.4s ease;
+}
+.dotOn {
+  fill: var(--blue);
+}
+
+.nodeText {
+  fill: var(--ink);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.3px;
+}
+
+.nodeTextOff {
+  fill: var(--ink-3);
+}
+
+.nodeAdd {
+  fill: var(--blue);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.hubHalo {
+  fill: rgba(42, 41, 255, 0.1);
+}
+.hub {
+  fill: var(--blue);
+}
+
+.hubText {
+  fill: #fff;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.outNode {
+  fill: #0b0b0f;
+}
+
+.outLabel {
+  fill: rgba(255, 255, 255, 0.55);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.outText {
+  fill: #fff;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.roleRow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+  flex: none;
+}
+
+.role {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 11px;
+  border-radius: 15px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  transition: opacity 0.3s ease;
+}
+
+/* The gaps are what matters once answered, so the rest recedes. */
+.roleGap {
+  border-color: var(--blue);
+  background: rgba(42, 41, 255, 0.05);
+}
+.roleTitle {
+  font-size: 12.5px;
+  font-weight: 750;
+}
+.roleNote {
+  font-size: 11px;
+  line-height: 1.3;
+  color: var(--ink-2);
+}
+
+/* ── 03 the gap ──────────────────────────────────────────── */
+.gap {
+  flex: 1;
+  justify-content: flex-end;
+  gap: 12px;
+  background: #0b0b0f;
+  border-color: transparent;
+  color: #fff;
+  padding: 26px;
+}
+
+.eyebrowLight {
+  color: rgba(255, 255, 255, 0.55);
+}
+.gapTitle {
+  margin: auto 0 0;
+  font-size: 26px;
+  font-weight: 650;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+}
+.gapBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* ── 04 the matching proof ───────────────────────────────── */
+.proof {
+  flex: 1;
+  gap: 9px;
+}
+.proofClient {
+  font-size: 17px;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+.proofCat {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.proofBefore {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.proofRule {
+  height: 1px;
+  background: var(--line);
+  margin-top: auto;
+}
+.metricRow {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+}
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.metricValue {
+  font-size: 28px;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--blue);
+}
+
+.metricLabel {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink-2);
+  max-width: 16ch;
+}
+.proofArrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: var(--ink-3);
+}
+
+/* ── 05 objection ────────────────────────────────────────── */
+.objection {
+  flex: 1;
+  justify-content: center;
+  gap: 14px;
+}
+.objQ {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+.objA {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+/* ── 06 process ──────────────────────────────────────────── */
+.process {
+  flex: 1;
+}
+.stepList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.stepItem {
+  display: flex;
+  gap: 11px;
+  flex: 1;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+
+.stepItem:first-child {
+  border-top: none;
+}
+.stepNum {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+.stepTitle {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+.stepNote {
+  display: block;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--ink-2);
+}
+
+/* ── 07 sitnice ──────────────────────────────────────────── */
+.funGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 9px;
+  min-height: 0;
+}
+
+.ask {
+  grid-row: span 2;
+  justify-content: space-between;
+}
+.askText {
+  margin: 10px 0 0;
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+}
+
+.askMore {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--ink);
+}
+
+.askMore:hover {
+  background: var(--blue);
+  color: #fff;
+  border-color: transparent;
+}
+
+.clock {
+  justify-content: flex-end;
+}
+.clockTime {
+  margin: auto 0 4px;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.buzz {
+  justify-content: flex-end;
+}
+
+.buzzWord {
+  margin: auto 0 4px;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--ink-3);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  animation: swap 0.4s ease;
+}
+
+@keyframes swap {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── 08 posts ────────────────────────────────────────────── */
+.postCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-height: 0;
+}
+.post {
+  flex: 1;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.postTitle {
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.22;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.postFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── 09 contact ──────────────────────────────────────────── */
+.contact {
+  flex: 1;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 26px;
+  border-color: var(--blue);
+  color: #fff;
+  background:
+    radial-gradient(
+      circle at 1.5px 1.5px,
+      rgba(255, 255, 255, 0.14) 1.5px,
+      transparent 0
+    )
+    0 0 / 18px 18px,
+    var(--blue);
+}
+
+.contactTitle {
+  margin: auto 0 0;
+  font-size: 27px;
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+}
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.field {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.12);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #fff;
+  outline: none;
+  resize: none;
+}
+
+.field::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.field:focus {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 7px 7px 19px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: #fff;
+  color: #171717;
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 650;
+}
+
+.send:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.sendIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+}
+
+.note {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.7);
+}
+.noteError {
+  color: #ffd9d4;
+}
+
+.direct {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.direct a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 650;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+}
+
+/* ── phones ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .stage {
+    height: auto;
+    overflow: visible;
+  }
+  .wash {
+    position: fixed;
+    opacity: 1;
+  }
+  .logo {
+    filter: invert(1);
+  }
+  .hint {
+    display: none;
+  }
+  .reset {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .bar {
+    padding: 16px 16px 0;
+  }
+
+  .track {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    padding: 16px 16px 40px;
+    overflow: visible;
+    cursor: auto;
+  }
+
+  .chapter {
+    width: auto;
+    height: auto;
+  }
+  .chapterTitle {
+    color: rgba(255, 255, 255, 0.66);
+  }
+  .chapterNum {
+    color: var(--lime);
+  }
+
+  .card,
+  .role {
+    background: rgba(255, 255, 255, 0.11);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: #fff;
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .eyebrow,
+  .kicker,
+  .proofCat,
+  .optionSub {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .smallNote,
+  .roleNote,
+  .stepNote,
+  .objA,
+  .proofBefore,
+  .metricLabel,
+  .optionLabel {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .questionTitle {
+    font-size: 28px;
+  }
+  .option {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: #fff;
+  }
+  .optionOn {
+    background: var(--lime);
+    border-color: var(--lime);
+    color: #0b0b0f;
+  }
+  .optionOn .optionSub,
+  .optionOn .optionLabel {
+    color: rgba(11, 11, 15, 0.72);
+  }
+
+  .metricValue,
+  .stepNum,
+  .nodeAdd {
+    color: var(--lime);
+  }
+  .proofRule {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .stepItem {
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+  .round,
+  .askMore {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.24);
+    color: #fff;
+  }
+  .buzzWord {
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .roleGap {
+    border-color: var(--lime);
+    background: rgba(200, 240, 114, 0.12);
+  }
+
+  /* The diagram is wired left to right; let it scroll rather than shrink. */
+  .diagramCard {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .diagramCard::-webkit-scrollbar {
+    display: none;
+  }
+  .diagram {
+    min-width: 580px;
+  }
+  .diagramNote {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .node {
+    fill: rgba(255, 255, 255, 0.12);
+    stroke: rgba(255, 255, 255, 0.24);
+  }
+  .nodeOn {
+    fill: rgba(200, 240, 114, 0.2);
+    stroke: var(--lime);
+  }
+  .nodeOff {
+    fill: transparent;
+    stroke: rgba(255, 255, 255, 0.3);
+  }
+  .nodeText {
+    fill: #fff;
+  }
+  .nodeTextOff {
+    fill: rgba(255, 255, 255, 0.55);
+  }
+  .nodeDot {
+    fill: rgba(255, 255, 255, 0.4);
+  }
+  .dotOn,
+  .hub {
+    fill: var(--lime);
+  }
+  .hubText {
+    fill: #0b0b0f;
+  }
+  .hubHalo {
+    fill: rgba(200, 240, 114, 0.16);
+  }
+  .wire,
+  .wireOut {
+    stroke: var(--lime);
+  }
+  .outNode {
+    fill: #0b0b0f;
+  }
+
+  .roleRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .funGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+  .ask {
+    grid-row: auto;
+  }
+  .gap,
+  .contact {
+    background: #0b0b0f;
+    border-color: transparent;
+  }
+  .gapTitle {
+    font-size: 22px;
+  }
+}

@@ -7,7 +7,15 @@ export const metadata = {
 
 const CONCEPTS = [
   {
+    href: "/bento/dijagnoza",
+    name: "Odakle vam stižu klijenti?",
+    layout: "Dijagnostika, horizontalno",
+    note: "Početna prestaje da bude brošura. Jedan odgovor vodi sve ostalo: dijagram se popunjava prema vama, imenuje se rupa, bira se studija slučaja koja liči na vas, odgovara se na primedbu koju ćete pomisliti, i forma stiže već napola napisana.",
+    lead: true,
+  },
+  {
     href: "/bento/final",
+    muted: true,
     name: "Jedan sistem → rezultat",
     layout: "Horizontalno, osam poglavlja",
     note: "Finalni pravac: dijagram sistema i pre/posle spojeni u jednu priču. Numerisana poglavlja daju red, strana se greje iz sive u plavu kako prolazite, a svaki klijent ima jednu karticu sa pre i posle zajedno.",
