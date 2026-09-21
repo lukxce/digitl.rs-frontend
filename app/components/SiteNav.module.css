@@ -1,3 +1,9 @@
+/* The bento layout test marks itself with data-bento and supplies its own
+   chrome; :has() avoids the hydration flash a usePathname check would give. */
+body:has([data-bento]) .header {
+  display: none;
+}
+
 .header {
   border-bottom: 1px solid var(--nav-border, #ebebeb);
   position: fixed;

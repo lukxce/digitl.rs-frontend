@@ -1,0 +1,1027 @@
+/* digitl.rs bento — horizontal card grid on desktop, 2-up stack on phones. */
+
+.stage {
+  /* Light palette. Dark redefines only these tokens, never component rules. */
+  --ink: #171717;
+  --ink-2: rgba(23, 23, 23, 0.62);
+  --ink-3: rgba(23, 23, 23, 0.5);
+  --page: #fff;
+  --card: #f6f6f6;
+  --raised: #fff;
+  --line: #e8e8e8;
+  --blue: #2a29ff;
+  --blue-deep: #221fc9;
+  --danger: #b42318;
+  --contrast-bg: #171717;
+  --contrast-ink: #fff;
+  --contrast-ink-2: rgba(255, 255, 255, 0.58);
+  --contrast-line: rgba(255, 255, 255, 0.16);
+
+  /* The logo PNG is black artwork; flip it when the surface goes dark. */
+  --logo-invert: 0;
+
+  --radius: 28px;
+  --h: clamp(430px, calc(100svh - 176px), 660px);
+
+  color-scheme: light;
+  background: var(--page);
+  container: bento / inline-size;
+}
+
+@media (prefers-color-scheme: dark) {
+  .stage:not([data-theme="light"]) {
+    --ink: #f4f4f6;
+    --ink-2: rgba(244, 244, 246, 0.64);
+    --ink-3: rgba(244, 244, 246, 0.46);
+    --page: #0b0b0d;
+    --card: #151518;
+    --raised: #1f1f24;
+    --line: rgba(255, 255, 255, 0.09);
+    --blue: #5f5dff;
+    --danger: #ff8078;
+    --contrast-bg: #f4f4f6;
+    --contrast-ink: #0b0b0d;
+    --contrast-ink-2: rgba(11, 11, 13, 0.62);
+    --contrast-line: rgba(11, 11, 13, 0.14);
+    --logo-invert: 1;
+    color-scheme: dark;
+  }
+}
+
+.stage[data-theme="dark"] {
+  --ink: #f4f4f6;
+  --ink-2: rgba(244, 244, 246, 0.64);
+  --ink-3: rgba(244, 244, 246, 0.46);
+  --page: #0b0b0d;
+  --card: #151518;
+  --raised: #1f1f24;
+  --line: rgba(255, 255, 255, 0.09);
+  --blue: #5f5dff;
+  --danger: #ff8078;
+  --contrast-bg: #f4f4f6;
+  --contrast-ink: #0b0b0d;
+  --contrast-ink-2: rgba(11, 11, 13, 0.62);
+  --contrast-line: rgba(11, 11, 13, 0.14);
+  --logo-invert: 1;
+  color-scheme: dark;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  overflow: hidden;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--page);
+  letter-spacing: -0.02em;
+}
+
+/* ── top bar ─────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  padding: 26px 40px 0;
+}
+
+.scrollHint {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+.progress {
+  --progress: 0;
+  display: block;
+  width: 120px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--blue);
+  transform: scaleX(calc(0.06 + var(--progress) * 0.94));
+  transform-origin: left center;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--raised);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.themeToggle:hover {
+  color: var(--ink);
+}
+
+/* ── track & columns ─────────────────────────────────────── */
+.track {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 40px 56px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  cursor: grab;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+.track[data-dragging] {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 0 0 auto;
+  height: var(--h);
+}
+
+/* Cards share their column's height, so every column ends flush with the
+   others whatever the window height. A fixed height would only line up at
+   the one viewport it was measured at, since --h is a clamp(). */
+.col > .card {
+  flex: 1;
+  min-height: 0;
+}
+.col > .allLink {
+  flex: none;
+}
+
+.col[data-col="intro"] {
+  width: 400px;
+}
+.col[data-col="services"] {
+  width: 320px;
+}
+.col[data-col="work"] {
+  width: 420px;
+}
+.col[data-col="process"] {
+  width: 330px;
+}
+.col[data-col="journal"] {
+  width: 310px;
+}
+.col[data-col="end"] {
+  width: 320px;
+}
+
+/* The carousel takes the slack so this column ends flush with the rest. */
+.col[data-col="work"] > .work {
+  flex: 1;
+  min-height: 240px;
+}
+.col[data-col="work"] > .allLink {
+  flex: none;
+}
+
+.col[data-col="journal"] > .article {
+  flex: 1;
+  min-height: 0;
+}
+.col[data-col="journal"] > .allLink {
+  flex: none;
+}
+
+/* Four tiles in a 2×2 that always fills the column's height exactly. */
+.col[data-col="tiles"] {
+  width: 520px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto 1fr;
+}
+
+/* The FAQ is the only tile with enough copy to want the full width. */
+.col[data-col="tiles"] > .faq {
+  grid-column: 1 / -1;
+}
+
+/* ── card base ───────────────────────────────────────────── */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}
+
+a.card {
+  transition:
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+a.card:hover {
+  border-color: var(--ink-3);
+  transform: translateY(-2px);
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.strong {
+  font-weight: 650;
+  font-size: 15px;
+  color: var(--ink);
+}
+.muted {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  line-height: 1.35;
+}
+
+.roundLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--raised);
+  color: var(--ink);
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+a.card:hover .roundLink {
+  background: var(--blue);
+  color: #fff;
+  border-color: transparent;
+}
+
+.cornerArrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: inherit;
+  opacity: 0.6;
+}
+
+/* ── intro ───────────────────────────────────────────────── */
+.intro {
+  justify-content: space-between;
+  padding: 26px;
+}
+.introLogo {
+  width: 104px;
+  height: auto;
+  object-fit: contain;
+  filter: invert(var(--logo-invert));
+}
+
+.introTitle {
+  margin: 18px 0 0;
+  font-size: 40px;
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+  font-weight: 650;
+}
+
+.introBody {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.tag {
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--raised);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.introCta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 12px 12px 12px 20px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+
+.introCta:hover {
+  background: var(--blue-deep);
+}
+
+.ctaArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ── services & process ──────────────────────────────────── */
+.serviceList,
+.stepList {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.serviceItem,
+.stepItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.serviceItem:first-child,
+.stepItem:first-child {
+  border-top: none;
+}
+
+.serviceIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  color: var(--blue);
+}
+
+.serviceIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.stepNum {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.serviceText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* ── work carousel ───────────────────────────────────────── */
+.work {
+  padding: 10px 10px 0;
+}
+
+.slidesViewport {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--raised);
+}
+
+.slides {
+  display: flex;
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+}
+.cover {
+  object-fit: cover;
+}
+
+.slideControls {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slideButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.9);
+  color: #171717;
+}
+
+.dots {
+  display: flex;
+  gap: 5px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.55);
+  transition: width 0.25s ease;
+}
+
+.dotActive {
+  width: 18px;
+  background: #fff;
+}
+
+.workFoot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.workFoot .roundLink {
+  margin-left: auto;
+}
+.thumb {
+  border-radius: 11px;
+  object-fit: cover;
+}
+
+/* ── all-x link rows ─────────────────────────────────────── */
+.allLink {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px 14px 20px;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+/* ── articles ────────────────────────────────────────────── */
+.article {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.articleTitle {
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.articleFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* ── tiles ───────────────────────────────────────────────── */
+.clients {
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.logoRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+}
+.clientLogo {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.75;
+  filter: invert(var(--logo-invert));
+}
+.clientName {
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--raised);
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+.worldwide {
+  background: var(--contrast-bg);
+  border-color: transparent;
+  color: var(--contrast-ink);
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.worldwide .eyebrow[data-on-dark] {
+  color: var(--contrast-ink-2);
+}
+.worldwide .muted[data-on-dark] {
+  color: var(--contrast-ink-2);
+}
+.worldwideTitle {
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+a.worldwide:hover {
+  border-color: transparent;
+}
+
+.faq {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.faq::-webkit-scrollbar {
+  display: none;
+}
+.faqList {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+.faqItem {
+  border-top: 1px solid var(--line);
+}
+.faqItem:first-child {
+  border-top: none;
+}
+
+.faqQ {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.faqSign {
+  color: var(--blue);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.faqA {
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+/* ── forms ───────────────────────────────────────────────── */
+.newsletter {
+  justify-content: center;
+  gap: 8px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 6px 6px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--raised);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.input::placeholder {
+  color: var(--ink-3);
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: var(--ink);
+  color: var(--page);
+  transition: background 0.18s ease;
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--blue);
+}
+.submit:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+.formNote {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink-2);
+}
+.formError {
+  color: var(--danger);
+}
+
+.contact {
+  justify-content: space-between;
+  gap: 16px;
+  padding: 26px 24px;
+  border-color: var(--blue);
+  color: #fff;
+  background:
+    radial-gradient(
+      circle at 1.5px 1.5px,
+      rgba(255, 255, 255, 0.14) 1.5px,
+      transparent 0
+    )
+    0 0 / 18px 18px,
+    var(--blue);
+}
+
+.contact .eyebrow {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.contactTitle {
+  margin: auto 0 0;
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1.16;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.contactInput,
+.contactArea {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.12);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  outline: none;
+  resize: none;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.contactArea {
+  min-height: 64px;
+}
+
+.contactInput::placeholder,
+.contactArea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.contactInput:focus,
+.contactArea:focus {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.contactSubmit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 2px;
+  padding: 8px 8px 8px 20px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: #fff;
+  color: #171717;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.contactSubmitIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+}
+.contactSubmit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.contactDirect {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.contactDirect a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.contactDirect a:hover {
+  color: var(--blue);
+}
+
+/* ── phones: the track stops scrolling sideways and stacks ─ */
+@container bento (max-width: 899px) {
+  .root {
+    height: auto;
+    overflow: visible;
+  }
+
+  .topbar {
+    padding: 20px 16px 0;
+  }
+  .scrollHint span:first-child {
+    display: none;
+  }
+  .progress {
+    display: none;
+  }
+
+  .track {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    gap: 10px;
+    padding: 20px 16px 60px;
+    overflow: visible;
+    cursor: auto;
+  }
+
+  /* Columns stop being columns: every card joins one 2-up grid. */
+  .col,
+  .col[data-col="intro"],
+  .col[data-col="services"],
+  .col[data-col="work"],
+  .col[data-col="process"],
+  .col[data-col="journal"],
+  .col[data-col="tiles"],
+  .col[data-col="end"] {
+    display: contents;
+    width: auto;
+    height: auto;
+  }
+
+  /* display:contents does not change what `>` matches, so these selectors
+     still need the .col in the middle. */
+  .track > .col > * {
+    grid-column: span 2;
+  }
+
+  .card {
+    padding: 18px;
+    border-radius: 24px;
+  }
+  .track > .col > .work {
+    padding: 8px 8px 0;
+    min-height: 0;
+  }
+  .slidesViewport {
+    aspect-ratio: 4 / 3;
+    flex: none;
+  }
+
+  .introTitle {
+    font-size: 34px;
+  }
+
+  /* Clients and worldwide read fine side by side; the rest want full width. */
+  .track > .col > .clients,
+  .track > .col > .worldwide {
+    grid-column: span 1;
+  }
+
+  .worldwide {
+    min-height: 130px;
+  }
+  .faq {
+    overflow: visible;
+  }
+
+  .track > .col > .article {
+    min-height: 120px;
+  }
+}
+
+@container bento (max-width: 460px) {
+  .track {
+    padding: 16px 12px 52px;
+  }
+  .introTitle {
+    font-size: 30px;
+  }
+  .track > .col > .clients,
+  .track > .col > .worldwide {
+    grid-column: span 2;
+  }
+}
+
+/* ── direct contact tile ─────────────────────────────────── */
+.direct {
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.directRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.directRow:first-of-type {
+  margin-top: 12px;
+}
+
+.directIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  color: var(--blue);
+}
+
+.directRow:hover .strong {
+  color: var(--blue);
+}
+
+/* Status line sits on the blue card, so it can't use --ink tokens. */
+.contact .formNote {
+  color: rgba(255, 255, 255, 0.66);
+}
+.contact .formError {
+  color: #ffd9d4;
+}
+
+/* Oversized, very faint logo mark — the same trick the lukxce digitl card
+   uses, so the brand reads without another visible logo. */
+.introGlyph {
+  position: absolute;
+  top: -30px;
+  right: -34px;
+  width: 210px;
+  height: 210px;
+  background: var(--ink);
+  opacity: 0.05;
+  -webkit-mask: url("/digitl-logo.png") center / contain no-repeat;
+  mask: url("/digitl-logo.png") center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* Dot grid on the dark cross-link tile too. */
+.worldwide {
+  background:
+    radial-gradient(
+      circle at 1.5px 1.5px,
+      var(--contrast-line) 1.5px,
+      transparent 0
+    )
+    0 0 / 18px 18px,
+    var(--contrast-bg);
+}
