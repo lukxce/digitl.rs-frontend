@@ -1,21 +1,22 @@
-/* The homepage as a diagnostic. One answer drives the diagram, the gap,
-   the case study, the objection and the contact form. The page also warms
-   from grey to blue across the track, so finishing it is the payoff. */
+/* The homepage as a diagnostic. Hero, one question, and everything after
+   it reacts to the answer. Warms grey -> blue across the track. */
 
 .stage {
   --progress: 0;
   --ink: #16161a;
-  --ink-2: rgba(22, 22, 26, 0.58);
+  --ink-2: rgba(22, 22, 26, 0.6);
   --ink-3: rgba(22, 22, 26, 0.42);
-  --grey: #e7e7ea;
+  --grey: #e9e9ec;
   --card: #fff;
-  --line: #dcdcdf;
+  --raised: #f5f5f8;
+  --line: #dedee2;
   --blue: #2a29ff;
+  --blue-deep: #1d1cc4;
   --lime: #c8f072;
   --danger: #b42318;
-
-  /* Cap the card height; without it the chapters stretch to the window. */
-  --h: clamp(430px, calc(100svh - 190px), 700px);
+  --shadow:
+    0 1px 2px rgba(16, 16, 24, 0.04), 0 12px 32px -18px rgba(16, 16, 24, 0.25);
+  --h: clamp(440px, calc(100svh - 190px), 680px);
 
   position: relative;
   display: flex;
@@ -52,7 +53,6 @@
   filter: invert(var(--progress));
 }
 
-/* These sit on the wash, so they travel with it. */
 .hint,
 .reset {
   display: inline-flex;
@@ -64,20 +64,24 @@
   color: color-mix(
     in srgb,
     #fff calc(var(--progress) * 100%),
-    rgba(22, 22, 26, 0.45)
+    rgba(22, 22, 26, 0.5)
   );
 }
 
 .reset {
-  padding: 6px 14px;
+  padding: 7px 14px;
   border-radius: 999px;
   border: 1px solid
     color-mix(
       in srgb,
-      rgba(255, 255, 255, 0.4) calc(var(--progress) * 100%),
+      rgba(255, 255, 255, 0.45) calc(var(--progress) * 100%),
       var(--line)
     );
-  background: none;
+  background: color-mix(
+    in srgb,
+    rgba(255, 255, 255, 0.12) calc(var(--progress) * 100%),
+    #fff
+  );
   cursor: pointer;
 }
 
@@ -85,7 +89,6 @@
   display: flex;
   animation: nudge 1.8s ease-in-out infinite;
 }
-
 @keyframes nudge {
   0%,
   100% {
@@ -96,20 +99,14 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hintArrow {
-    animation: none;
-  }
-}
-
-/* ── track ───────────────────────────────────────────────── */
+/* ── track & chapters ────────────────────────────────────── */
 .track {
   position: relative;
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 18px 34px 40px;
+  gap: 22px;
+  padding: 16px 34px 40px;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
@@ -137,16 +134,19 @@
 
 .chapterHead {
   display: flex;
-  align-items: baseline;
-  gap: 9px;
+  align-items: center;
+  gap: 8px;
   flex: none;
 }
 
 .chapterNum {
-  font-size: 11px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  font-size: 10.5px;
   font-weight: 800;
-  letter-spacing: 0.1em;
-  color: color-mix(
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, #0b0b0f calc(var(--progress) * 100%), #fff);
+  background: color-mix(
     in srgb,
     var(--lime) calc(var(--progress) * 100%),
     var(--blue)
@@ -154,14 +154,14 @@
 }
 
 .chapterTitle {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: color-mix(
     in srgb,
     #fff calc(var(--progress) * 100%),
-    rgba(22, 22, 26, 0.45)
+    rgba(22, 22, 26, 0.5)
   );
 }
 
@@ -182,16 +182,22 @@
   border-radius: 24px;
   background: var(--card);
   border: 1px solid var(--line);
+  box-shadow: var(--shadow);
   color: inherit;
   text-decoration: none;
   overflow: hidden;
 }
 
 a.card {
-  transition: transform 0.18s ease;
+  transition:
+    transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.2s ease;
 }
 a.card:hover {
   transform: translateY(-2px);
+  box-shadow:
+    0 1px 2px rgba(16, 16, 24, 0.05),
+    0 18px 40px -18px rgba(16, 16, 24, 0.35);
 }
 
 .eyebrow,
@@ -220,6 +226,9 @@ a.card:hover {
   border: 1px solid var(--line);
   background: var(--card);
   color: var(--ink);
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
 }
 
 a.card:hover .round {
@@ -233,83 +242,221 @@ a.card:hover .round {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 13px 13px 13px 19px;
-  font-size: 14.5px;
+  padding: 12px 12px 12px 18px;
+  font-size: 14px;
   font-weight: 650;
 }
 
-/* ── 01 the question ─────────────────────────────────────── */
-.question {
+.stage button {
+  font: inherit;
+}
+.stage :is(button, a, input, textarea):focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ── 01 hero ─────────────────────────────────────────────── */
+.hero {
   flex: 1;
   justify-content: flex-end;
-  padding: 26px;
+  padding: 30px;
+  isolation: isolate;
 }
-.kicker {
-  margin: 0;
-  font-size: 13px;
+
+.heroBlobA,
+.heroBlobB {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(46px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.heroBlobA {
+  width: 260px;
+  height: 260px;
+  top: -90px;
+  right: -70px;
+  background: rgba(42, 41, 255, 0.35);
+}
+.heroBlobB {
+  width: 200px;
+  height: 200px;
+  top: 60px;
+  right: 60px;
+  background: rgba(200, 240, 114, 0.7);
+}
+
+.heroTitle {
+  margin: auto 0 0;
+  font-size: 42px;
   font-weight: 650;
-  color: var(--ink-3);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--blue);
+}
+.heroBody {
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  max-width: 32ch;
+}
+.heroRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 20px;
+  border: none;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.heroCta:hover {
+  background: var(--blue-deep);
+  transform: translateY(-1px);
+}
+
+.heroCtaIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.heroGhost {
+  padding: 11px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.heroGhost:hover {
+  border-color: var(--ink-3);
+}
+
+.heroStrip {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  margin: 22px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+.heroStrip strong {
+  color: var(--ink);
+  font-weight: 750;
+  margin-right: 3px;
+}
+
+/* ── 02 question ─────────────────────────────────────────── */
+.question {
+  flex: 1;
+  gap: 6px;
+  padding: 24px;
 }
 
 .questionTitle {
-  margin: auto 0 0;
-  font-size: 34px;
+  margin: 8px 0 0;
+  font-size: 27px;
   font-weight: 650;
-  line-height: 1.06;
-  letter-spacing: -0.05em;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
 }
 
 .options {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 7px;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .option {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  padding: 11px 16px;
-  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px 9px 9px;
+  border-radius: 999px;
   border: 1px solid var(--line);
-  background: #fafafb;
+  background: var(--raised);
   cursor: pointer;
-  text-align: left;
-  font: inherit;
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--ink);
   transition:
     border-color 0.16s ease,
-    background 0.16s ease;
+    background 0.16s ease,
+    transform 0.16s ease;
 }
 
 .option:hover {
   border-color: var(--blue);
+  transform: translateY(-1px);
 }
-
 .optionOn {
   background: var(--blue);
   border-color: var(--blue);
   color: #fff;
 }
 
-.optionLabel {
-  font-size: 14.5px;
-  font-weight: 700;
-}
-.optionSub {
-  font-size: 11.5px;
-  color: var(--ink-2);
-}
-.optionOn .optionSub {
-  color: rgba(255, 255, 255, 0.7);
+.optionCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  color: var(--blue);
+  flex-shrink: 0;
 }
 
-/* ── 02 the system ───────────────────────────────────────── */
-.diagramCard {
+.optionOn .optionCheck {
+  border-color: transparent;
+}
+.questionNote {
+  margin: auto 0 0;
+  padding-top: 14px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+/* ── 03 system ───────────────────────────────────────────── */
+.systemCard {
   flex: 1;
   justify-content: center;
-  gap: 14px;
-  padding: 22px 26px;
+  gap: 10px;
+  padding: 18px 22px 14px;
 }
 .diagram {
   width: 100%;
@@ -318,7 +465,7 @@ a.card:hover .round {
 }
 .diagramNote {
   margin: 0;
-  font-size: 12px;
+  font-size: 11.5px;
   line-height: 1.4;
   color: var(--ink-2);
   text-align: center;
@@ -327,67 +474,51 @@ a.card:hover .round {
 .wires {
   fill: none;
 }
-
 .wire {
   stroke: var(--blue);
-  stroke-width: 2;
-  stroke-dasharray: 6 8;
+  stroke-width: 1.8;
+  stroke-dasharray: 5 7;
   opacity: 0.4;
-  transition:
-    opacity 0.4s ease,
-    stroke 0.4s ease;
+  transition: opacity 0.4s ease;
 }
-
-/* Answered: what they have runs solid, what's missing stays dashed. */
 .wireOn {
   stroke-dasharray: none;
-  opacity: 0.9;
-  stroke-width: 2.6;
+  opacity: 0.95;
+  stroke-width: 2.4;
 }
-
 .wireOff {
   opacity: 0.28;
   animation: flow 1.6s linear infinite;
   animation-delay: var(--d, 0s);
 }
-
 .wireOut {
   stroke: var(--blue);
-  stroke-width: 3;
+  stroke-width: 2.6;
   stroke-linecap: round;
 }
-
 @keyframes flow {
   to {
-    stroke-dashoffset: -28;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wireOff {
-    animation: none;
+    stroke-dashoffset: -24;
   }
 }
 
 .node {
-  fill: #f4f4f7;
+  fill: var(--raised);
   stroke: var(--line);
-  stroke-width: 1.5;
+  stroke-width: 1.4;
   transition:
     fill 0.4s ease,
     stroke 0.4s ease;
 }
-
 .nodeOn {
   fill: rgba(42, 41, 255, 0.1);
   stroke: var(--blue);
 }
 .nodeOff {
   fill: transparent;
-  stroke: rgba(22, 22, 26, 0.18);
-  stroke-dasharray: 5 5;
+  stroke: rgba(22, 22, 26, 0.2);
+  stroke-dasharray: 4 4;
 }
-
 .nodeDot {
   fill: rgba(22, 22, 26, 0.25);
   transition: fill 0.4s ease;
@@ -399,19 +530,17 @@ a.card:hover .round {
 .nodeText {
   fill: var(--ink);
   font-family: var(--font-manrope), system-ui, sans-serif;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 650;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.2px;
 }
-
 .nodeTextOff {
   fill: var(--ink-3);
 }
-
 .nodeAdd {
   fill: var(--blue);
   font-family: var(--font-manrope), system-ui, sans-serif;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
 }
 
@@ -421,69 +550,277 @@ a.card:hover .round {
 .hub {
   fill: var(--blue);
 }
-
 .hubText {
   fill: #fff;
   font-family: var(--font-manrope), system-ui, sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.3px;
 }
 
 .outNode {
   fill: #0b0b0f;
 }
-
 .outLabel {
   fill: rgba(255, 255, 255, 0.55);
   font-family: var(--font-manrope), system-ui, sans-serif;
-  font-size: 11px;
+  font-size: 9.5px;
   font-weight: 800;
-  letter-spacing: 1.3px;
+  letter-spacing: 1.2px;
 }
-
 .outText {
   fill: #fff;
   font-family: var(--font-manrope), system-ui, sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.3px;
 }
 
-.roleRow {
+/* Service tiles: bigger, clickable, each opens the sheet. */
+.serviceRow {
+  flex: none;
+  height: 172px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 7px;
-  flex: none;
+  gap: 8px;
 }
 
-.role {
+.service {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  padding: 11px;
-  border-radius: 15px;
+  gap: 6px;
+  padding: 14px 13px 12px;
+  border-radius: 18px;
   background: var(--card);
   border: 1px solid var(--line);
-  transition: opacity 0.3s ease;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  text-align: left;
+  color: var(--ink);
+  transition:
+    transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.18s ease;
 }
 
-/* The gaps are what matters once answered, so the rest recedes. */
-.roleGap {
+.service:hover {
+  transform: translateY(-2px);
+  border-color: var(--ink-3);
+}
+.serviceGap {
   border-color: var(--blue);
   background: rgba(42, 41, 255, 0.05);
 }
-.roleTitle {
-  font-size: 12.5px;
-  font-weight: 750;
+
+.serviceIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: rgba(42, 41, 255, 0.08);
+  color: var(--blue);
 }
-.roleNote {
+
+.serviceIcon svg {
+  width: 16px;
+  height: 16px;
+}
+.serviceName {
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.15;
+  margin-top: 2px;
+}
+.serviceRole {
   font-size: 11px;
   line-height: 1.3;
   color: var(--ink-2);
 }
 
-/* ── 03 the gap ──────────────────────────────────────────── */
+.serviceArrow {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.service:hover .serviceArrow {
+  background: var(--blue);
+  color: #fff;
+  border-color: transparent;
+}
+
+.serviceBadge {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── the sheet ───────────────────────────────────────────── */
+.sheetWrap {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.sheetBackdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(10, 10, 16, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  animation: fade 0.2s ease;
+}
+
+.sheet {
+  position: relative;
+  width: min(460px, 100%);
+  padding: 26px;
+  border-radius: 26px;
+  background: #fff;
+  color: #16161a;
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.5);
+  will-change: transform;
+  animation: pop 0.28s cubic-bezier(0.2, 0.9, 0.2, 1.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+.sheetHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.sheetIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(42, 41, 255, 0.08);
+  color: var(--blue);
+}
+
+.sheetIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.sheetClose {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-2);
+}
+
+.sheetTitle {
+  margin: 4px 0 0;
+  font-size: 26px;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+.sheetRole {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 650;
+  color: var(--blue);
+}
+.sheetBody {
+  margin: 6px 0 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.sheetFeeds {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--raised);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sheetFeeds p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+.sheetCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 10px 10px 10px 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.sheetCtaIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* ── 04 gap ──────────────────────────────────────────────── */
 .gap {
   flex: 1;
   justify-content: flex-end;
@@ -493,7 +830,6 @@ a.card:hover .round {
   color: #fff;
   padding: 26px;
 }
-
 .eyebrowLight {
   color: rgba(255, 255, 255, 0.55);
 }
@@ -511,15 +847,75 @@ a.card:hover .round {
   color: rgba(255, 255, 255, 0.68);
 }
 
-/* ── 04 the matching proof ───────────────────────────────── */
-.proof {
+/* ── 05 flip card ────────────────────────────────────────── */
+.flip {
   flex: 1;
-  gap: 9px;
+  min-height: 0;
+  perspective: 1400px;
 }
+
+.flipInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.flipped .flipInner {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  gap: 6px;
+}
+
+.faceFront {
+  background: var(--card);
+}
+.faceBack {
+  transform: rotateY(180deg);
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  justify-content: flex-end;
+}
+
+.faceTag,
+.faceTagLight {
+  align-self: flex-start;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.faceTag {
+  background: var(--raised);
+  color: var(--ink-2);
+}
+.faceTagLight {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
 .proofClient {
-  font-size: 17px;
+  margin-top: 10px;
+  font-size: 19px;
   font-weight: 750;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
+}
+.proofClientLight {
+  margin-top: 10px;
+  font-size: 19px;
+  font-weight: 750;
+  letter-spacing: -0.035em;
 }
 .proofCat {
   font-size: 11.5px;
@@ -528,60 +924,110 @@ a.card:hover .round {
 }
 
 .proofBefore {
-  margin: 8px 0 0;
-  font-size: 13px;
-  line-height: 1.4;
+  margin: 12px 0 0;
+  font-size: 14.5px;
+  line-height: 1.42;
+  font-weight: 550;
   color: var(--ink-2);
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.proofRule {
-  height: 1px;
-  background: var(--line);
+.flipBtn,
+.flipBtnLight {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   margin-top: auto;
+  align-self: flex-start;
+  padding: 9px 9px 9px 16px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 650;
 }
-.metricRow {
+
+.flipBtn {
+  background: var(--ink);
+  color: #fff;
+}
+.flipBtnIcon {
   display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  padding-top: 12px;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+.flipBtnLight {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  padding: 9px 14px;
+}
+
+.metricStack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: auto 0 18px;
 }
 .metric {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
 }
-
 .metricValue {
-  font-size: 28px;
+  font-size: 36px;
   font-weight: 750;
   line-height: 1;
-  letter-spacing: -0.04em;
-  color: var(--blue);
+  letter-spacing: -0.045em;
+  color: var(--lime);
+  font-variant-numeric: tabular-nums;
 }
-
 .metricLabel {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
-  line-height: 1.25;
-  color: var(--ink-2);
-  max-width: 16ch;
-}
-.proofArrow {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  color: var(--ink-3);
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 22ch;
 }
 
-/* ── 05 objection ────────────────────────────────────────── */
+.faceBackFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.faceLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 650;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ── 06 objection ────────────────────────────────────────── */
 .objection {
   flex: 1;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
+  padding: 26px;
+}
+.quoteMark {
+  position: absolute;
+  top: 6px;
+  left: 18px;
+  font-size: 96px;
+  line-height: 1;
+  font-weight: 700;
+  color: rgba(42, 41, 255, 0.1);
+  pointer-events: none;
 }
 .objQ {
   margin: 0;
@@ -597,7 +1043,7 @@ a.card:hover .round {
   color: var(--ink-2);
 }
 
-/* ── 06 process ──────────────────────────────────────────── */
+/* ── 07 process ──────────────────────────────────────────── */
 .process {
   flex: 1;
 }
@@ -609,7 +1055,6 @@ a.card:hover .round {
   flex-direction: column;
   height: 100%;
 }
-
 .stepItem {
   display: flex;
   gap: 11px;
@@ -618,7 +1063,6 @@ a.card:hover .round {
   padding: 8px 0;
   border-top: 1px solid var(--line);
 }
-
 .stepItem:first-child {
   border-top: none;
 }
@@ -640,53 +1084,47 @@ a.card:hover .round {
   color: var(--ink-2);
 }
 
-/* ── 07 sitnice ──────────────────────────────────────────── */
-.funGrid {
+/* ── 08 sitnice: three compact tiles ─────────────────────── */
+.tileRow {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 9px;
   min-height: 0;
 }
-
-.ask {
-  grid-row: span 2;
+.tile {
   justify-content: space-between;
+  gap: 8px;
+  padding: 18px;
 }
 .askText {
-  margin: 10px 0 0;
-  font-size: 19px;
+  margin: 8px 0 0;
+  font-size: 16px;
   font-weight: 650;
-  line-height: 1.18;
-  letter-spacing: -0.035em;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
 }
 
-.askMore {
+.chipBtn {
   align-self: flex-start;
   margin-top: auto;
-  padding: 8px 16px;
+  padding: 7px 13px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--card);
   cursor: pointer;
-  font: inherit;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 650;
   color: var(--ink);
 }
 
-.askMore:hover {
+.chipBtn:hover {
   background: var(--blue);
   color: #fff;
   border-color: transparent;
 }
-
-.clock {
-  justify-content: flex-end;
-}
 .clockTime {
-  margin: auto 0 4px;
+  margin: auto 0 0;
   font-size: 34px;
   font-weight: 700;
   line-height: 1;
@@ -694,15 +1132,11 @@ a.card:hover .round {
   font-variant-numeric: tabular-nums;
 }
 
-.buzz {
-  justify-content: flex-end;
-}
-
 .buzzWord {
-  margin: auto 0 4px;
-  font-size: 19px;
+  margin: auto 0 0;
+  font-size: 17px;
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   color: var(--ink-3);
   text-decoration: line-through;
   text-decoration-thickness: 2px;
@@ -714,13 +1148,9 @@ a.card:hover .round {
     opacity: 0;
     transform: translateY(6px);
   }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
-/* ── 08 posts ────────────────────────────────────────────── */
+/* ── 09 posts ────────────────────────────────────────────── */
 .postCol {
   flex: 1;
   display: flex;
@@ -733,9 +1163,8 @@ a.card:hover .round {
   justify-content: space-between;
   gap: 10px;
 }
-
 .postTitle {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 650;
   line-height: 1.22;
   display: -webkit-box;
@@ -743,14 +1172,13 @@ a.card:hover .round {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 .postFoot {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* ── 09 contact ──────────────────────────────────────────── */
+/* ── 10 contact ──────────────────────────────────────────── */
 .contact {
   flex: 1;
   justify-content: flex-end;
@@ -815,16 +1243,13 @@ a.card:hover .round {
   cursor: pointer;
   background: #fff;
   color: #171717;
-  font: inherit;
   font-size: 14.5px;
   font-weight: 650;
 }
-
 .send:disabled {
   opacity: 0.6;
   cursor: progress;
 }
-
 .sendIcon {
   display: flex;
   align-items: center;
@@ -845,7 +1270,6 @@ a.card:hover .round {
 .noteError {
   color: #ffd9d4;
 }
-
 .direct {
   display: flex;
   flex-direction: column;
@@ -854,7 +1278,6 @@ a.card:hover .round {
   padding-top: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 .direct a {
   display: inline-flex;
   align-items: center;
@@ -863,6 +1286,21 @@ a.card:hover .round {
   font-weight: 650;
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hintArrow,
+  .wireOff,
+  .buzzWord {
+    animation: none;
+  }
+  .flipInner {
+    transition: none;
+  }
+  .sheet,
+  .sheetBackdrop {
+    animation: none;
+  }
 }
 
 /* ── phones ──────────────────────────────────────────────── */
@@ -884,6 +1322,7 @@ a.card:hover .round {
   .reset {
     color: #fff;
     border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.12);
   }
 
   .bar {
@@ -898,7 +1337,6 @@ a.card:hover .round {
     overflow: visible;
     cursor: auto;
   }
-
   .chapter {
     width: auto;
     height: auto;
@@ -907,90 +1345,98 @@ a.card:hover .round {
     color: rgba(255, 255, 255, 0.66);
   }
   .chapterNum {
-    color: var(--lime);
+    background: var(--lime);
+    color: #0b0b0f;
   }
 
   .card,
-  .role {
+  .service {
     background: rgba(255, 255, 255, 0.11);
     border-color: rgba(255, 255, 255, 0.22);
     color: #fff;
+    box-shadow: none;
     padding: 18px;
     border-radius: 20px;
   }
 
   .eyebrow,
-  .kicker,
   .proofCat,
-  .optionSub {
-    color: rgba(255, 255, 255, 0.6);
-  }
   .smallNote,
-  .roleNote,
+  .serviceRole,
   .stepNote,
   .objA,
   .proofBefore,
-  .metricLabel,
-  .optionLabel {
-    color: rgba(255, 255, 255, 0.78);
+  .heroBody,
+  .questionNote,
+  .heroStrip,
+  .diagramNote {
+    color: rgba(255, 255, 255, 0.74);
+  }
+
+  .heroBlobA,
+  .heroBlobB {
+    display: none;
+  }
+  .heroTitle {
+    font-size: 32px;
+  }
+  .heroTitle em {
+    color: var(--lime);
+  }
+  .heroCta {
+    background: var(--lime);
+    color: #0b0b0f;
+  }
+  .heroCta:hover {
+    background: #d7f78f;
+  }
+  .heroCtaIcon {
+    background: rgba(11, 11, 15, 0.12);
+  }
+  .heroGhost {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+  .heroStrip {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .heroStrip strong {
+    color: #fff;
   }
 
   .questionTitle {
-    font-size: 28px;
+    font-size: 24px;
   }
   .option {
-    background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.24);
     color: #fff;
+  }
+  .optionCheck {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #0b0b0f;
   }
   .optionOn {
     background: var(--lime);
     border-color: var(--lime);
     color: #0b0b0f;
   }
-  .optionOn .optionSub,
-  .optionOn .optionLabel {
-    color: rgba(11, 11, 15, 0.72);
-  }
-
-  .metricValue,
-  .stepNum,
-  .nodeAdd {
+  .optionOn .optionCheck {
+    background: #0b0b0f;
     color: var(--lime);
   }
-  .proofRule {
-    background: rgba(255, 255, 255, 0.2);
-  }
-  .stepItem {
-    border-color: rgba(255, 255, 255, 0.16);
-  }
-  .round,
-  .askMore {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.24);
-    color: #fff;
-  }
-  .buzzWord {
-    color: rgba(255, 255, 255, 0.55);
-  }
-  .roleGap {
-    border-color: var(--lime);
-    background: rgba(200, 240, 114, 0.12);
-  }
 
-  /* The diagram is wired left to right; let it scroll rather than shrink. */
-  .diagramCard {
+  /* The diagram scrolls sideways inside its card rather than shrinking. */
+  .systemCard {
     overflow-x: auto;
     scrollbar-width: none;
   }
-  .diagramCard::-webkit-scrollbar {
+  .systemCard::-webkit-scrollbar {
     display: none;
   }
   .diagram {
-    min-width: 580px;
-  }
-  .diagramNote {
-    color: rgba(255, 255, 255, 0.7);
+    min-width: 560px;
   }
   .node {
     fill: rgba(255, 255, 255, 0.12);
@@ -1024,29 +1470,106 @@ a.card:hover .round {
     fill: rgba(200, 240, 114, 0.16);
   }
   .wire,
-  .wireOut {
+  .wireOut,
+  .nodeAdd {
     stroke: var(--lime);
+    fill: var(--lime);
   }
-  .outNode {
-    fill: #0b0b0f;
+  .wire,
+  .wireOut {
+    fill: none;
   }
 
-  .roleRow {
+  .serviceRow {
+    height: auto;
     grid-template-columns: repeat(2, 1fr);
   }
-  .funGrid {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
+  .serviceIcon {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
   }
-  .ask {
-    grid-row: auto;
+  .serviceArrow {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
   }
-  .gap,
-  .contact {
+  .serviceGap {
+    border-color: var(--lime);
+    background: rgba(200, 240, 114, 0.12);
+  }
+  .serviceBadge {
+    background: var(--lime);
+    color: #0b0b0f;
+  }
+
+  .sheetWrap {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .sheet {
+    width: 100%;
+    border-radius: 24px 24px 0 0;
+    padding: 22px 20px 32px;
+  }
+
+  .gap {
     background: #0b0b0f;
     border-color: transparent;
   }
   .gapTitle {
     font-size: 22px;
+  }
+
+  .flip {
+    flex: none;
+    height: 340px;
+  }
+  .faceFront {
+    background: rgba(255, 255, 255, 0.11);
+  }
+  .faceTag {
+    background: rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .flipBtn {
+    background: var(--lime);
+    color: #0b0b0f;
+  }
+  .flipBtnIcon {
+    background: rgba(11, 11, 15, 0.12);
+  }
+  .faceBack {
+    background: #0b0b0f;
+    border-color: transparent;
+  }
+
+  .quoteMark {
+    color: rgba(255, 255, 255, 0.08);
+  }
+  .stepNum {
+    color: var(--lime);
+  }
+  .stepItem {
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  .tileRow {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tileRow > :first-child {
+    grid-column: span 2;
+  }
+  .chipBtn,
+  .round {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.24);
+    color: #fff;
+  }
+  .buzzWord {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .contact {
+    background: #0b0b0f;
+    border-color: transparent;
   }
 }

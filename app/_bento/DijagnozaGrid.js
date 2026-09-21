@@ -3,6 +3,13 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
+  IconBrand,
+  IconMotion,
+  IconProduct,
+  IconStrategy,
+  IconWeb,
+} from "../components/serviceIcons";
+import {
   ArrowIcon,
   CONTACT,
   MailIcon,
@@ -15,31 +22,59 @@ import s from "./dijagnoza.module.css";
 /**
  * The homepage as a diagnostic rather than a brochure.
  *
- * One answer — where your customers come from today — drives everything
- * downstream: which channels light up in the system diagram, which gap is
- * named, which case study is shown, which objection is answered, and what
- * the contact form arrives pre-filled with. The existing content is all
- * still here; none of it is presented as a list.
+ * Hero first, then one question. That answer drives everything after it:
+ * which channels light up in the system, which gap is named, which case
+ * study is shown, which objection is answered, and what the contact form
+ * arrives pre-filled with.
  */
 
-const CHANNELS = [
-  ["ads", "Plaćeno oglašavanje", "Donosi saobraćaj danas."],
-  ["seo", "SEO", "Gradi saobraćaj koji ne plaćate."],
-  ["web", "Web", "Pretvara taj saobraćaj u upite."],
-  ["social", "Društvene mreže", "Drži brend prisutnim između kupovina."],
-  ["brand", "Brend", "Čini da sve ostalo košta manje."],
+const SERVICES = [
+  {
+    id: "ads",
+    Icon: IconProduct,
+    name: "Plaćeno oglašavanje",
+    role: "Donosi saobraćaj danas.",
+    body: "Kampanje na Google-u i mrežama, postavljene i skalirane da donose prodaju, ne samo klikove.",
+    feeds: "Hrani web upitima, a SEO podacima o tome šta ljudi stvarno traže.",
+  },
+  {
+    id: "seo",
+    Icon: IconStrategy,
+    name: "SEO",
+    role: "Gradi saobraćaj koji ne plaćate.",
+    body: "Budite prvi tamo gde kupci traže rešenje, na Google-u i u AI pretrazi.",
+    feeds: "Snižava cenu plaćenog klika i drži upite kad se kampanja ugasi.",
+  },
+  {
+    id: "web",
+    Icon: IconWeb,
+    name: "Web",
+    role: "Pretvara saobraćaj u upite.",
+    body: "Brzi sajtovi napravljeni da konvertuju, da plaćeni saobraćaj pretvore u kupce.",
+    feeds: "Bez njega svaki drugi kanal plaća za posetu koja ne postane poziv.",
+  },
+  {
+    id: "social",
+    Icon: IconMotion,
+    name: "Društvene mreže",
+    role: "Drži brend prisutnim između kupovina.",
+    body: "Dosledan brend na mrežama koji podržava sve ostale kanale.",
+    feeds: "Čini da vas kupac prepozna kad vas nađe u pretrazi ili oglasu.",
+  },
+  {
+    id: "brand",
+    Icon: IconBrand,
+    name: "Brend",
+    role: "Čini da sve ostalo košta manje.",
+    body: "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",
+    feeds: "Isti oglas, ista pozicija, veći procenat klikova. To je brend.",
+  },
 ];
 
-/**
- * Each answer maps to the channels already working, the gap worth naming,
- * the client whose story is closest, and the objection that usually comes
- * next. The diagnosis lines are general and checkable, not promises.
- */
 const SOURCES = [
   {
     id: "preporuka",
     label: "Preporuka",
-    sub: "Od usta do usta",
     have: ["brand"],
     gapTitle: "Preporuka ima plafon.",
     gap: "Radi dok se krug poznanstava ne iscrpi. Tada novih poziva nema odakle da stignu, jer vas niko ko vas već ne zna ne može naći.",
@@ -53,7 +88,6 @@ const SOURCES = [
   {
     id: "placeno",
     label: "Plaćeni oglasi",
-    sub: "Google, Meta",
     have: ["ads", "web"],
     gapTitle: "Plaćeno radi dok plaćate.",
     gap: "Onog dana kad ugasite kampanju, saobraćaj staje. Bez organskog dela, cena upita raste svake godine jer je svaki klik iznajmljen.",
@@ -67,10 +101,9 @@ const SOURCES = [
   {
     id: "organski",
     label: "Google, organski",
-    sub: "Bez plaćenog",
     have: ["seo", "web"],
-    gapTitle: "Organski donosi, ali ne možete da mu pojačate tempo.",
-    gap: "Kad vam treba više upita ovog meseca, nemate ručicu za to. Plaćeni deo je ta ručica, a mreže i brend čine da klik bude jeftiniji.",
+    gapTitle: "Organski donosi, ali nema ručicu za tempo.",
+    gap: "Kad vam treba više upita ovog meseca, nemate čime da pojačate. Plaćeni deo je ta ručica, a mreže i brend čine da klik bude jeftiniji.",
     match: "servis-klime-nis",
     objection: [
       "Ako sam već prvi, šta će mi oglasi?",
@@ -81,10 +114,9 @@ const SOURCES = [
   {
     id: "mreze",
     label: "Društvene mreže",
-    sub: "Instagram, Facebook",
     have: ["social", "brand"],
     gapTitle: "Mreže grade poznatost, ne nameru.",
-    gap: "Kupac koji je spreman da kupi ne skroluje, nego pretražuje. Ako vas u tom trenutku nema u pretrazi, poznatost koju ste izgradili pokupi neko drugi.",
+    gap: "Kupac koji je spreman da kupi ne skroluje, nego pretražuje. Ako vas tada nema u pretrazi, poznatost koju ste izgradili pokupi neko drugi.",
     match: "thermiq",
     objection: [
       "Imamo dosta pratilaca, zar to nije dovoljno?",
@@ -94,11 +126,10 @@ const SOURCES = [
   },
   {
     id: "neznam",
-    label: "Ne znam tačno",
-    sub: "Ne merimo",
+    label: "Ne merimo",
     have: [],
-    gapTitle: "To je prvi problem, i najjeftiniji za rešavanje.",
-    gap: "Bez merenja je svaka odluka o budžetu nagađanje. Merenje se postavlja za nekoliko dana i odmah pokazuje šta već radi, a šta samo troši.",
+    gapTitle: "To je prvi problem, i najjeftiniji.",
+    gap: "Bez merenja je svaka odluka o budžetu nagađanje. Merenje se postavlja za nekoliko dana i odmah pokazuje šta radi, a šta samo troši.",
     match: "elektromil",
     objection: [
       "Koliko to košta da se postavi?",
@@ -122,7 +153,6 @@ const ASK = [
   "Zašto konkurent sa gorim sajtom rangira bolje",
   "Zašto saobraćaj raste, a prodaja ne",
   "Kada ugasiti kampanju, a kada je pustiti",
-  "Zašto je jeftiniji klik često skuplji klijent",
 ];
 
 const NECE_SE_CUTI = [
@@ -134,18 +164,18 @@ const NECE_SE_CUTI = [
   "digitalna transformacija",
 ];
 
-/* ── the diagram, driven by the answer ───────────────────── */
+/* ── diagram (compact) ───────────────────────────────────── */
 
-const NODE_W = 250;
-const NODE_H = 54;
-const GAP = 16;
-const HUB_X = 610;
-const HUB_R = 54;
-const VB_W = 1120;
+const NODE_W = 196;
+const NODE_H = 42;
+const GAP = 11;
+const HUB_X = 500;
+const HUB_R = 42;
+const VB_W = 920;
 
 function SystemDiagram({ have, answered }) {
-  const total = CHANNELS.length * NODE_H + (CHANNELS.length - 1) * GAP;
-  const top = 28;
+  const total = SERVICES.length * NODE_H + (SERVICES.length - 1) * GAP;
+  const top = 18;
   const vbH = total + top * 2;
   const hubY = top + total / 2;
 
@@ -157,9 +187,8 @@ function SystemDiagram({ have, answered }) {
       aria-label="Pet kanala povezanih u jedan sistem"
     >
       <title>Pet kanala povezanih u jedan sistem</title>
-
       <g className={s.wires}>
-        {CHANNELS.map(([id], i) => {
+        {SERVICES.map(({ id }, i) => {
           const y = top + i * (NODE_H + GAP) + NODE_H / 2;
           const x1 = HUB_X - HUB_R;
           const mid = (NODE_W + x1) / 2;
@@ -175,11 +204,11 @@ function SystemDiagram({ have, answered }) {
         })}
         <path
           className={s.wireOut}
-          d={`M ${HUB_X + HUB_R} ${hubY} L ${VB_W - 300} ${hubY}`}
+          d={`M ${HUB_X + HUB_R} ${hubY} L ${VB_W - 250} ${hubY}`}
         />
       </g>
 
-      {CHANNELS.map(([id, label], i) => {
+      {SERVICES.map(({ id, name }, i) => {
         const y = top + i * (NODE_H + GAP);
         const on = have.includes(id);
         const cls = !answered
@@ -195,25 +224,25 @@ function SystemDiagram({ have, answered }) {
               y={y}
               width={NODE_W}
               height={NODE_H}
-              rx="16"
+              rx="13"
             />
             <circle
               className={`${s.nodeDot} ${answered && on ? s.dotOn : ""}`}
-              cx="26"
+              cx="20"
               cy={y + NODE_H / 2}
-              r="4.5"
+              r="3.6"
             />
             <text
               className={`${s.nodeText} ${answered && !on ? s.nodeTextOff : ""}`}
-              x="46"
-              y={y + NODE_H / 2 + 5}
+              x="36"
+              y={y + NODE_H / 2 + 4.5}
             >
-              {label}
+              {name}
             </text>
             {answered && !on
               ? <text
                   className={s.nodeAdd}
-                  x={NODE_W - 22}
+                  x={NODE_W - 18}
                   y={y + NODE_H / 2 + 5}
                 >
                   +
@@ -223,37 +252,34 @@ function SystemDiagram({ have, answered }) {
         );
       })}
 
-      <circle className={s.hubHalo} cx={HUB_X} cy={hubY} r={HUB_R + 14} />
+      <circle className={s.hubHalo} cx={HUB_X} cy={hubY} r={HUB_R + 11} />
       <circle className={s.hub} cx={HUB_X} cy={hubY} r={HUB_R} />
-      <text className={s.hubText} x={HUB_X} y={hubY - 3} textAnchor="middle">
+      <text className={s.hubText} x={HUB_X} y={hubY - 2} textAnchor="middle">
         jedan
       </text>
-      <text className={s.hubText} x={HUB_X} y={hubY + 17} textAnchor="middle">
+      <text className={s.hubText} x={HUB_X} y={hubY + 14} textAnchor="middle">
         sistem
       </text>
 
       <rect
         className={s.outNode}
-        x={VB_W - 300}
-        y={hubY - 44}
-        width="300"
-        height="88"
-        rx="18"
+        x={VB_W - 250}
+        y={hubY - 34}
+        width="250"
+        height="68"
+        rx="15"
       />
-      <text className={s.outLabel} x={VB_W - 274} y={hubY - 12}>
+      <text className={s.outLabel} x={VB_W - 228} y={hubY - 9}>
         REZULTAT
       </text>
-      <text className={s.outText} x={VB_W - 274} y={hubY + 14}>
-        Upiti koji se
-      </text>
-      <text className={s.outText} x={VB_W - 274} y={hubY + 36}>
-        pretvaraju u posao
+      <text className={s.outText} x={VB_W - 228} y={hubY + 13}>
+        Upiti koji postaju posao
       </text>
     </svg>
   );
 }
 
-/* ── small pieces ────────────────────────────────────────── */
+/* ── shared bits ─────────────────────────────────────────── */
 
 function Chapter({ n, title, width, children }) {
   return (
@@ -267,15 +293,162 @@ function Chapter({ n, title, width, children }) {
   );
 }
 
-function AskCard() {
+/** Counts a metric up from zero when it first appears. Non-numeric values just render. */
+function CountUp({ value }) {
+  const [shown, setShown] = useState(value);
+  useEffect(() => {
+    const m = String(value).match(/^([\d.,]+)(.*)$/);
+    if (!m || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setShown(value);
+      return;
+    }
+    const target = Number.parseFloat(m[1].replace(/\./g, "").replace(",", "."));
+    if (Number.isNaN(target)) {
+      setShown(value);
+      return;
+    }
+    const isInt = !m[1].includes(",");
+    const start = performance.now();
+    let raf = 0;
+    const tick = (t) => {
+      const p = Math.min(1, (t - start) / 900);
+      const e = 1 - (1 - p) ** 3;
+      const n = target * e;
+      const text = isInt
+        ? Math.round(n).toLocaleString("sr-RS")
+        : n.toFixed(1).replace(".", ",");
+      setShown(`${text}${m[2]}`);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [value]);
+  return <>{shown}</>;
+}
+
+/* ── service sheet ───────────────────────────────────────── */
+
+function ServiceSheet({ service, gap, onClose }) {
+  useEffect(() => {
+    if (!service) return;
+    const onKey = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [service, onClose]);
+
+  if (!service) return null;
+  const { Icon } = service;
+
+  return (
+    <div
+      className={s.sheetWrap}
+      role="dialog"
+      aria-modal="true"
+      aria-label={service.name}
+    >
+      <button
+        type="button"
+        className={s.sheetBackdrop}
+        onClick={onClose}
+        aria-label="Zatvori"
+      />
+      <div className={s.sheet}>
+        <div className={s.sheetHead}>
+          <span className={s.sheetIcon} aria-hidden>
+            <Icon />
+          </span>
+          <button
+            type="button"
+            className={s.sheetClose}
+            onClick={onClose}
+            aria-label="Zatvori"
+          >
+            ×
+          </button>
+        </div>
+        <span className={s.eyebrow}>
+          {gap ? "Nedostaje u vašem sistemu" : "Deo sistema"}
+        </span>
+        <h2 className={s.sheetTitle}>{service.name}</h2>
+        <p className={s.sheetRole}>{service.role}</p>
+        <p className={s.sheetBody}>{service.body}</p>
+        <div className={s.sheetFeeds}>
+          <span className={s.eyebrow}>Kako se vezuje za ostalo</span>
+          <p>{service.feeds}</p>
+        </div>
+        <a className={s.sheetCta} href="#kontakt" onClick={onClose}>
+          Pitajte nas o ovome
+          <span className={s.sheetCtaIcon}>
+            <ArrowIcon size={13} />
+          </span>
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ── the flip card ───────────────────────────────────────── */
+
+function FlipCard({ client, flipped, onFlip }) {
+  return (
+    <div className={`${s.flip} ${flipped ? s.flipped : ""}`}>
+      <div className={s.flipInner}>
+        <article className={`${s.card} ${s.face} ${s.faceFront}`}>
+          <span className={s.faceTag}>Pre</span>
+          <span className={s.proofClient}>{client.clientName}</span>
+          <span className={s.proofCat}>{client.category}</span>
+          <p className={s.proofBefore}>{client.before}</p>
+          <button type="button" className={s.flipBtn} onClick={onFlip}>
+            Šta je bilo posle
+            <span className={s.flipBtnIcon} aria-hidden>
+              <ArrowIcon size={12} />
+            </span>
+          </button>
+        </article>
+
+        <article className={`${s.card} ${s.face} ${s.faceBack}`}>
+          <span className={s.faceTagLight}>Posle</span>
+          <span className={s.proofClientLight}>{client.clientName}</span>
+          <div className={s.metricStack}>
+            {client.after.map((m) => (
+              <span key={m.label} className={s.metric}>
+                <span className={s.metricValue}>
+                  {flipped ? <CountUp value={m.value} /> : m.value}
+                </span>
+                <span className={s.metricLabel}>{m.label}</span>
+              </span>
+            ))}
+          </div>
+          <div className={s.faceBackFoot}>
+            <button type="button" className={s.flipBtnLight} onClick={onFlip}>
+              Nazad
+            </button>
+            <a className={s.faceLink} href={client.href}>
+              Cela priča
+              <ArrowIcon size={12} />
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  );
+}
+
+/* ── small tiles ─────────────────────────────────────────── */
+
+function AskTile() {
   const [i, setI] = useState(0);
   return (
-    <article className={`${s.card} ${s.ask}`}>
+    <article className={`${s.card} ${s.tile}`}>
       <span className={s.eyebrow}>Pitajte nas o</span>
       <p className={s.askText}>{ASK[i]}</p>
       <button
         type="button"
-        className={s.askMore}
+        className={s.chipBtn}
         onClick={() => setI((v) => (v + 1) % ASK.length)}
       >
         Još jedno
@@ -284,28 +457,7 @@ function AskCard() {
   );
 }
 
-function BuzzCard() {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(
-      () => setI((v) => (v + 1) % NECE_SE_CUTI.length),
-      2600,
-    );
-    return () => clearInterval(id);
-  }, []);
-  return (
-    <article className={`${s.card} ${s.buzz}`}>
-      <span className={s.eyebrow}>Nećete čuti od nas</span>
-      <p className={s.buzzWord} key={NECE_SE_CUTI[i]}>
-        {NECE_SE_CUTI[i]}
-      </p>
-      <span className={s.smallNote}>Ni na jednom sastanku.</span>
-    </article>
-  );
-}
-
-function ClockCard() {
+function ClockTile() {
   const [now, setNow] = useState(null);
   useEffect(() => {
     const read = () => {
@@ -322,7 +474,6 @@ function ClockCard() {
     const id = setInterval(read, 15_000);
     return () => clearInterval(id);
   }, []);
-
   const line =
     now == null
       ? ""
@@ -333,9 +484,8 @@ function ClockCard() {
           : now.h < 22
             ? "Još gledamo izveštaje."
             : "Spavamo. Google Ads ne.";
-
   return (
-    <article className={`${s.card} ${s.clock}`}>
+    <article className={`${s.card} ${s.tile}`}>
       <span className={s.eyebrow}>Srbija · GMT+2</span>
       <p className={s.clockTime} suppressHydrationWarning>
         {now ? `${now.hh}:${now.mm}` : "--:--"}
@@ -345,257 +495,28 @@ function ClockCard() {
   );
 }
 
-/* ── page ────────────────────────────────────────────────── */
-
-export default function DijagnozaGrid({ clients = [], articles = [] }) {
-  const trackRef = useRef(null);
-  const stageRef = useRef(null);
-  const [pick, setPick] = useState(null);
-  useHorizontalScroll(trackRef, stageRef);
-
-  const source = SOURCES.find((x) => x.id === pick) ?? null;
-  const have = source?.have ?? [];
-  const matched =
-    (source && clients.find((c) => c.slug === source.match)) ??
-    clients[0] ??
-    null;
-  const posts = articles.slice(0, 2);
-
-  // Answering nudges the track along, so the answer visibly moves the page on.
-  function choose(id) {
-    setPick(id);
-    const el = trackRef.current;
-    if (!el) return;
-    requestAnimationFrame(() => {
-      const target = el.querySelector("[data-scroll-anchor]");
-      if (!target) return;
-      const left = target.offsetLeft - 34;
-      el.scrollTo({
-        left,
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "auto"
-          : "smooth",
-      });
-    });
-  }
-
+function BuzzTile() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(
+      () => setI((v) => (v + 1) % NECE_SE_CUTI.length),
+      2400,
+    );
+    return () => clearInterval(id);
+  }, []);
   return (
-    <div
-      className={s.stage}
-      ref={stageRef}
-      data-bento
-      data-answered={source ? "" : undefined}
-    >
-      <div className={s.wash} aria-hidden />
-
-      <header className={s.bar}>
-        <Image
-          src="/digitl-logo.png"
-          alt="digitl"
-          width={82}
-          height={22}
-          className={s.logo}
-          priority
-        />
-        {source
-          ? <button
-              type="button"
-              className={s.reset}
-              onClick={() => setPick(null)}
-            >
-              Počnite ispočetka
-            </button>
-          : <span className={s.hint}>
-              Odgovorite, pa prevucite
-              <span className={s.hintArrow} aria-hidden>
-                <ArrowIcon size={13} />
-              </span>
-            </span>}
-      </header>
-
-      <div className={s.track} ref={trackRef}>
-        {/* 01 — the question replaces the headline */}
-        <Chapter n="01" title="Pitanje" width="420px">
-          <article className={`${s.card} ${s.question}`}>
-            <p className={s.kicker}>Marketing koji donosi prave rezultate.</p>
-            <h1 className={s.questionTitle}>
-              Odakle vam danas stižu klijenti?
-            </h1>
-            <div className={s.options}>
-              {SOURCES.map((o) => (
-                <button
-                  key={o.id}
-                  type="button"
-                  className={`${s.option} ${pick === o.id ? s.optionOn : ""}`}
-                  onClick={() => choose(o.id)}
-                  aria-pressed={pick === o.id}
-                >
-                  <span className={s.optionLabel}>{o.label}</span>
-                  <span className={s.optionSub}>{o.sub}</span>
-                </button>
-              ))}
-            </div>
-          </article>
-        </Chapter>
-
-        {/* 02 — the services, as a system that reacts */}
-        <Chapter n="02" title="Vaš sistem" width="700px">
-          <article className={`${s.card} ${s.diagramCard}`} data-scroll-anchor>
-            <SystemDiagram have={have} answered={Boolean(source)} />
-            <p className={s.diagramNote}>
-              {source
-                ? "Puna linija je ono što već radi kod vas. Isprekidana je ono što nedostaje da sistem bude zatvoren."
-                : "Pet kanala, jedan sistem. Odgovorite levo i popuniće se prema vama."}
-            </p>
-          </article>
-          <div className={s.roleRow}>
-            {CHANNELS.map(([id, label, role]) => (
-              <span
-                key={id}
-                className={`${s.role} ${source && !have.includes(id) ? s.roleGap : ""}`}
-              >
-                <span className={s.roleTitle}>{label}</span>
-                <span className={s.roleNote}>{role}</span>
-              </span>
-            ))}
-          </div>
-        </Chapter>
-
-        {/* 03 — the gap, named */}
-        <Chapter n="03" title="Gde je rupa" width="330px">
-          <article className={`${s.card} ${s.gap}`}>
-            {source
-              ? <>
-                  <span className={s.eyebrowLight}>Vaš slučaj</span>
-                  <p className={s.gapTitle}>{source.gapTitle}</p>
-                  <p className={s.gapBody}>{source.gap}</p>
-                </>
-              : <>
-                  <span className={s.eyebrowLight}>Čeka odgovor</span>
-                  <p className={s.gapTitle}>
-                    Svaki izvor klijenata ima svoju rupu.
-                  </p>
-                  <p className={s.gapBody}>
-                    Recite nam odakle vam stižu i reći ćemo koja je vaša.
-                  </p>
-                </>}
-          </article>
-        </Chapter>
-
-        {/* 04 — the matching case study, not all of them */}
-        <Chapter n="04" title="Neko je već bio tu" width="380px">
-          {matched
-            ? <a href={matched.href} className={`${s.card} ${s.proof}`}>
-                <span className={s.proofClient}>{matched.clientName}</span>
-                <span className={s.proofCat}>{matched.category}</span>
-                <p className={s.proofBefore}>{matched.before}</p>
-                <span className={s.proofRule} aria-hidden />
-                <span className={s.metricRow}>
-                  {matched.after.map((m) => (
-                    <span key={m.label} className={s.metric}>
-                      <span className={s.metricValue}>{m.value}</span>
-                      <span className={s.metricLabel}>{m.label}</span>
-                    </span>
-                  ))}
-                </span>
-                <span className={s.proofArrow}>
-                  <ArrowIcon size={13} />
-                </span>
-              </a>
-            : null}
-          <a href="/projects" className={`${s.card} ${s.allLink}`}>
-            Svi projekti
-            <span className={s.round}>
-              <ArrowIcon />
-            </span>
-          </a>
-        </Chapter>
-
-        {/* 05 — the objection, where it actually lands */}
-        <Chapter n="05" title="Pomislićete" width="300px">
-          <article className={`${s.card} ${s.objection}`}>
-            <p className={s.objQ}>
-              {source
-                ? `„${source.objection[0]}"`
-                : "„Radi nam i ovako, zašto bih menjao?“"}
-            </p>
-            <p className={s.objA}>
-              {source
-                ? source.objection[1]
-                : "Odgovor zavisi od toga odakle vam klijenti stižu. Odgovorite na prvo pitanje."}
-            </p>
-          </article>
-        </Chapter>
-
-        {/* 06 — what happens next */}
-        <Chapter n="06" title="Kako radimo" width="320px">
-          <article className={`${s.card} ${s.process}`}>
-            <ol className={s.stepList}>
-              {STEPS.map(([title, note], i) => (
-                <li key={title} className={s.stepItem}>
-                  <span className={s.stepNum}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span>
-                    <span className={s.stepTitle}>{title}</span>
-                    <span className={s.stepNote}>
-                      {i === 0 && source
-                        ? `Počinjemo od toga zašto ${source.label.toLowerCase()} više ne nosi sama.`
-                        : note}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </article>
-        </Chapter>
-
-        {/* 07 — the human bit */}
-        <Chapter n="07" title="Sitnice" width="470px">
-          <div className={s.funGrid}>
-            <AskCard />
-            <ClockCard />
-            <BuzzCard />
-          </div>
-        </Chapter>
-
-        {/* 08 — writing */}
-        <Chapter n="08" title="Blog" width="290px">
-          <div className={s.postCol}>
-            {posts.map((a) => (
-              <a
-                key={a.slug}
-                href={`/journal/${a.slug}`}
-                className={`${s.card} ${s.post}`}
-              >
-                <span className={s.postTitle}>{a.title}</span>
-                <span className={s.postFoot}>
-                  <span className={s.smallNote}>
-                    {formatDate(a.publishedAt)}
-                  </span>
-                  <span className={s.round}>
-                    <ArrowIcon />
-                  </span>
-                </span>
-              </a>
-            ))}
-            <a href="/journal" className={`${s.card} ${s.allLink}`}>
-              Svi tekstovi
-              <span className={s.round}>
-                <ArrowIcon />
-              </span>
-            </a>
-          </div>
-        </Chapter>
-
-        {/* 09 — the enquiry, already half written */}
-        <Chapter n="09" title="Kontakt" width="360px">
-          <ContactCard prefill={source?.prefill ?? ""} />
-        </Chapter>
-      </div>
-    </div>
+    <article className={`${s.card} ${s.tile}`}>
+      <span className={s.eyebrow}>Nećete čuti od nas</span>
+      <p className={s.buzzWord} key={NECE_SE_CUTI[i]}>
+        {NECE_SE_CUTI[i]}
+      </p>
+      <span className={s.smallNote}>Ni na jednom sastanku.</span>
+    </article>
   );
 }
+
+/* ── contact ─────────────────────────────────────────────── */
 
 function ContactCard({ prefill }) {
   const [email, setEmail] = useState("");
@@ -603,7 +524,6 @@ function ContactCard({ prefill }) {
   const [touched, setTouched] = useState(false);
   const [state, setState] = useState("idle");
 
-  // Their answer writes the first line for them, until they type over it.
   useEffect(() => {
     if (!touched) setMessage(prefill ? `${prefill} ` : "");
   }, [prefill, touched]);
@@ -692,5 +612,327 @@ function ContactCard({ prefill }) {
         </a>
       </div>
     </article>
+  );
+}
+
+/* ── page ────────────────────────────────────────────────── */
+
+export default function DijagnozaGrid({ clients = [], articles = [] }) {
+  const trackRef = useRef(null);
+  const stageRef = useRef(null);
+  const [pick, setPick] = useState(null);
+  const [sheet, setSheet] = useState(null);
+  const [flipped, setFlipped] = useState(false);
+  useHorizontalScroll(trackRef, stageRef);
+
+  const source = SOURCES.find((x) => x.id === pick) ?? null;
+  const have = source?.have ?? [];
+  const matched =
+    (source && clients.find((c) => c.slug === source.match)) ??
+    clients[0] ??
+    null;
+  const posts = articles.slice(0, 2);
+  const openSheet = SERVICES.find((x) => x.id === sheet) ?? null;
+
+  function scrollToAnchor(name) {
+    const el = trackRef.current;
+    const target = el?.querySelector(`[data-anchor="${name}"]`);
+    if (!el || !target) return;
+    el.scrollTo({
+      left: target.offsetLeft - 34,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }
+
+  function choose(id) {
+    setPick(id);
+    setFlipped(false);
+    requestAnimationFrame(() => scrollToAnchor("system"));
+  }
+
+  return (
+    <div className={s.stage} ref={stageRef} data-bento>
+      <div className={s.wash} aria-hidden />
+
+      <header className={s.bar}>
+        <Image
+          src="/digitl-logo.png"
+          alt="digitl"
+          width={82}
+          height={22}
+          className={s.logo}
+          priority
+        />
+        {source
+          ? <button
+              type="button"
+              className={s.reset}
+              onClick={() => {
+                setPick(null);
+                setFlipped(false);
+              }}
+            >
+              Počnite ispočetka
+            </button>
+          : <span className={s.hint}>
+              Prevucite udesno
+              <span className={s.hintArrow} aria-hidden>
+                <ArrowIcon size={13} />
+              </span>
+            </span>}
+      </header>
+
+      <div className={s.track} ref={trackRef}>
+        {/* 01 hero */}
+        <Chapter n="01" title="Digitl" width="440px">
+          <article className={`${s.card} ${s.hero}`}>
+            <span className={s.heroBlobA} aria-hidden />
+            <span className={s.heroBlobB} aria-hidden />
+            <h1 className={s.heroTitle}>
+              Marketing koji donosi <em>prave</em> rezultate.
+            </h1>
+            <p className={s.heroBody}>
+              Kompletan marketing kao jedan sistem, ne meni nepovezanih usluga.
+            </p>
+            <div className={s.heroRow}>
+              <button
+                type="button"
+                className={s.heroCta}
+                onClick={() => scrollToAnchor("question")}
+              >
+                Proverite svoj sistem
+                <span className={s.heroCtaIcon}>
+                  <ArrowIcon size={13} />
+                </span>
+              </button>
+              <a className={s.heroGhost} href="#kontakt">
+                Zakažite razgovor
+              </a>
+            </div>
+            <ul className={s.heroStrip}>
+              <li>
+                <strong>5</strong> kanala
+              </li>
+              <li>
+                <strong>{clients.length || 4}</strong> studije slučaja
+              </li>
+              <li>
+                <strong>1</strong> sistem
+              </li>
+            </ul>
+          </article>
+        </Chapter>
+
+        {/* 02 question */}
+        <Chapter n="02" title="Pitanje" width="360px">
+          <article className={`${s.card} ${s.question}`} data-anchor="question">
+            <span className={s.eyebrow}>Jedno pitanje</span>
+            <h2 className={s.questionTitle}>
+              Odakle vam danas stižu klijenti?
+            </h2>
+            <div className={s.options}>
+              {SOURCES.map((o) => (
+                <button
+                  key={o.id}
+                  type="button"
+                  aria-pressed={pick === o.id}
+                  className={`${s.option} ${pick === o.id ? s.optionOn : ""}`}
+                  onClick={() => choose(o.id)}
+                >
+                  <span className={s.optionCheck} aria-hidden>
+                    {pick === o.id
+                      ? <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M5 12l5 5 9-10"
+                            stroke="currentColor"
+                            strokeWidth="3.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      : null}
+                  </span>
+                  {o.label}
+                </button>
+              ))}
+            </div>
+            <p className={s.questionNote}>
+              {source
+                ? "Sve desno se prilagodilo vašem odgovoru."
+                : "Odgovor menja sve što sledi."}
+            </p>
+          </article>
+        </Chapter>
+
+        {/* 03 system */}
+        <Chapter n="03" title="Vaš sistem" width="640px">
+          <article className={`${s.card} ${s.systemCard}`} data-anchor="system">
+            <SystemDiagram have={have} answered={Boolean(source)} />
+            <p className={s.diagramNote}>
+              {source
+                ? "Puna linija već radi kod vas. Isprekidana je ono što nedostaje."
+                : "Pet kanala, jedan sistem. Odgovorite levo i popuniće se prema vama."}
+            </p>
+          </article>
+          <div className={s.serviceRow}>
+            {SERVICES.map((sv) => {
+              const gap = source ? !have.includes(sv.id) : false;
+              return (
+                <button
+                  key={sv.id}
+                  type="button"
+                  className={`${s.service} ${gap ? s.serviceGap : ""}`}
+                  onClick={() => setSheet(sv.id)}
+                >
+                  <span className={s.serviceIcon} aria-hidden>
+                    <sv.Icon />
+                  </span>
+                  <span className={s.serviceName}>{sv.name}</span>
+                  <span className={s.serviceRole}>{sv.role}</span>
+                  <span className={s.serviceArrow} aria-hidden>
+                    <ArrowIcon size={12} />
+                  </span>
+                  {gap
+                    ? <span className={s.serviceBadge}>nedostaje</span>
+                    : null}
+                </button>
+              );
+            })}
+          </div>
+        </Chapter>
+
+        {/* 04 gap */}
+        <Chapter n="04" title="Gde je rupa" width="320px">
+          <article className={`${s.card} ${s.gap}`}>
+            <span className={s.eyebrowLight}>
+              {source ? "Vaš slučaj" : "Čeka odgovor"}
+            </span>
+            <p className={s.gapTitle}>
+              {source ? source.gapTitle : "Svaki izvor ima svoju rupu."}
+            </p>
+            <p className={s.gapBody}>
+              {source
+                ? source.gap
+                : "Recite nam odakle vam stižu i reći ćemo koja je vaša."}
+            </p>
+          </article>
+        </Chapter>
+
+        {/* 05 proof — flip */}
+        <Chapter n="05" title="Neko je već bio tu" width="360px">
+          {matched
+            ? <FlipCard
+                client={matched}
+                flipped={flipped}
+                onFlip={() => setFlipped((v) => !v)}
+              />
+            : null}
+          <a href="/projects" className={`${s.card} ${s.allLink}`}>
+            Svi projekti
+            <span className={s.round}>
+              <ArrowIcon />
+            </span>
+          </a>
+        </Chapter>
+
+        {/* 06 objection */}
+        <Chapter n="06" title="Pomislićete" width="300px">
+          <article className={`${s.card} ${s.objection}`}>
+            <span className={s.quoteMark} aria-hidden>
+              „
+            </span>
+            <p className={s.objQ}>
+              {source
+                ? source.objection[0]
+                : "Radi nam i ovako, zašto bih menjao?"}
+            </p>
+            <p className={s.objA}>
+              {source
+                ? source.objection[1]
+                : "Zavisi odakle vam klijenti stižu. Odgovorite na pitanje."}
+            </p>
+          </article>
+        </Chapter>
+
+        {/* 07 process */}
+        <Chapter n="07" title="Kako radimo" width="320px">
+          <article className={`${s.card} ${s.process}`}>
+            <ol className={s.stepList}>
+              {STEPS.map(([title, note], i) => (
+                <li key={title} className={s.stepItem}>
+                  <span className={s.stepNum}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span>
+                    <span className={s.stepTitle}>{title}</span>
+                    <span className={s.stepNote}>
+                      {i === 0 && source
+                        ? `Počinjemo od toga zašto ${source.label.toLowerCase()} više ne nosi sama.`
+                        : note}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </article>
+        </Chapter>
+
+        {/* 08 sitnice */}
+        <Chapter n="08" title="Sitnice" width="560px">
+          <div className={s.tileRow}>
+            <AskTile />
+            <ClockTile />
+            <BuzzTile />
+          </div>
+        </Chapter>
+
+        {/* 09 blog */}
+        <Chapter n="09" title="Blog" width="290px">
+          <div className={s.postCol}>
+            {posts.map((a) => (
+              <a
+                key={a.slug}
+                href={`/journal/${a.slug}`}
+                className={`${s.card} ${s.post}`}
+              >
+                <span className={s.postTitle}>{a.title}</span>
+                <span className={s.postFoot}>
+                  <span className={s.smallNote}>
+                    {formatDate(a.publishedAt)}
+                  </span>
+                  <span className={s.round}>
+                    <ArrowIcon />
+                  </span>
+                </span>
+              </a>
+            ))}
+            <a href="/journal" className={`${s.card} ${s.allLink}`}>
+              Svi tekstovi
+              <span className={s.round}>
+                <ArrowIcon />
+              </span>
+            </a>
+          </div>
+        </Chapter>
+
+        {/* 10 contact */}
+        <Chapter n="10" title="Kontakt" width="360px">
+          <ContactCard prefill={source?.prefill ?? ""} />
+        </Chapter>
+      </div>
+
+      <ServiceSheet
+        service={openSheet}
+        gap={openSheet && source ? !have.includes(openSheet.id) : false}
+        onClose={() => setSheet(null)}
+      />
+    </div>
   );
 }
