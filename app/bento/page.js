@@ -1,36 +1,60 @@
-import { tryGetArticlesForHome, tryGetClientShowcases } from "../../lib/cms.js";
-import BentoGrid from "../_bento/BentoGrid";
+import styles from "./chooser.module.css";
 
-export const revalidate = 60;
-
-// A layout test, not the live homepage — keep it out of search results.
 export const metadata = {
-  title: "digitl — bento",
+  title: "digitl — koncepti početne",
   robots: { index: false, follow: false },
 };
 
-export default async function BentoPage() {
-  const [articles, showcases] = await Promise.all([
-    tryGetArticlesForHome(6),
-    tryGetClientShowcases(6),
-  ]);
+const CONCEPTS = [
+  {
+    href: "/bento/sistem",
+    name: "Jedan sistem",
+    layout: "Vertikalni masonry",
+    note: "Pozicioniranje nacrtano: pet kanala povezanih u jedan sistem, umesto liste usluga. Dijagram mora da se vidi ceo, pa je raspored vertikalan.",
+  },
+  {
+    href: "/bento/tabla",
+    name: "Radna tabla",
+    layout: "Jedan ekran, bez skrola",
+    note: "Početna kao izveštaj koji klijent dobija. Brojevi su iz studija slučaja. Tabla koju moraš da skroluješ nije tabla, pa staje u jedan ekran.",
+  },
+  {
+    href: "/bento/pre-posle",
+    name: "Pre / posle",
+    layout: "Horizontalno prevlačenje",
+    note: "Kretanje udesno je sama transformacija: strana se iz sive pretvara u plavu dok prelazite sa 'pre' na 'posle'.",
+  },
+  {
+    href: "/bento/v1",
+    name: "Prvi pokušaj",
+    layout: "Horizontalna traka",
+    note: "Prva verzija. Struktura preuzeta sa lukxce.com, sadržaj zamenjen — ostavljeno za poređenje.",
+    muted: true,
+  },
+];
 
+export default function BentoChooser() {
   return (
-    <BentoGrid
-      articles={articles.map(({ slug, title, publishedAt }) => ({
-        slug,
-        title,
-        publishedAt,
-      }))}
-      showcases={showcases.map((c) => ({
-        slug: c.slug,
-        href: c.href,
-        title: c.title,
-        clientName: c.clientName,
-        subtitle: c.subtitle,
-        backgroundSrc: c.backgroundSrc,
-        thumbSrc: c.thumbSrc,
-      }))}
-    />
+    <main className={styles.page}>
+      <h1 className={styles.title}>Koncepti početne strane</h1>
+      <p className={styles.lede}>
+        Tri pravca, svaki sa rasporedom koji mu odgovara. Svi koriste stvarne
+        brojeve iz studija slučaja.
+      </p>
+      <ul className={styles.list}>
+        {CONCEPTS.map((c) => (
+          <li key={c.href}>
+            <a
+              className={`${styles.card} ${c.muted ? styles.muted : ""}`}
+              href={c.href}
+            >
+              <span className={styles.layout}>{c.layout}</span>
+              <span className={styles.name}>{c.name}</span>
+              <span className={styles.note}>{c.note}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </main>
   );
 }

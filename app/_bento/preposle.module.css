@@ -1,0 +1,465 @@
+/* Concept: "pre / posle". Horizontal because the sideways motion IS the
+   argument — the page warms from grey to blue as you drag from before to
+   after. --progress is set on .stage by the scroll hook. */
+
+.stage {
+  --progress: 0;
+  --ink: #16161a;
+  --ink-2: rgba(22, 22, 26, 0.58);
+  --ink-3: rgba(22, 22, 26, 0.42);
+  --grey: #e6e6e9;
+  --card: #fff;
+  --line: #dededf;
+  --blue: #2a29ff;
+  --lime: #c8f072;
+  --danger: #b42318;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--grey);
+  color: var(--ink);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* The warm-up. Opacity tracks scroll, so the colour change is the journey. */
+.wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, #1a19d8, var(--blue) 55%, #4a49ff);
+  opacity: calc(var(--progress) * 0.97);
+  pointer-events: none;
+  transition: opacity 0.1s linear;
+}
+
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 34px 0;
+  flex: none;
+}
+
+.logo {
+  height: 22px;
+  width: auto;
+  /* Rides the wash: dark on grey, white once the page turns blue. */
+  filter: invert(var(--progress));
+}
+
+.hint {
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--ink-3);
+  mix-blend-mode: difference;
+  color: #8a8a90;
+}
+
+/* ── track ───────────────────────────────────────────────── */
+.track {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 30px 34px 56px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  cursor: grab;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+.track[data-dragging] {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.col {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  height: min(620px, calc(100svh - 190px));
+  padding: 30px;
+  border-radius: 28px;
+}
+
+/* ── intro ───────────────────────────────────────────────── */
+.intro {
+  background: var(--card);
+  border: 1px solid var(--line);
+  justify-content: flex-end;
+}
+
+.label,
+.labelLight {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.introTitle {
+  margin: auto 0 0;
+  font-size: 38px;
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.introBody {
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.introArrow {
+  margin-top: 20px;
+  color: var(--blue);
+}
+
+/* ── the two sides ───────────────────────────────────────── */
+.side {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-rows: auto 1fr 1fr;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(2, 300px);
+  gap: 12px;
+  height: min(620px, calc(100svh - 190px));
+  align-content: stretch;
+}
+
+/* The label owns the whole first row; cards then flow down each column in
+   turn instead of one wrapping up beside it. */
+.sideLabel,
+.sideLabelLight {
+  grid-area: 1 / 1 / 2 / -1;
+  align-self: end;
+  padding-bottom: 4px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sideLabel {
+  color: var(--ink-3);
+}
+.sideLabelLight {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: 24px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.preCard {
+  background: transparent;
+  border: 1px dashed rgba(22, 22, 26, 0.26);
+}
+
+.cardClient {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.preText {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--ink-2);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+}
+
+.postCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  justify-content: space-between;
+}
+
+.postCard:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+.cardClientLight {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.metricList {
+  list-style: none;
+  margin: auto 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.metricValue {
+  font-size: 32px;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--lime);
+}
+
+.metricLabel {
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.8);
+}
+.cardArrow {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── pivot ───────────────────────────────────────────────── */
+.pivot {
+  width: 260px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  background: #0b0b0f;
+  color: #fff;
+}
+
+.pivotMark {
+  width: 74px;
+  height: 74px;
+  background: #fff;
+  -webkit-mask: url("/digitl-logo.png") center / contain no-repeat;
+  mask: url("/digitl-logo.png") center / contain no-repeat;
+}
+
+.pivotText {
+  margin: 6px 0 0;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.pivotText strong {
+  font-weight: 750;
+}
+.pivotNote {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+/* ── cta ─────────────────────────────────────────────────── */
+.cta {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  justify-content: flex-end;
+  color: #fff;
+}
+
+.labelLight {
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.ctaTitle {
+  margin: auto 0 0;
+  font-size: 34px;
+  font-weight: 650;
+  line-height: 1.06;
+  letter-spacing: -0.05em;
+}
+
+.ctaForm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 6px 6px 6px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.ctaInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+}
+.ctaInput::placeholder {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.ctaSend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #fff;
+  color: var(--blue);
+}
+
+.ctaSend:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.ctaNote {
+  margin: 10px 0 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.7);
+}
+.ctaError {
+  color: #ffd9d4;
+}
+
+.ctaDirect {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.ctaDirect a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 650;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+}
+
+/* ── phones: stack, and let the wash run on page scroll ──── */
+@media (max-width: 860px) {
+  .stage {
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Without the sideways drag there is no progress to track, so commit to
+     the blue rather than leaving the page half-warmed. */
+  .wash {
+    position: fixed;
+    opacity: 1;
+  }
+  .logo {
+    filter: invert(1);
+  }
+  .hint {
+    display: none;
+  }
+
+  .bar {
+    padding: 18px 16px 0;
+  }
+
+  .track {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 18px 16px 48px;
+    overflow: visible;
+    cursor: auto;
+  }
+
+  .col,
+  .side {
+    width: auto;
+    height: auto;
+  }
+
+  .side {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .intro {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.24);
+    color: #fff;
+  }
+  .intro .label,
+  .introBody {
+    color: rgba(255, 255, 255, 0.72);
+  }
+  .introArrow {
+    display: none;
+  }
+
+  .sideLabel {
+    color: rgba(255, 255, 255, 0.72);
+  }
+  .preCard {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  .cardClient {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .preText {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .col,
+  .card {
+    padding: 20px;
+    border-radius: 22px;
+  }
+  .introTitle {
+    font-size: 30px;
+  }
+  .ctaTitle {
+    font-size: 28px;
+  }
+  .pivot {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

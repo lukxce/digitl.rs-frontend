@@ -1,0 +1,537 @@
+/* Concept: "radna tabla" — the homepage as a client reporting dashboard.
+   One fixed screen on desktop: a dashboard you scroll isn't a dashboard. */
+
+.stage {
+  --ink: #0e0e12;
+  --ink-2: rgba(14, 14, 18, 0.6);
+  --ink-3: rgba(14, 14, 18, 0.44);
+  --page: #eceef2;
+  --card: #fff;
+  --raised: #f4f5f8;
+  --line: #e2e4ea;
+  --blue: #2a29ff;
+  --lime: #b7ea52;
+  --danger: #b42318;
+  --logo-invert: 0;
+
+  color-scheme: light;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .stage:not([data-theme="light"]) {
+    --ink: #f2f3f6;
+    --ink-2: rgba(242, 243, 246, 0.62);
+    --ink-3: rgba(242, 243, 246, 0.42);
+    --page: #08080a;
+    --card: #121216;
+    --raised: #1b1b21;
+    --line: rgba(255, 255, 255, 0.08);
+    --blue: #6664ff;
+    --danger: #ff8078;
+    --logo-invert: 1;
+    color-scheme: dark;
+  }
+}
+
+.stage[data-theme="dark"] {
+  --ink: #f2f3f6;
+  --ink-2: rgba(242, 243, 246, 0.62);
+  --ink-3: rgba(242, 243, 246, 0.42);
+  --page: #08080a;
+  --card: #121216;
+  --raised: #1b1b21;
+  --line: rgba(255, 255, 255, 0.08);
+  --blue: #6664ff;
+  --danger: #ff8078;
+  --logo-invert: 1;
+  color-scheme: dark;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 16px 20px 20px;
+  gap: 12px;
+}
+
+/* ── bar ─────────────────────────────────────────────────── */
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex: none;
+}
+
+.barLeft,
+.barRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo {
+  height: 22px;
+  width: auto;
+  filter: invert(var(--logo-invert));
+}
+.barDivider {
+  width: 1px;
+  height: 18px;
+  background: var(--line);
+}
+
+.barLabel {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 0 3px rgba(183, 234, 82, 0.28);
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+/* ── the board: one screen, no scrolling ─────────────────── */
+.board {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+  grid-template-areas:
+    "hero hero hero hero kpi1 kpi1 kpi2 kpi2 cta  cta  cta  cta"
+    "hero hero hero hero kpi1 kpi1 kpi2 kpi2 cta  cta  cta  cta"
+    "hero hero hero hero kpi3 kpi3 kpi4 kpi4 cta  cta  cta  cta"
+    "hero hero hero hero kpi3 kpi3 kpi4 kpi4 cta  cta  cta  cta"
+    "clients clients clients clients clients clients clients clients cta cta cta cta"
+    "clients clients clients clients clients clients clients clients process process process process";
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.eyebrow,
+.eyebrowLight {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.panelLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.panelLink:hover {
+  color: var(--blue);
+}
+
+/* ── hero ────────────────────────────────────────────────── */
+.hero {
+  justify-content: space-between;
+  padding: 26px;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(28px, 2.4vw, 40px);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--blue);
+}
+
+.heroBody {
+  margin: 14px 0 0;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.measured {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: auto 0 0;
+  padding: 16px 0 0;
+}
+
+.measuredItem {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--raised);
+}
+
+.measuredKey {
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.01em;
+}
+.measuredVal {
+  font-size: 11.5px;
+  color: var(--ink-2);
+}
+
+/* ── kpis ────────────────────────────────────────────────── */
+.kpi {
+  justify-content: space-between;
+}
+.kpiLabel {
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink-2);
+}
+
+.kpiValue {
+  margin-top: auto;
+  font-size: clamp(30px, 3vw, 46px);
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--blue);
+}
+
+.kpiClient {
+  margin-top: 5px;
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--ink-3);
+}
+
+/* ── clients table ───────────────────────────────────────── */
+.clients {
+  gap: 4px;
+}
+.clientList {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.clientList li {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.clientRow {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr auto 20px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 0 4px;
+  border-top: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+}
+
+.clientList li:first-child .clientRow {
+  border-top: none;
+}
+.clientRow:hover {
+  color: var(--blue);
+}
+
+.clientName {
+  font-size: 14px;
+  font-weight: 700;
+}
+.clientCat {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clientMetric {
+  justify-self: end;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--raised);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.clientArrow {
+  display: flex;
+  justify-content: flex-end;
+  color: var(--ink-3);
+}
+
+/* ── process stepper ─────────────────────────────────────── */
+.process {
+  justify-content: space-between;
+}
+
+.stepper {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 1;
+  min-width: 0;
+}
+
+.stepNum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.stepName {
+  font-size: 12.5px;
+  font-weight: 650;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── cta ─────────────────────────────────────────────────── */
+.cta {
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 26px;
+  border-color: var(--blue);
+  color: #fff;
+  background:
+    radial-gradient(
+      circle at 1.5px 1.5px,
+      rgba(255, 255, 255, 0.14) 1.5px,
+      transparent 0
+    )
+    0 0 / 18px 18px,
+    var(--blue);
+}
+
+.eyebrowLight {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ctaTitle {
+  margin: auto 0 0;
+  font-size: clamp(24px, 2vw, 32px);
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+}
+
+.ctaForm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 6px 6px 6px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ctaInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+}
+.ctaInput::placeholder {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.ctaSend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #fff;
+  color: var(--blue);
+}
+
+.ctaSend:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.ctaNote {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.68);
+}
+.ctaError {
+  color: #ffd9d4;
+}
+
+.ctaDirect {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ctaDirect a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+}
+
+.ctaDirect a:hover {
+  color: #fff;
+}
+
+/* ── narrower screens: the one-screen rule stops being useful ─ */
+@media (max-width: 1180px) {
+  .board {
+    grid-template-areas:
+      "hero hero hero hero hero hero cta cta cta cta cta cta"
+      "hero hero hero hero hero hero cta cta cta cta cta cta"
+      "kpi1 kpi1 kpi1 kpi2 kpi2 kpi2 kpi3 kpi3 kpi3 kpi4 kpi4 kpi4"
+      "clients clients clients clients clients clients clients clients clients clients clients clients"
+      "clients clients clients clients clients clients clients clients clients clients clients clients"
+      "process process process process process process process process process process process process";
+  }
+}
+
+@media (max-width: 860px) {
+  .screen {
+    height: auto;
+    padding: 14px 14px 40px;
+  }
+
+  .board {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: none;
+    grid-template-areas:
+      "hero hero"
+      "kpi1 kpi2"
+      "kpi3 kpi4"
+      "clients clients"
+      "process process"
+      "cta cta";
+  }
+
+  .panel {
+    min-height: 120px;
+  }
+  .hero,
+  .cta {
+    padding: 22px;
+  }
+  .measured {
+    grid-template-columns: 1fr 1fr;
+  }
+  .clientList li {
+    min-height: 52px;
+  }
+  .stepper {
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+  .step {
+    flex: 0 0 auto;
+  }
+}
