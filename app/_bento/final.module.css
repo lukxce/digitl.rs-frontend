@@ -14,6 +14,11 @@
   --lime: #c8f072;
   --danger: #b42318;
 
+  /* Cap the card height. Without this the chapters stretch to whatever the
+     window is, and on a tall screen you get 1100px cards with the text
+     stranded at the bottom. */
+  --h: clamp(420px, calc(100svh - 200px), 720px);
+
   position: relative;
   display: flex;
   flex-direction: column;
@@ -90,7 +95,7 @@
   position: relative;
   flex: 1;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   gap: 26px;
   padding: 22px 34px 46px;
   overflow-x: auto;
@@ -111,6 +116,7 @@
 .chapter {
   flex: 0 0 auto;
   width: var(--w, 340px);
+  height: var(--h);
   display: flex;
   flex-direction: column;
   gap: 10px;
