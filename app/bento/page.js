@@ -7,21 +7,31 @@ export const metadata = {
 
 const CONCEPTS = [
   {
+    href: "/bento/final",
+    name: "Jedan sistem → rezultat",
+    layout: "Horizontalno, osam poglavlja",
+    note: "Finalni pravac: dijagram sistema i pre/posle spojeni u jednu priču. Numerisana poglavlja daju red, strana se greje iz sive u plavu kako prolazite, a svaki klijent ima jednu karticu sa pre i posle zajedno.",
+    lead: true,
+  },
+  {
     href: "/bento/sistem",
     name: "Jedan sistem",
     layout: "Vertikalni masonry",
+    muted: true,
     note: "Pozicioniranje nacrtano: pet kanala povezanih u jedan sistem, umesto liste usluga. Dijagram mora da se vidi ceo, pa je raspored vertikalan.",
   },
   {
     href: "/bento/tabla",
     name: "Radna tabla",
     layout: "Jedan ekran, bez skrola",
+    muted: true,
     note: "Početna kao izveštaj koji klijent dobija. Brojevi su iz studija slučaja. Tabla koju moraš da skroluješ nije tabla, pa staje u jedan ekran.",
   },
   {
     href: "/bento/pre-posle",
     name: "Pre / posle",
     layout: "Horizontalno prevlačenje",
+    muted: true,
     note: "Kretanje udesno je sama transformacija: strana se iz sive pretvara u plavu dok prelazite sa 'pre' na 'posle'.",
   },
   {
@@ -45,7 +55,7 @@ export default function BentoChooser() {
         {CONCEPTS.map((c) => (
           <li key={c.href}>
             <a
-              className={`${styles.card} ${c.muted ? styles.muted : ""}`}
+              className={`${styles.card} ${c.lead ? styles.lead : ""} ${c.muted ? styles.muted : ""}`}
               href={c.href}
             >
               <span className={styles.layout}>{c.layout}</span>

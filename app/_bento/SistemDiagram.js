@@ -1,6 +1,6 @@
 "use client";
 
-import s from "./sistem.module.css";
+import sistemStyles from "./sistem.module.css";
 
 /**
  * The positioning drawn rather than listed: five channels wired into one
@@ -22,7 +22,9 @@ const HUB_X = 660;
 const HUB_R = 62;
 const VB_W = 1180;
 
-export default function SistemDiagram() {
+/** @param {{styles?: Record<string,string>}} props — each concept themes it. */
+export default function SistemDiagram({ styles }) {
+  const s = styles ?? sistemStyles;
   const total = CHANNELS.length * NODE_H + (CHANNELS.length - 1) * GAP;
   const top = 34;
   const vbH = total + top * 2;

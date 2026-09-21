@@ -106,3 +106,16 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* The chosen direction leads the list. */
+.lead {
+  grid-column: span 2;
+  border-color: #2a29ff;
+  box-shadow: 0 0 0 3px rgba(42, 41, 255, 0.1);
+}
+
+@media (max-width: 680px) {
+  .lead {
+    grid-column: span 1;
+  }
+}
