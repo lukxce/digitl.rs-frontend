@@ -22,6 +22,7 @@ async function getClients() {
       `*[_type == "clientShowcase"]{
         title, clientName, category, "slug": slug,
         "before": keyTakeaways[0].description,
+        "cover": coverPhoto.asset->url,
         "metrics": successRate[]{title, subtitle}
       }`,
     );
@@ -38,6 +39,7 @@ async function getClients() {
           slug,
           href: `/projects/${slug}`,
           clientName: r.clientName ?? r.title,
+          cover: r.cover ?? null,
           category: r.category ?? "",
           before: firstSentence(r.before) ?? "",
           after,
@@ -58,6 +60,7 @@ export default async function DijagnozaPage() {
   return (
     <DijagnozaGrid
       clients={clients}
+      testimonials={[]}
       articles={articles.map(({ slug, title, publishedAt }) => ({
         slug,
         title,
