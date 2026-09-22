@@ -1709,64 +1709,6 @@ a.card:hover .iconCircleSm {
   margin-top: 14px;
 }
 
-/* ── process: a connected stepper, no indents, no decoration ─ */
-.processHead {
-  align-items: flex-start;
-}
-.processNum {
-  opacity: 0.9;
-}
-
-.stepList {
-  gap: 0;
-}
-
-.stepItem {
-  position: relative;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 0 0 0 4px;
-  border-top: none;
-}
-
-/* The rail runs between the dots, not past the last one. */
-.stepItem::before {
-  content: "";
-  position: absolute;
-  left: 14px;
-  top: 26px;
-  bottom: -2px;
-  width: 2px;
-  background: var(--line);
-}
-
-.stepItem:last-child::before {
-  display: none;
-}
-
-.stepNum {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--blue);
-  color: #fff;
-  font-size: 10.5px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  z-index: 1;
-}
-
-.stepText {
-  padding-bottom: 16px;
-}
-.stepItem:last-child .stepText {
-  padding-bottom: 0;
-}
-
 /* ── case card: carousel on the front, origin story on the back ─ */
 .caseFlip {
   flex: 1;
@@ -1793,120 +1735,6 @@ a.card:hover .iconCircleSm {
 }
 
 /* Phone layout last: these have to win over every base rule above. */
-@container dg (max-width: 720px) {
-  .bar {
-    padding: 20px 16px 0;
-  }
-  .hint {
-    display: none;
-  }
-
-  .track {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    padding: 64px 16px 40px;
-    overflow: visible;
-    cursor: auto;
-  }
-
-  .chapter {
-    width: auto;
-    height: auto;
-    gap: 10px;
-  }
-
-  /* The visually-hidden chapter label becomes the section header on a phone,
-     since the horizontal reading order is gone. */
-  .chapterHead {
-    position: static;
-    width: auto;
-    height: auto;
-    clip-path: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 2px 0;
-  }
-
-  .chapterNum {
-    padding: 3px 7px;
-    border-radius: 999px;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    color: #fff;
-    background: var(--blue);
-  }
-  .chapterTitle {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-  }
-
-  .badge {
-    padding: 30px 24px 24px;
-  }
-  .headline {
-    font-size: 32px;
-  }
-  /* Absolute faces need a definite height once the chapter is auto — and
-     flex:1 (basis 0) would collapse it again, so opt out of flexing too. */
-  /* Tall enough for all five services on the reverse, not just four. */
-  .flipTall {
-    flex: none;
-    height: 486px;
-  }
-  .caseFlip {
-    flex: none;
-    height: 430px;
-  }
-  .flip {
-    flex: none;
-  }
-
-  /* These exist to absorb desktop column slack; stacked they just
-     interrupt the reading order. */
-  .filler {
-    display: none;
-  }
-
-  .gap,
-  .quiz,
-  .process,
-  .book,
-  .contact,
-  .newsletter,
-  .quote,
-  .quoteEmpty,
-  .post,
-  .badge {
-    flex: none;
-  }
-
-  .quiz,
-  .process,
-  .contact,
-  .quote,
-  .quoteEmpty,
-  .post {
-    min-height: 150px;
-  }
-  .socialRow {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .sheetWrap {
-    align-items: flex-end;
-    padding: 0;
-  }
-  .sheet {
-    width: 100%;
-    border-radius: 28px 28px 0 0;
-    padding: 22px 18px 30px;
-  }
-}
 
 /* ── case card: the whole face is the control ────────────── */
 .caseCard,
@@ -2056,13 +1884,6 @@ a.card:hover .iconCircleSm {
   animation: logoIn 0.45s ease;
 }
 
-@keyframes logoIn {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-}
-
 .logoDots {
   display: flex;
   gap: 4px;
@@ -2125,4 +1946,276 @@ a.card:hover .iconCircleSm {
 
 .btnGhost:hover {
   border-color: var(--ink-3);
+}
+
+/* ── client logos: a revolving strip at their own sizes ──── */
+.clientsCard {
+  flex: 1;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 22px 0 22px 22px;
+  overflow: hidden;
+}
+
+/* Eyebrow sits where every other card's does; the strip takes the rest. */
+.clientsCard .eyebrow {
+  padding-right: 22px;
+}
+
+/* Grid, not flex: the track is wider than the card and must not shrink. */
+.clientsCard .marquee {
+  flex: 1;
+  display: grid;
+  align-content: center;
+}
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  /* Fade the ends so logos enter and leave rather than pop. */
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 88%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 88%,
+    transparent
+  );
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 44px;
+  animation: marquee 18s linear infinite;
+}
+
+.clientsCard:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+.logoItem {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  opacity: 0.9;
+  filter: grayscale(1) invert(var(--logo-invert));
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+  }
+}
+
+/* ── steps as an actual staircase ────────────────────────── */
+.processCard .stepList {
+  padding-top: 16px;
+  gap: 0;
+}
+
+.stepItem {
+  position: relative;
+  flex: none;
+  align-items: flex-start;
+  gap: 10px;
+  border-top: none;
+  /* Each tread starts one notch further right than the one above it. */
+  padding: 0 0 16px calc(var(--i, 0) * 16px);
+}
+
+.stepItem:last-child {
+  padding-bottom: 0;
+}
+
+.stepNum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--blue) 12%, transparent);
+  color: var(--blue);
+  font-size: 10.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepItem:last-child .stepNum {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* The dotted riser dropping from one tread… */
+.stepItem::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--i, 0) * 16px + 10px);
+  top: 26px;
+  bottom: 2px;
+  width: 2px;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--ink-3) 0 3px,
+    transparent 3px 7px
+  );
+  opacity: 0.5;
+}
+
+/* …and the dotted run carrying it out to the next one. */
+.stepItem::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--i, 0) * 16px + 10px);
+  bottom: 0;
+  width: 18px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--ink-3) 0 3px,
+    transparent 3px 7px
+  );
+  opacity: 0.5;
+}
+
+.stepItem:last-child::before,
+.stepItem:last-child::after {
+  display: none;
+}
+
+.stepText {
+  padding-top: 2px;
+}
+
+@container dg (max-width: 720px) {
+  .bar {
+    padding: 20px 16px 0;
+  }
+  .hint {
+    display: none;
+  }
+
+  .track {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 64px 16px 40px;
+    overflow: visible;
+    cursor: auto;
+  }
+
+  .chapter {
+    width: auto;
+    height: auto;
+    gap: 10px;
+  }
+
+  /* The visually-hidden chapter label becomes the section header on a phone,
+     since the horizontal reading order is gone. */
+  .chapterHead {
+    position: static;
+    width: auto;
+    height: auto;
+    clip-path: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 2px 0;
+  }
+
+  .chapterNum {
+    padding: 3px 7px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: var(--blue);
+  }
+  .chapterTitle {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .badge {
+    padding: 30px 24px 24px;
+  }
+  .headline {
+    font-size: 32px;
+  }
+  /* Absolute faces need a definite height once the chapter is auto — and
+     flex:1 (basis 0) would collapse it again, so opt out of flexing too. */
+  /* Tall enough for all five services on the reverse, not just four. */
+  .flipTall {
+    flex: none;
+    height: 486px;
+  }
+  .caseFlip {
+    flex: none;
+    height: 430px;
+  }
+  .flip {
+    flex: none;
+  }
+
+  /* These exist to absorb desktop column slack; stacked they just
+     interrupt the reading order. */
+  .filler {
+    display: none;
+  }
+
+  .gap,
+  .quiz,
+  .process,
+  .book,
+  .contact,
+  .newsletter,
+  .quote,
+  .quoteEmpty,
+  .post,
+  .badge {
+    flex: none;
+  }
+
+  .quiz,
+  .process,
+  .contact,
+  .quote,
+  .quoteEmpty,
+  .post {
+    min-height: 150px;
+  }
+  .socialRow {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .sheetWrap {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .sheet {
+    width: 100%;
+    border-radius: 28px 28px 0 0;
+    padding: 22px 18px 30px;
+  }
 }

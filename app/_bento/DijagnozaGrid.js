@@ -178,11 +178,13 @@ const NECE_SE_CUTI = [
   "holistički pristup",
 ];
 
+/* Heights are the ones the site's own carousel uses, so each mark keeps
+   its intended size instead of being squashed to a common box. */
 const CLIENT_LOGOS = [
-  { src: primaDentalLogo, alt: "Prima Dental" },
-  { src: thermiqLogo, alt: "ThermiQ" },
-  { src: elektromilLogo, alt: "ElektroMil" },
-  { src: startupsLogo, alt: "startups.rs" },
+  { src: primaDentalLogo, alt: "Prima Dental", height: 72 },
+  { src: thermiqLogo, alt: "ThermiQ", height: 58 },
+  { src: elektromilLogo, alt: "ElektroMil", height: 30 },
+  { src: startupsLogo, alt: "startups.rs", height: 44 },
 ];
 
 const SOCIALS = [
@@ -333,35 +335,30 @@ function BuzzTile() {
 }
 
 function ClientsTile() {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(
-      () => setI((v) => (v + 1) % CLIENT_LOGOS.length),
-      2200,
-    );
-    return () => clearInterval(id);
-  }, []);
-  const logo = CLIENT_LOGOS[i];
-  return (
-    <article className={`${s.card} ${s.filler} ${s.clientsTile}`}>
-      <span className={s.eyebrow}>Radili smo sa</span>
-      <span className={s.logoStage}>
+  // Two identical runs, translated -50%, so the loop has no seam.
+  const run = (key) =>
+    CLIENT_LOGOS.map((l) => (
+      <span key={`${key}-${l.alt}`} className={s.logoItem}>
         <Image
-          key={logo.alt}
-          src={logo.src}
-          alt={logo.alt}
-          className={s.clientLogo}
+          src={l.src}
+          alt={l.alt}
+          height={l.height}
+          width={200}
+          style={{ height: `${l.height}px`, width: "auto" }}
+          unoptimized
         />
       </span>
-      <span className={s.logoDots} aria-hidden>
-        {CLIENT_LOGOS.map((l, n) => (
-          <span
-            key={l.alt}
-            className={`${s.logoDot} ${n === i ? s.logoDotOn : ""}`}
-          />
-        ))}
-      </span>
+    ));
+
+  return (
+    <article className={`${s.card} ${s.clientsCard}`}>
+      <span className={s.eyebrow}>Radili smo sa</span>
+      <div className={s.marquee}>
+        <div className={s.marqueeTrack}>
+          {run("a")}
+          {run("b")}
+        </div>
+      </div>
     </article>
   );
 }
@@ -1073,9 +1070,40 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 04 ─ gap, small, with the buzz tile under it */}
-            <Chapter n="04" title="Sitnice" width="266px">
+            <Chapter n="04" title="Sitnice" width="300px">
               <AskTile />
               <BuzzTile />
+              <article className={`${s.card} ${s.book}`}>
+                <span className={s.eyebrowLight}>30 minuta, bez obaveze</span>
+                <p className={s.bookTitle}>Besplatan prvi razgovor.</p>
+                <div className={s.bookRow}>
+                  <a
+                    className={s.btnLight}
+                    href={`mailto:${CONTACT.email}?subject=Zakazivanje razgovora`}
+                  >
+                    <MailIcon /> Zakažite
+                  </a>
+                  <a className={s.btnLightGhost} href={`tel:${CONTACT.tel}`}>
+                    <PhoneIcon />
+                  </a>
+                </div>
+              </article>
+              <div className={s.socialRow}>
+                {SOCIALS.map((so) => (
+                  <a
+                    key={so.id}
+                    className={s.social}
+                    href={so.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className={s.socialIcon} aria-hidden>
+                      <so.Icon />
+                    </span>
+                    <span className={s.socialHandle}>{so.handle}</span>
+                  </a>
+                ))}
+              </div>
             </Chapter>
 
             {/* 05 ─ two case studies, stacked */}
@@ -1092,7 +1120,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 06 ─ testimonial (small) + ask tile */}
-            <Chapter n="06" title="Šta kažu" width="296px">
+            <Chapter n="06" title="Šta kažu" width="330px">
               {testimonials.length > 0
                 ? <article className={`${s.card} ${s.quote}`}>
                     <p className={s.quoteBody}>{testimonials[0].body}</p>
@@ -1116,11 +1144,14 @@ export default function DijagnozaGrid({
                       klijenti.
                     </span>
                   </article>}
+            </Chapter>
+
+            <Chapter n="07" title="Klijenti" width="300px">
               <ClientsTile />
             </Chapter>
 
             {/* 07 ─ process */}
-            <Chapter n="07" title="Kako radimo" width="282px">
+            <Chapter n="08" title="Kako radimo" width="282px">
               <article className={`${s.card} ${s.processCard}`}>
                 <div className={s.processTop}>
                   <span className={s.processNum} aria-hidden>
@@ -1155,39 +1186,6 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 08 ─ book small + independent social tiles */}
-            <Chapter n="08" title="Zakažite" width="300px">
-              <article className={`${s.card} ${s.book}`}>
-                <span className={s.eyebrowLight}>30 minuta, bez obaveze</span>
-                <p className={s.bookTitle}>Besplatan prvi razgovor.</p>
-                <div className={s.bookRow}>
-                  <a
-                    className={s.btnLight}
-                    href={`mailto:${CONTACT.email}?subject=Zakazivanje razgovora`}
-                  >
-                    <MailIcon /> Zakažite
-                  </a>
-                  <a className={s.btnLightGhost} href={`tel:${CONTACT.tel}`}>
-                    <PhoneIcon />
-                  </a>
-                </div>
-              </article>
-              <div className={s.socialRow}>
-                {SOCIALS.map((so) => (
-                  <a
-                    key={so.id}
-                    className={s.social}
-                    href={so.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className={s.socialIcon} aria-hidden>
-                      <so.Icon />
-                    </span>
-                    <span className={s.socialHandle}>{so.handle}</span>
-                  </a>
-                ))}
-              </div>
-            </Chapter>
 
             {/* 09 ─ blog, three */}
             <Chapter n="09" title="Blog" width="276px">
