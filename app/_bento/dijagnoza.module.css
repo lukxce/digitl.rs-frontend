@@ -884,20 +884,6 @@ a.card:hover .iconCircleSm {
   flex: 1;
 }
 
-.caseFlip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--raised);
-  cursor: pointer;
-  color: var(--ink);
-}
-
 .caseFlip:hover {
   background: var(--blue);
   color: #fff;
@@ -1428,95 +1414,6 @@ a.card:hover .iconCircleSm {
 }
 
 /* ── phone ───────────────────────────────────────────────── */
-@container dg (max-width: 720px) {
-  .bar {
-    padding: 20px 16px 0;
-  }
-  .hint {
-    display: none;
-  }
-
-  .track {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    padding: 64px 16px 40px;
-    overflow: visible;
-    cursor: auto;
-  }
-
-  .chapter {
-    width: auto;
-    height: auto;
-    gap: 10px;
-  }
-
-  /* The visually-hidden chapter label becomes the section header on a phone,
-     since the horizontal reading order is gone. */
-  .chapterHead {
-    position: static;
-    width: auto;
-    height: auto;
-    clip-path: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 2px 0;
-  }
-
-  .chapterNum {
-    padding: 3px 7px;
-    border-radius: 999px;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    color: #fff;
-    background: var(--blue);
-  }
-  .chapterTitle {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-  }
-
-  .badge {
-    padding: 30px 24px 24px;
-  }
-  .headline {
-    font-size: 32px;
-  }
-  .flip,
-  .flipTall {
-    height: 300px;
-  }
-  .caseShot {
-    min-height: 150px;
-  }
-  .gap,
-  .quiz,
-  .process,
-  .book,
-  .contact,
-  .quote,
-  .quoteEmpty,
-  .post {
-    min-height: 150px;
-  }
-  .socialRow {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .sheetWrap {
-    align-items: flex-end;
-    padding: 0;
-  }
-  .sheet {
-    width: 100%;
-    border-radius: 28px 28px 0 0;
-    padding: 22px 18px 30px;
-  }
-}
 
 /* ── case study carousel (lukxce work-card behaviour) ────── */
 .caseCard {
@@ -1736,59 +1633,6 @@ a.card:hover .iconCircleSm {
   color: rgba(255, 255, 255, 0.78);
 }
 
-/* A dotted staircase climbing out of the corner. */
-.stairs {
-  position: absolute;
-  right: 12px;
-  bottom: 10px;
-  width: 76px;
-  height: 54px;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.55) 2px, transparent 2px) 0
-    100% / 8px 2px repeat-x,
-    linear-gradient(90deg, rgba(255, 255, 255, 0.55) 2px, transparent 2px) 26px
-    66% / 8px 2px repeat-x,
-    linear-gradient(90deg, rgba(255, 255, 255, 0.55) 2px, transparent 2px) 52px
-    33% / 8px 2px repeat-x,
-    linear-gradient(180deg, rgba(255, 255, 255, 0.55) 2px, transparent 2px) 26px
-    100% / 2px 8px repeat-y,
-    linear-gradient(180deg, rgba(255, 255, 255, 0.55) 2px, transparent 2px) 52px
-    66% / 2px 8px repeat-y;
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat-y, repeat-y;
-  background-size:
-    22px 2px,
-    22px 2px,
-    22px 2px,
-    2px 18px,
-    2px 18px;
-  opacity: 0.9;
-  pointer-events: none;
-}
-
-/* Each step sits one notch further right than the one above it. */
-.stepItem {
-  padding-left: calc(var(--i, 0) * 12px);
-  transition: padding-left 0.2s ease;
-}
-.stepItem::before {
-  content: "";
-  position: absolute;
-  left: calc(var(--i, 0) * 12px - 6px);
-  width: 2px;
-  height: 14px;
-  background: repeating-linear-gradient(
-    180deg,
-    var(--line) 0 3px,
-    transparent 3px 6px
-  );
-}
-.stepItem {
-  position: relative;
-}
-.stepItem:first-child::before {
-  display: none;
-}
-
 /* ── newsletter ──────────────────────────────────────────── */
 .newsletter {
   flex: none;
@@ -1875,4 +1719,219 @@ a.card:hover .iconCircleSm {
 }
 .bookRow {
   margin-top: 14px;
+}
+
+/* ── process: a connected stepper, no indents, no decoration ─ */
+.processHead {
+  align-items: flex-start;
+}
+.processNum {
+  opacity: 0.9;
+}
+
+.stepList {
+  gap: 0;
+}
+
+.stepItem {
+  position: relative;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 0 0 0 4px;
+  border-top: none;
+}
+
+/* The rail runs between the dots, not past the last one. */
+.stepItem::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 26px;
+  bottom: -2px;
+  width: 2px;
+  background: var(--line);
+}
+
+.stepItem:last-child::before {
+  display: none;
+}
+
+.stepNum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  z-index: 1;
+}
+
+.stepText {
+  padding-bottom: 16px;
+}
+.stepItem:last-child .stepText {
+  padding-bottom: 0;
+}
+
+/* ── case card: carousel on the front, origin story on the back ─ */
+.caseFlip {
+  flex: 1;
+  min-height: 0;
+}
+.caseCard {
+  padding: 10px 10px 0;
+}
+.caseBack {
+  background: #171717;
+  border-color: transparent;
+  color: #fff;
+  justify-content: space-between;
+  gap: 12px;
+}
+.caseBefore {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.caseTurn {
+  flex-shrink: 0;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--raised);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.caseTurn:hover {
+  background: var(--blue);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* Phone layout last: these have to win over every base rule above. */
+@container dg (max-width: 720px) {
+  .bar {
+    padding: 20px 16px 0;
+  }
+  .hint {
+    display: none;
+  }
+
+  .track {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 64px 16px 40px;
+    overflow: visible;
+    cursor: auto;
+  }
+
+  .chapter {
+    width: auto;
+    height: auto;
+    gap: 10px;
+  }
+
+  /* The visually-hidden chapter label becomes the section header on a phone,
+     since the horizontal reading order is gone. */
+  .chapterHead {
+    position: static;
+    width: auto;
+    height: auto;
+    clip-path: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 2px 0;
+  }
+
+  .chapterNum {
+    padding: 3px 7px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: var(--blue);
+  }
+  .chapterTitle {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .badge {
+    padding: 30px 24px 24px;
+  }
+  .headline {
+    font-size: 32px;
+  }
+  /* Absolute faces need a definite height once the chapter is auto — and
+     flex:1 (basis 0) would collapse it again, so opt out of flexing too. */
+  .flipTall {
+    flex: none;
+    height: 392px;
+  }
+  .caseFlip {
+    flex: none;
+    height: 430px;
+  }
+  .flip {
+    flex: none;
+  }
+
+  /* These exist to absorb desktop column slack; stacked they just
+     interrupt the reading order. */
+  .filler {
+    display: none;
+  }
+
+  .gap,
+  .quiz,
+  .process,
+  .processHead,
+  .book,
+  .contact,
+  .newsletter,
+  .quote,
+  .quoteEmpty,
+  .post,
+  .badge {
+    flex: none;
+  }
+
+  .quiz,
+  .process,
+  .contact,
+  .quote,
+  .quoteEmpty,
+  .post {
+    min-height: 150px;
+  }
+  .socialRow {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .sheetWrap {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .sheet {
+    width: 100%;
+    border-radius: 28px 28px 0 0;
+    padding: 22px 18px 30px;
+  }
 }

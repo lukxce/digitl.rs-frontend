@@ -403,6 +403,7 @@ function ServiceSheet({ id, recommended, onClose }) {
 function CaseCard({ client }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [flipped, setFlipped] = useState(false);
   const swipe = useRef(null);
   const slides = [
     { kind: "cover" },
@@ -410,112 +411,137 @@ function CaseCard({ client }) {
   ];
 
   useEffect(() => {
-    if (paused || slides.length < 2) return;
+    if (paused || flipped || slides.length < 2) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(
       () => setIndex((i) => (i + 1) % slides.length),
       4200,
     );
     return () => clearInterval(id);
-  }, [paused, slides.length]);
+  }, [paused, flipped, slides.length]);
 
   const go = (step) =>
     setIndex((i) => (i + step + slides.length) % slides.length);
 
   return (
-    <article
-      className={`${s.card} ${s.caseCard}`}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <div
-        className={s.slidesViewport}
-        data-no-drag
-        onPointerDown={(e) => {
-          swipe.current = e.clientX;
-        }}
-        onPointerUp={(e) => {
-          if (swipe.current == null) return;
-          const dx = e.clientX - swipe.current;
-          swipe.current = null;
-          if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
-        }}
-      >
-        <div
-          className={s.slides}
-          style={{ transform: `translateX(${-index * 100}%)` }}
-          aria-live="polite"
+    <div className={`${s.flip} ${s.caseFlip} ${flipped ? s.flipped : ""}`}>
+      <div className={s.flipInner}>
+        <article
+          className={`${s.card} ${s.face} ${s.caseCard}`}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
         >
-          {slides.map((sl, i) => (
+          <div
+            className={s.slidesViewport}
+            data-no-drag
+            onPointerDown={(e) => {
+              swipe.current = e.clientX;
+            }}
+            onPointerUp={(e) => {
+              if (swipe.current == null) return;
+              const dx = e.clientX - swipe.current;
+              swipe.current = null;
+              if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+            }}
+          >
             <div
-              key={sl.kind + i}
-              className={`${s.slide} ${sl.kind === "stat" ? s.slideStat : ""}`}
-              aria-hidden={i !== index}
+              className={s.slides}
+              style={{ transform: `translateX(${-index * 100}%)` }}
+              aria-live="polite"
             >
-              {sl.kind === "cover"
-                ? client.cover
-                  ? <Image
-                      src={client.cover}
-                      alt={client.clientName}
-                      fill
-                      sizes="330px"
-                      className={s.caseImg}
-                    />
-                  : null
-                : <>
-                    <span className={s.statValue}>
-                      <CountUp value={sl.value} run={i === index} />
-                    </span>
-                    <span className={s.statLabel}>{sl.label}</span>
-                  </>}
+              {slides.map((sl, i) => (
+                <div
+                  key={sl.kind + i}
+                  className={`${s.slide} ${sl.kind === "stat" ? s.slideStat : ""}`}
+                  aria-hidden={i !== index}
+                >
+                  {sl.kind === "cover"
+                    ? client.cover
+                      ? <Image
+                          src={client.cover}
+                          alt={client.clientName}
+                          fill
+                          sizes="340px"
+                          className={s.caseImg}
+                        />
+                      : null
+                    : <>
+                        <span className={s.statValue}>
+                          <CountUp value={sl.value} run={i === index} />
+                        </span>
+                        <span className={s.statLabel}>{sl.label}</span>
+                      </>}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {slides.length > 1
-          ? <div className={s.slideControls}>
-              <button
-                type="button"
-                className={s.slideBtn}
-                onClick={() => go(-1)}
-                aria-label="Prethodno"
-              >
-                <ArrowIcon size={12} />
-              </button>
-              <div className={s.dotsRow}>
-                {slides.map((sl, i) => (
+            {slides.length > 1
+              ? <div className={s.slideControls}>
                   <button
-                    key={sl.kind + i}
                     type="button"
-                    aria-current={i === index}
-                    className={`${s.dot} ${i === index ? s.dotActive : ""}`}
-                    onClick={() => setIndex(i)}
-                    aria-label={`Slajd ${i + 1}`}
-                  />
-                ))}
-              </div>
-              <button
-                type="button"
-                className={s.slideBtn}
-                onClick={() => go(1)}
-                aria-label="Sledeće"
-              >
-                <ArrowIcon size={12} />
-              </button>
-            </div>
-          : null}
-      </div>
+                    className={s.slideBtn}
+                    onClick={() => go(-1)}
+                    aria-label="Prethodno"
+                  >
+                    <ArrowIcon size={12} />
+                  </button>
+                  <div className={s.dotsRow}>
+                    {slides.map((sl, i) => (
+                      <button
+                        key={sl.kind + i}
+                        type="button"
+                        aria-current={i === index}
+                        className={`${s.dot} ${i === index ? s.dotActive : ""}`}
+                        onClick={() => setIndex(i)}
+                        aria-label={`Slajd ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    className={s.slideBtn}
+                    onClick={() => go(1)}
+                    aria-label="Sledeće"
+                  >
+                    <ArrowIcon size={12} />
+                  </button>
+                </div>
+              : null}
+          </div>
 
-      <a className={s.caseFoot} href={client.href}>
-        <span className={s.caseText}>
-          <span className={s.strong}>{client.clientName}</span>
-          <span className={s.muted}>{client.category}</span>
-        </span>
-        <span className={s.iconCircleSm}>
-          <ArrowIcon size={12} />
-        </span>
-      </a>
-    </article>
+          <div className={s.caseFoot}>
+            <span className={s.caseText}>
+              <span className={s.strong}>{client.clientName}</span>
+              <span className={s.muted}>{client.category}</span>
+            </span>
+            <button
+              type="button"
+              className={s.caseTurn}
+              onClick={() => setFlipped(true)}
+            >
+              Odakle su krenuli
+            </button>
+          </div>
+        </article>
+
+        <article className={`${s.card} ${s.face} ${s.caseBack}`}>
+          <span className={s.faceTag}>Pre</span>
+          <p className={s.caseBefore}>{client.before}</p>
+          <div className={s.caseBackFoot}>
+            <button
+              type="button"
+              className={s.chipLight}
+              onClick={() => setFlipped(false)}
+            >
+              Nazad
+            </button>
+            <a className={s.faceLink} href={client.href}>
+              Cela priča <ArrowIcon size={11} />
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
   );
 }
 
@@ -1036,7 +1062,6 @@ export default function DijagnozaGrid({
                     rezultate u istom pravcu, od početka do kraja.
                   </span>
                 </span>
-                <span className={s.stairs} aria-hidden />
               </article>
               <article className={`${s.card} ${s.process}`}>
                 <ol className={s.stepList}>
@@ -1120,8 +1145,12 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 10 ─ contact */}
-            <Chapter n="10" title="Kontakt" width="320px">
+            <Chapter n="10" title="Newsletter" width="264px">
               <NewsletterCard />
+              <BuzzTile />
+            </Chapter>
+
+            <Chapter n="11" title="Kontakt" width="320px">
               <ContactCard
                 prefill={
                   first
