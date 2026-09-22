@@ -9,6 +9,7 @@ import {
   IconStrategy,
   IconWeb,
 } from "../components/serviceIcons";
+import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
 import {
   ArrowIcon,
   CONTACT,
@@ -23,52 +24,56 @@ import s from "./dijagnoza.module.css";
  * digitl.rs homepage concept: a short diagnostic instead of a brochure.
  *
  * Three questions decide which services are recommended; everything after
- * reacts to the answers. Card sizes are driven by content rather than by
- * the column, and the whole thing previews at phone width via the toggle.
+ * reacts. Type scale and card radii follow the lukxce badge grid, and the
+ * small tiles are scattered into whatever vertical slack a column leaves
+ * rather than clustered in one chapter.
  */
 
-const SERVICES = {
-  ads: {
+const SERVICE_LIST = [
+  {
+    id: "ads",
     Icon: IconProduct,
     name: "Plaćeno oglašavanje",
     role: "Saobraćaj danas.",
     body: "Kampanje na Google-u i mrežama, postavljene i skalirane da donose prodaju, ne samo klikove.",
     feeds: "Hrani web upitima, a SEO podacima o tome šta ljudi stvarno traže.",
   },
-  seo: {
+  {
+    id: "seo",
     Icon: IconStrategy,
     name: "SEO",
     role: "Saobraćaj koji ne plaćate.",
     body: "Budite prvi tamo gde kupci traže rešenje, na Google-u i u AI pretrazi.",
     feeds: "Snižava cenu plaćenog klika i drži upite kad se kampanja ugasi.",
   },
-  web: {
+  {
+    id: "web",
     Icon: IconWeb,
     name: "Web",
     role: "Poseta postaje upit.",
     body: "Brzi sajtovi napravljeni da konvertuju, da plaćeni saobraćaj pretvore u kupce.",
     feeds: "Bez njega svaki drugi kanal plaća za posetu koja ne postane poziv.",
   },
-  social: {
+  {
+    id: "social",
     Icon: IconMotion,
     name: "Društvene mreže",
     role: "Prisutnost između kupovina.",
     body: "Dosledan brend na mrežama koji podržava sve ostale kanale.",
     feeds: "Čini da vas kupac prepozna kad vas nađe u pretrazi ili oglasu.",
   },
-  brand: {
+  {
+    id: "brand",
     Icon: IconBrand,
     name: "Brend",
     role: "Sve ostalo košta manje.",
     body: "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",
     feeds: "Isti oglas, ista pozicija, veći procenat klikova. To je brend.",
   },
-};
+];
 
-/**
- * Three questions. Each option adds weight to services and can carry a
- * diagnosis line; the highest-weighted three become the recommendation.
- */
+const SERVICES = Object.fromEntries(SERVICE_LIST.map((x) => [x.id, x]));
+
 const QUIZ = [
   {
     id: "izvor",
@@ -79,35 +84,35 @@ const QUIZ = [
         label: "Preporuka",
         w: { seo: 3, ads: 2, web: 2 },
         match: "moler-nis",
-        gap: "Preporuka ima plafon. Radi dok se krug poznanstava ne iscrpi, a onda novih poziva nema odakle.",
+        gap: "Preporuka ima plafon. Radi dok se krug poznanstava ne iscrpi.",
       },
       {
         id: "placeno",
         label: "Plaćeni oglasi",
         w: { seo: 3, brand: 2 },
         match: "thermiq",
-        gap: "Plaćeno radi dok plaćate. Bez organskog dela cena upita raste svake godine.",
+        gap: "Plaćeno radi dok plaćate. Bez organskog, cena upita raste svake godine.",
       },
       {
         id: "organski",
         label: "Google, organski",
         w: { ads: 3, social: 2 },
         match: "servis-klime-nis",
-        gap: "Organski donosi, ali nema ručicu za tempo kad vam treba više upita ovog meseca.",
+        gap: "Organski donosi, ali nema ručicu kad vam treba više upita ovog meseca.",
       },
       {
         id: "mreze",
         label: "Društvene mreže",
         w: { seo: 3, web: 2 },
         match: "thermiq",
-        gap: "Mreže grade poznatost, ne nameru. Kupac spreman da kupi pretražuje, ne skroluje.",
+        gap: "Mreže grade poznatost, ne nameru. Kupac spreman da kupi pretražuje.",
       },
       {
         id: "nista",
         label: "Ne merimo",
         w: { web: 3, seo: 2, ads: 2 },
         match: "elektromil",
-        gap: "Bez merenja je svaka odluka o budžetu nagađanje. To je prvi problem i najjeftiniji.",
+        gap: "Bez merenja je svaka odluka o budžetu nagađanje. To je prvi problem.",
       },
     ],
   },
@@ -117,32 +122,28 @@ const QUIZ = [
     options: [
       { id: "nemamo", label: "Nemamo ga", w: { web: 4, brand: 2 } },
       { id: "star", label: "Star je i spor", w: { web: 3, seo: 1 } },
-      {
-        id: "ok",
-        label: "Solidan, ali ne donosi upite",
-        w: { web: 2, ads: 1 },
-      },
-      { id: "dobar", label: "Zadovoljni smo njime", w: { ads: 1, seo: 1 } },
+      { id: "ok", label: "Solidan, ali bez upita", w: { web: 2, ads: 1 } },
+      { id: "dobar", label: "Zadovoljni smo", w: { ads: 1, seo: 1 } },
     ],
   },
   {
     id: "cilj",
-    q: "Šta vam treba u sledećih šest meseci?",
+    q: "Šta vam treba za šest meseci?",
     options: [
       { id: "brzo", label: "Upiti što pre", w: { ads: 4, web: 2 } },
       {
         id: "stabilno",
-        label: "Stabilan priliv bez plaćanja klikova",
+        label: "Priliv bez plaćanja klikova",
         w: { seo: 4, web: 1 },
       },
       {
         id: "poznatost",
-        label: "Da nas ljudi prepoznaju",
+        label: "Da nas prepoznaju",
         w: { brand: 4, social: 3 },
       },
       {
         id: "sve",
-        label: "Sve odjednom, ne znam odakle",
+        label: "Sve, ne znam odakle",
         w: { web: 2, seo: 2, ads: 2, brand: 1 },
       },
     ],
@@ -150,15 +151,15 @@ const QUIZ = [
 ];
 
 const STEPS = [
-  ["Razumevanje", "Analiziramo biznis, ciljeve i dosadašnje brojeve."],
-  ["Planiranje", "Prioriteti, kanali i jasan plan rasta."],
-  ["Lansiranje", "Pokrećemo, testiramo i skaliramo ono što zarađuje."],
-  ["Optimizacija", "Jasni izveštaji i odluke o sledećem koraku."],
+  ["Razumevanje", "Biznis, ciljevi i dosadašnji brojevi."],
+  ["Planiranje", "Prioriteti, kanali i plan rasta."],
+  ["Lansiranje", "Pokrećemo i skaliramo ono što zarađuje."],
+  ["Optimizacija", "Izveštaji i odluke o sledećem koraku."],
 ];
 
 const ASK = [
-  "Zašto vam Google Ads troši budžet na sopstveni brend",
-  "Da li vam treba SEO ili samo brži sajt",
+  "Zašto Google Ads troši budžet na vaš brend",
+  "Treba li vam SEO ili samo brži sajt",
   "Koliko vas stvarno košta jedan upit",
   "Zašto konkurent sa gorim sajtom rangira bolje",
   "Zašto saobraćaj raste, a prodaja ne",
@@ -170,6 +171,27 @@ const NECE_SE_CUTI = [
   "360° rešenje",
   "growth hacking",
   "holistički pristup",
+];
+
+const SOCIALS = [
+  {
+    id: "ig",
+    Icon: IconInstagram,
+    handle: "@digitl.rs",
+    href: "https://www.instagram.com/digitl.rs",
+  },
+  {
+    id: "li",
+    Icon: IconLinkedin,
+    handle: "digitl",
+    href: "https://www.linkedin.com/company/digitl-rs",
+  },
+  {
+    id: "x",
+    Icon: IconX,
+    handle: "@digitl_rs",
+    href: "https://x.com/digitl_rs",
+  },
 ];
 
 /* ── primitives ──────────────────────────────────────────── */
@@ -204,7 +226,7 @@ function CountUp({ value, run }) {
     const t0 = performance.now();
     let raf = 0;
     const tick = (t) => {
-      const p = Math.min(1, (t - t0) / 900);
+      const p = Math.min(1, (t - t0) / 800);
       const n = target * (1 - (1 - p) ** 3);
       setShown(
         `${isInt ? Math.round(n).toLocaleString("sr-RS") : n.toFixed(1).replace(".", ",")}${m[2]}`,
@@ -216,8 +238,6 @@ function CountUp({ value, run }) {
   }, [value, run]);
   return <>{shown}</>;
 }
-
-/* ── chrome ──────────────────────────────────────────────── */
 
 function useStored(key, initial) {
   const [v, setV] = useState(initial);
@@ -240,122 +260,80 @@ function useStored(key, initial) {
   return [v, set];
 }
 
-function DeviceToggle({ device, onToggle }) {
-  const phone = device === "phone";
+/* ── scattered filler tiles ──────────────────────────────── */
+
+function ClockTile() {
+  const [now, setNow] = useState(null);
+  useEffect(() => {
+    const read = () => {
+      const p = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Europe/Belgrade",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+      }).formatToParts(new Date());
+      const g = (t) => p.find((x) => x.type === t)?.value ?? "";
+      setNow({ hh: g("hour"), mm: g("minute"), h: Number(g("hour")) });
+    };
+    read();
+    const id = setInterval(read, 15_000);
+    return () => clearInterval(id);
+  }, []);
+  const line =
+    now == null
+      ? ""
+      : now.h < 8
+        ? "Prerano. Kampanje rade."
+        : now.h < 17
+          ? "Radimo. Javite se."
+          : now.h < 22
+            ? "Još gledamo izveštaje."
+            : "Spavamo. Google Ads ne.";
   return (
-    <button
-      type="button"
-      className={s.chrome}
-      onClick={onToggle}
-      aria-pressed={phone}
-      title="Pregled na telefonu"
-    >
-      {phone
-        ? <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden
-          >
-            <rect
-              x="2"
-              y="4"
-              width="20"
-              height="14"
-              rx="2"
-              stroke="currentColor"
-              strokeWidth="1.9"
-            />
-            <path
-              d="M8 21h8"
-              stroke="currentColor"
-              strokeWidth="1.9"
-              strokeLinecap="round"
-            />
-          </svg>
-        : <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden
-          >
-            <rect
-              x="6"
-              y="2"
-              width="12"
-              height="20"
-              rx="3"
-              stroke="currentColor"
-              strokeWidth="1.9"
-            />
-            <path
-              d="M11 18.5h2"
-              stroke="currentColor"
-              strokeWidth="1.9"
-              strokeLinecap="round"
-            />
-          </svg>}
-      {phone ? "Desktop" : "Telefon"}
-    </button>
+    <article className={`${s.card} ${s.filler}`}>
+      <span className={s.eyebrow}>Srbija · GMT+2</span>
+      <p className={s.clockTime} suppressHydrationWarning>
+        {now ? `${now.hh}:${now.mm}` : "--:--"}
+      </p>
+      <span className={s.muted}>{line}</span>
+    </article>
   );
 }
 
-function ThemeToggle({ theme, onToggle }) {
-  const [sysDark, setSysDark] = useState(false);
+function BuzzTile() {
+  const [i, setI] = useState(0);
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const read = () => setSysDark(mq.matches);
-    read();
-    mq.addEventListener("change", read);
-    return () => mq.removeEventListener("change", read);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(
+      () => setI((v) => (v + 1) % NECE_SE_CUTI.length),
+      2400,
+    );
+    return () => clearInterval(id);
   }, []);
-  const dark = theme === "dark" || (theme === "auto" && sysDark);
   return (
-    <button
-      type="button"
-      className={s.chromeIcon}
-      onClick={onToggle}
-      aria-label={dark ? "Svetla tema" : "Tamna tema"}
-    >
-      {dark
-        ? <svg
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden
-          >
-            <path
-              d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinejoin="round"
-            />
-          </svg>
-        : <svg
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden
-          >
-            <circle
-              cx="12"
-              cy="12"
-              r="4.4"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-            <path
-              d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>}
-    </button>
+    <article className={`${s.card} ${s.filler}`}>
+      <span className={s.eyebrow}>Nećete čuti od nas</span>
+      <p className={s.buzzWord} key={NECE_SE_CUTI[i]}>
+        {NECE_SE_CUTI[i]}
+      </p>
+    </article>
+  );
+}
+
+function AskTile() {
+  const [i, setI] = useState(0);
+  return (
+    <article className={`${s.card} ${s.filler}`}>
+      <span className={s.eyebrow}>Pitajte nas o</span>
+      <p className={s.askText}>{ASK[i]}</p>
+      <button
+        type="button"
+        className={s.chip}
+        onClick={() => setI((v) => (v + 1) % ASK.length)}
+      >
+        Još jedno
+      </button>
+    </article>
   );
 }
 
@@ -368,11 +346,9 @@ function ServiceSheet({ id, recommended, onClose }) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [id, onClose]);
-
   if (!id) return null;
   const sv = SERVICES[id];
   const { Icon } = sv;
-
   return (
     <div
       className={s.sheetWrap}
@@ -411,9 +387,9 @@ function ServiceSheet({ id, recommended, onClose }) {
           <p>{sv.feeds}</p>
         </div>
         <a className={s.sheetCta} href="#kontakt" onClick={onClose}>
-          Pitajte nas o ovome
+          Pitajte nas o ovome{" "}
           <span className={s.iconCircle}>
-            <ArrowIcon size={13} />
+            <ArrowIcon size={12} />
           </span>
         </a>
       </div>
@@ -421,7 +397,7 @@ function ServiceSheet({ id, recommended, onClose }) {
   );
 }
 
-/* ── case study, flipping ────────────────────────────────── */
+/* ── case study ──────────────────────────────────────────── */
 
 function CaseCard({ client }) {
   const [flipped, setFlipped] = useState(false);
@@ -435,32 +411,30 @@ function CaseCard({ client }) {
                   src={client.cover}
                   alt={client.clientName}
                   fill
-                  sizes="340px"
+                  sizes="330px"
                   className={s.caseImg}
                 />
               </span>
             : null}
-          <div className={s.caseText}>
-            <span className={s.caseClient}>{client.clientName}</span>
-            <span className={s.caseCat}>{client.category}</span>
-            <p className={s.caseBefore}>{client.before}</p>
-          </div>
-          <button
-            type="button"
-            className={s.caseFlip}
-            onClick={() => setFlipped(true)}
-          >
-            Šta je bilo posle
-            <span className={s.iconCircleSm}>
-              <ArrowIcon size={11} />
+          <div className={s.caseRow}>
+            <span className={s.caseText}>
+              <span className={s.strong}>{client.clientName}</span>
+              <span className={s.muted}>{client.category}</span>
             </span>
-          </button>
+            <button
+              type="button"
+              className={s.caseFlip}
+              onClick={() => setFlipped(true)}
+              aria-label="Rezultati"
+            >
+              <ArrowIcon size={13} />
+            </button>
+          </div>
         </article>
 
         <article className={`${s.card} ${s.face} ${s.caseBack}`}>
           <span className={s.faceTag}>Posle</span>
-          <span className={s.caseClientLight}>{client.clientName}</span>
-          <div className={s.metricStack}>
+          <div className={s.metricRow}>
             {client.after.map((m) => (
               <span key={m.label} className={s.metric}>
                 <span className={s.metricValue}>
@@ -485,83 +459,6 @@ function CaseCard({ client }) {
         </article>
       </div>
     </div>
-  );
-}
-
-/* ── scattered small tiles ───────────────────────────────── */
-
-function AskTile() {
-  const [i, setI] = useState(0);
-  return (
-    <article className={`${s.card} ${s.tile} ${s.tileAsk}`}>
-      <span className={s.eyebrow}>Pitajte nas o</span>
-      <p className={s.askText}>{ASK[i]}</p>
-      <button
-        type="button"
-        className={s.chip}
-        onClick={() => setI((v) => (v + 1) % ASK.length)}
-      >
-        Još jedno
-      </button>
-    </article>
-  );
-}
-
-function ClockTile() {
-  const [now, setNow] = useState(null);
-  useEffect(() => {
-    const read = () => {
-      const p = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/Belgrade",
-        hour: "2-digit",
-        minute: "2-digit",
-        hourCycle: "h23",
-      }).formatToParts(new Date());
-      const g = (t) => p.find((x) => x.type === t)?.value ?? "";
-      setNow({ hh: g("hour"), mm: g("minute"), h: Number(g("hour")) });
-    };
-    read();
-    const id = setInterval(read, 15_000);
-    return () => clearInterval(id);
-  }, []);
-  const line =
-    now == null
-      ? ""
-      : now.h < 8
-        ? "Prerano. Kampanje rade."
-        : now.h < 17
-          ? "Radimo. Javite se."
-          : now.h < 22
-            ? "Još gledamo izveštaje."
-            : "Spavamo. Google Ads ne.";
-  return (
-    <article className={`${s.card} ${s.tile} ${s.tileClock}`}>
-      <span className={s.eyebrow}>Srbija · GMT+2</span>
-      <p className={s.clockTime} suppressHydrationWarning>
-        {now ? `${now.hh}:${now.mm}` : "--:--"}
-      </p>
-      <span className={s.smallNote}>{line}</span>
-    </article>
-  );
-}
-
-function BuzzTile() {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(
-      () => setI((v) => (v + 1) % NECE_SE_CUTI.length),
-      2400,
-    );
-    return () => clearInterval(id);
-  }, []);
-  return (
-    <article className={`${s.card} ${s.tile} ${s.tileBuzz}`}>
-      <span className={s.eyebrow}>Nećete čuti od nas</span>
-      <p className={s.buzzWord} key={NECE_SE_CUTI[i]}>
-        {NECE_SE_CUTI[i]}
-      </p>
-    </article>
   );
 }
 
@@ -605,12 +502,13 @@ function ContactCard({ prefill }) {
     empty: "Napišite nešto. Bilo šta.",
     sending: "Šaljemo…",
     done: "Primljeno. Javljamo se uskoro.",
-    error: "Nije poslato. Pokušajte ponovo za minut.",
+    error: "Nije poslato. Pokušajte ponovo.",
   }[state];
 
   return (
     <article className={`${s.card} ${s.contact}`} id="kontakt">
-      <span className={s.eyebrowLight}>Vaš red</span>
+      <span className={s.dots} aria-hidden />
+      <span className={s.eyebrow}>Vaš red</span>
       <p className={s.contactTitle}>
         {prefill ? "Nastavite rečenicu." : "Gde ste vi sada?"}
       </p>
@@ -628,7 +526,7 @@ function ContactCard({ prefill }) {
         />
         <textarea
           className={s.field}
-          rows={3}
+          rows={2}
           placeholder="Na čemu radite?"
           aria-label="Poruka"
           value={message}
@@ -641,7 +539,7 @@ function ContactCard({ prefill }) {
         <button className={s.send} type="submit" disabled={state === "sending"}>
           Pošaljite{" "}
           <span className={s.iconCircleBlue}>
-            <ArrowIcon />
+            <ArrowIcon size={13} />
           </span>
         </button>
       </form>
@@ -666,6 +564,7 @@ export default function DijagnozaGrid({
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [sheet, setSheet] = useState(null);
+  const [showAll, setShowAll] = useState(false);
   const [device, setDevice] = useStored("dijagnoza-device", "desktop");
   const [theme, setTheme] = useStored("dijagnoza-theme", "auto");
   useHorizontalScroll(trackRef, stageRef);
@@ -674,12 +573,9 @@ export default function DijagnozaGrid({
     q.options.find((o) => o.id === answers[q.id]),
   ).filter(Boolean);
   const done = picked.length === QUIZ.length;
-
-  // Weighted tally across every answer; top three become the recommendation.
   const scores = {};
-  for (const o of picked) {
+  for (const o of picked)
     for (const [k, v] of Object.entries(o.w)) scores[k] = (scores[k] ?? 0) + v;
-  }
   const recommended = Object.entries(scores)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 3)
@@ -692,6 +588,7 @@ export default function DijagnozaGrid({
   const cases = matched
     ? [matched, ...clients.filter((c) => c.slug !== matched.slug)].slice(0, 2)
     : clients.slice(0, 2);
+  const q = QUIZ[step];
 
   function answer(qid, oid) {
     setAnswers((a) => ({ ...a, [qid]: oid }));
@@ -705,13 +602,6 @@ export default function DijagnozaGrid({
       });
   }
 
-  function reset() {
-    setAnswers({});
-    setStep(0);
-  }
-
-  const q = QUIZ[step];
-
   return (
     <div
       className={s.stage}
@@ -721,31 +611,42 @@ export default function DijagnozaGrid({
       data-theme={theme}
     >
       <div className={s.chromeBar}>
-        <DeviceToggle
-          device={device}
-          onToggle={() => setDevice(device === "phone" ? "desktop" : "phone")}
-        />
-        <ThemeToggle
-          theme={theme}
-          onToggle={() => setTheme(theme === "dark" ? "light" : "dark")}
-        />
+        <button
+          type="button"
+          className={s.chrome}
+          onClick={() => setDevice(device === "phone" ? "desktop" : "phone")}
+        >
+          {device === "phone" ? "Desktop" : "Telefon"}
+        </button>
+        <button
+          type="button"
+          className={s.chrome}
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        >
+          {theme === "dark" ? "Svetlo" : "Tamno"}
+        </button>
       </div>
 
       <div className={s.viewport}>
         <div className={s.inner}>
-          <div className={s.wash} aria-hidden />
-
           <header className={s.bar}>
             <Image
               src="/digitl-logo.png"
               alt="digitl"
-              width={80}
-              height={22}
+              width={76}
+              height={20}
               className={s.logo}
               priority
             />
             {done
-              ? <button type="button" className={s.reset} onClick={reset}>
+              ? <button
+                  type="button"
+                  className={s.reset}
+                  onClick={() => {
+                    setAnswers({});
+                    setStep(0);
+                  }}
+                >
                   Ispočetka
                 </button>
               : <span className={s.hint}>
@@ -757,60 +658,64 @@ export default function DijagnozaGrid({
           </header>
 
           <div className={s.track} ref={trackRef}>
-            {/* 01 ─ hero, with the lanyard badge */}
-            <Chapter n="01" title="Digitl" width="390px">
-              <article className={`${s.card} ${s.hero}`}>
+            {/* 01 ─ badge, in the lukxce shape */}
+            <Chapter n="01" title="Digitl" width="392px">
+              <article className={`${s.card} ${s.badge}`}>
                 <span className={s.lanyard} aria-hidden>
                   <span className={s.lanyardStrap} />
                   <span className={s.lanyardClip} />
                 </span>
                 <span className={s.hole} aria-hidden />
-                <span className={s.heroGlow} aria-hidden />
-                <h1 className={s.heroTitle}>
-                  Marketing koji donosi <em>prave</em> rezultate.
+
+                <div className={s.badgeTop}>
+                  <span className={s.avatar} aria-hidden />
+                  <span className={s.who}>
+                    <span className={s.name}>digitl</span>
+                    <span className={s.muted}>Marketing kao jedan sistem</span>
+                  </span>
+                  <span className={s.available}>
+                    <span className={s.pulse} aria-hidden />
+                    Srbija
+                  </span>
+                </div>
+
+                <h1 className={s.headline}>
+                  Marketing koji donosi prave rezultate.
                 </h1>
-                <p className={s.heroBody}>
-                  Kompletan marketing kao jedan sistem, ne meni nepovezanih
-                  usluga.
+                <p className={s.lede}>
+                  Plaćeno oglašavanje, web, SEO i brend — povezani, i mereni na
+                  istom mestu.
                 </p>
-                <div className={s.heroRow}>
-                  <a className={s.btnPrimary} href="#kontakt">
-                    Zakažite razgovor{" "}
-                    <span className={s.iconCircle}>
-                      <ArrowIcon size={12} />
-                    </span>
-                  </a>
-                  <a className={s.btnGhost} href="/#usluge">
-                    Sve usluge
-                  </a>
+
+                <div className={s.badgeBottom}>
+                  <p className={s.location}>
+                    Radimo sa firmama koje se mere <strong>rezultatom</strong>,
+                    ne utiskom.
+                  </p>
                 </div>
               </article>
             </Chapter>
 
-            {/* 02 ─ the quiz */}
-            <Chapter n="02" title="Tri pitanja" width="340px">
+            {/* 02 ─ quiz, with the clock filling the slack */}
+            <Chapter n="02" title="Tri pitanja" width="318px">
               <article className={`${s.card} ${s.quiz}`}>
                 <div className={s.quizTop}>
                   <span className={s.eyebrow}>
-                    Pitanje {Math.min(step + 1, QUIZ.length)} / {QUIZ.length}
+                    {Math.min(step + 1, QUIZ.length)} / {QUIZ.length}
                   </span>
-                  <div className={s.pips} aria-hidden>
+                  <span className={s.pips} aria-hidden>
                     {QUIZ.map((qq, i) => (
                       <span
                         key={qq.id}
                         className={`${s.pip} ${answers[qq.id] ? s.pipDone : ""} ${i === step && !done ? s.pipNow : ""}`}
                       />
                     ))}
-                  </div>
+                  </span>
                 </div>
-
                 {done
                   ? <div className={s.quizDone}>
                       <p className={s.quizDoneTitle}>Gotovo.</p>
-                      <p className={s.smallNote}>Preporuka je desno.</p>
-                      <button type="button" className={s.chip} onClick={reset}>
-                        Ispočetka
-                      </button>
+                      <span className={s.muted}>Preporuka je spremna.</span>
                     </div>
                   : <>
                       <h2 className={s.quizQ} key={q.id}>
@@ -821,7 +726,7 @@ export default function DijagnozaGrid({
                           <button
                             key={o.id}
                             type="button"
-                            className={`${s.option} ${answers[q.id] === o.id ? s.optionOn : ""}`}
+                            className={s.option}
                             onClick={() => answer(q.id, o.id)}
                           >
                             {o.label}
@@ -839,62 +744,102 @@ export default function DijagnozaGrid({
                         : null}
                     </>}
               </article>
+              <ClockTile />
             </Chapter>
 
-            {/* 03 ─ the recommendation */}
-            <Chapter n="03" title="Ovo vam treba" width="360px">
-              <div className={s.resultCol} data-anchor="result">
-                {done
-                  ? <>
-                      <div className={s.recGrid}>
-                        {recommended.map((id, i) => {
-                          const sv = SERVICES[id];
-                          return (
+            {/* 03 ─ recommendation, flipping to all services */}
+            <Chapter n="03" title="Ovo vam treba" width="336px">
+              <div
+                className={`${s.flip} ${s.flipTall} ${showAll ? s.flipped : ""}`}
+                data-anchor="result"
+              >
+                <div className={s.flipInner}>
+                  <div className={`${s.face} ${s.resultFace}`}>
+                    {done
+                      ? <>
+                          {recommended.map((id, i) => {
+                            const sv = SERVICES[id];
+                            return (
+                              <button
+                                key={id}
+                                type="button"
+                                className={`${s.rec} ${i === 0 ? s.recTop : ""}`}
+                                onClick={() => setSheet(id)}
+                              >
+                                <span className={s.recIcon} aria-hidden>
+                                  <sv.Icon />
+                                </span>
+                                <span className={s.recText}>
+                                  <span className={s.strong}>{sv.name}</span>
+                                  <span className={s.muted}>{sv.role}</span>
+                                </span>
+                                {i === 0
+                                  ? <span className={s.recBadge}>prvo</span>
+                                  : null}
+                                <span className={s.recArrow} aria-hidden>
+                                  <ArrowIcon size={11} />
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </>
+                      : <article className={`${s.card} ${s.resultEmpty}`}>
+                          <span className={s.eyebrow}>Čeka odgovore</span>
+                          <p className={s.resultEmptyText}>
+                            Odgovorite na tri pitanja i reći ćemo odakle da se
+                            krene.
+                          </p>
+                        </article>}
+                    <button
+                      type="button"
+                      className={s.allServices}
+                      onClick={() => setShowAll(true)}
+                    >
+                      Sve usluge{" "}
+                      <span className={s.iconCircleSm}>
+                        <ArrowIcon size={11} />
+                      </span>
+                    </button>
+                  </div>
+
+                  <div className={`${s.face} ${s.allFace}`}>
+                    <article className={`${s.card} ${s.allCard}`}>
+                      <span className={s.eyebrow}>Sve što radimo</span>
+                      <ul className={s.allList}>
+                        {SERVICE_LIST.map((sv) => (
+                          <li key={sv.id}>
                             <button
-                              key={id}
                               type="button"
-                              className={`${s.rec} ${i === 0 ? s.recTop : ""}`}
-                              onClick={() => setSheet(id)}
+                              className={s.allRow}
+                              onClick={() => setSheet(sv.id)}
                             >
-                              <span className={s.recIcon} aria-hidden>
+                              <span className={s.allIcon} aria-hidden>
                                 <sv.Icon />
                               </span>
-                              <span className={s.recName}>{sv.name}</span>
-                              <span className={s.recRole}>{sv.role}</span>
-                              {i === 0
-                                ? <span className={s.recBadge}>prvo ovo</span>
-                                : null}
-                              <span className={s.recArrow} aria-hidden>
-                                <ArrowIcon size={11} />
+                              <span className={s.allText}>
+                                <span className={s.strong}>{sv.name}</span>
+                                <span className={s.muted}>{sv.role}</span>
                               </span>
+                              <ArrowIcon size={11} />
                             </button>
-                          );
-                        })}
-                      </div>
-                      <a className={s.allServices} href="/#usluge">
-                        Pogledajte sve usluge{" "}
-                        <span className={s.iconCircleSm}>
-                          <ArrowIcon size={11} />
-                        </span>
-                      </a>
-                    </>
-                  : <article className={`${s.card} ${s.resultEmpty}`}>
-                      <span className={s.eyebrow}>Čeka odgovore</span>
-                      <p className={s.resultEmptyText}>
-                        Odgovorite na tri pitanja i reći ćemo odakle da se
-                        krene.
-                      </p>
-                      <div className={s.ghostGrid} aria-hidden>
-                        {[0, 1, 2].map((i) => (
-                          <span key={i} className={s.ghostCard} />
+                          </li>
                         ))}
-                      </div>
-                    </article>}
+                      </ul>
+                      <button
+                        type="button"
+                        className={s.chip}
+                        onClick={() => setShowAll(false)}
+                      >
+                        Nazad na preporuku
+                      </button>
+                    </article>
+                  </div>
+                </div>
               </div>
             </Chapter>
 
-            {/* 04 ─ the gap */}
-            <Chapter n="04" title="Gde je rupa" width="280px">
+            {/* 04 ─ gap, small, with the buzz tile under it */}
+            <Chapter n="04" title="Gde je rupa" width="266px">
               <article className={`${s.card} ${s.gap}`}>
                 <span className={s.eyebrowLight}>
                   {first ? "Vaš slučaj" : "Čeka odgovor"}
@@ -903,56 +848,52 @@ export default function DijagnozaGrid({
                   {first ? first.gap : "Svaki izvor klijenata ima svoju rupu."}
                 </p>
               </article>
+              <BuzzTile />
             </Chapter>
 
-            {/* 05 ─ two case studies with images */}
-            <Chapter n="05" title="Neko je već bio tu" width="700px">
-              <div className={s.caseRow}>
-                {cases.map((c) => (
-                  <CaseCard key={c.slug} client={c} />
-                ))}
-              </div>
+            {/* 05 ─ two case studies, stacked */}
+            <Chapter n="05" title="Projekti" width="330px">
+              {cases.map((c) => (
+                <CaseCard key={c.slug} client={c} />
+              ))}
+              <a href="/projects" className={`${s.card} ${s.allLink}`}>
+                Svi projekti{" "}
+                <span className={s.iconCircleSm}>
+                  <ArrowIcon size={11} />
+                </span>
+              </a>
             </Chapter>
 
-            {/* 06 ─ testimonials */}
-            <Chapter n="06" title="Šta kažu" width="330px">
+            {/* 06 ─ testimonial (small) + ask tile */}
+            <Chapter n="06" title="Šta kažu" width="296px">
               {testimonials.length > 0
-                ? <div className={s.quoteCol}>
-                    {testimonials.slice(0, 2).map((t) => (
-                      <article key={t.name} className={`${s.card} ${s.quote}`}>
-                        <span className={s.quoteMark} aria-hidden>
-                          ”
-                        </span>
-                        <p className={s.quoteBody}>{t.body}</p>
-                        <span className={s.quoteWho}>
-                          <span className={s.quoteAvatar} aria-hidden>
-                            {t.name.slice(0, 1)}
-                          </span>
-                          <span>
-                            <span className={s.quoteName}>{t.name}</span>
-                            <span className={s.quoteRole}>{t.role}</span>
-                          </span>
-                        </span>
-                      </article>
-                    ))}
-                  </div>
-                : <article className={`${s.card} ${s.quoteEmpty}`}>
-                    <span className={s.quoteMark} aria-hidden>
-                      ”
+                ? <article className={`${s.card} ${s.quote}`}>
+                    <p className={s.quoteBody}>{testimonials[0].body}</p>
+                    <span className={s.quoteWho}>
+                      <span className={s.quoteAvatar} aria-hidden>
+                        {testimonials[0].name.slice(0, 1)}
+                      </span>
+                      <span>
+                        <span className={s.strong}>{testimonials[0].name}</span>
+                        <span className={s.muted}>{testimonials[0].role}</span>
+                      </span>
                     </span>
+                  </article>
+                : <article className={`${s.card} ${s.quoteEmpty}`}>
+                    <span className={s.eyebrow}>Prazno namerno</span>
                     <p className={s.quoteBody}>
                       Ovde idu prave preporuke klijenata.
                     </p>
-                    <span className={s.smallNote}>
-                      Postojeće na sajtu su šablonske (Jessica Stone, John
-                      Carter…) i nisu vaši klijenti, pa nisu prenete. Pošaljite
-                      dve rečenice od ThermiQ-a ili Moler Niša i staju ovde.
+                    <span className={s.muted}>
+                      Na sajtu su trenutno šablonske, od ljudi koji nisu vaši
+                      klijenti.
                     </span>
                   </article>}
+              <AskTile />
             </Chapter>
 
             {/* 07 ─ process */}
-            <Chapter n="07" title="Kako radimo" width="290px">
+            <Chapter n="07" title="Kako radimo" width="282px">
               <article className={`${s.card} ${s.process}`}>
                 <ol className={s.stepList}>
                   {STEPS.map(([title, note], i) => (
@@ -960,11 +901,11 @@ export default function DijagnozaGrid({
                       <span className={s.stepNum}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span>
-                        <span className={s.stepTitle}>{title}</span>
-                        <span className={s.stepNote}>
+                      <span className={s.stepText}>
+                        <span className={s.strong}>{title}</span>
+                        <span className={s.muted}>
                           {i === 0 && first
-                            ? `Počinjemo od toga zašto ${first.label.toLowerCase()} više ne nosi sama.`
+                            ? `Zašto ${first.label.toLowerCase()} više ne nosi sama.`
                             : note}
                         </span>
                       </span>
@@ -974,99 +915,68 @@ export default function DijagnozaGrid({
               </article>
             </Chapter>
 
-            {/* 08 ─ scattered small tiles */}
-            <Chapter n="08" title="Sitnice" width="420px">
-              <div className={s.scatter}>
-                <AskTile />
-                <ClockTile />
-                <BuzzTile />
-              </div>
-            </Chapter>
-
-            {/* 09 ─ book + follow */}
-            <Chapter n="09" title="Zakažite" width="320px">
-              <div className={s.bookCol}>
-                <article className={`${s.card} ${s.book}`}>
-                  <span className={s.eyebrowLight}>30 minuta</span>
-                  <p className={s.bookTitle}>Besplatan prvi razgovor.</p>
-                  <p className={s.bookNote}>
-                    Pogledamo brojeve i kažemo šta je prioritet. Bez obaveze.
-                  </p>
-                  <div className={s.bookRow}>
-                    <a
-                      className={s.btnLight}
-                      href={`mailto:${CONTACT.email}?subject=Zakazivanje razgovora`}
-                    >
-                      <MailIcon /> Zakažite
-                    </a>
-                    <a className={s.btnLightGhost} href={`tel:${CONTACT.tel}`}>
-                      <PhoneIcon /> Pozovite
-                    </a>
-                  </div>
-                </article>
-                <article className={`${s.card} ${s.follow}`}>
-                  <span className={s.eyebrow}>Pratite nas</span>
-                  <div className={s.followRow}>
-                    <a
-                      className={s.followLink}
-                      href="https://www.instagram.com/digitl.rs"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Instagram
-                    </a>
-                    <a
-                      className={s.followLink}
-                      href="https://www.linkedin.com/company/digitl-rs"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      LinkedIn
-                    </a>
-                    <a
-                      className={s.followLink}
-                      href="https://digitl.me"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      digitl.me
-                    </a>
-                  </div>
-                </article>
-              </div>
-            </Chapter>
-
-            {/* 10 ─ blog */}
-            <Chapter n="10" title="Blog" width="270px">
-              <div className={s.postCol}>
-                {articles.slice(0, 2).map((a) => (
+            {/* 08 ─ book small + independent social tiles */}
+            <Chapter n="08" title="Zakažite" width="300px">
+              <article className={`${s.card} ${s.book}`}>
+                <span className={s.eyebrowLight}>30 minuta, bez obaveze</span>
+                <p className={s.bookTitle}>Besplatan prvi razgovor.</p>
+                <div className={s.bookRow}>
                   <a
-                    key={a.slug}
-                    href={`/journal/${a.slug}`}
-                    className={`${s.card} ${s.post}`}
+                    className={s.btnLight}
+                    href={`mailto:${CONTACT.email}?subject=Zakazivanje razgovora`}
                   >
-                    <span className={s.postTitle}>{a.title}</span>
-                    <span className={s.postFoot}>
-                      <span className={s.smallNote}>
-                        {formatDate(a.publishedAt)}
-                      </span>
-                      <span className={s.iconCircleSm}>
-                        <ArrowIcon size={11} />
-                      </span>
+                    <MailIcon /> Zakažite
+                  </a>
+                  <a className={s.btnLightGhost} href={`tel:${CONTACT.tel}`}>
+                    <PhoneIcon />
+                  </a>
+                </div>
+              </article>
+              <div className={s.socialRow}>
+                {SOCIALS.map((so) => (
+                  <a
+                    key={so.id}
+                    className={s.social}
+                    href={so.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className={s.socialIcon} aria-hidden>
+                      <so.Icon />
                     </span>
+                    <span className={s.socialHandle}>{so.handle}</span>
                   </a>
                 ))}
-                <a href="/journal" className={`${s.card} ${s.allLink}`}>
-                  Svi tekstovi{" "}
-                  <span className={s.iconCircleSm}>
-                    <ArrowIcon size={11} />
-                  </span>
-                </a>
               </div>
             </Chapter>
 
-            {/* 11 ─ contact */}
-            <Chapter n="11" title="Kontakt" width="330px">
+            {/* 09 ─ blog, three */}
+            <Chapter n="09" title="Blog" width="276px">
+              {articles.slice(0, 3).map((a) => (
+                <a
+                  key={a.slug}
+                  href={`/journal/${a.slug}`}
+                  className={`${s.card} ${s.post}`}
+                >
+                  <span className={s.postTitle}>{a.title}</span>
+                  <span className={s.postFoot}>
+                    <span className={s.muted}>{formatDate(a.publishedAt)}</span>
+                    <span className={s.iconCircleSm}>
+                      <ArrowIcon size={11} />
+                    </span>
+                  </span>
+                </a>
+              ))}
+              <a href="/journal" className={`${s.card} ${s.allLink}`}>
+                Svi tekstovi{" "}
+                <span className={s.iconCircleSm}>
+                  <ArrowIcon size={11} />
+                </span>
+              </a>
+            </Chapter>
+
+            {/* 10 ─ contact */}
+            <Chapter n="10" title="Kontakt" width="320px">
               <ContactCard
                 prefill={
                   first
@@ -1074,6 +984,14 @@ export default function DijagnozaGrid({
                     : ""
                 }
               />
+              <div className={s.directRow}>
+                <a className={s.directLink} href={`mailto:${CONTACT.email}`}>
+                  <MailIcon /> {CONTACT.email}
+                </a>
+                <a className={s.directLink} href={`tel:${CONTACT.tel}`}>
+                  <PhoneIcon /> {CONTACT.phone}
+                </a>
+              </div>
             </Chapter>
           </div>
         </div>
