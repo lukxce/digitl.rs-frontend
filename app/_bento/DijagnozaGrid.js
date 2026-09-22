@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import stripeSvg from "../assets/stripe.svg";
 import { useEffect, useRef, useState } from "react";
 import {
   IconBrand,
@@ -400,65 +401,184 @@ function ServiceSheet({ id, recommended, onClose }) {
 /* ── case study ──────────────────────────────────────────── */
 
 function CaseCard({ client }) {
-  const [flipped, setFlipped] = useState(false);
-  return (
-    <div className={`${s.flip} ${flipped ? s.flipped : ""}`}>
-      <div className={s.flipInner}>
-        <article className={`${s.card} ${s.face} ${s.caseFront}`}>
-          {client.cover
-            ? <span className={s.caseShot}>
-                <Image
-                  src={client.cover}
-                  alt={client.clientName}
-                  fill
-                  sizes="330px"
-                  className={s.caseImg}
-                />
-              </span>
-            : null}
-          <div className={s.caseRow}>
-            <span className={s.caseText}>
-              <span className={s.strong}>{client.clientName}</span>
-              <span className={s.muted}>{client.category}</span>
-            </span>
-            <button
-              type="button"
-              className={s.caseFlip}
-              onClick={() => setFlipped(true)}
-              aria-label="Rezultati"
-            >
-              <ArrowIcon size={13} />
-            </button>
-          </div>
-        </article>
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const swipe = useRef(null);
+  const slides = [
+    { kind: "cover" },
+    ...client.after.map((m) => ({ kind: "stat", ...m })),
+  ];
 
-        <article className={`${s.card} ${s.face} ${s.caseBack}`}>
-          <span className={s.faceTag}>Posle</span>
-          <div className={s.metricRow}>
-            {client.after.map((m) => (
-              <span key={m.label} className={s.metric}>
-                <span className={s.metricValue}>
-                  <CountUp value={m.value} run={flipped} />
-                </span>
-                <span className={s.metricLabel}>{m.label}</span>
-              </span>
-            ))}
-          </div>
-          <div className={s.caseBackFoot}>
-            <button
-              type="button"
-              className={s.chipLight}
-              onClick={() => setFlipped(false)}
+  useEffect(() => {
+    if (paused || slides.length < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(
+      () => setIndex((i) => (i + 1) % slides.length),
+      4200,
+    );
+    return () => clearInterval(id);
+  }, [paused, slides.length]);
+
+  const go = (step) =>
+    setIndex((i) => (i + step + slides.length) % slides.length);
+
+  return (
+    <article
+      className={`${s.card} ${s.caseCard}`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div
+        className={s.slidesViewport}
+        data-no-drag
+        onPointerDown={(e) => {
+          swipe.current = e.clientX;
+        }}
+        onPointerUp={(e) => {
+          if (swipe.current == null) return;
+          const dx = e.clientX - swipe.current;
+          swipe.current = null;
+          if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+        }}
+      >
+        <div
+          className={s.slides}
+          style={{ transform: `translateX(${-index * 100}%)` }}
+          aria-live="polite"
+        >
+          {slides.map((sl, i) => (
+            <div
+              key={sl.kind + i}
+              className={`${s.slide} ${sl.kind === "stat" ? s.slideStat : ""}`}
+              aria-hidden={i !== index}
             >
-              Nazad
-            </button>
-            <a className={s.faceLink} href={client.href}>
-              Cela priča <ArrowIcon size={11} />
-            </a>
-          </div>
-        </article>
+              {sl.kind === "cover"
+                ? client.cover
+                  ? <Image
+                      src={client.cover}
+                      alt={client.clientName}
+                      fill
+                      sizes="330px"
+                      className={s.caseImg}
+                    />
+                  : null
+                : <>
+                    <span className={s.statValue}>
+                      <CountUp value={sl.value} run={i === index} />
+                    </span>
+                    <span className={s.statLabel}>{sl.label}</span>
+                  </>}
+            </div>
+          ))}
+        </div>
+
+        {slides.length > 1
+          ? <div className={s.slideControls}>
+              <button
+                type="button"
+                className={s.slideBtn}
+                onClick={() => go(-1)}
+                aria-label="Prethodno"
+              >
+                <ArrowIcon size={12} />
+              </button>
+              <div className={s.dotsRow}>
+                {slides.map((sl, i) => (
+                  <button
+                    key={sl.kind + i}
+                    type="button"
+                    aria-current={i === index}
+                    className={`${s.dot} ${i === index ? s.dotActive : ""}`}
+                    onClick={() => setIndex(i)}
+                    aria-label={`Slajd ${i + 1}`}
+                  />
+                ))}
+              </div>
+              <button
+                type="button"
+                className={s.slideBtn}
+                onClick={() => go(1)}
+                aria-label="Sledeće"
+              >
+                <ArrowIcon size={12} />
+              </button>
+            </div>
+          : null}
       </div>
-    </div>
+
+      <a className={s.caseFoot} href={client.href}>
+        <span className={s.caseText}>
+          <span className={s.strong}>{client.clientName}</span>
+          <span className={s.muted}>{client.category}</span>
+        </span>
+        <span className={s.iconCircleSm}>
+          <ArrowIcon size={12} />
+        </span>
+      </a>
+    </article>
+  );
+}
+
+function NewsletterCard() {
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState("idle");
+
+  async function submit(e) {
+    e.preventDefault();
+    if (!/^\S+@\S+\.\S+$/.test(email)) return setState("invalid");
+    setState("sending");
+    try {
+      const res = await fetch("/api/subscribers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setState(res.ok ? "done" : "error");
+      if (res.ok) setEmail("");
+    } catch {
+      setState("error");
+    }
+  }
+
+  const note = {
+    idle: "Jednom do dva puta mesečno. Bez spama.",
+    invalid: "Ta adresa ne izgleda ispravno.",
+    sending: "Šaljemo…",
+    done: "Prijavljeni ste.",
+    error: "Nije uspelo. Pokušajte ponovo.",
+  }[state];
+
+  return (
+    <article className={`${s.card} ${s.newsletter}`}>
+      <span className={s.eyebrow}>Budite u toku</span>
+      <p className={s.newsTitle}>Trendovi i taktike, bez buke.</p>
+      <form className={s.subForm} onSubmit={submit}>
+        <input
+          className={s.subInput}
+          type="email"
+          placeholder="vas@email.com"
+          aria-label="Email adresa"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setState("idle");
+          }}
+        />
+        <button
+          className={s.subSend}
+          type="submit"
+          disabled={state === "sending"}
+          aria-label="Prijavite se"
+        >
+          <ArrowIcon size={14} />
+        </button>
+      </form>
+      <p
+        className={`${s.note} ${["invalid", "error"].includes(state) ? s.noteError : ""}`}
+      >
+        {note}
+      </p>
+    </article>
   );
 }
 
@@ -627,7 +747,9 @@ export default function DijagnozaGrid({
         </button>
       </div>
 
-      <div className={s.viewport}>
+      {/* data-lenis-prevent: the site's smooth scroll otherwise swallows the
+          wheel here and the phone frame never scrolls. */}
+      <div className={s.viewport} data-lenis-prevent>
         <div className={s.inner}>
           <header className={s.bar}>
             <Image
@@ -662,8 +784,15 @@ export default function DijagnozaGrid({
             <Chapter n="01" title="Digitl" width="392px">
               <article className={`${s.card} ${s.badge}`}>
                 <span className={s.lanyard} aria-hidden>
-                  <span className={s.lanyardStrap} />
-                  <span className={s.lanyardClip} />
+                  <Image
+                    src={stripeSvg}
+                    alt=""
+                    width={63}
+                    height={164}
+                    className={s.lanyardImg}
+                    priority
+                    unoptimized
+                  />
                 </span>
                 <span className={s.hole} aria-hidden />
 
@@ -817,10 +946,12 @@ export default function DijagnozaGrid({
                                 <sv.Icon />
                               </span>
                               <span className={s.allText}>
-                                <span className={s.strong}>{sv.name}</span>
-                                <span className={s.muted}>{sv.role}</span>
+                                <span className={s.allName}>{sv.name}</span>
+                                <span className={s.allDesc}>{sv.body}</span>
                               </span>
-                              <ArrowIcon size={11} />
+                              <span className={s.allArrow} aria-hidden>
+                                <ArrowIcon size={12} />
+                              </span>
                             </button>
                           </li>
                         ))}
@@ -894,10 +1025,23 @@ export default function DijagnozaGrid({
 
             {/* 07 ─ process */}
             <Chapter n="07" title="Kako radimo" width="282px">
+              <article className={`${s.card} ${s.processHead}`}>
+                <span className={s.processNum} aria-hidden>
+                  {STEPS.length}
+                </span>
+                <span className={s.processText}>
+                  <span className={s.processTitle}>Kako radimo</span>
+                  <span className={s.processNote}>
+                    Jedan povezan proces koji drži strategiju, egzekuciju i
+                    rezultate u istom pravcu, od početka do kraja.
+                  </span>
+                </span>
+                <span className={s.stairs} aria-hidden />
+              </article>
               <article className={`${s.card} ${s.process}`}>
                 <ol className={s.stepList}>
                   {STEPS.map(([title, note], i) => (
-                    <li key={title} className={s.stepItem}>
+                    <li key={title} className={s.stepItem} style={{ "--i": i }}>
                       <span className={s.stepNum}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
@@ -977,6 +1121,7 @@ export default function DijagnozaGrid({
 
             {/* 10 ─ contact */}
             <Chapter n="10" title="Kontakt" width="320px">
+              <NewsletterCard />
               <ContactCard
                 prefill={
                   first
