@@ -2,6 +2,10 @@
 
 import Image from "next/image";
 import stripeSvg from "../assets/stripe.svg";
+import elektromilLogo from "../assets/elektromil-logo.webp";
+import primaDentalLogo from "../assets/primadental logo.webp";
+import startupsLogo from "../assets/startups.rs logo.webp";
+import thermiqLogo from "../assets/thermiq logo.webp";
 import { useEffect, useRef, useState } from "react";
 import {
   IconBrand,
@@ -174,6 +178,13 @@ const NECE_SE_CUTI = [
   "holistički pristup",
 ];
 
+const CLIENT_LOGOS = [
+  { src: primaDentalLogo, alt: "Prima Dental" },
+  { src: thermiqLogo, alt: "ThermiQ" },
+  { src: elektromilLogo, alt: "ElektroMil" },
+  { src: startupsLogo, alt: "startups.rs" },
+];
+
 const SOCIALS = [
   {
     id: "ig",
@@ -317,6 +328,40 @@ function BuzzTile() {
       <p className={s.buzzWord} key={NECE_SE_CUTI[i]}>
         {NECE_SE_CUTI[i]}
       </p>
+    </article>
+  );
+}
+
+function ClientsTile() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(
+      () => setI((v) => (v + 1) % CLIENT_LOGOS.length),
+      2200,
+    );
+    return () => clearInterval(id);
+  }, []);
+  const logo = CLIENT_LOGOS[i];
+  return (
+    <article className={`${s.card} ${s.filler} ${s.clientsTile}`}>
+      <span className={s.eyebrow}>Radili smo sa</span>
+      <span className={s.logoStage}>
+        <Image
+          key={logo.alt}
+          src={logo.src}
+          alt={logo.alt}
+          className={s.clientLogo}
+        />
+      </span>
+      <span className={s.logoDots} aria-hidden>
+        {CLIENT_LOGOS.map((l, n) => (
+          <span
+            key={l.alt}
+            className={`${s.logoDot} ${n === i ? s.logoDotOn : ""}`}
+          />
+        ))}
+      </span>
     </article>
   );
 }
@@ -826,12 +871,24 @@ export default function DijagnozaGrid({
                 <div className={s.badgeTop}>
                   <span className={s.avatar} aria-hidden />
                   <span className={s.who}>
-                    <span className={s.name}>digitl</span>
-                    <span className={s.muted}>Marketing kao jedan sistem</span>
-                  </span>
-                  <span className={s.available}>
-                    <span className={s.pulse} aria-hidden />
-                    Srbija
+                    <span className={s.name}>Digitl</span>
+                    <span className={s.muted}>
+                      Full-Service marketing agencija
+                    </span>
+                    <span className={s.badgeSocials}>
+                      {SOCIALS.map((so) => (
+                        <a
+                          key={so.id}
+                          className={s.badgeSocial}
+                          href={so.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={so.handle}
+                        >
+                          <so.Icon />
+                        </a>
+                      ))}
+                    </span>
                   </span>
                 </div>
 
@@ -839,15 +896,34 @@ export default function DijagnozaGrid({
                   Marketing koji donosi prave rezultate.
                 </h1>
                 <p className={s.lede}>
-                  Plaćeno oglašavanje, web, SEO i brend — povezani, i mereni na
-                  istom mestu.
+                  Gradimo brendove koji se izdvajaju, konvertuju bolje i rastu
+                  brže. Sve što vaš biznis traži, na jednom mestu.
                 </p>
+
+                <div className={s.heroRow}>
+                  <a className={s.btnPrimary} href="#kontakt">
+                    Zakaži razgovor
+                    <span className={s.iconCircle}>
+                      <ArrowIcon size={12} />
+                    </span>
+                  </a>
+                  <a className={s.btnGhost} href="/projects">
+                    Naši projekti
+                  </a>
+                </div>
 
                 <div className={s.badgeBottom}>
                   <p className={s.location}>
-                    Radimo sa firmama koje se mere <strong>rezultatom</strong>,
-                    ne utiskom.
+                    <strong>Beograd / London</strong> · Projekti širom sveta
                   </p>
+                  <a
+                    className={s.enLink}
+                    href="https://digitl.me"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    English Website <ArrowIcon size={11} />
+                  </a>
                 </div>
               </article>
             </Chapter>
@@ -997,15 +1073,8 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 04 ─ gap, small, with the buzz tile under it */}
-            <Chapter n="04" title="Gde je rupa" width="266px">
-              <article className={`${s.card} ${s.gap}`}>
-                <span className={s.eyebrowLight}>
-                  {first ? "Vaš slučaj" : "Čeka odgovor"}
-                </span>
-                <p className={s.gapTitle}>
-                  {first ? first.gap : "Svaki izvor klijenata ima svoju rupu."}
-                </p>
-              </article>
+            <Chapter n="04" title="Sitnice" width="266px">
+              <AskTile />
               <BuzzTile />
             </Chapter>
 
@@ -1047,7 +1116,7 @@ export default function DijagnozaGrid({
                       klijenti.
                     </span>
                   </article>}
-              <AskTile />
+              <ClientsTile />
             </Chapter>
 
             {/* 07 ─ process */}
@@ -1148,7 +1217,6 @@ export default function DijagnozaGrid({
             {/* 10 ─ contact */}
             <Chapter n="10" title="Newsletter" width="264px">
               <NewsletterCard />
-              <BuzzTile />
             </Chapter>
 
             <Chapter n="11" title="Kontakt" width="320px">

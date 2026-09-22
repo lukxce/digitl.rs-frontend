@@ -1984,3 +1984,145 @@ a.card:hover .iconCircleSm {
   background: var(--blue);
   color: #fff;
 }
+
+/* ── badge: socials, and the bilingual footer ────────────── */
+.badgeSocials {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.badgeSocial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-3);
+  transition: color 0.16s ease;
+}
+
+.badgeSocial svg {
+  width: 15px;
+  height: 15px;
+}
+.badgeSocial:hover {
+  color: var(--ink);
+}
+
+.badgeBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.enLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.enLink:hover {
+  color: var(--blue);
+}
+
+/* ── rotating client logos ───────────────────────────────── */
+.clientsTile {
+  justify-content: space-between;
+}
+
+.logoStage {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  min-height: 0;
+  padding: 6px 0;
+}
+
+.clientLogo {
+  max-width: 116px;
+  max-height: 40px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  /* The logos are dark artwork; lift them onto a dark card. */
+  filter: invert(var(--logo-invert));
+  animation: logoIn 0.45s ease;
+}
+
+@keyframes logoIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+}
+
+.logoDots {
+  display: flex;
+  gap: 4px;
+}
+.logoDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--line);
+  transition: background 0.25s ease;
+}
+.logoDotOn {
+  background: var(--blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clientLogo {
+    animation: none;
+  }
+}
+
+/* ── badge actions ───────────────────────────────────────── */
+.heroRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px 8px 18px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+
+.btnPrimary:hover {
+  background: var(--blue-deep);
+}
+
+.btnGhost {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--raised);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.18s ease;
+}
+
+.btnGhost:hover {
+  border-color: var(--ink-3);
+}
