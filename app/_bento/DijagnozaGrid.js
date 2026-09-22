@@ -430,10 +430,12 @@ function CaseCard({ client }) {
           className={`${s.card} ${s.face} ${s.caseCard}`}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
+          onClick={() => setFlipped(true)}
         >
           <div
             className={s.slidesViewport}
             data-no-drag
+            onClick={(e) => e.stopPropagation()}
             onPointerDown={(e) => {
               swipe.current = e.clientX;
             }}
@@ -514,17 +516,16 @@ function CaseCard({ client }) {
               <span className={s.strong}>{client.clientName}</span>
               <span className={s.muted}>{client.category}</span>
             </span>
-            <button
-              type="button"
-              className={s.caseTurn}
-              onClick={() => setFlipped(true)}
-            >
-              Odakle su krenuli
-            </button>
+            <span className={s.caseHint}>
+              Odakle su krenuli <ArrowIcon size={11} />
+            </span>
           </div>
         </article>
 
-        <article className={`${s.card} ${s.face} ${s.caseBack}`}>
+        <article
+          className={`${s.card} ${s.face} ${s.caseBack}`}
+          onClick={() => setFlipped(false)}
+        >
           <span className={s.faceTag}>Pre</span>
           <p className={s.caseBefore}>{client.before}</p>
           <div className={s.caseBackFoot}>
@@ -1051,19 +1052,19 @@ export default function DijagnozaGrid({
 
             {/* 07 ─ process */}
             <Chapter n="07" title="Kako radimo" width="282px">
-              <article className={`${s.card} ${s.processHead}`}>
-                <span className={s.processNum} aria-hidden>
-                  {STEPS.length}
-                </span>
-                <span className={s.processText}>
-                  <span className={s.processTitle}>Kako radimo</span>
-                  <span className={s.processNote}>
-                    Jedan povezan proces koji drži strategiju, egzekuciju i
-                    rezultate u istom pravcu, od početka do kraja.
+              <article className={`${s.card} ${s.processCard}`}>
+                <div className={s.processTop}>
+                  <span className={s.processNum} aria-hidden>
+                    {STEPS.length}
                   </span>
-                </span>
-              </article>
-              <article className={`${s.card} ${s.process}`}>
+                  <span className={s.processText}>
+                    <span className={s.processTitle}>Kako radimo</span>
+                    <span className={s.processNote}>
+                      Jedan povezan proces koji drži strategiju, egzekuciju i
+                      rezultate u istom pravcu.
+                    </span>
+                  </span>
+                </div>
                 <ol className={s.stepList}>
                   {STEPS.map(([title, note], i) => (
                     <li key={title} className={s.stepItem} style={{ "--i": i }}>

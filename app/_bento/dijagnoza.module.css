@@ -884,18 +884,6 @@ a.card:hover .iconCircleSm {
   flex: 1;
 }
 
-.caseFlip:hover {
-  background: var(--blue);
-  color: #fff;
-  border-color: transparent;
-}
-.caseBack {
-  transform: rotateY(180deg);
-  background: var(--blue);
-  border-color: var(--blue);
-  color: #fff;
-  justify-content: space-between;
-}
 .faceTag {
   align-self: flex-start;
   padding: 3px 9px;
@@ -1788,6 +1776,8 @@ a.card:hover .iconCircleSm {
   padding: 10px 10px 0;
 }
 .caseBack {
+  /* Without the rotation the back faces forward and covers the front. */
+  transform: rotateY(180deg);
   background: #171717;
   border-color: transparent;
   color: #fff;
@@ -1800,24 +1790,6 @@ a.card:hover .iconCircleSm {
   line-height: 1.45;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.82);
-}
-
-.caseTurn {
-  flex-shrink: 0;
-  padding: 8px 13px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--raised);
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.caseTurn:hover {
-  background: var(--blue);
-  color: #fff;
-  border-color: transparent;
 }
 
 /* Phone layout last: these have to win over every base rule above. */
@@ -1882,9 +1854,10 @@ a.card:hover .iconCircleSm {
   }
   /* Absolute faces need a definite height once the chapter is auto — and
      flex:1 (basis 0) would collapse it again, so opt out of flexing too. */
+  /* Tall enough for all five services on the reverse, not just four. */
   .flipTall {
     flex: none;
-    height: 392px;
+    height: 486px;
   }
   .caseFlip {
     flex: none;
@@ -1903,7 +1876,6 @@ a.card:hover .iconCircleSm {
   .gap,
   .quiz,
   .process,
-  .processHead,
   .book,
   .contact,
   .newsletter,
@@ -1934,4 +1906,81 @@ a.card:hover .iconCircleSm {
     border-radius: 28px 28px 0 0;
     padding: 22px 18px 30px;
   }
+}
+
+/* ── case card: the whole face is the control ────────────── */
+.caseCard,
+.caseBack {
+  cursor: pointer;
+}
+.caseCard {
+  border-color: var(--line);
+}
+.caseFlip:hover .caseCard {
+  border-color: var(--ink-3);
+}
+
+/* A quiet hint rather than a button competing with the carousel. */
+.caseHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.caseFlip:hover .caseHint {
+  color: var(--blue);
+}
+
+/* ── process: one card, and far less blue ────────────────── */
+.processCard {
+  flex: 1;
+  gap: 0;
+  padding: 22px;
+}
+
+.processTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.processNum {
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  color: var(--blue);
+}
+
+.processTitle {
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.processNote {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+.processCard .stepList {
+  padding-top: 16px;
+}
+
+/* Only one saturated blue block per stretch of the page: the booking card
+   keeps it, the process card reads as paper with blue accents. */
+.recTop {
+  background: var(--card);
+  border-color: var(--blue);
+}
+.recTop .recIcon {
+  background: var(--blue);
+  color: #fff;
 }
