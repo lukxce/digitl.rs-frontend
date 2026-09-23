@@ -1083,13 +1083,25 @@ a.card:hover .iconCircleSm {
 }
 
 /* ── 08 book + socials ───────────────────────────────────── */
+/* The one dark card on the page now that the jargon list is gone. */
 .book {
   flex: none;
   justify-content: flex-end;
   gap: 6px;
-  color: #fff;
-  border-color: transparent;
-  background: var(--blue);
+  color: var(--contrast-ink);
+  border-color: var(--contrast-bg);
+  background:
+    radial-gradient(
+      circle at 1.5px 1.5px,
+      var(--contrast-raised) 1.5px,
+      transparent 0
+    )
+    0 0 / 18px 18px,
+    var(--contrast-bg);
+}
+
+.book .eyebrowLight {
+  color: var(--contrast-ink-2);
 }
 .bookTitle {
   margin: auto 0 0;
@@ -1118,17 +1130,17 @@ a.card:hover .iconCircleSm {
 }
 
 .btnLight {
-  background: #fff;
-  color: var(--blue);
+  background: var(--contrast-ink);
+  color: var(--contrast-bg);
 }
 .btnLightGhost {
   width: 40px;
   padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: #fff;
+  border: 1px solid var(--contrast-line);
+  color: var(--contrast-ink);
 }
 .btnLightGhost:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--contrast-raised);
 }
 
 /* Independent social tiles, like the lukxce mini cards. */
@@ -1767,17 +1779,7 @@ a.card:hover .iconCircleSm {
 
 /* ── booking, reworked ───────────────────────────────────── */
 .book {
-  flex: none;
-  gap: 6px;
   padding: 22px;
-  background:
-    radial-gradient(
-      circle at 1.5px 1.5px,
-      rgba(255, 255, 255, 0.16) 1.5px,
-      transparent 0
-    )
-    0 0 / 16px 16px,
-    var(--blue);
 }
 
 .bookTitle {
@@ -2274,160 +2276,21 @@ a.card:hover .iconCircleSm {
   }
 }
 
-/* ── extras: the interactive cards at the end of the track ─── */
+/* Same card, two places in the reading order: desktop keeps it under the
+   process, a phone reads it after the posts. */
+.hideOnPhone {
+  display: contents;
+}
+.phoneOnly {
+  display: none;
+}
 
-/* live PageSpeed check */
-.speedCard {
-  flex: 1;
-  min-height: 0;
-  gap: 8px;
-}
-.speedForm {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-  padding: 5px 5px 5px 15px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--raised);
-}
-.speedBody {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  text-align: center;
-}
-.speedScore {
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.06em;
-  font-variant-numeric: tabular-nums;
-}
-.speedScore[data-band="good"] {
-  color: #12924b;
-}
-.speedScore[data-band="ok"] {
-  color: #b7791f;
-}
-.speedScore[data-band="bad"] {
-  color: var(--danger);
-}
-.speedShot {
-  max-height: 120px;
-  width: auto;
-  margin-top: 8px;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-}
-.speedSpinner {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 3px solid var(--line);
-  border-top-color: var(--blue);
-  animation: spin 0.9s linear infinite;
-}
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.speedFoot {
+/* A header row: label on the left, a counter or flag on the right. */
+.cardTop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--line);
-}
-
-/* jargon translator — the dark card, doing something */
-.jargonCard {
-  flex: none;
-  min-height: 0;
-  gap: 6px;
-  padding: 20px 22px 22px;
-  border-color: var(--contrast-bg);
-  background:
-    radial-gradient(
-      circle at 1.5px 1.5px,
-      var(--contrast-raised) 1.5px,
-      transparent 0
-    )
-    0 0 / 18px 18px,
-    var(--contrast-bg);
-  color: var(--contrast-ink);
-}
-.eyebrowOnDark {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--contrast-ink-2);
-}
-.buzzList {
-  list-style: none;
-  margin: 10px 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.buzzItem {
-  font-size: 17px;
-  font-weight: 650;
-  line-height: 1.26;
-  letter-spacing: -0.035em;
-  color: var(--contrast-ink-2);
-  text-decoration: line-through;
-  text-decoration-thickness: 2px;
-  opacity: 0.5;
-  transition:
-    opacity 0.3s ease,
-    color 0.3s ease;
-}
-
-.buzzItemOn {
-  color: var(--contrast-ink);
-  opacity: 1;
-}
-
-/* the page timing its own load, and the jargon under it */
-.loadTile {
-  flex: none;
-  gap: 2px;
-  padding: 18px 20px;
-}
-.loadValue {
-  margin-top: 2px;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  font-variant-numeric: tabular-nums;
-}
-.loadTile .muted {
-  font-size: 12.5px;
-}
-
-.speedDemo {
-  align-self: center;
-  padding: 3px 9px;
-  border-radius: 999px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  font-size: 9.5px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-3);
+  gap: 8px;
 }
 
 @container dg (max-width: 720px) {
@@ -2563,12 +2426,10 @@ a.card:hover .iconCircleSm {
     flex: none;
     aspect-ratio: 16 / 9;
   }
-  .loadTile,
-  .jargonCard {
-    flex: none;
+  .hideOnPhone {
+    display: none;
   }
-  .speedCard {
-    flex: none;
-    min-height: 300px;
+  .phoneOnly {
+    display: contents;
   }
 }

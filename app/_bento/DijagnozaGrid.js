@@ -165,26 +165,18 @@ const STEPS = [
 
 /* Heights are the ones the site's own carousel uses, so each mark keeps
    its intended size instead of being squashed to a common box. */
-const NECE_SE_CUTI = [
-  "sinergija",
-  "disruptivno",
-  "360° rešenje",
-  "growth hacking",
-  "holistički pristup",
-  "omnichannel",
-];
-
 /* The hero pill carries the site's own claim. */
 const OPEN_SLOTS = 2;
 
-/* One height for every mark. Natural sizes made startups.rs tower over
-   ElektroMil; in a client strip, even beats accurate. */
-const LOGO_H = 30;
+/* Matching the heights made a wide wordmark read three times the size of a
+   compact mark — at h=30 these ran 45px to 127px wide. Matching the AREA
+   instead is what the eye actually reads as "the same size". */
+const LOGO_AREA = 2744;
 const CLIENT_LOGOS = [
-  { src: primaDentalLogo, alt: "Prima Dental" },
-  { src: thermiqLogo, alt: "ThermiQ" },
-  { src: elektromilLogo, alt: "ElektroMil" },
-  { src: startupsLogo, alt: "startups.rs" },
+  { src: primaDentalLogo, alt: "Prima Dental", ratio: 512 / 341 },
+  { src: thermiqLogo, alt: "ThermiQ", ratio: 300 / 160 },
+  { src: elektromilLogo, alt: "ElektroMil", ratio: 1050 / 300 },
+  { src: startupsLogo, alt: "startups.rs", ratio: 512 / 121 },
 ];
 
 const SOCIALS = [
@@ -288,9 +280,12 @@ function ClientsTile() {
         <Image
           src={l.src}
           alt={l.alt}
-          height={LOGO_H}
-          width={200}
-          style={{ height: `${LOGO_H}px`, width: "auto" }}
+          height={Math.round(Math.sqrt(LOGO_AREA / l.ratio))}
+          width={Math.round(Math.sqrt(LOGO_AREA * l.ratio))}
+          style={{
+            height: `${Math.round(Math.sqrt(LOGO_AREA / l.ratio))}px`,
+            width: "auto",
+          }}
           unoptimized
         />
       </span>
@@ -323,7 +318,7 @@ function LessonsTile({ lessons }) {
   const l = lessons[i];
   return (
     <article className={`${s.card} ${s.lessons}`}>
-      <span className={s.faqTop}>
+      <span className={s.cardTop}>
         <span className={s.eyebrow}>Naučeno na projektima</span>
         <span className={s.eyebrow}>
           {i + 1} / {lessons.length}
@@ -335,175 +330,6 @@ function LessonsTile({ lessons }) {
       <a className={s.lessonClient} href={l.href}>
         {l.client} <ArrowIcon size={11} />
       </a>
-    </article>
-  );
-}
-
-/** Live PageSpeed score for whatever domain the visitor types. */
-/* Shown before anyone types, so the card is never an empty box. Labelled
-   "Primer" on screen — it is a mock-up, not a measurement. */
-const DEMO = { score: 41, host: "prosečan sajt u Srbiji" };
-
-function SpeedCard() {
-  const [url, setUrl] = useState("");
-  const [state, setState] = useState("idle");
-  const [result, setResult] = useState(null);
-
-  async function run(e) {
-    e.preventDefault();
-    const clean = url.trim().replace(/^https?:\/\//, "");
-    if (!/^[^\s.]+\.[^\s.]{2,}/.test(clean)) return setState("invalid");
-    setState("running");
-    setResult(null);
-    try {
-      const res = await fetch(
-        "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=" +
-          encodeURIComponent(`https://${clean}`) +
-          "&strategy=mobile&category=performance",
-      );
-      const data = await res.json();
-      const score = data?.lighthouseResult?.categories?.performance?.score;
-      if (typeof score !== "number") throw new Error("no score");
-      setResult({
-        score: Math.round(score * 100),
-        shot: data?.lighthouseResult?.audits?.["final-screenshot"]?.details
-          ?.data,
-        host: clean,
-      });
-      setState("done");
-    } catch {
-      setState("error");
-    }
-  }
-
-  const shown = result ?? (state === "idle" ? DEMO : null);
-  const isDemo = shown === DEMO;
-
-  const note = {
-    idle: null,
-    invalid: "Upišite domen, npr. vasafirma.rs",
-    running: "Google meri… zna da potraje 20-ak sekundi.",
-    done: null,
-    error: "Nije prošlo. Google ponekad odbije test, probajte ponovo.",
-  }[state];
-
-  const band =
-    shown == null
-      ? ""
-      : shown.score >= 90
-        ? "Odlično."
-        : shown.score >= 50
-          ? "Ima šta da se popravi."
-          : "Ovo vas košta kupaca.";
-
-  return (
-    <article className={`${s.card} ${s.speedCard}`}>
-      <span className={s.eyebrow}>Koliko je brz vaš sajt</span>
-      <form className={s.speedForm} onSubmit={run}>
-        <input
-          className={s.subInput}
-          placeholder="vasafirma.rs"
-          aria-label="Vaš domen"
-          value={url}
-          onChange={(e) => {
-            setUrl(e.target.value);
-            setState("idle");
-          }}
-        />
-        <button
-          className={s.subSend}
-          type="submit"
-          disabled={state === "running"}
-          aria-label="Izmeri"
-        >
-          <ArrowIcon size={14} />
-        </button>
-      </form>
-
-      <div className={s.speedBody}>
-        {state === "running"
-          ? <span className={s.speedSpinner} aria-hidden />
-          : null}
-        {shown
-          ? <>
-              {isDemo ? <span className={s.speedDemo}>Primer</span> : null}
-              <span
-                className={s.speedScore}
-                data-band={
-                  shown.score >= 90 ? "good" : shown.score >= 50 ? "ok" : "bad"
-                }
-              >
-                <CountUp value={String(shown.score)} run={!isDemo} />
-              </span>
-              <span className={s.muted}>
-                {shown.host} · {band}
-              </span>
-            </>
-          : null}
-      </div>
-
-      <span className={s.speedFoot}>
-        <span className={s.muted}>Sajtovi koje pravimo: 100 / 100</span>
-        <a className={s.lessonClient} href="#kontakt">
-          Popravite ovo <ArrowIcon size={11} />
-        </a>
-      </span>
-      {note ? <p className={s.note}>{note}</p> : null}
-    </article>
-  );
-}
-
-/* All six struck through, one lit at a time. Beat the translator because
-   the joke lands without the visitor having to click anything. */
-function BuzzCard() {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(
-      () => setI((v) => (v + 1) % NECE_SE_CUTI.length),
-      2000,
-    );
-    return () => clearInterval(id);
-  }, []);
-  return (
-    <article className={`${s.card} ${s.jargonCard}`}>
-      <span className={s.eyebrowOnDark}>Nećete čuti od nas</span>
-      <ul className={s.buzzList}>
-        {NECE_SE_CUTI.map((word, k) => (
-          <li
-            key={word}
-            className={`${s.buzzItem} ${k === i ? s.buzzItemOn : ""}`}
-          >
-            {word}
-          </li>
-        ))}
-      </ul>
-    </article>
-  );
-}
-
-/* Measures this very page. A slow tile bragging about speed would be worse
-   than no tile, so it shows nothing until the number is real. */
-function LoadTile() {
-  const [secs, setSecs] = useState(null);
-  useEffect(() => {
-    const read = () => {
-      const nav = performance.getEntriesByType("navigation")[0];
-      const ms = nav?.domContentLoadedEventEnd || nav?.domInteractive;
-      if (ms) setSecs(ms / 1000);
-    };
-    if (document.readyState === "complete") read();
-    else window.addEventListener("load", read, { once: true });
-  }, []);
-  return (
-    <article className={`${s.card} ${s.loadTile}`}>
-      <span className={s.eyebrow}>Ova stranica</span>
-      <span className={s.loadValue} suppressHydrationWarning>
-        {secs == null ? "—" : `${secs.toFixed(1).replace(".", ",")} s`}
-      </span>
-      <span className={s.muted}>
-        do učitavanja. Tako pravimo i sajtove naših klijenata.
-      </span>
     </article>
   );
 }
@@ -1290,7 +1116,9 @@ export default function DijagnozaGrid({
                   ))}
                 </ol>
               </article>
-              <NewsletterCard />
+              <span className={s.hideOnPhone}>
+                <NewsletterCard />
+              </span>
             </Chapter>
 
             <Chapter n="07" title="Blog" width="310px">
@@ -1315,17 +1143,15 @@ export default function DijagnozaGrid({
                   <ArrowIcon size={11} />
                 </span>
               </a>
+              {/* On a phone the columns become one list, and the signup
+                  belongs after the posts rather than before them. */}
+              <span className={s.phoneOnly}>
+                <NewsletterCard />
+              </span>
             </Chapter>
 
             {/* 08 ─ the two bases, and the count that goes with them */}
-            {/* 08 ─ ours, then theirs, then what we will not say */}
-            <Chapter n="08" title="Brzina" width="380px">
-              <LoadTile />
-              <SpeedCard />
-              <BuzzCard />
-            </Chapter>
-
-            <Chapter n="09" title="Kontakt" width="360px">
+            <Chapter n="08" title="Kontakt" width="360px">
               <ContactCard
                 prefill={
                   first
