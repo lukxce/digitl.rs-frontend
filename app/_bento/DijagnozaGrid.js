@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import locationIcon from "../assets/location.svg";
+import memojiPng from "../assets/memoji.png";
 import World, { CITIES } from "./World";
 import stripeSvg from "../assets/stripe.svg";
 import elektromilLogo from "../assets/elektromil-logo.webp";
@@ -440,6 +441,355 @@ function ProofTile() {
       <Stars />
       <span className={s.miniValue}>{PROOF.count}</span>
       <span className={s.muted}>{PROOF.label}</span>
+    </article>
+  );
+}
+
+/* ── extras: interactive cards, parked at the end of the track ── */
+
+const ZARGON = [
+  ["sinergija", "Radimo i sa vašim prodajnim timom, ne samo sa oglasima."],
+  ["disruptivno", "Uradili smo nešto što konkurencija još nije probala."],
+  ["360° rešenje", "Pokrivamo sve kanale, pa ne koordinirate pet firmi."],
+  [
+    "growth hacking",
+    "Testiramo jeftino dok ne nađemo šta radi, pa tu ulažemo.",
+  ],
+  ["holistički pristup", "Gledamo ceo put kupca, ne samo poslednji klik."],
+  ["brand awareness", "Da vas se sete kad im zatreba, a ne tek kad guglaju."],
+  ["omnichannel", "Ista poruka na sajtu, u oglasu i u poruci koju dobiju."],
+];
+
+const BINGO = [
+  "Bićete prvi na Google-u",
+  "Ovo će biti viralno",
+  "Treba nam veći budžet",
+  "Algoritam se promenio",
+  "Radimo 360°",
+  "Gradimo awareness",
+  "Rezultati za 6 meseci",
+  "Konkurencija ulaže više",
+  "Treba vam rebrand",
+];
+
+/** Live PageSpeed score for whatever domain the visitor types. */
+function SpeedCard() {
+  const [url, setUrl] = useState("");
+  const [state, setState] = useState("idle");
+  const [result, setResult] = useState(null);
+
+  async function run(e) {
+    e.preventDefault();
+    const clean = url.trim().replace(/^https?:\/\//, "");
+    if (!/^[^\s.]+\.[^\s.]{2,}/.test(clean)) return setState("invalid");
+    setState("running");
+    setResult(null);
+    try {
+      const res = await fetch(
+        "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=" +
+          encodeURIComponent(`https://${clean}`) +
+          "&strategy=mobile&category=performance",
+      );
+      const data = await res.json();
+      const score = data?.lighthouseResult?.categories?.performance?.score;
+      if (typeof score !== "number") throw new Error("no score");
+      setResult({
+        score: Math.round(score * 100),
+        shot: data?.lighthouseResult?.audits?.["final-screenshot"]?.details
+          ?.data,
+        host: clean,
+      });
+      setState("done");
+    } catch {
+      setState("error");
+    }
+  }
+
+  const note = {
+    idle: "Isti test koji Google koristi za rangiranje na mobilnom.",
+    invalid: "Upišite domen, npr. vasafirma.rs",
+    running: "Google meri… zna da potraje 20-ak sekundi.",
+    done: null,
+    error: "Nije prošlo. Google ponekad odbije test, probajte ponovo.",
+  }[state];
+
+  const band =
+    result == null
+      ? ""
+      : result.score >= 90
+        ? "Odlično."
+        : result.score >= 50
+          ? "Ima šta da se popravi."
+          : "Ovo vas košta kupaca.";
+
+  return (
+    <article className={`${s.card} ${s.speedCard}`}>
+      <span className={s.eyebrow}>Koliko je brz vaš sajt</span>
+      <form className={s.speedForm} onSubmit={run}>
+        <input
+          className={s.subInput}
+          placeholder="vasafirma.rs"
+          aria-label="Vaš domen"
+          value={url}
+          onChange={(e) => {
+            setUrl(e.target.value);
+            setState("idle");
+          }}
+        />
+        <button
+          className={s.subSend}
+          type="submit"
+          disabled={state === "running"}
+          aria-label="Izmeri"
+        >
+          <ArrowIcon size={14} />
+        </button>
+      </form>
+
+      <div className={s.speedBody}>
+        {state === "running"
+          ? <span className={s.speedSpinner} aria-hidden />
+          : null}
+        {result
+          ? <>
+              <span
+                className={s.speedScore}
+                data-band={
+                  result.score >= 90
+                    ? "good"
+                    : result.score >= 50
+                      ? "ok"
+                      : "bad"
+                }
+              >
+                <CountUp value={String(result.score)} run />
+              </span>
+              <span className={s.muted}>
+                {result.host} · {band}
+              </span>
+              {result.shot
+                ? <img className={s.speedShot} src={result.shot} alt="" />
+                : null}
+            </>
+          : null}
+      </div>
+
+      <span className={s.speedFoot}>
+        <span className={s.muted}>Sajtovi koje pravimo: 100 / 100</span>
+        <a className={s.lessonClient} href="#kontakt">
+          Popravite ovo <ArrowIcon size={11} />
+        </a>
+      </span>
+      {note ? <p className={s.note}>{note}</p> : null}
+    </article>
+  );
+}
+
+/** The dark card, but it does something: jargon in, plain Serbian out. */
+function JargonCard() {
+  const [i, setI] = useState(0);
+  const [word, plain] = ZARGON[i];
+  return (
+    <article className={`${s.card} ${s.jargonCard}`}>
+      <span className={s.eyebrowOnDark}>Prevodilac</span>
+      <p className={s.jargonWord} key={word}>
+        {word}
+      </p>
+      <p className={s.jargonPlain}>{plain}</p>
+      <button
+        type="button"
+        className={s.chipLight}
+        onClick={() => setI((v) => (v + 1) % ZARGON.length)}
+      >
+        Još jedna
+      </button>
+    </article>
+  );
+}
+
+/** Their numbers, their arithmetic. We claim nothing about ourselves. */
+function CostCard() {
+  const [budget, setBudget] = useState("80000");
+  const [leads, setLeads] = useState("12");
+  const b = Number(budget.replace(/\D/g, "")) || 0;
+  const l = Number(leads.replace(/\D/g, "")) || 0;
+  const per = l > 0 ? Math.round(b / l) : null;
+  const saved = per != null ? Math.round(b * 12 * 0.2) : null;
+  const fmt = (n) => n.toLocaleString("sr-RS");
+
+  return (
+    <article className={`${s.card} ${s.costCard}`}>
+      <span className={s.eyebrow}>Vaš trošak po upitu</span>
+      <div className={s.costFields}>
+        <label className={s.costField}>
+          <span className={s.muted}>Budžet / mesec</span>
+          <input
+            className={s.field}
+            inputMode="numeric"
+            value={budget}
+            onChange={(e) => setBudget(e.target.value)}
+          />
+        </label>
+        <label className={s.costField}>
+          <span className={s.muted}>Upita / mesec</span>
+          <input
+            className={s.field}
+            inputMode="numeric"
+            value={leads}
+            onChange={(e) => setLeads(e.target.value)}
+          />
+        </label>
+      </div>
+      <span className={s.costOut}>
+        {per == null ? "—" : `${fmt(per)} din`}
+        <span className={s.muted}>po jednom upitu</span>
+      </span>
+      {saved != null && saved > 0
+        ? <span className={s.costNote}>
+            20% bolje = <strong>{fmt(saved)} din</strong> godišnje
+          </span>
+        : null}
+    </article>
+  );
+}
+
+function BingoCard() {
+  const [hit, setHit] = useState([]);
+  const toggle = (i) =>
+    setHit((v) => (v.includes(i) ? v.filter((x) => x !== i) : [...v, i]));
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  const bingo = lines.some((line) => line.every((i) => hit.includes(i)));
+  return (
+    <article className={`${s.card} ${s.bingoCard}`}>
+      <span className={s.eyebrow}>Jeste li ovo čuli?</span>
+      <div className={s.bingoGrid}>
+        {BINGO.map((phrase, i) => (
+          <button
+            key={phrase}
+            type="button"
+            className={`${s.bingoCell} ${hit.includes(i) ? s.bingoOn : ""}`}
+            onClick={() => toggle(i)}
+          >
+            {phrase}
+          </button>
+        ))}
+      </div>
+      <span className={s.bingoFoot}>
+        {bingo
+          ? <strong>Bingo. Znamo — zato ste ovde.</strong>
+          : "Kliknite ono što vam je neko već obećao."}
+      </span>
+    </article>
+  );
+}
+
+/** Guess the score of a site we built, then see the real one. */
+function GuessCard({ client, value, label }) {
+  const [guess, setGuess] = useState(50);
+  const [shown, setShown] = useState(false);
+  const real = Number(value);
+  const off = Math.abs(real - guess);
+  return (
+    <article className={`${s.card} ${s.guessCard}`}>
+      <span className={s.eyebrow}>Pogodite rezultat</span>
+      <p className={s.guessQ}>
+        <strong>{client}</strong> — koliko mislite da ima?
+        <span className={s.muted}>{label}</span>
+      </p>
+      <input
+        className={s.guessRange}
+        type="range"
+        min="0"
+        max="100"
+        value={shown ? real : guess}
+        disabled={shown}
+        onChange={(e) => setGuess(Number(e.target.value))}
+        aria-label="Vaša procena"
+      />
+      <span className={s.guessRow}>
+        <span className={s.guessValue}>{shown ? real : guess}</span>
+        {shown
+          ? <span className={s.muted}>
+              {off === 0 ? "Tačno u centar." : `Promašili ste za ${off}.`}
+            </span>
+          : <button
+              type="button"
+              className={s.chip}
+              onClick={() => setShown(true)}
+            >
+              Otkrijte
+            </button>}
+      </span>
+    </article>
+  );
+}
+
+/** A real starting point, and what we actually did about it. */
+function ScenarioCard({ items }) {
+  const [i, setI] = useState(0);
+  const [open, setOpen] = useState(false);
+  if (items.length === 0) return null;
+  const it = items[i];
+  const next = () => {
+    setOpen(false);
+    setI((v) => (v + 1) % items.length);
+  };
+  return (
+    <article className={`${s.card} ${s.scenarioCard}`}>
+      <span className={s.faqTop}>
+        <span className={s.eyebrow}>Šta biste uradili</span>
+        <span className={s.eyebrow}>
+          {i + 1} / {items.length}
+        </span>
+      </span>
+      <p className={s.scenarioText} key={it.before}>
+        {open ? it.lesson : it.before}
+      </p>
+      <span className={s.lessonFootRow}>
+        <button
+          type="button"
+          className={s.chip}
+          onClick={() => (open ? next() : setOpen(true))}
+        >
+          {open ? "Sledeći" : "Šta smo uradili"}
+        </button>
+        <a className={s.lessonClient} href={it.href}>
+          {it.client} <ArrowIcon size={11} />
+        </a>
+      </span>
+    </article>
+  );
+}
+
+function PersonCard() {
+  return (
+    <article className={`${s.card} ${s.personCard}`}>
+      <span className={s.eyebrow}>Na prvom razgovoru</span>
+      <Image
+        src={memojiPng}
+        alt=""
+        width={200}
+        height={200}
+        className={s.personFace}
+      />
+      <p className={s.personLine}>
+        Pričate sa čovekom koji donosi odluke, ne sa account menadžerom.
+      </p>
+      <a className={s.btnPrimary} href="#kontakt">
+        Zakažite
+        <span className={s.iconCircle}>
+          <ArrowIcon size={12} />
+        </span>
+      </a>
     </article>
   );
 }
@@ -905,6 +1255,29 @@ export default function DijagnozaGrid({
     : clients.slice(0, 2);
   const q = QUIZ[step];
 
+  /* A metric of ours that is a bare number is the only kind worth guessing. */
+  const guessable = clients
+    .flatMap((c) =>
+      (c.after ?? []).map((m) => ({ ...m, client: c.clientName })),
+    )
+    /* Only a 0-100 score is guessable. "6 usluga" is a count, and asking
+       someone to guess a count makes the card read like nonsense. */
+    .find(
+      (m) =>
+        /^\d{1,3}$/.test(m.value) &&
+        Number(m.value) <= 100 &&
+        /pagespeed|ocena|score/i.test(m.label),
+    );
+
+  const scenarios = clients
+    .filter((c) => c.before && c.takeaways?.length)
+    .map((c) => ({
+      before: c.before,
+      lesson: c.takeaways[0],
+      client: c.clientName,
+      href: c.href,
+    }));
+
   function answer(qid, oid) {
     setAnswers((a) => ({ ...a, [qid]: oid }));
     // No scroll: the recommendation replaces the quiz inside this same card.
@@ -1299,6 +1672,32 @@ export default function DijagnozaGrid({
                   </a>
                 ))}
               </div>
+            </Chapter>
+
+            {/* ── extras, parked at the end ── */}
+            <Chapter n="10" title="Provera" width="400px">
+              <SpeedCard />
+            </Chapter>
+
+            <Chapter n="11" title="Računica" width="360px">
+              <CostCard />
+              <JargonCard />
+            </Chapter>
+
+            <Chapter n="12" title="Igra" width="360px">
+              <BingoCard />
+              {guessable
+                ? <GuessCard
+                    client={guessable.client}
+                    value={guessable.value}
+                    label={guessable.label}
+                  />
+                : null}
+            </Chapter>
+
+            <Chapter n="13" title="Ko vodi" width="360px">
+              <PersonCard />
+              <ScenarioCard items={scenarios} />
             </Chapter>
           </div>
         </div>
