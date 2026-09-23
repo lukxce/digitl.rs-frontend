@@ -1900,6 +1900,11 @@ a.card:hover .iconCircleSm {
 /* ── badge: the bilingual footer ─────────────────────────── */
 .badgeBottom {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -2205,72 +2210,6 @@ a.card:hover .iconCircleSm {
   color: var(--blue);
 }
 
-/* ── proof + speed, side by side ─────────────────────────── */
-.duo {
-  flex: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.mini {
-  height: 132px;
-  gap: 2px;
-  padding: 18px 20px;
-  justify-content: flex-end;
-}
-.miniValue {
-  margin-top: auto;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  font-variant-numeric: tabular-nums;
-}
-.mini .muted {
-  font-size: 12px;
-  line-height: 1.3;
-}
-.stars {
-  display: flex;
-  gap: 1px;
-  color: var(--blue);
-}
-
-/* ── tool stack, two counter-rotating rows ───────────────── */
-.stack {
-  flex: none;
-  gap: 8px;
-  padding: 18px 0 18px 20px;
-}
-.stack .eyebrow {
-  margin-bottom: 2px;
-}
-.stackTrack {
-  gap: 8px;
-  animation-duration: 26s;
-}
-.stackReverse {
-  animation-direction: reverse;
-}
-.stackChip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 11px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--raised);
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-  color: var(--ink);
-}
-.stackIcon {
-  width: 14px;
-  height: 14px;
-  filter: invert(var(--logo-invert));
-}
-
 /* ── chapter nav: a pill that follows the track ──────────── */
 .chapterNav {
   position: fixed;
@@ -2335,94 +2274,13 @@ a.card:hover .iconCircleSm {
   }
 }
 
-/* ── the globe clock ─────────────────────────────────────── */
-.clockCard {
-  flex: 1;
-  min-height: 208px;
-  gap: 4px;
-  overflow: hidden;
-}
-
-.globe {
-  position: absolute;
-  top: 50%;
-  right: -46px;
-  width: 232px;
-  height: 232px;
-  transform: translateY(-50%);
-}
-
-.globeCanvas {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.weather {
-  position: relative;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink-2);
-}
-
-.cityRow {
-  position: relative;
-  display: flex;
-  gap: 24px;
-  margin-top: auto;
-}
-
-.city {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.cityTime {
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  font-variant-numeric: tabular-nums;
-}
-
-.cityName {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--ink-3);
-}
-
-@keyframes blink {
-  0%,
-  45% {
-    opacity: 1;
-  }
-  55%,
-  100% {
-    opacity: 0.25;
-  }
-}
-
-.colon {
-  animation: blink 2s steps(1, end) infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .colon {
-    animation: none;
-  }
-}
-
 /* ── extras: the interactive cards at the end of the track ─── */
 
 /* live PageSpeed check */
 .speedCard {
   flex: 1;
   min-height: 0;
-  gap: 10px;
+  gap: 8px;
 }
 .speedForm {
   display: flex;
@@ -2445,7 +2303,7 @@ a.card:hover .iconCircleSm {
   text-align: center;
 }
 .speedScore {
-  font-size: 72px;
+  font-size: 48px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.06em;
@@ -2492,6 +2350,7 @@ a.card:hover .iconCircleSm {
 /* jargon translator — the dark card, doing something */
 .jargonCard {
   flex: none;
+  min-height: 0;
   gap: 6px;
   padding: 20px 22px 22px;
   border-color: var(--contrast-bg);
@@ -2522,7 +2381,7 @@ a.card:hover .iconCircleSm {
 }
 
 .buzzItem {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 650;
   line-height: 1.26;
   letter-spacing: -0.035em;
@@ -2540,167 +2399,35 @@ a.card:hover .iconCircleSm {
   opacity: 1;
 }
 
-/* cost per inquiry */
-.costCard {
-  flex: 1;
-  min-height: 0;
-  gap: 10px;
-  justify-content: space-between;
-}
-.costFields {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
-}
-.costField {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.costOut {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-top: auto;
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  font-variant-numeric: tabular-nums;
-}
-.costOut .muted {
-  font-size: 12.5px;
-  letter-spacing: -0.02em;
-}
-.costNote {
-  padding: 9px 13px;
-  border-radius: 14px;
-  background: var(--blue-soft);
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--ink);
-}
-
-/* bingo */
-.bingoCard {
-  flex: 1;
-  min-height: 0;
-  gap: 10px;
-}
-.bingoGrid {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 6px;
-  margin-top: 8px;
-}
-.bingoCell {
-  padding: 6px 5px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: var(--raised);
-  cursor: pointer;
-  font: inherit;
-  font-size: 10.5px;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-  color: var(--ink-2);
-  transition:
-    background 0.16s ease,
-    color 0.16s ease;
-}
-.bingoOn {
-  background: var(--blue);
-  border-color: transparent;
-  color: #fff;
-}
-.bingoFoot {
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--ink-2);
-}
-
-/* guess the score */
-.guessCard {
+/* the page timing its own load, and the jargon under it */
+.loadTile {
   flex: none;
-  gap: 8px;
+  gap: 2px;
+  padding: 18px 20px;
 }
-.guessQ {
-  margin: 6px 0 0;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.03em;
-}
-.guessRange {
-  width: 100%;
-  accent-color: var(--blue);
-}
-.guessRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-.guessValue {
+.loadValue {
+  margin-top: 2px;
   font-size: 30px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.05em;
   font-variant-numeric: tabular-nums;
 }
-
-/* what would you do */
-.scenarioCard {
-  flex: none;
-  min-height: 200px;
-  gap: 8px;
-  justify-content: space-between;
-}
-.scenarioText {
-  margin: 6px 0;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--ink-2);
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  animation: swap 0.35s ease;
-}
-.lessonFootRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+.loadTile .muted {
+  font-size: 12.5px;
 }
 
-/* who you actually talk to */
-.personCard {
-  flex: 1;
-  min-height: 0;
-  gap: 8px;
-  align-items: center;
-  text-align: center;
-}
-.personFace {
-  width: auto;
-  height: 150px;
-  margin: auto 0 0;
-  object-fit: contain;
-}
-.personLine {
-  margin: 6px 0 12px;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.22;
-  letter-spacing: -0.035em;
-  text-wrap: balance;
+.speedDemo {
+  align-self: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
 }
 
 @container dg (max-width: 720px) {
@@ -2826,23 +2553,22 @@ a.card:hover .iconCircleSm {
     flex: none;
     min-height: 190px;
   }
-  .duo,
-  .stack {
+  /* The shot is 16:9 and the card is only as tall as it plus its footer,
+     instead of a fixed 430px block. */
+  .caseFlip {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+  .caseCard .slidesViewport {
+    flex: none;
+    aspect-ratio: 16 / 9;
+  }
+  .loadTile,
+  .jargonCard {
     flex: none;
   }
-  .clockCard {
+  .speedCard {
     flex: none;
-  }
-  .speedCard,
-  .costCard,
-  .bingoCard,
-  .personCard {
-    flex: none;
-    min-height: 320px;
-  }
-  .jargonCard,
-  .guessCard,
-  .scenarioCard {
-    flex: none;
+    min-height: 300px;
   }
 }

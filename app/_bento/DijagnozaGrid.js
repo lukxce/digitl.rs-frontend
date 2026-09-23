@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import locationIcon from "../assets/location.svg";
-import memojiPng from "../assets/memoji.png";
-import World, { CITIES } from "./World";
 import stripeSvg from "../assets/stripe.svg";
 import elektromilLogo from "../assets/elektromil-logo.webp";
 import primaDentalLogo from "../assets/primadental logo.webp";
@@ -165,17 +163,28 @@ const STEPS = [
   ["Optimizacija", "Izveštaji i odluke o sledećem koraku."],
 ];
 
-/* The hero on the live site carries this claim; here it gets its own tile. */
-const PROOF = { count: "50+", label: "uspešnih saradnji" };
-const OPEN_SLOTS = 2;
-
 /* Heights are the ones the site's own carousel uses, so each mark keeps
    its intended size instead of being squashed to a common box. */
+const NECE_SE_CUTI = [
+  "sinergija",
+  "disruptivno",
+  "360° rešenje",
+  "growth hacking",
+  "holistički pristup",
+  "omnichannel",
+];
+
+/* The hero pill carries the site's own claim. */
+const OPEN_SLOTS = 2;
+
+/* One height for every mark. Natural sizes made startups.rs tower over
+   ElektroMil; in a client strip, even beats accurate. */
+const LOGO_H = 30;
 const CLIENT_LOGOS = [
-  { src: primaDentalLogo, alt: "Prima Dental", height: 72 },
-  { src: thermiqLogo, alt: "ThermiQ", height: 58 },
-  { src: elektromilLogo, alt: "ElektroMil", height: 30 },
-  { src: startupsLogo, alt: "startups.rs", height: 44 },
+  { src: primaDentalLogo, alt: "Prima Dental" },
+  { src: thermiqLogo, alt: "ThermiQ" },
+  { src: elektromilLogo, alt: "ElektroMil" },
+  { src: startupsLogo, alt: "startups.rs" },
 ];
 
 const SOCIALS = [
@@ -271,90 +280,6 @@ function useStored(key, initial) {
 
 /* ── scattered filler tiles ──────────────────────────────── */
 
-const CITIES_LIST = [
-  ["Beograd", "Europe/Belgrade"],
-  ["London", "Europe/London"],
-];
-
-function readClock(zone) {
-  const p = new Intl.DateTimeFormat("en-GB", {
-    timeZone: zone,
-    hour: "2-digit",
-    minute: "2-digit",
-    hourCycle: "h23",
-  }).formatToParts(new Date());
-  const g = (t) => p.find((x) => x.type === t)?.value ?? "";
-  return { hh: g("hour"), mm: g("minute"), h: Number(g("hour")) };
-}
-
-const PINS = [CITIES.belgrade, CITIES.london];
-
-function useWeather() {
-  const [weather, setWeather] = useState(null);
-  useEffect(() => {
-    const abort = new AbortController();
-    fetch(
-      "https://api.open-meteo.com/v1/forecast?latitude=44.7866&longitude=20.4489&current=temperature_2m&timezone=Europe%2FBelgrade",
-      { signal: abort.signal },
-    )
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("weather"))))
-      .then((d) => {
-        const temp = d?.current?.temperature_2m;
-        if (typeof temp === "number") setWeather(Math.round(temp));
-      })
-      .catch(() => {
-        // No weather line is better than a wrong one.
-      });
-    return () => abort.abort();
-  }, []);
-  return weather;
-}
-
-function ClockTile() {
-  const [now, setNow] = useState(null);
-  const temp = useWeather();
-  useEffect(() => {
-    const read = () => setNow(CITIES_LIST.map(([, zone]) => readClock(zone)));
-    read();
-    const id = setInterval(read, 15_000);
-    return () => clearInterval(id);
-  }, []);
-  const h = now?.[0].h;
-  const line =
-    h == null
-      ? ""
-      : h < 8
-        ? "Prerano. Kampanje rade."
-        : h < 17
-          ? "Radimo. Javite se."
-          : h < 22
-            ? "Još gledamo izveštaje."
-            : "Spavamo. Google Ads ne.";
-  return (
-    <article className={`${s.card} ${s.clockCard}`}>
-      <span className={s.eyebrow}>Beograd · London</span>
-      <span className={s.weather}>
-        {temp == null ? line : `${temp}° u Beogradu · ${line}`}
-      </span>
-      <span className={s.globe} aria-hidden>
-        <World mode="globe" pins={PINS} className={s.globeCanvas} />
-      </span>
-      <span className={s.cityRow}>
-        {CITIES_LIST.map(([city], i) => (
-          <span key={city} className={s.city}>
-            <span className={s.cityTime} suppressHydrationWarning>
-              {now ? now[i].hh : "--"}
-              <span className={s.colon}>:</span>
-              {now ? now[i].mm : "--"}
-            </span>
-            <span className={s.cityName}>{city}</span>
-          </span>
-        ))}
-      </span>
-    </article>
-  );
-}
-
 function ClientsTile() {
   // Two identical runs, translated -50%, so the loop has no seam.
   const run = (key) =>
@@ -363,9 +288,9 @@ function ClientsTile() {
         <Image
           src={l.src}
           alt={l.alt}
-          height={l.height}
+          height={LOGO_H}
           width={200}
-          style={{ height: `${l.height}px`, width: "auto" }}
+          style={{ height: `${LOGO_H}px`, width: "auto" }}
           unoptimized
         />
       </span>
@@ -414,61 +339,11 @@ function LessonsTile({ lessons }) {
   );
 }
 
-function Stars() {
-  return (
-    <span className={s.stars} aria-hidden>
-      {[0, 1, 2, 3, 4].map((k) => (
-        <svg
-          key={k}
-          width="13"
-          height="13"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path
-            fill="currentColor"
-            d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"
-          />
-        </svg>
-      ))}
-    </span>
-  );
-}
-
-function ProofTile() {
-  return (
-    <article className={`${s.card} ${s.mini}`}>
-      <Stars />
-      <span className={s.miniValue}>{PROOF.count}</span>
-      <span className={s.muted}>{PROOF.label}</span>
-    </article>
-  );
-}
-
-/* ── extras: interactive cards, parked at the end of the track ── */
-
-const NECE_SE_CUTI = [
-  "sinergija",
-  "disruptivno",
-  "360° rešenje",
-  "growth hacking",
-  "holistički pristup",
-  "omnichannel",
-];
-
-const BINGO = [
-  "Bićete prvi na Google-u",
-  "Ovo će biti viralno",
-  "Treba nam veći budžet",
-  "Algoritam se promenio",
-  "Radimo 360°",
-  "Gradimo awareness",
-  "Rezultati za 6 meseci",
-  "Konkurencija ulaže više",
-  "Treba vam rebrand",
-];
-
 /** Live PageSpeed score for whatever domain the visitor types. */
+/* Shown before anyone types, so the card is never an empty box. Labelled
+   "Primer" on screen — it is a mock-up, not a measurement. */
+const DEMO = { score: 41, host: "prosečan sajt u Srbiji" };
+
 function SpeedCard() {
   const [url, setUrl] = useState("");
   const [state, setState] = useState("idle");
@@ -501,8 +376,11 @@ function SpeedCard() {
     }
   }
 
+  const shown = result ?? (state === "idle" ? DEMO : null);
+  const isDemo = shown === DEMO;
+
   const note = {
-    idle: "Isti test koji Google koristi za rangiranje na mobilnom.",
+    idle: null,
     invalid: "Upišite domen, npr. vasafirma.rs",
     running: "Google meri… zna da potraje 20-ak sekundi.",
     done: null,
@@ -510,11 +388,11 @@ function SpeedCard() {
   }[state];
 
   const band =
-    result == null
+    shown == null
       ? ""
-      : result.score >= 90
+      : shown.score >= 90
         ? "Odlično."
-        : result.score >= 50
+        : shown.score >= 50
           ? "Ima šta da se popravi."
           : "Ovo vas košta kupaca.";
 
@@ -546,26 +424,20 @@ function SpeedCard() {
         {state === "running"
           ? <span className={s.speedSpinner} aria-hidden />
           : null}
-        {result
+        {shown
           ? <>
+              {isDemo ? <span className={s.speedDemo}>Primer</span> : null}
               <span
                 className={s.speedScore}
                 data-band={
-                  result.score >= 90
-                    ? "good"
-                    : result.score >= 50
-                      ? "ok"
-                      : "bad"
+                  shown.score >= 90 ? "good" : shown.score >= 50 ? "ok" : "bad"
                 }
               >
-                <CountUp value={String(result.score)} run />
+                <CountUp value={String(shown.score)} run={!isDemo} />
               </span>
               <span className={s.muted}>
-                {result.host} · {band}
+                {shown.host} · {band}
               </span>
-              {result.shot
-                ? <img className={s.speedShot} src={result.shot} alt="" />
-                : null}
             </>
           : null}
       </div>
@@ -610,189 +482,28 @@ function BuzzCard() {
   );
 }
 
-/** Their numbers, their arithmetic. We claim nothing about ourselves. */
-function CostCard() {
-  const [budget, setBudget] = useState("80000");
-  const [leads, setLeads] = useState("12");
-  const b = Number(budget.replace(/\D/g, "")) || 0;
-  const l = Number(leads.replace(/\D/g, "")) || 0;
-  const per = l > 0 ? Math.round(b / l) : null;
-  const saved = per != null ? Math.round(b * 12 * 0.2) : null;
-  const fmt = (n) => n.toLocaleString("sr-RS");
-
+/* Measures this very page. A slow tile bragging about speed would be worse
+   than no tile, so it shows nothing until the number is real. */
+function LoadTile() {
+  const [secs, setSecs] = useState(null);
+  useEffect(() => {
+    const read = () => {
+      const nav = performance.getEntriesByType("navigation")[0];
+      const ms = nav?.domContentLoadedEventEnd || nav?.domInteractive;
+      if (ms) setSecs(ms / 1000);
+    };
+    if (document.readyState === "complete") read();
+    else window.addEventListener("load", read, { once: true });
+  }, []);
   return (
-    <article className={`${s.card} ${s.costCard}`}>
-      <span className={s.eyebrow}>Vaš trošak po upitu</span>
-      <div className={s.costFields}>
-        <label className={s.costField}>
-          <span className={s.muted}>Budžet / mesec</span>
-          <input
-            className={s.field}
-            inputMode="numeric"
-            value={budget}
-            onChange={(e) => setBudget(e.target.value)}
-          />
-        </label>
-        <label className={s.costField}>
-          <span className={s.muted}>Upita / mesec</span>
-          <input
-            className={s.field}
-            inputMode="numeric"
-            value={leads}
-            onChange={(e) => setLeads(e.target.value)}
-          />
-        </label>
-      </div>
-      <span className={s.costOut}>
-        {per == null ? "—" : `${fmt(per)} din`}
-        <span className={s.muted}>po jednom upitu</span>
+    <article className={`${s.card} ${s.loadTile}`}>
+      <span className={s.eyebrow}>Ova stranica</span>
+      <span className={s.loadValue} suppressHydrationWarning>
+        {secs == null ? "—" : `${secs.toFixed(1).replace(".", ",")} s`}
       </span>
-      {saved != null && saved > 0
-        ? <span className={s.costNote}>
-            20% bolje = <strong>{fmt(saved)} din</strong> godišnje
-          </span>
-        : null}
-    </article>
-  );
-}
-
-function BingoCard() {
-  const [hit, setHit] = useState([]);
-  const toggle = (i) =>
-    setHit((v) => (v.includes(i) ? v.filter((x) => x !== i) : [...v, i]));
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  const bingo = lines.some((line) => line.every((i) => hit.includes(i)));
-  return (
-    <article className={`${s.card} ${s.bingoCard}`}>
-      <span className={s.eyebrow}>Jeste li ovo čuli?</span>
-      <div className={s.bingoGrid}>
-        {BINGO.map((phrase, i) => (
-          <button
-            key={phrase}
-            type="button"
-            className={`${s.bingoCell} ${hit.includes(i) ? s.bingoOn : ""}`}
-            onClick={() => toggle(i)}
-          >
-            {phrase}
-          </button>
-        ))}
-      </div>
-      <span className={s.bingoFoot}>
-        {bingo
-          ? <strong>Bingo. Znamo — zato ste ovde.</strong>
-          : "Kliknite ono što vam je neko već obećao."}
+      <span className={s.muted}>
+        do učitavanja. Tako pravimo i sajtove naših klijenata.
       </span>
-    </article>
-  );
-}
-
-/** Guess the score of a site we built, then see the real one. */
-function GuessCard({ client, value, label }) {
-  const [guess, setGuess] = useState(50);
-  const [shown, setShown] = useState(false);
-  const real = Number(value);
-  const off = Math.abs(real - guess);
-  return (
-    <article className={`${s.card} ${s.guessCard}`}>
-      <span className={s.eyebrow}>Pogodite rezultat</span>
-      <p className={s.guessQ}>
-        <strong>{client}</strong> — koliko mislite da ima?
-        <span className={s.muted}>{label}</span>
-      </p>
-      <input
-        className={s.guessRange}
-        type="range"
-        min="0"
-        max="100"
-        value={shown ? real : guess}
-        disabled={shown}
-        onChange={(e) => setGuess(Number(e.target.value))}
-        aria-label="Vaša procena"
-      />
-      <span className={s.guessRow}>
-        <span className={s.guessValue}>{shown ? real : guess}</span>
-        {shown
-          ? <span className={s.muted}>
-              {off === 0 ? "Tačno u centar." : `Promašili ste za ${off}.`}
-            </span>
-          : <button
-              type="button"
-              className={s.chip}
-              onClick={() => setShown(true)}
-            >
-              Otkrijte
-            </button>}
-      </span>
-    </article>
-  );
-}
-
-/** A real starting point, and what we actually did about it. */
-function ScenarioCard({ items }) {
-  const [i, setI] = useState(0);
-  const [open, setOpen] = useState(false);
-  if (items.length === 0) return null;
-  const it = items[i];
-  const next = () => {
-    setOpen(false);
-    setI((v) => (v + 1) % items.length);
-  };
-  return (
-    <article className={`${s.card} ${s.scenarioCard}`}>
-      <span className={s.faqTop}>
-        <span className={s.eyebrow}>Šta biste uradili</span>
-        <span className={s.eyebrow}>
-          {i + 1} / {items.length}
-        </span>
-      </span>
-      <p className={s.scenarioText} key={it.before}>
-        {open ? it.lesson : it.before}
-      </p>
-      <span className={s.lessonFootRow}>
-        <button
-          type="button"
-          className={s.chip}
-          onClick={() => (open ? next() : setOpen(true))}
-        >
-          {open ? "Sledeći" : "Šta smo uradili"}
-        </button>
-        <a className={s.lessonClient} href={it.href}>
-          {it.client} <ArrowIcon size={11} />
-        </a>
-      </span>
-    </article>
-  );
-}
-
-function PersonCard() {
-  return (
-    <article className={`${s.card} ${s.personCard}`}>
-      <span className={s.eyebrow}>Na prvom razgovoru</span>
-      <Image
-        src={memojiPng}
-        alt=""
-        width={200}
-        height={200}
-        className={s.personFace}
-      />
-      <p className={s.personLine}>
-        Pričate sa čovekom koji donosi odluke, ne sa account menadžerom.
-      </p>
-      <a className={s.btnPrimary} href="#kontakt">
-        Zakažite
-        <span className={s.iconCircle}>
-          <ArrowIcon size={12} />
-        </span>
-      </a>
     </article>
   );
 }
@@ -1259,33 +970,6 @@ export default function DijagnozaGrid({
   const q = QUIZ[step];
 
   /* A metric of ours that is a bare number is the only kind worth guessing. */
-  const guessable = clients
-    .flatMap((c) =>
-      (c.after ?? []).map((m) => ({ ...m, client: c.clientName })),
-    )
-    /* Only a 0-100 score is guessable. "6 usluga" is a count, and asking
-       someone to guess a count makes the card read like nonsense. */
-    .find(
-      (m) =>
-        /^\d{1,3}$/.test(m.value) &&
-        Number(m.value) <= 100 &&
-        /pagespeed|ocena|score/i.test(m.label),
-    );
-
-  const scenarios = clients
-    .filter((c) => c.before && c.takeaways?.length)
-    .map((c) => ({
-      before: c.before,
-      lesson: c.takeaways[0],
-      client: c.clientName,
-      href: c.href,
-    }));
-
-  function answer(qid, oid) {
-    setAnswers((a) => ({ ...a, [qid]: oid }));
-    // No scroll: the recommendation replaces the quiz inside this same card.
-    if (step < QUIZ.length - 1) setStep(step + 1);
-  }
 
   return (
     <div
@@ -1366,7 +1050,9 @@ export default function DijagnozaGrid({
                   <span className={s.who}>
                     <span className={s.name}>Digitl</span>
                     <span className={s.muted}>
-                      Full-Service marketing agencija
+                      Full-Service
+                      <br />
+                      marketing agencija
                     </span>
                   </span>
                   <span className={s.available}>
@@ -1398,12 +1084,7 @@ export default function DijagnozaGrid({
                 <div className={s.badgeBottom}>
                   <p className={s.location}>
                     <Image src={locationIcon} alt="" width={11} height={11} />
-                    <span>
-                      <strong className={s.locationCity}>
-                        Beograd / London
-                      </strong>{" "}
-                      · Projekti širom sveta
-                    </span>
+                    <strong className={s.locationCity}>Beograd / London</strong>
                   </p>
                   <a
                     className={s.enLink}
@@ -1637,9 +1318,11 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 08 ─ the two bases, and the count that goes with them */}
-            <Chapter n="08" title="Gde smo" width="340px">
-              <ClockTile />
-              <ProofTile />
+            {/* 08 ─ ours, then theirs, then what we will not say */}
+            <Chapter n="08" title="Brzina" width="380px">
+              <LoadTile />
+              <SpeedCard />
+              <BuzzCard />
             </Chapter>
 
             <Chapter n="09" title="Kontakt" width="360px">
@@ -1675,32 +1358,6 @@ export default function DijagnozaGrid({
                   </a>
                 ))}
               </div>
-            </Chapter>
-
-            {/* ── extras, parked at the end ── */}
-            <Chapter n="10" title="Provera" width="400px">
-              <SpeedCard />
-            </Chapter>
-
-            <Chapter n="11" title="Računica" width="360px">
-              <CostCard />
-              <BuzzCard />
-            </Chapter>
-
-            <Chapter n="12" title="Igra" width="360px">
-              <BingoCard />
-              {guessable
-                ? <GuessCard
-                    client={guessable.client}
-                    value={guessable.value}
-                    label={guessable.label}
-                  />
-                : null}
-            </Chapter>
-
-            <Chapter n="13" title="Ko vodi" width="360px">
-              <PersonCard />
-              <ScenarioCard items={scenarios} />
             </Chapter>
           </div>
         </div>
