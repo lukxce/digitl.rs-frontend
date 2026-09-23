@@ -165,14 +165,6 @@ const STEPS = [
   ["Optimizacija", "Izveštaji i odluke o sledećem koraku."],
 ];
 
-/* Two sites, one studio: .rs is the Serbian market, .me is everywhere else. */
-const SITES = [
-  { market: "Srbija", host: "digitl.rs", href: "https://digitl.rs" },
-  { market: "Svet", host: "digitl.me", href: "https://digitl.me" },
-];
-
-const SERVICE_TAGS = ["Plaćeno", "Web", "SEO", "Social", "Brend"];
-
 /* The hero on the live site carries this claim; here it gets its own tile. */
 const PROOF = { count: "50+", label: "uspešnih saradnji" };
 const OPEN_SLOTS = 2;
@@ -371,22 +363,31 @@ function ClockTile() {
   );
 }
 
-function BuzzTile() {
+/* The five words, all struck through, one lit at a time. A statement card
+   rather than a 144px filler — it is the strongest thing we say about tone. */
+function BuzzCard() {
   const [i, setI] = useState(0);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(
       () => setI((v) => (v + 1) % NECE_SE_CUTI.length),
-      2400,
+      2000,
     );
     return () => clearInterval(id);
   }, []);
   return (
-    <article className={`${s.card} ${s.filler}`}>
-      <span className={s.eyebrow}>Nećete čuti od nas</span>
-      <p className={s.buzzWord} key={NECE_SE_CUTI[i]}>
-        {NECE_SE_CUTI[i]}
-      </p>
+    <article className={`${s.card} ${s.buzzCard}`}>
+      <span className={s.eyebrowOnDark}>Nećete čuti od nas</span>
+      <ul className={s.buzzList}>
+        {NECE_SE_CUTI.map((word, k) => (
+          <li
+            key={word}
+            className={`${s.buzzItem} ${k === i ? s.buzzItemOn : ""}`}
+          >
+            {word}
+          </li>
+        ))}
+      </ul>
     </article>
   );
 }
@@ -497,18 +498,9 @@ function LessonsTile({ lessons }) {
       <p className={s.lessonText} key={l.text}>
         {l.text}
       </p>
-      <span className={s.lessonFoot}>
-        <a className={s.lessonClient} href={l.href}>
-          {l.client} <ArrowIcon size={11} />
-        </a>
-        <button
-          type="button"
-          className={s.chip}
-          onClick={() => setI((v) => (v + 1) % lessons.length)}
-        >
-          Sledeća
-        </button>
-      </span>
+      <a className={s.lessonClient} href={l.href}>
+        {l.client} <ArrowIcon size={11} />
+      </a>
     </article>
   );
 }
@@ -564,43 +556,6 @@ function SpeedTile() {
         {secs == null ? "—" : `${secs.toFixed(1).replace(".", ",")} s`}
       </span>
       <span className={s.muted}>do učitavanja. Tako pravimo i vaš.</span>
-    </article>
-  );
-}
-
-function StudioCard() {
-  return (
-    <article className={`${s.card} ${s.digitlCard}`}>
-      <span className={s.digitlGlyph} aria-hidden />
-      <span className={s.eyebrowOnDark}>Marketing studio</span>
-      <span className={s.digitlMark}>
-        digitl<span className={s.digitlDot}>.</span>
-      </span>
-      <span className={s.digitlFoot}>Full-Service marketing agencija</span>
-      <div className={s.digitlTags}>
-        {SERVICE_TAGS.map((tag) => (
-          <span key={tag} className={s.digitlTag}>
-            {tag}
-          </span>
-        ))}
-      </div>
-      <div className={s.digitlSites}>
-        {SITES.map((site) => (
-          <a
-            key={site.host}
-            className={s.digitlSite}
-            href={site.href}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span className={s.digitlSiteText}>
-              <span className={s.digitlSiteMarket}>{site.market}</span>
-              <span className={s.digitlSiteHost}>{site.host}</span>
-            </span>
-            <ArrowIcon size={14} />
-          </a>
-        ))}
-      </div>
     </article>
   );
 }
@@ -1041,7 +996,6 @@ export default function DijagnozaGrid({
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [sheet, setSheet] = useState(null);
-  const [showAll, setShowAll] = useState(false);
   const [device, setDevice] = useStored("dijagnoza-device", "desktop");
   const [theme, setTheme] = useStored("dijagnoza-theme", "auto");
   useHorizontalScroll(trackRef, stageRef);
@@ -1203,136 +1157,111 @@ export default function DijagnozaGrid({
               </article>
             </Chapter>
 
-            {/* 02 ─ quiz, with the clock filling the slack */}
-
-            {/* 03 ─ recommendation, flipping to all services */}
-            <Chapter n="02" title="Dijagnoza" width="340px">
-              <div
-                className={`${s.flip} ${s.flipTall} ${showAll ? s.flipped : ""}`}
-                data-anchor="result"
-              >
-                <div className={s.flipInner}>
-                  <div className={`${s.face} ${s.resultFace}`}>
-                    {done
-                      ? <>
-                          {recommended.map((id, i) => {
-                            const sv = SERVICES[id];
-                            return (
-                              <button
-                                key={id}
-                                type="button"
-                                className={`${s.rec} ${i === 0 ? s.recTop : ""}`}
-                                onClick={() => setSheet(id)}
-                              >
-                                <span className={s.recIcon} aria-hidden>
-                                  <sv.Icon />
-                                </span>
-                                <span className={s.recText}>
-                                  <span className={s.strong}>{sv.name}</span>
-                                  <span className={s.muted}>{sv.role}</span>
-                                </span>
-                                {i === 0
-                                  ? <span className={s.recBadge}>prvo</span>
-                                  : null}
-                                <span className={s.recArrow} aria-hidden>
-                                  <ArrowIcon size={11} />
-                                </span>
-                              </button>
-                            );
-                          })}
-                        </>
-                      : <article className={`${s.card} ${s.quiz}`}>
-                          <div className={s.quizTop}>
-                            <span className={s.eyebrow}>
-                              {Math.min(step + 1, QUIZ.length)} / {QUIZ.length}
-                            </span>
-                            <span className={s.pips} aria-hidden>
-                              {QUIZ.map((qq, i) => (
-                                <span
-                                  key={qq.id}
-                                  className={`${s.pip} ${answers[qq.id] ? s.pipDone : ""} ${i === step && !done ? s.pipNow : ""}`}
-                                />
-                              ))}
-                            </span>
-                          </div>
-                          <h2 className={s.quizQ} key={q.id}>
-                            {q.q}
-                          </h2>
-                          <div className={s.options}>
-                            {q.options.map((o) => (
-                              <button
-                                key={o.id}
-                                type="button"
-                                className={s.option}
-                                onClick={() => answer(q.id, o.id)}
-                              >
-                                {o.label}
-                              </button>
-                            ))}
-                          </div>
-                          {step > 0
-                            ? <button
-                                type="button"
-                                className={s.back}
-                                onClick={() => setStep(step - 1)}
-                              >
-                                ← Nazad
-                              </button>
-                            : null}
-                        </article>}
-                    <button
-                      type="button"
-                      className={s.allServices}
-                      onClick={() => setShowAll(true)}
-                    >
-                      Sve usluge{" "}
-                      <span className={s.iconCircleSm}>
-                        <ArrowIcon size={11} />
-                      </span>
-                    </button>
-                  </div>
-
-                  <div className={`${s.face} ${s.allFace}`}>
-                    <article className={`${s.card} ${s.allCard}`}>
-                      <span className={s.eyebrow}>Sve što radimo</span>
-                      <ul className={s.allList}>
-                        {SERVICE_LIST.map((sv) => (
-                          <li key={sv.id}>
-                            <button
-                              type="button"
-                              className={s.allRow}
-                              onClick={() => setSheet(sv.id)}
-                            >
-                              <span className={s.allIcon} aria-hidden>
-                                <sv.Icon />
-                              </span>
-                              <span className={s.allText}>
-                                <span className={s.allName}>{sv.name}</span>
-                                <span className={s.allDesc}>{sv.body}</span>
-                              </span>
-                              <span className={s.allArrow} aria-hidden>
-                                <ArrowIcon size={12} />
-                              </span>
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
+            {/* 02 ─ what we do, before anyone is asked anything */}
+            <Chapter n="02" title="Usluge" width="400px">
+              <article className={`${s.card} ${s.allCard}`}>
+                <span className={s.eyebrow}>Sve što radimo</span>
+                <ul className={s.allList}>
+                  {SERVICE_LIST.map((sv) => (
+                    <li key={sv.id}>
                       <button
                         type="button"
-                        className={s.chip}
-                        onClick={() => setShowAll(false)}
+                        className={s.allRow}
+                        onClick={() => setSheet(sv.id)}
                       >
-                        Nazad na preporuku
+                        <span className={s.allIcon} aria-hidden>
+                          <sv.Icon />
+                        </span>
+                        <span className={s.allText}>
+                          <span className={s.allName}>{sv.name}</span>
+                          <span className={s.allDesc}>{sv.body}</span>
+                        </span>
+                        <span className={s.allArrow} aria-hidden>
+                          <ArrowIcon size={12} />
+                        </span>
                       </button>
-                    </article>
-                  </div>
-                </div>
-              </div>
+                    </li>
+                  ))}
+                </ul>
+              </article>
             </Chapter>
 
-            {/* 04 ─ gap, small, with the buzz tile under it */}
-            <Chapter n="03" title="Sitnice" width="340px">
+            {/* 03 ─ three questions, then the recommendation in place */}
+            <Chapter n="03" title="Preporuka" width="340px">
+              <div className={s.resultFace} data-anchor="result">
+                {done
+                  ? <>
+                      {recommended.map((id, i) => {
+                        const sv = SERVICES[id];
+                        return (
+                          <button
+                            key={id}
+                            type="button"
+                            className={`${s.rec} ${i === 0 ? s.recTop : ""}`}
+                            onClick={() => setSheet(id)}
+                          >
+                            <span className={s.recIcon} aria-hidden>
+                              <sv.Icon />
+                            </span>
+                            <span className={s.recText}>
+                              <span className={s.strong}>{sv.name}</span>
+                              <span className={s.muted}>{sv.role}</span>
+                            </span>
+                            {i === 0
+                              ? <span className={s.recBadge}>prvo</span>
+                              : null}
+                            <span className={s.recArrow} aria-hidden>
+                              <ArrowIcon size={11} />
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </>
+                  : <article className={`${s.card} ${s.quiz}`}>
+                      <div className={s.quizTop}>
+                        <span className={s.eyebrow}>
+                          {Math.min(step + 1, QUIZ.length)} / {QUIZ.length}
+                        </span>
+                        <span className={s.pips} aria-hidden>
+                          {QUIZ.map((qq, i) => (
+                            <span
+                              key={qq.id}
+                              className={`${s.pip} ${answers[qq.id] ? s.pipDone : ""} ${i === step && !done ? s.pipNow : ""}`}
+                            />
+                          ))}
+                        </span>
+                      </div>
+                      <h2 className={s.quizQ} key={q.id}>
+                        {q.q}
+                      </h2>
+                      <div className={s.options}>
+                        {q.options.map((o) => (
+                          <button
+                            key={o.id}
+                            type="button"
+                            className={s.option}
+                            onClick={() => answer(q.id, o.id)}
+                          >
+                            {o.label}
+                          </button>
+                        ))}
+                      </div>
+                      {step > 0
+                        ? <button
+                            type="button"
+                            className={s.back}
+                            onClick={() => setStep(step - 1)}
+                          >
+                            ← Nazad
+                          </button>
+                        : null}
+                    </article>}
+              </div>
               <FaqTile />
+            </Chapter>
+
+            {/* 04 ─ the first call */}
+            <Chapter n="04" title="Razgovor" width="340px">
               <article className={`${s.card} ${s.book}`}>
                 <span className={s.eyebrowLight}>30 minuta, bez obaveze</span>
                 <p className={s.bookTitle}>Besplatan prvi razgovor.</p>
@@ -1348,6 +1277,7 @@ export default function DijagnozaGrid({
                   </a>
                 </div>
               </article>
+              <BuzzCard />
               <div className={s.socialRow}>
                 {SOCIALS.map((so) => (
                   <a
@@ -1367,7 +1297,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 05 ─ two case studies, stacked */}
-            <Chapter n="04" title="Projekti" width="400px">
+            <Chapter n="05" title="Projekti" width="400px">
               {cases.map((c) => (
                 <CaseCard key={c.slug} client={c} />
               ))}
@@ -1379,22 +1309,17 @@ export default function DijagnozaGrid({
               </a>
             </Chapter>
 
-            {/* 06 ─ what the projects taught us, and the proof row */}
-            <Chapter n="05" title="Iz prakse" width="400px">
-              <LessonsTile lessons={lessons} />
+            {/* 06 ─ who they were for, and the proof row */}
+            <Chapter n="06" title="Klijenti" width="400px">
+              <ClientsTile />
               <div className={s.duo}>
                 <ProofTile />
                 <SpeedTile />
               </div>
+              <LessonsTile lessons={lessons} />
             </Chapter>
 
-            {/* 06 ─ the studio, and where it sits */}
-            <Chapter n="06" title="Studio" width="400px">
-              <StudioCard />
-              <ClockTile />
-            </Chapter>
-
-            {/* 07 ─ testimonial + the logo strip under it */}
+            {/* 07 ─ and what they say, after you know who they are */}
             <Chapter n="07" title="Šta kažu" width="340px">
               {testimonials.length > 0
                 ? <article className={`${s.card} ${s.quote}`}>
@@ -1419,11 +1344,10 @@ export default function DijagnozaGrid({
                       klijenti.
                     </span>
                   </article>}
-              <BuzzTile />
-              <ClientsTile />
+              <ClockTile />
             </Chapter>
 
-            {/* 07 ─ process */}
+            {/* 08 ─ process */}
             <Chapter n="08" title="Kako radimo" width="400px">
               <article className={`${s.card} ${s.processCard}`}>
                 <div className={s.processTop}>
@@ -1459,9 +1383,6 @@ export default function DijagnozaGrid({
               <NewsletterCard />
             </Chapter>
 
-            {/* 08 ─ book small + independent social tiles */}
-
-            {/* 09 ─ blog, three */}
             <Chapter n="09" title="Blog" width="310px">
               {articles.slice(0, 3).map((a) => (
                 <a
@@ -1485,8 +1406,6 @@ export default function DijagnozaGrid({
                 </span>
               </a>
             </Chapter>
-
-            {/* 10 ─ contact */}
 
             <Chapter n="10" title="Kontakt" width="340px">
               <ContactCard

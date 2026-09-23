@@ -826,9 +826,6 @@ a.card:hover .iconCircleSm {
   border-color: var(--blue);
 }
 
-.allFace {
-  transform: rotateY(180deg);
-}
 .allCard {
   height: 100%;
   gap: 4px;
@@ -2230,31 +2227,31 @@ a.card:hover .iconCircleSm {
 }
 
 /* ── lessons from the case studies ───────────────────────── */
+/* A filler, not a feature: it fills column slack and says so quietly. */
 .lessons {
-  flex: 1;
-  min-height: 0;
-  gap: 8px;
+  flex: none;
+  height: 144px;
+  gap: 6px;
+  padding: 18px 20px;
   justify-content: space-between;
 }
 .lessonText {
-  margin: auto 0;
-  font-size: 22px;
+  margin: 0;
+  font-size: 14.5px;
   font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.045em;
+  line-height: 1.24;
+  letter-spacing: -0.03em;
   animation: swap 0.4s ease;
-}
-.lessonFoot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .lessonClient {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   color: var(--ink);
   text-decoration: none;
@@ -2393,12 +2390,11 @@ a.card:hover .iconCircleSm {
   }
 }
 
-/* ── the studio card: two markets, one team ──────────────── */
-.digitlCard {
-  flex: 1;
-  justify-content: space-between;
+/* ── the jargon card ─────────────────────────────────────── */
+.buzzCard {
+  flex: none;
   gap: 14px;
-  padding: 24px;
+  padding: 22px 24px 24px;
   border-color: var(--contrast-bg);
   /* Keyed to --contrast-raised so the dots invert with the card instead of
      disappearing when it flips to near-white in dark mode. */
@@ -2413,20 +2409,6 @@ a.card:hover .iconCircleSm {
   color: var(--contrast-ink);
 }
 
-/* The icon mark, not the wordmark — the "digitl." below is already that. */
-.digitlGlyph {
-  position: absolute;
-  top: -22px;
-  right: -26px;
-  width: 190px;
-  height: 190px;
-  background: var(--contrast-ink);
-  opacity: 0.07;
-  -webkit-mask: url("/digitl-logo.png") center / contain no-repeat;
-  mask: url("/digitl-logo.png") center / contain no-repeat;
-  pointer-events: none;
-}
-
 .eyebrowOnDark {
   font-size: 11px;
   font-weight: 700;
@@ -2435,83 +2417,32 @@ a.card:hover .iconCircleSm {
   color: var(--contrast-ink-2);
 }
 
-.digitlMark {
-  margin-top: auto;
-  font-size: 34px;
-  font-weight: 700;
-  letter-spacing: -0.055em;
-}
-
-.digitlDot {
-  color: var(--lime);
-}
-
-.digitlFoot {
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--contrast-ink-2);
-}
-
-.digitlTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.digitlTag {
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--contrast-line);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--contrast-ink-2);
-}
-
-.digitlSites {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.digitlSite {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px solid var(--contrast-line);
-  color: var(--contrast-ink);
-  text-decoration: none;
-  transition:
-    border-color 0.18s ease,
-    background 0.18s ease;
-}
-
-.digitlSite:hover {
-  border-color: var(--contrast-ink);
-  background: var(--contrast-raised);
-}
-
-.digitlSiteText {
+.buzzList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  min-width: 0;
+  gap: 2px;
 }
 
-.digitlSiteMarket {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.digitlSiteHost {
-  font-size: 12px;
-  font-weight: 500;
+.buzzItem {
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.24;
+  letter-spacing: -0.035em;
   color: var(--contrast-ink-2);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  opacity: 0.5;
+  transition:
+    opacity 0.3s ease,
+    color 0.3s ease;
+}
+
+.buzzItemOn {
+  color: var(--contrast-ink);
+  opacity: 1;
 }
 
 /* ── the globe clock ─────────────────────────────────────── */
@@ -2721,7 +2652,7 @@ a.card:hover .iconCircleSm {
   .stack {
     flex: none;
   }
-  .digitlCard,
+  .buzzCard,
   .clockCard {
     flex: none;
   }
