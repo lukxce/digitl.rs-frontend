@@ -18,9 +18,14 @@
   --dark: #171717;
   --danger: #b42318;
   --dot: rgba(23, 23, 23, 0.28);
+  --contrast-bg: #171717;
+  --contrast-ink: #fff;
+  --contrast-ink-2: rgba(255, 255, 255, 0.55);
+  --contrast-line: rgba(255, 255, 255, 0.16);
+  --contrast-raised: rgba(255, 255, 255, 0.08);
   --logo-invert: 0;
   --radius: 28px;
-  --h: clamp(430px, calc(100svh - 176px), 560px);
+  --h: clamp(430px, calc(100svh - 250px), 560px);
 
   min-height: 100svh;
   background: var(--page);
@@ -45,6 +50,11 @@
   --dark: #f4f4f6;
   --danger: #ff8078;
   --dot: rgba(244, 244, 246, 0.34);
+  --contrast-bg: #f4f4f6;
+  --contrast-ink: #0b0b0d;
+  --contrast-ink-2: rgba(11, 11, 13, 0.6);
+  --contrast-line: rgba(11, 11, 13, 0.14);
+  --contrast-raised: rgba(11, 11, 13, 0.07);
   --logo-invert: 1;
   color-scheme: dark;
 }
@@ -65,6 +75,11 @@
     --dark: #f4f4f6;
     --danger: #ff8078;
     --dot: rgba(244, 244, 246, 0.34);
+    --contrast-bg: #f4f4f6;
+    --contrast-ink: #0b0b0d;
+    --contrast-ink-2: rgba(11, 11, 13, 0.6);
+    --contrast-line: rgba(11, 11, 13, 0.14);
+    --contrast-raised: rgba(11, 11, 13, 0.07);
     --logo-invert: 1;
     color-scheme: dark;
   }
@@ -188,7 +203,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 104px 40px 70px;
+  padding: 74px 40px 120px;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
@@ -255,7 +270,7 @@ a.card:hover {
 .eyebrowLight {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -1189,7 +1204,7 @@ a.card:hover .iconCircleSm {
 }
 .contactTitle {
   margin: auto 0 0;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 600;
   line-height: 1.08;
   letter-spacing: -0.05em;
@@ -1226,15 +1241,26 @@ a.card:hover .iconCircleSm {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 6px 6px 6px 18px;
+  gap: 12px;
+  margin-top: 2px;
+  padding: 6px 6px 6px 20px;
   border: none;
   border-radius: 999px;
   cursor: pointer;
   background: var(--ink);
   color: var(--page);
-  font-size: 14px;
+  font: inherit;
+  font-size: 15px;
   font-weight: 600;
+}
+
+.send .iconCircleBlue {
+  width: 34px;
+  height: 34px;
+  transition: transform 0.2s ease;
+}
+.send:hover .iconCircleBlue {
+  transform: translate(2px, -2px);
 }
 
 .send:disabled {
@@ -1459,26 +1485,34 @@ a.card:hover .iconCircleSm {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 22px;
+  gap: 8px;
+  padding: 26px 28px 56px;
   text-align: center;
-  background: var(--blue);
+  /* Flat blue reads as a placeholder; the dot field gives it a surface. */
+  background:
+    radial-gradient(
+      circle at 1.5px 1.5px,
+      rgba(255, 255, 255, 0.14) 1.5px,
+      transparent 0
+    )
+    0 0 / 18px 18px,
+    var(--blue);
   color: #fff;
 }
 
 .statValue {
-  font-size: 38px;
+  font-size: 46px;
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.05em;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
   font-variant-numeric: tabular-nums;
 }
 .statLabel {
-  font-size: 12.5px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.35;
-  color: rgba(255, 255, 255, 0.82);
-  max-width: 24ch;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 240px;
 }
 .caseImg {
   object-fit: cover;
@@ -2340,6 +2374,207 @@ a.card:hover .iconCircleSm {
   }
 }
 
+/* ── the studio card: two markets, one team ──────────────── */
+.digitlCard {
+  flex: 1;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 24px;
+  border-color: var(--contrast-bg);
+  /* Keyed to --contrast-raised so the dots invert with the card instead of
+     disappearing when it flips to near-white in dark mode. */
+  background:
+    radial-gradient(
+      circle at 1.5px 1.5px,
+      var(--contrast-raised) 1.5px,
+      transparent 0
+    )
+    0 0 / 18px 18px,
+    var(--contrast-bg);
+  color: var(--contrast-ink);
+}
+
+/* The icon mark, not the wordmark — the "digitl." below is already that. */
+.digitlGlyph {
+  position: absolute;
+  top: -22px;
+  right: -26px;
+  width: 190px;
+  height: 190px;
+  background: var(--contrast-ink);
+  opacity: 0.07;
+  -webkit-mask: url("/digitl-logo.png") center / contain no-repeat;
+  mask: url("/digitl-logo.png") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.eyebrowOnDark {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--contrast-ink-2);
+}
+
+.digitlMark {
+  margin-top: auto;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.055em;
+}
+
+.digitlDot {
+  color: var(--lime);
+}
+
+.digitlFoot {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--contrast-ink-2);
+}
+
+.digitlTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.digitlTag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--contrast-line);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--contrast-ink-2);
+}
+
+.digitlSites {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.digitlSite {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--contrast-line);
+  color: var(--contrast-ink);
+  text-decoration: none;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.digitlSite:hover {
+  border-color: var(--contrast-ink);
+  background: var(--contrast-raised);
+}
+
+.digitlSiteText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.digitlSiteMarket {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.digitlSiteHost {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--contrast-ink-2);
+}
+
+/* ── the globe clock ─────────────────────────────────────── */
+.clockCard {
+  flex: none;
+  height: 208px;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.globe {
+  position: absolute;
+  top: 26px;
+  right: -30px;
+  width: 140px;
+  height: 140px;
+}
+
+.globeCanvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.weather {
+  position: relative;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.cityRow {
+  position: relative;
+  display: flex;
+  gap: 24px;
+  margin-top: auto;
+}
+
+.city {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cityTime {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cityName {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+}
+
+@keyframes blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
+.colon {
+  animation: blink 2s steps(1, end) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .colon {
+    animation: none;
+  }
+}
+
 @container dg (max-width: 720px) {
   .bar {
     padding: 20px 16px 0;
@@ -2465,6 +2700,10 @@ a.card:hover .iconCircleSm {
   }
   .duo,
   .stack {
+    flex: none;
+  }
+  .digitlCard,
+  .clockCard {
     flex: none;
   }
 }

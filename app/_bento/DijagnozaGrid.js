@@ -1,10 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import figmaSvg from "../assets/figma.svg";
-import framerSvg from "../assets/framer.svg";
 import locationIcon from "../assets/location.svg";
-import photoshopSvg from "../assets/photoshop.svg";
+import World, { CITIES } from "./World";
 import stripeSvg from "../assets/stripe.svg";
 import elektromilLogo from "../assets/elektromil-logo.webp";
 import primaDentalLogo from "../assets/primadental logo.webp";
@@ -167,23 +165,13 @@ const STEPS = [
   ["Optimizacija", "Izveštaji i odluke o sledećem koraku."],
 ];
 
-/* Two rows so the strip reads as a wall, not a queue. */
-const STACK = [
-  [
-    { label: "Google Ads" },
-    { label: "GA4" },
-    { label: "Search Console" },
-    { label: "Meta Ads" },
-    { label: "Looker Studio" },
-  ],
-  [
-    { label: "Figma", icon: figmaSvg },
-    { label: "Framer", icon: framerSvg },
-    { label: "Photoshop", icon: photoshopSvg },
-    { label: "Next.js" },
-    { label: "Sanity" },
-  ],
+/* Two sites, one studio: .rs is the Serbian market, .me is everywhere else. */
+const SITES = [
+  { market: "Srbija", host: "digitl.rs", href: "https://digitl.rs" },
+  { market: "Svet", host: "digitl.me", href: "https://digitl.me" },
 ];
+
+const SERVICE_TAGS = ["Plaćeno", "Web", "SEO", "Social", "Brend"];
 
 /* The hero on the live site carries this claim; here it gets its own tile. */
 const PROOF = { count: "50+", label: "uspešnih saradnji" };
@@ -299,7 +287,7 @@ function useStored(key, initial) {
 
 /* ── scattered filler tiles ──────────────────────────────── */
 
-const CITIES = [
+const CITIES_LIST = [
   ["Beograd", "Europe/Belgrade"],
   ["London", "Europe/London"],
 ];
@@ -315,10 +303,34 @@ function readClock(zone) {
   return { hh: g("hour"), mm: g("minute"), h: Number(g("hour")) };
 }
 
+const PINS = [CITIES.belgrade, CITIES.london];
+
+function useWeather() {
+  const [weather, setWeather] = useState(null);
+  useEffect(() => {
+    const abort = new AbortController();
+    fetch(
+      "https://api.open-meteo.com/v1/forecast?latitude=44.7866&longitude=20.4489&current=temperature_2m&timezone=Europe%2FBelgrade",
+      { signal: abort.signal },
+    )
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("weather"))))
+      .then((d) => {
+        const temp = d?.current?.temperature_2m;
+        if (typeof temp === "number") setWeather(Math.round(temp));
+      })
+      .catch(() => {
+        // No weather line is better than a wrong one.
+      });
+    return () => abort.abort();
+  }, []);
+  return weather;
+}
+
 function ClockTile() {
   const [now, setNow] = useState(null);
+  const temp = useWeather();
   useEffect(() => {
-    const read = () => setNow(CITIES.map(([, zone]) => readClock(zone)));
+    const read = () => setNow(CITIES_LIST.map(([, zone]) => readClock(zone)));
     read();
     const id = setInterval(read, 15_000);
     return () => clearInterval(id);
@@ -335,19 +347,26 @@ function ClockTile() {
             ? "Još gledamo izveštaje."
             : "Spavamo. Google Ads ne.";
   return (
-    <article className={`${s.card} ${s.filler}`}>
-      <span className={s.eyebrow}>Dve kancelarije</span>
-      <div className={s.clockRow}>
-        {CITIES.map(([city], i) => (
-          <span key={city} className={s.clockCity}>
-            <span className={s.clockTime} suppressHydrationWarning>
-              {now ? `${now[i].hh}:${now[i].mm}` : "--:--"}
+    <article className={`${s.card} ${s.clockCard}`}>
+      <span className={s.eyebrow}>Beograd · London</span>
+      <span className={s.weather}>
+        {temp == null ? line : `${temp}° u Beogradu · ${line}`}
+      </span>
+      <span className={s.globe} aria-hidden>
+        <World mode="globe" pins={PINS} className={s.globeCanvas} />
+      </span>
+      <span className={s.cityRow}>
+        {CITIES_LIST.map(([city], i) => (
+          <span key={city} className={s.city}>
+            <span className={s.cityTime} suppressHydrationWarning>
+              {now ? now[i].hh : "--"}
+              <span className={s.colon}>:</span>
+              {now ? now[i].mm : "--"}
             </span>
-            <span className={s.clockLabel}>{city}</span>
+            <span className={s.cityName}>{city}</span>
           </span>
         ))}
-      </div>
-      <span className={s.muted}>{line}</span>
+      </span>
     </article>
   );
 }
@@ -549,35 +568,38 @@ function SpeedTile() {
   );
 }
 
-function StackTile() {
-  const row = (items, key) =>
-    [...items, ...items].map((it, k) => (
-      <span key={`${key}-${it.label}-${k}`} className={s.stackChip}>
-        {it.icon
-          ? <Image
-              src={it.icon}
-              alt=""
-              width={14}
-              height={14}
-              className={s.stackIcon}
-              unoptimized
-            />
-          : null}
-        {it.label}
-      </span>
-    ));
+function StudioCard() {
   return (
-    <article className={`${s.card} ${s.stack}`}>
-      <span className={s.eyebrow}>Sa čime radimo</span>
-      <div className={s.marquee}>
-        <div className={`${s.marqueeTrack} ${s.stackTrack}`}>
-          {row(STACK[0], "a")}
-        </div>
+    <article className={`${s.card} ${s.digitlCard}`}>
+      <span className={s.digitlGlyph} aria-hidden />
+      <span className={s.eyebrowOnDark}>Marketing studio</span>
+      <span className={s.digitlMark}>
+        digitl<span className={s.digitlDot}>.</span>
+      </span>
+      <span className={s.digitlFoot}>Full-Service marketing agencija</span>
+      <div className={s.digitlTags}>
+        {SERVICE_TAGS.map((tag) => (
+          <span key={tag} className={s.digitlTag}>
+            {tag}
+          </span>
+        ))}
       </div>
-      <div className={s.marquee}>
-        <div className={`${s.marqueeTrack} ${s.stackTrack} ${s.stackReverse}`}>
-          {row(STACK[1], "b")}
-        </div>
+      <div className={s.digitlSites}>
+        {SITES.map((site) => (
+          <a
+            key={site.host}
+            className={s.digitlSite}
+            href={site.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className={s.digitlSiteText}>
+              <span className={s.digitlSiteMarket}>{site.market}</span>
+              <span className={s.digitlSiteHost}>{site.host}</span>
+            </span>
+            <ArrowIcon size={14} />
+          </a>
+        ))}
       </div>
     </article>
   );
@@ -622,7 +644,9 @@ function ChapterNav({ trackRef }) {
     const track = trackRef.current;
     const el = track?.querySelectorAll("section")[i];
     if (track && el)
-      track.scrollTo({ left: el.offsetLeft - 40, behavior: "smooth" });
+      track.dispatchEvent(
+        new CustomEvent("dg:scrollto", { detail: el.offsetLeft - 40 }),
+      );
   };
   return (
     <nav className={s.chapterNav} aria-label="Poglavlja">
@@ -1108,7 +1132,7 @@ export default function DijagnozaGrid({
 
           <div className={s.track} ref={trackRef}>
             {/* 01 ─ badge, in the lukxce shape */}
-            <Chapter n="01" title="Digitl" width="392px">
+            <Chapter n="01" title="Digitl" width="398px">
               <article className={`${s.card} ${s.badge}`}>
                 <span className={s.lanyard} aria-hidden>
                   <Image
@@ -1182,7 +1206,7 @@ export default function DijagnozaGrid({
             {/* 02 ─ quiz, with the clock filling the slack */}
 
             {/* 03 ─ recommendation, flipping to all services */}
-            <Chapter n="02" title="Dijagnoza" width="336px">
+            <Chapter n="02" title="Dijagnoza" width="348px">
               <div
                 className={`${s.flip} ${s.flipTall} ${showAll ? s.flipped : ""}`}
                 data-anchor="result"
@@ -1307,9 +1331,8 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 04 ─ gap, small, with the buzz tile under it */}
-            <Chapter n="03" title="Sitnice" width="300px">
+            <Chapter n="03" title="Sitnice" width="330px">
               <FaqTile />
-              <BuzzTile />
               <article className={`${s.card} ${s.book}`}>
                 <span className={s.eyebrowLight}>30 minuta, bez obaveze</span>
                 <p className={s.bookTitle}>Besplatan prvi razgovor.</p>
@@ -1344,7 +1367,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 05 ─ two case studies, stacked */}
-            <Chapter n="04" title="Projekti" width="330px">
+            <Chapter n="04" title="Projekti" width="400px">
               {cases.map((c) => (
                 <CaseCard key={c.slug} client={c} />
               ))}
@@ -1357,17 +1380,22 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 06 ─ what the projects taught us, and the proof row */}
-            <Chapter n="05" title="Iz prakse" width="330px">
+            <Chapter n="05" title="Iz prakse" width="356px">
               <LessonsTile lessons={lessons} />
               <div className={s.duo}>
                 <ProofTile />
                 <SpeedTile />
               </div>
-              <StackTile />
+            </Chapter>
+
+            {/* 06 ─ the studio, and where it sits */}
+            <Chapter n="06" title="Studio" width="356px">
+              <StudioCard />
+              <ClockTile />
             </Chapter>
 
             {/* 07 ─ testimonial + the logo strip under it */}
-            <Chapter n="06" title="Šta kažu" width="330px">
+            <Chapter n="07" title="Šta kažu" width="348px">
               {testimonials.length > 0
                 ? <article className={`${s.card} ${s.quote}`}>
                     <p className={s.quoteBody}>{testimonials[0].body}</p>
@@ -1391,11 +1419,12 @@ export default function DijagnozaGrid({
                       klijenti.
                     </span>
                   </article>}
+              <BuzzTile />
               <ClientsTile />
             </Chapter>
 
             {/* 07 ─ process */}
-            <Chapter n="07" title="Kako radimo" width="330px">
+            <Chapter n="08" title="Kako radimo" width="356px">
               <article className={`${s.card} ${s.processCard}`}>
                 <div className={s.processTop}>
                   <span className={s.processNum} aria-hidden>
@@ -1433,7 +1462,7 @@ export default function DijagnozaGrid({
             {/* 08 ─ book small + independent social tiles */}
 
             {/* 09 ─ blog, three */}
-            <Chapter n="08" title="Blog" width="276px">
+            <Chapter n="09" title="Blog" width="310px">
               {articles.slice(0, 3).map((a) => (
                 <a
                   key={a.slug}
@@ -1459,7 +1488,7 @@ export default function DijagnozaGrid({
 
             {/* 10 ─ contact */}
 
-            <Chapter n="09" title="Kontakt" width="320px">
+            <Chapter n="10" title="Kontakt" width="348px">
               <ContactCard
                 prefill={
                   first
@@ -1475,7 +1504,6 @@ export default function DijagnozaGrid({
                   <PhoneIcon /> {CONTACT.phone}
                 </a>
               </div>
-              <ClockTile />
             </Chapter>
           </div>
         </div>

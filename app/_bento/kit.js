@@ -254,6 +254,10 @@ export function useHorizontalScroll(trackRef, progressRef) {
       scrollTo(target + delta);
     };
 
+    // Anything outside the hook (the chapter nav) asks for a scroll this way,
+    // so the rAF below owns the position instead of fighting a scrollTo().
+    const onRequest = (e) => scrollTo(e.detail ?? 0);
+
     const onScroll = () => {
       if (!raf) target = el.scrollLeft;
       const m = max();
@@ -324,6 +328,7 @@ export function useHorizontalScroll(trackRef, progressRef) {
     };
     const onDragStart = (e) => e.preventDefault();
 
+    el.addEventListener("dg:scrollto", onRequest);
     el.addEventListener("wheel", onWheel, { passive: false });
     el.addEventListener("scroll", onScroll, { passive: true });
     el.addEventListener("pointerdown", onPointerDown);
@@ -336,6 +341,7 @@ export function useHorizontalScroll(trackRef, progressRef) {
 
     return () => {
       cancelAnimationFrame(raf);
+      el.removeEventListener("dg:scrollto", onRequest);
       el.removeEventListener("wheel", onWheel);
       el.removeEventListener("scroll", onScroll);
       el.removeEventListener("pointerdown", onPointerDown);

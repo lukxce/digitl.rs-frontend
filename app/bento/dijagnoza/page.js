@@ -33,7 +33,10 @@ async function getClients() {
         const slug = typeof r.slug === "string" ? r.slug : r.slug?.current;
         const after = (r.metrics ?? [])
           .filter((m) => m?.title && m?.subtitle)
-          .slice(0, 2)
+          /* "11+ godina iskustva" is the client's history, not a result we
+             produced — it tells a visitor nothing about working with us. */
+          .filter((m) => !/godin\w*\s+iskustva/i.test(m.subtitle))
+          .slice(0, 3)
           .map((m) => ({ value: m.title, label: m.subtitle }));
         if (!slug || after.length === 0) return null;
         return {
