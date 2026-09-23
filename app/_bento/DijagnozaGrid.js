@@ -447,17 +447,13 @@ function ProofTile() {
 
 /* ── extras: interactive cards, parked at the end of the track ── */
 
-const ZARGON = [
-  ["sinergija", "Radimo i sa vašim prodajnim timom, ne samo sa oglasima."],
-  ["disruptivno", "Uradili smo nešto što konkurencija još nije probala."],
-  ["360° rešenje", "Pokrivamo sve kanale, pa ne koordinirate pet firmi."],
-  [
-    "growth hacking",
-    "Testiramo jeftino dok ne nađemo šta radi, pa tu ulažemo.",
-  ],
-  ["holistički pristup", "Gledamo ceo put kupca, ne samo poslednji klik."],
-  ["brand awareness", "Da vas se sete kad im zatreba, a ne tek kad guglaju."],
-  ["omnichannel", "Ista poruka na sajtu, u oglasu i u poruci koju dobiju."],
+const NECE_SE_CUTI = [
+  "sinergija",
+  "disruptivno",
+  "360° rešenje",
+  "growth hacking",
+  "holistički pristup",
+  "omnichannel",
 ];
 
 const BINGO = [
@@ -585,24 +581,31 @@ function SpeedCard() {
   );
 }
 
-/** The dark card, but it does something: jargon in, plain Serbian out. */
-function JargonCard() {
+/* All six struck through, one lit at a time. Beat the translator because
+   the joke lands without the visitor having to click anything. */
+function BuzzCard() {
   const [i, setI] = useState(0);
-  const [word, plain] = ZARGON[i];
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(
+      () => setI((v) => (v + 1) % NECE_SE_CUTI.length),
+      2000,
+    );
+    return () => clearInterval(id);
+  }, []);
   return (
     <article className={`${s.card} ${s.jargonCard}`}>
-      <span className={s.eyebrowOnDark}>Prevodilac</span>
-      <p className={s.jargonWord} key={word}>
-        {word}
-      </p>
-      <p className={s.jargonPlain}>{plain}</p>
-      <button
-        type="button"
-        className={s.chipLight}
-        onClick={() => setI((v) => (v + 1) % ZARGON.length)}
-      >
-        Još jedna
-      </button>
+      <span className={s.eyebrowOnDark}>Nećete čuti od nas</span>
+      <ul className={s.buzzList}>
+        {NECE_SE_CUTI.map((word, k) => (
+          <li
+            key={word}
+            className={`${s.buzzItem} ${k === i ? s.buzzItemOn : ""}`}
+          >
+            {word}
+          </li>
+        ))}
+      </ul>
     </article>
   );
 }
@@ -1681,7 +1684,7 @@ export default function DijagnozaGrid({
 
             <Chapter n="11" title="Računica" width="360px">
               <CostCard />
-              <JargonCard />
+              <BuzzCard />
             </Chapter>
 
             <Chapter n="12" title="Igra" width="360px">
