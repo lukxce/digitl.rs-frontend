@@ -119,6 +119,25 @@
   min-height: 100svh;
 }
 
+/* A definite height, not just a minimum: .inner's `min-height: 100%` only
+   resolves against one, and without it .track never stretches, so its
+   `align-items: center` has no free space and the cards ride 60px high. */
+.stage[data-device="desktop"] .viewport {
+  height: 100svh;
+}
+
+.stage[data-device="desktop"] .inner {
+  height: 100%;
+}
+
+/* Narrow screens stack the chapters vertically and must grow past the fold. */
+@media (max-width: 720px) {
+  .stage[data-device="desktop"] .viewport,
+  .stage[data-device="desktop"] .inner {
+    height: auto;
+  }
+}
+
 .stage[data-device="phone"] {
   display: flex;
   align-items: center;

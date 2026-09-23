@@ -1206,7 +1206,7 @@ export default function DijagnozaGrid({
             {/* 02 ─ quiz, with the clock filling the slack */}
 
             {/* 03 ─ recommendation, flipping to all services */}
-            <Chapter n="02" title="Dijagnoza" width="348px">
+            <Chapter n="02" title="Dijagnoza" width="340px">
               <div
                 className={`${s.flip} ${s.flipTall} ${showAll ? s.flipped : ""}`}
                 data-anchor="result"
@@ -1331,7 +1331,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 04 ─ gap, small, with the buzz tile under it */}
-            <Chapter n="03" title="Sitnice" width="330px">
+            <Chapter n="03" title="Sitnice" width="340px">
               <FaqTile />
               <article className={`${s.card} ${s.book}`}>
                 <span className={s.eyebrowLight}>30 minuta, bez obaveze</span>
@@ -1380,7 +1380,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 06 ─ what the projects taught us, and the proof row */}
-            <Chapter n="05" title="Iz prakse" width="356px">
+            <Chapter n="05" title="Iz prakse" width="400px">
               <LessonsTile lessons={lessons} />
               <div className={s.duo}>
                 <ProofTile />
@@ -1389,13 +1389,13 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 06 ─ the studio, and where it sits */}
-            <Chapter n="06" title="Studio" width="356px">
+            <Chapter n="06" title="Studio" width="400px">
               <StudioCard />
               <ClockTile />
             </Chapter>
 
             {/* 07 ─ testimonial + the logo strip under it */}
-            <Chapter n="07" title="Šta kažu" width="348px">
+            <Chapter n="07" title="Šta kažu" width="340px">
               {testimonials.length > 0
                 ? <article className={`${s.card} ${s.quote}`}>
                     <p className={s.quoteBody}>{testimonials[0].body}</p>
@@ -1424,7 +1424,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 07 ─ process */}
-            <Chapter n="08" title="Kako radimo" width="356px">
+            <Chapter n="08" title="Kako radimo" width="400px">
               <article className={`${s.card} ${s.processCard}`}>
                 <div className={s.processTop}>
                   <span className={s.processNum} aria-hidden>
@@ -1488,7 +1488,7 @@ export default function DijagnozaGrid({
 
             {/* 10 ─ contact */}
 
-            <Chapter n="10" title="Kontakt" width="348px">
+            <Chapter n="10" title="Kontakt" width="340px">
               <ContactCard
                 prefill={
                   first
