@@ -445,7 +445,7 @@ function ServiceSheet({ id, recommended, onClose }) {
           <span className={s.eyebrow}>Kako se vezuje za ostalo</span>
           <p>{sv.feeds}</p>
         </div>
-        <a className={s.sheetCta} href="#kontakt" onClick={onClose}>
+        <a className={s.sheetCta} href="#contact" onClick={onClose}>
           Pitajte nas o ovome{" "}
           <span className={s.iconCircle}>
             <ArrowIcon size={12} />
@@ -711,7 +711,7 @@ function ContactCard({ prefill }) {
   }[state];
 
   return (
-    <article className={`${s.card} ${s.contact}`} id="kontakt">
+    <article className={`${s.card} ${s.contact}`} id="contact">
       <span className={s.dots} aria-hidden />
       <span className={s.eyebrow}>Vaš red</span>
       <p className={s.contactTitle}>
@@ -902,7 +902,7 @@ export default function DijagnozaGrid({
                 </p>
 
                 <div className={s.heroRow}>
-                  <a className={s.btnPrimary} href="#kontakt">
+                  <a className={s.btnPrimary} href="#contact">
                     Zakaži razgovor
                     <span className={s.iconCircle}>
                       <ArrowIcon size={12} />

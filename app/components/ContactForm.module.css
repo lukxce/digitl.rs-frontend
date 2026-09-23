@@ -87,7 +87,7 @@
   letter-spacing: -0.04em;
 }
 
-.field::placeholder{
+.field::placeholder {
   color: #17171780;
   font-weight: 600;
 }
@@ -105,7 +105,7 @@
   resize: none;
 }
 
-.textarea::placeholder{
+.textarea::placeholder {
   color: #17171780;
   font-weight: 600;
 }
@@ -224,7 +224,8 @@
   color: rgba(23, 23, 23, 0.55);
 }
 
-.disclaimer, .disclaimerBold {
+.disclaimer,
+.disclaimerBold {
   margin: 0;
   font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 13px;
@@ -233,10 +234,10 @@
   letter-spacing: -0.04em;
   color: #17171780;
   display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: auto;
-    text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: auto;
+  text-align: center;
 }
 
 .disclaimerBold {
@@ -256,54 +257,53 @@
   margin: 30px auto 0;
 }
 
-
 @media (max-width: 640px) {
-  .emailLink{
+  .emailLink {
     font-size: 28px;
     overflow-wrap: break-word;
     word-break: break-all;
   }
 
-  .createdBy{
+  .createdBy {
     margin-top: 20px;
   }
-  
-  .form{
+
+  .form {
     gap: 8px;
   }
 
-  .title{
+  .title {
     font-size: 34px;
   }
 
-  .subtitle{
+  .subtitle {
     margin: 0;
     font-size: 15px;
   }
 
-  .outer{
+  .outer {
     padding-bottom: 20px;
     min-height: 760px;
   }
 
-  .inner{
+  .inner {
     padding: 44px 20px 30px;
   }
 
-  .copyright{
+  .copyright {
     font-size: 13px;
   }
 
-  .footer{
+  .footer {
     padding-top: 8px;
     margin-top: 0px;
   }
 
-  .submit{
+  .submit {
     font-size: 15px;
   }
 
-  .chatLabel{
+  .chatLabel {
     font-size: 13px;
   }
 }

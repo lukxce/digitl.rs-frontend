@@ -54,7 +54,11 @@ export default function ContactForm({ onSubmit }) {
   }
 
   return (
-    <section id="contact" className={styles.outer} aria-labelledby="contact-form-title">
+    <section
+      id="contact"
+      className={styles.outer}
+      aria-labelledby="contact-form-title"
+    >
       <div className={styles.inner}>
         <header className={styles.header}>
           <h2 id="contact-form-title" className={styles.title}>
@@ -114,7 +118,9 @@ export default function ContactForm({ onSubmit }) {
               hello@digitl.rs
             </a>
           </p>
-          <p className={styles.copyright}>© Copyright 2026. All rights Reserved.</p>
+          <p className={styles.copyright}>
+            © Copyright 2026. All rights Reserved.
+          </p>
         </footer>
       </div>
     </section>

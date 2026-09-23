@@ -1,11 +1,6 @@
-'use client';
+"use client";
 
-import {
-  motion,
-  useMotionValue,
-  animate,
-  useInView,
-} from "framer-motion";
+import { motion, useMotionValue, animate, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import {
   scrollRevealDistance,
@@ -70,7 +65,8 @@ export default function StepProcess() {
   const steps = [
     {
       title: "Razumevanje",
-      description: "Analiziramo biznis, ciljeve i dosadašnje brojeve da vidimo šta radi, a šta ne.",
+      description:
+        "Analiziramo biznis, ciljeve i dosadašnje brojeve da vidimo šta radi, a šta ne.",
     },
     {
       title: "Planiranje",
@@ -88,7 +84,6 @@ export default function StepProcess() {
 
   return (
     <div className={styles.root}>
-      
       {/* MAIN STEP */}
       <div className={styles.mainStep}>
         <motion.div ref={ref} className={styles.mainStepContent}>
@@ -98,18 +93,34 @@ export default function StepProcess() {
         <div className={styles.mainStepText}>
           <h3 className={styles.mainStepTitle}>Kako radimo</h3>
           <p className={styles.mainStepDescription}>
-            <span className={styles.mainStepDescriptionBold}>Jedan povezan proces</span> koji drži strategiju, egzekuciju i rezultate u istom pravcu, <span className={styles.mainStepDescriptionBold}>od početka do kraja</span>.
+            <span className={styles.mainStepDescriptionBold}>
+              Jedan povezan proces
+            </span>{" "}
+            koji drži strategiju, egzekuciju i rezultate u istom pravcu,{" "}
+            <span className={styles.mainStepDescriptionBold}>
+              od početka do kraja
+            </span>
+            .
           </p>
         </div>
 
-        <Image src={ladder} alt="Ladder" width={124} height={164} unoptimized className={styles.ladder} />
+        <Image
+          src={ladder}
+          alt="Ladder"
+          width={124}
+          height={164}
+          unoptimized
+          className={styles.ladder}
+        />
       </div>
 
       {/* STEPS */}
       {steps.map((step, index) => {
         const isReversed = index % 2 === 0;
         const titleAlign = isReversed ? styles.alignLeft : styles.alignRight;
-        const descriptionAlign = isReversed ? styles.alignRight : styles.alignLeft;
+        const descriptionAlign = isReversed
+          ? styles.alignRight
+          : styles.alignLeft;
 
         const animation = {
           hidden: {
@@ -119,13 +130,15 @@ export default function StepProcess() {
           visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: scrollRevealDuration, ease: scrollRevealEase },
+            transition: {
+              duration: scrollRevealDuration,
+              ease: scrollRevealEase,
+            },
           },
         };
 
         return (
           <div className={styles.step} key={step.title}>
-            
             <motion.h3
               className={`${styles.title} ${titleAlign}`}
               variants={animation}
@@ -137,7 +150,13 @@ export default function StepProcess() {
             </motion.h3>
 
             <div className={styles.stepNumberContainer}>
-              <Image src={OvalIcon} alt="Oval" width={26} height={26} unoptimized />
+              <Image
+                src={OvalIcon}
+                alt="Oval"
+                width={26}
+                height={26}
+                unoptimized
+              />
               <p className={styles.stepNumber}>0{index + 1}</p>
             </div>
 
@@ -147,11 +166,14 @@ export default function StepProcess() {
               initial="hidden"
               whileInView="visible"
               viewport={scrollRevealViewport}
-              transition={{ duration: scrollRevealDuration, delay: 0.12, ease: scrollRevealEase }}
+              transition={{
+                duration: scrollRevealDuration,
+                delay: 0.12,
+                ease: scrollRevealEase,
+              }}
             >
               {step.description}
             </motion.p>
-
           </div>
         );
       })}

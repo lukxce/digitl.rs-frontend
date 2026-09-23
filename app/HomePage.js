@@ -52,8 +52,7 @@ const services = [
   {
     key: "social",
     title: "Upravljanje društvenim mrežama",
-    description:
-      "Dosledan brend na mrežama koji podržava sve ostale kanale.",
+    description: "Dosledan brend na mrežama koji podržava sve ostale kanale.",
     Icon: IconMotion,
   },
   {

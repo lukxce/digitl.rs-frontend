@@ -1,8 +1,5 @@
 import { notFound } from "next/navigation";
-import {
-  tryFindArticle,
-  tryGetArticlesForHome,
-} from "../../../lib/cms.js";
+import { tryFindArticle, tryGetArticlesForHome } from "../../../lib/cms.js";
 import AvatarInfo from "../../components/AvatarInfo";
 import ClientsLogosCarousel from "../../components/ClientsLogosCarousel";
 import ContactForm from "../../components/ContactForm";
@@ -27,7 +24,8 @@ function extractFirstParagraph(blocks) {
       const parts = s.split(/\n\s*\n/);
       if (parts.length > 1) {
         const first = parts[0].replace(/^#+\s+/gm, "").trim();
-        if (first && !first.startsWith("![")) return [first, parts.slice(1).join("\n\n")];
+        if (first && !first.startsWith("!["))
+          return [first, parts.slice(1).join("\n\n")];
       }
     }
     return [null, blocks];
@@ -36,30 +34,62 @@ function extractFirstParagraph(blocks) {
   for (let i = 0; i < blocks.length; i++) {
     const block = blocks[i];
     if (!block || typeof block !== "object") continue;
-    if (block.type === "paragraph" && !block.__component && Array.isArray(block.children)) {
+    if (
+      block.type === "paragraph" &&
+      !block.__component &&
+      Array.isArray(block.children)
+    ) {
       const text = block.children.map((c) => c.text ?? "").join("");
-      if (text.trim()) return [text.trim(), [...blocks.slice(0, i), ...blocks.slice(i + 1)]];
+      if (text.trim())
+        return [text.trim(), [...blocks.slice(0, i), ...blocks.slice(i + 1)]];
     }
     if (block.__component) {
       const comp = block.__component;
-      if (comp.includes("rich-text") || comp.includes("richtext") || comp.includes("paragraph")) {
-        const bodyKey = ["body", "content", "text", "richText", "copy"].find((k) => Array.isArray(block[k]));
+      if (
+        comp.includes("rich-text") ||
+        comp.includes("richtext") ||
+        comp.includes("paragraph")
+      ) {
+        const bodyKey = ["body", "content", "text", "richText", "copy"].find(
+          (k) => Array.isArray(block[k]),
+        );
         if (bodyKey) {
           const inner = block[bodyKey];
-          const pIdx = inner.findIndex((b) => b?.type === "paragraph" && Array.isArray(b?.children));
+          const pIdx = inner.findIndex(
+            (b) => b?.type === "paragraph" && Array.isArray(b?.children),
+          );
           if (pIdx !== -1) {
             const text = inner[pIdx].children.map((c) => c.text ?? "").join("");
             if (text.trim()) {
-              const newInner = [...inner.slice(0, pIdx), ...inner.slice(pIdx + 1)];
-              const remaining = [...blocks.slice(0, i), ...(newInner.length > 0 ? [{ ...block, [bodyKey]: newInner }] : []), ...blocks.slice(i + 1)];
+              const newInner = [
+                ...inner.slice(0, pIdx),
+                ...inner.slice(pIdx + 1),
+              ];
+              const remaining = [
+                ...blocks.slice(0, i),
+                ...(newInner.length > 0
+                  ? [{ ...block, [bodyKey]: newInner }]
+                  : []),
+                ...blocks.slice(i + 1),
+              ];
               return [text.trim(), remaining];
             }
           }
         }
-        const strKey = ["body", "content", "text", "richText", "copy"].find((k) => typeof block[k] === "string");
+        const strKey = ["body", "content", "text", "richText", "copy"].find(
+          (k) => typeof block[k] === "string",
+        );
         if (strKey) {
           const [intro, rest] = extractFirstParagraph(block[strKey]);
-          if (intro) return [intro, [...blocks.slice(0, i), ...(rest ? [{ ...block, [strKey]: rest }] : []), ...blocks.slice(i + 1)]];
+          if (intro)
+            return [
+              intro,
+              [
+                ...blocks.slice(0, i),
+                ...(rest ? [{ ...block, [strKey]: rest }] : []),
+                ...blocks.slice(i + 1),
+              ],
+            ];
         }
       }
       continue;

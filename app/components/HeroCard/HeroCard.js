@@ -32,19 +32,14 @@ function ViewAllArrowIcon({ className }) {
   );
 }
 
-const DEFAULT_AVATAR =
-  "https://api.digitl.me/uploads/icon_1ea74e1afa.png";
+const DEFAULT_AVATAR = "https://api.digitl.me/uploads/icon_1ea74e1afa.png";
 
 /** Full-viewport portfolio hero with floating `stripe.svg` tab and soft card. */
 export default function HeroCard({
   name = "Digitl",
   subtitle = "Full-Service marketing agencija",
-  headlineLines = [
-    "Marketing koji donosi",
-    "prave rezultate.",
-  ],
-  description =
-    "Gradimo brendove koji se izdvajaju, konvertuju bolje i rastu brže. Sve što vaš biznis traži, na jednom mestu.",
+  headlineLines = ["Marketing koji donosi", "prave rezultate."],
+  description = "Gradimo brendove koji se izdvajaju, konvertuju bolje i rastu brže. Sve što vaš biznis traži, na jednom mestu.",
   socialProofLabel = "50+ uspešnih saradnji",
   progressActiveCount = 2,
   avatarSrc = DEFAULT_AVATAR,
@@ -63,93 +58,100 @@ export default function HeroCard({
 }) {
   return (
     <motion.div
-    className={styles.shell}
-    initial={{
-      y: '0vh',
-      rotate: 90,
-      scale: 0,
-      opacity: 0,
-      filter: 'blur(10px)',
-    }}
-    animate={{
-      y: 0,
-      rotate: 0,
-      scale: 1,
-      opacity: 1,
-      filter: 'blur(0px)',
-    }}
-    transition={{
-      duration: 2.5,
-      ease: [0.22, 1, 0.36, 1],
-    }}
-  >
-    <section className={`${styles.outer} ${className}`.trim()}>
-      <div className={styles.floatingTab} aria-hidden>
-        <Image
-          src={stripeSvg}
-          alt=""
-          width={63}
-          height={164}
-          className={styles.stripeImg}
-          priority
-          fetchPriority="high"
-          unoptimized
-        />
-      </div>
-      <div className={styles.inner}>
-      <div className={styles.hole}></div>
-
-      <div className={styles.card}>
-        <ProgressBar activeCount={progressActiveCount} />
-        <HeroCardHeader
-          name={name}
-          subtitle={subtitle}
-          avatarSrc={avatarSrc}
-          avatarAlt={avatarAlt}
-          availabilitySlotsLabel={availabilitySlotsLabel}
-          availabilityPeriodLabel={availabilityPeriodLabel}
-          socialLinks={socialLinks}
-        />
-
-        <h1 className={styles.headline}>
-          {headlineLines.map((line, i) => (
-            <Fragment key={i}>
-              {i > 0 ? <br /> : null}
-              {line}
-            </Fragment>
-          ))}
-        </h1>
-
-        <div className={styles.socialProof}>
-          <span className={styles.stars} aria-hidden>
-            ★★★★★
-          </span>
-          <span className={styles.socialProofText}>{socialProofLabel}</span>
+      className={styles.shell}
+      initial={{
+        y: "0vh",
+        rotate: 90,
+        scale: 0,
+        opacity: 0,
+        filter: "blur(10px)",
+      }}
+      animate={{
+        y: 0,
+        rotate: 0,
+        scale: 1,
+        opacity: 1,
+        filter: "blur(0px)",
+      }}
+      transition={{
+        duration: 2.5,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+    >
+      <section className={`${styles.outer} ${className}`.trim()}>
+        <div className={styles.floatingTab} aria-hidden>
+          <Image
+            src={stripeSvg}
+            alt=""
+            width={63}
+            height={164}
+            className={styles.stripeImg}
+            priority
+            fetchPriority="high"
+            unoptimized
+          />
         </div>
+        <div className={styles.inner}>
+          <div className={styles.hole}></div>
 
-        <p className={styles.description}>{description}</p>
+          <div className={styles.card}>
+            <ProgressBar activeCount={progressActiveCount} />
+            <HeroCardHeader
+              name={name}
+              subtitle={subtitle}
+              avatarSrc={avatarSrc}
+              avatarAlt={avatarAlt}
+              availabilitySlotsLabel={availabilitySlotsLabel}
+              availabilityPeriodLabel={availabilityPeriodLabel}
+              socialLinks={socialLinks}
+            />
 
-        <CTAButtons
-          primaryHref={primaryCtaHref}
-          primaryLabel={primaryCtaLabel}
-          secondaryHref={secondaryCtaHref}
-          secondaryLabel={secondaryCtaLabel}
-        />
-      </div>
-      <div className={styles.metaRow}>
-          <div className={styles.metaRowLocation}>
-          <Image src={locationIcon} alt="Location" width={11} height={11} className={styles.metaRowLocationIcon} />
-          <p className={styles.metaText}>
-            <span className={styles.metaTextStrong}>{location}</span> · Projekti širom sveta
-          </p>
+            <h1 className={styles.headline}>
+              {headlineLines.map((line, i) => (
+                <Fragment key={i}>
+                  {i > 0 ? <br /> : null}
+                  {line}
+                </Fragment>
+              ))}
+            </h1>
+
+            <div className={styles.socialProof}>
+              <span className={styles.stars} aria-hidden>
+                ★★★★★
+              </span>
+              <span className={styles.socialProofText}>{socialProofLabel}</span>
+            </div>
+
+            <p className={styles.description}>{description}</p>
+
+            <CTAButtons
+              primaryHref={primaryCtaHref}
+              primaryLabel={primaryCtaLabel}
+              secondaryHref={secondaryCtaHref}
+              secondaryLabel={secondaryCtaLabel}
+            />
           </div>
-          <Link href="/#faq" className={styles.metaLink}>
-            <span>English Website</span>
-            <ViewAllArrowIcon className={styles.metaArrow} />
-          </Link>
+          <div className={styles.metaRow}>
+            <div className={styles.metaRowLocation}>
+              <Image
+                src={locationIcon}
+                alt="Location"
+                width={11}
+                height={11}
+                className={styles.metaRowLocationIcon}
+              />
+              <p className={styles.metaText}>
+                <span className={styles.metaTextStrong}>{location}</span> ·
+                Projekti širom sveta
+              </p>
+            </div>
+            <Link href="/#faq" className={styles.metaLink}>
+              <span>English Website</span>
+              <ViewAllArrowIcon className={styles.metaArrow} />
+            </Link>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </motion.div>
   );
 }

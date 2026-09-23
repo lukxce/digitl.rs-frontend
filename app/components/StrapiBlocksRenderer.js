@@ -446,7 +446,9 @@ function renderBlock(block, key, headingQueue) {
       // combined text contains heading, image, or list markers, parse it
       // as markdown instead of rendering literal text.
       const children = Array.isArray(block.children) ? block.children : [];
-      const fullText = children.map((c) => (c && c.text != null ? String(c.text) : "")).join("");
+      const fullText = children
+        .map((c) => (c && c.text != null ? String(c.text) : ""))
+        .join("");
       if (fullText.includes("\n") && MARKDOWN_BLOCK_HINT_RE.test(fullText)) {
         const parsed = renderMarkdownBody(fullText, key, headingQueue);
         if (parsed) return <Fragment key={key}>{parsed}</Fragment>;

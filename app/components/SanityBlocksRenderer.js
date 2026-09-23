@@ -108,7 +108,8 @@ function sanityImageBlockUrl(block) {
       const ref = block.asset._ref;
       const match = ref.match(/^image-([a-f0-9]+)-(\d+x\d+)-(\w+)$/);
       if (match) {
-        const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "203ybdbh";
+        const projectId =
+          process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "203ybdbh";
         return `https://cdn.sanity.io/images/${projectId}/production/${match[1]}-${match[2]}.${match[3]}`;
       }
     }
@@ -161,8 +162,8 @@ function renderChildren(children, markDefs = []) {
 
     const marks = Array.isArray(child.marks) ? child.marks : [];
     // Check for link marks (non-decorator marks reference markDefs)
-    const linkMark = marks.find((m) =>
-      typeof m === "string" && markDefs.some((md) => md._key === m),
+    const linkMark = marks.find(
+      (m) => typeof m === "string" && markDefs.some((md) => md._key === m),
     );
 
     if (linkMark) {
@@ -213,10 +214,7 @@ function renderBlockSequence(blocks, keyPrefix, headingQueue) {
     if (!currentList || !currentListItems.length) return;
     const Tag = currentList === "number" ? "ol" : "ul";
     nodes.push(
-      <Tag
-        key={`${keyPrefix}-list-${nodes.length}`}
-        className={styles.list}
-      >
+      <Tag key={`${keyPrefix}-list-${nodes.length}`} className={styles.list}>
         {currentListItems}
       </Tag>,
     );
@@ -248,10 +246,7 @@ function renderBlockSequence(blocks, keyPrefix, headingQueue) {
       flushList();
       flushImages();
       nodes.push(
-        <pre
-          key={`${keyPrefix}-code-${i}`}
-          className={styles.pre}
-        >
+        <pre key={`${keyPrefix}-code-${i}`} className={styles.pre}>
           <code>{String(block.code ?? "")}</code>
         </pre>,
       );
@@ -272,10 +267,7 @@ function renderBlockSequence(blocks, keyPrefix, headingQueue) {
         }
         currentList = listType;
         currentListItems.push(
-          <li
-            key={`${keyPrefix}-li-${i}`}
-            className={styles.listItem}
-          >
+          <li key={`${keyPrefix}-li-${i}`} className={styles.listItem}>
             {renderChildren(block.children, markDefs)}
           </li>,
         );
@@ -377,9 +369,7 @@ function extractPortableTextHeadings(blocks) {
         b.style.startsWith("h"),
     )
     .map((b) => {
-      const text = (b.children ?? [])
-        .map((c) => c.text ?? "")
-        .join("");
+      const text = (b.children ?? []).map((c) => c.text ?? "").join("");
       const level = Number.parseInt(b.style.slice(1), 10) || 2;
       return { text, level };
     });

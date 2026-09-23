@@ -27,7 +27,7 @@
 .inner {
   width: 550px;
   height: auto;
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   border: 1px solid #e8e8e8;
   box-shadow: rgba(0, 0, 0, 0.03) 0px 7px 26.5px 0px;
   border-radius: 46px;
@@ -53,15 +53,15 @@
 }
 
 .hole {
-  border: 1px solid #EAEAEA;
+  border: 1px solid #eaeaea;
   background-color: #fff;
   width: 63px;
   height: 19px;
   border-radius: 46px;
   position: absolute;
-top: 12px;
-left: 50%;
-transform: translateX(-50%);
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .stripeImg {
@@ -110,7 +110,7 @@ transform: translateX(-50%);
   padding: 6px 14px 6px 10px;
   margin-bottom: 20px;
   border-radius: 999px;
-  background: #F6F6F6;
+  background: #f6f6f6;
 }
 
 .stars {
@@ -250,7 +250,6 @@ transform: translateX(-50%);
 }
 
 @media (max-width: 640px) {
-
   .hole {
     top: 6px;
   }
@@ -281,7 +280,6 @@ transform: translateX(-50%);
     margin-left: auto;
     margin-right: auto;
     font-size: 48px;
-
   }
 
   .socialProof {
@@ -307,7 +305,7 @@ transform: translateX(-50%);
 }
 
 @media (max-width: 390px) {
-  .metaRow{
+  .metaRow {
     padding: 0 20px;
   }
 }
