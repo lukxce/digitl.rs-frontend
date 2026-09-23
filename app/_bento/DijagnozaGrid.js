@@ -334,6 +334,66 @@ function LessonsTile({ lessons }) {
   );
 }
 
+/* lukxce's toggle: shows the moon in dark and the sun in light, and on
+   "auto" follows the system so the icon never contradicts the page. */
+function ThemeToggle({ theme, onToggle, label }) {
+  const [systemDark, setSystemDark] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const read = () => setSystemDark(mq.matches);
+    read();
+    mq.addEventListener("change", read);
+    return () => mq.removeEventListener("change", read);
+  }, []);
+  const isDark = theme === "auto" ? systemDark : theme === "dark";
+  return (
+    <button
+      type="button"
+      className={s.themeToggle}
+      onClick={() => onToggle(isDark)}
+      aria-label={label}
+      title={label}
+    >
+      {isDark
+        ? <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden
+          >
+            <path
+              d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinejoin="round"
+            />
+          </svg>
+        : <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="4.5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            />
+            <path
+              d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+          </svg>}
+    </button>
+  );
+}
+
 /* Desktop only: a pill of chapter numbers that follows the track. */
 function ChapterNav({ trackRef }) {
   const [items, setItems] = useState([]);
@@ -770,9 +830,10 @@ export default function DijagnozaGrid({
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [sheet, setSheet] = useState(null);
-  const [device, setDevice] = useStored("dijagnoza-device", "desktop");
+  const device = "desktop";
   const [theme, setTheme] = useStored("dijagnoza-theme", "auto");
-  useHorizontalScroll(trackRef, stageRef);
+  const progressRef = useRef(null);
+  useHorizontalScroll(trackRef, progressRef);
 
   const picked = QUIZ.map((q) =>
     q.options.find((o) => o.id === answers[q.id]),
@@ -811,53 +872,22 @@ export default function DijagnozaGrid({
       data-device={device}
       data-theme={theme}
     >
-      <div className={s.chromeBar}>
-        <button
-          type="button"
-          className={s.chrome}
-          onClick={() => setDevice(device === "phone" ? "desktop" : "phone")}
-        >
-          {device === "phone" ? "Desktop" : "Telefon"}
-        </button>
-        <button
-          type="button"
-          className={s.chrome}
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          {theme === "dark" ? "Svetlo" : "Tamno"}
-        </button>
-      </div>
-
       {/* data-lenis-prevent: the site's smooth scroll otherwise swallows the
           wheel here and the phone frame never scrolls. */}
       <div className={s.viewport} data-lenis-prevent>
         <div className={s.inner}>
           <header className={s.bar}>
-            <Image
-              src="/digitl-logo.png"
-              alt="digitl"
-              width={76}
-              height={20}
-              className={s.logo}
-              priority
-            />
-            {done
-              ? <button
-                  type="button"
-                  className={s.reset}
-                  onClick={() => {
-                    setAnswers({});
-                    setStep(0);
-                  }}
-                >
-                  Ispočetka
-                </button>
-              : <span className={s.hint}>
-                  Prevucite{" "}
-                  <span className={s.hintArrow} aria-hidden>
-                    <ArrowIcon size={12} />
-                  </span>
-                </span>}
+            <div className={s.scrollHint}>
+              <span>Skrolujte u stranu. Tako je zamišljeno.</span>
+              <span ref={progressRef} className={s.progress} aria-hidden>
+                <span className={s.progressFill} />
+              </span>
+              <ThemeToggle
+                theme={theme}
+                label="Promeni temu"
+                onToggle={(isDark) => setTheme(isDark ? "light" : "dark")}
+              />
+            </div>
           </header>
 
           <div className={s.track} ref={trackRef}>

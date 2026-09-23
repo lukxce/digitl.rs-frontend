@@ -2360,6 +2360,57 @@ a.card:hover .iconCircleSm {
   gap: 8px;
 }
 
+/* ── top bar, as on lukxce: hint, progress, theme ──────────── */
+.bar {
+  justify-content: flex-end;
+  padding: 26px 40px 0;
+}
+.scrollHint {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+.progress {
+  --progress: 0;
+  display: block;
+  width: 120px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.progressFill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background: var(--blue);
+  transform: scaleX(calc(0.06 + var(--progress) * 0.94));
+  transform-origin: left center;
+}
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--raised);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+.themeToggle:hover {
+  color: var(--ink);
+  border-color: var(--ink-3);
+}
+
 @container dg (max-width: 720px) {
   .bar {
     padding: 20px 16px 0;
@@ -2498,5 +2549,12 @@ a.card:hover .iconCircleSm {
   }
   .phoneOnly {
     display: contents;
+  }
+
+  /* Phones stack vertically, so the sideways hint and its progress go;
+     the theme toggle stays. */
+  .scrollHint span:first-child,
+  .progress {
+    display: none;
   }
 }
