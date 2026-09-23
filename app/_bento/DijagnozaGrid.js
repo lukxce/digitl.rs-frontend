@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import prima_dentalLogo from "../assets/clients/prima-dental.webp";
+import thermiqLogo from "../assets/clients/thermiq.webp";
+import elektromilLogo from "../assets/clients/elektromil.webp";
+import startups_rsLogo from "../assets/clients/startups-rs.webp";
 import locationIcon from "../assets/location.svg";
 import stripeSvg from "../assets/stripe.svg";
-import elektromilLogo from "../assets/elektromil-logo.webp";
-import primaDentalLogo from "../assets/primadental logo.webp";
-import startupsLogo from "../assets/startups.rs logo.webp";
-import thermiqLogo from "../assets/thermiq logo.webp";
 import { useEffect, useRef, useState } from "react";
 import {
   IconBrand,
@@ -83,73 +83,77 @@ const SERVICES = Object.fromEntries(SERVICE_LIST.map((x) => [x.id, x]));
 const QUIZ = [
   {
     id: "izvor",
-    q: "Odakle vam danas stižu klijenti?",
+    q: "Kako vas ljudi najčešće nađu?",
     options: [
       {
         id: "preporuka",
-        label: "Preporuka",
+        label: "Preko preporuke",
         w: { seo: 3, ads: 2, web: 2 },
         match: "moler-nis",
-        gap: "Preporuka ima plafon. Radi dok se krug poznanstava ne iscrpi.",
+        gap: "Preporuka radi dok se krug poznanstava ne istroši. Posle toga nema odakle.",
       },
       {
         id: "placeno",
-        label: "Plaćeni oglasi",
+        label: "Preko oglasa koje plaćamo",
         w: { seo: 3, brand: 2 },
         match: "thermiq",
-        gap: "Plaćeno radi dok plaćate. Bez organskog, cena upita raste svake godine.",
+        gap: "Oglasi rade dok plaćate. Onog dana kad stanete, stanu i pozivi.",
       },
       {
         id: "organski",
-        label: "Google, organski",
+        label: "Nađu nas na Google-u",
         w: { ads: 3, social: 2 },
         match: "servis-klime-nis",
-        gap: "Organski donosi, ali nema ručicu kad vam treba više upita ovog meseca.",
+        gap: "To je dobra osnova, ali nemate dugme kad vam zatreba više posla ovog meseca.",
       },
       {
         id: "mreze",
-        label: "Društvene mreže",
+        label: "Preko Instagrama i Facebooka",
         w: { seo: 3, web: 2 },
         match: "thermiq",
-        gap: "Mreže grade poznatost, ne nameru. Kupac spreman da kupi pretražuje.",
+        gap: "Mreže vas čine poznatim. Čovek koji je spreman da kupi ipak prvo pretražuje.",
       },
       {
         id: "nista",
-        label: "Ne merimo",
+        label: "Iskreno, ne znam",
         w: { web: 3, seo: 2, ads: 2 },
         match: "elektromil",
-        gap: "Bez merenja je svaka odluka o budžetu nagađanje. To je prvi problem.",
+        gap: "Niste jedini. Prvo što radimo jeste da se to sazna, jer bez toga je svaki dinar nagađanje.",
       },
     ],
   },
   {
     id: "sajt",
-    q: "Kakav vam je sajt?",
+    q: "Imate li sajt i jeste li zadovoljni njime?",
     options: [
-      { id: "nemamo", label: "Nemamo ga", w: { web: 4, brand: 2 } },
-      { id: "star", label: "Star je i spor", w: { web: 3, seo: 1 } },
-      { id: "ok", label: "Solidan, ali bez upita", w: { web: 2, ads: 1 } },
-      { id: "dobar", label: "Zadovoljni smo", w: { ads: 1, seo: 1 } },
+      { id: "nemamo", label: "Nemamo sajt", w: { web: 4, brand: 2 } },
+      { id: "star", label: "Imamo, ali je star i spor", w: { web: 3, seo: 1 } },
+      {
+        id: "ok",
+        label: "Izgleda dobro, ali niko ne zove",
+        w: { web: 2, ads: 1 },
+      },
+      { id: "dobar", label: "Zadovoljni smo njime", w: { ads: 1, seo: 1 } },
     ],
   },
   {
     id: "cilj",
-    q: "Šta vam treba za šest meseci?",
+    q: "Šta bi vam najviše značilo za pola godine?",
     options: [
-      { id: "brzo", label: "Upiti što pre", w: { ads: 4, web: 2 } },
+      { id: "brzo", label: "Da zvoni telefon, što pre", w: { ads: 4, web: 2 } },
       {
         id: "stabilno",
-        label: "Priliv bez plaćanja klikova",
+        label: "Da posao stiže i kad ne plaćamo oglase",
         w: { seo: 4, web: 1 },
       },
       {
         id: "poznatost",
-        label: "Da nas prepoznaju",
+        label: "Da nas ljudi znaju po imenu",
         w: { brand: 4, social: 3 },
       },
       {
         id: "sve",
-        label: "Sve, ne znam odakle",
+        label: "Sve pomalo, ne znam odakle da krenem",
         w: { web: 2, seo: 2, ads: 2, brand: 1 },
       },
     ],
@@ -171,12 +175,11 @@ const OPEN_SLOTS = 2;
 /* Matching the heights made a wide wordmark read three times the size of a
    compact mark — at h=30 these ran 45px to 127px wide. Matching the AREA
    instead is what the eye actually reads as "the same size". */
-const LOGO_AREA = 2744;
 const CLIENT_LOGOS = [
-  { src: primaDentalLogo, alt: "Prima Dental", ratio: 512 / 341 },
-  { src: thermiqLogo, alt: "ThermiQ", ratio: 300 / 160 },
-  { src: elektromilLogo, alt: "ElektroMil", ratio: 1050 / 300 },
-  { src: startupsLogo, alt: "startups.rs", ratio: 512 / 121 },
+  { src: prima_dentalLogo, alt: "Prima Dental", w: 129, h: 29 },
+  { src: thermiqLogo, alt: "ThermiQ", w: 93, h: 27 },
+  { src: elektromilLogo, alt: "ElektroMil", w: 126, h: 22 },
+  { src: startups_rsLogo, alt: "startups.rs", w: 110, h: 26 },
 ];
 
 const SOCIALS = [
@@ -280,12 +283,9 @@ function ClientsTile() {
         <Image
           src={l.src}
           alt={l.alt}
-          height={Math.round(Math.sqrt(LOGO_AREA / l.ratio))}
-          width={Math.round(Math.sqrt(LOGO_AREA * l.ratio))}
-          style={{
-            height: `${Math.round(Math.sqrt(LOGO_AREA / l.ratio))}px`,
-            width: "auto",
-          }}
+          height={l.h}
+          width={l.w}
+          style={{ height: `${l.h}px`, width: `${l.w}px` }}
           unoptimized
         />
       </span>
@@ -715,7 +715,7 @@ function ContactCard({ prefill }) {
       <span className={s.dots} aria-hidden />
       <span className={s.eyebrow}>Vaš red</span>
       <p className={s.contactTitle}>
-        {prefill ? "Nastavite rečenicu." : "Gde ste vi sada?"}
+        {prefill ? "Nastavite rečenicu." : "Napravimo brend koji se izdvaja."}
       </p>
       <form className={s.contactForm} onSubmit={submit}>
         <input
@@ -732,7 +732,7 @@ function ContactCard({ prefill }) {
         <textarea
           className={s.field}
           rows={2}
-          placeholder="Na čemu radite?"
+          placeholder="Čime se bavite?"
           aria-label="Poruka"
           value={message}
           onChange={(e) => {
@@ -794,6 +794,12 @@ export default function DijagnozaGrid({
     ? [matched, ...clients.filter((c) => c.slug !== matched.slug)].slice(0, 2)
     : clients.slice(0, 2);
   const q = QUIZ[step];
+
+  function answer(qid, oid) {
+    setAnswers((a) => ({ ...a, [qid]: oid }));
+    // No scroll: the recommendation replaces the quiz inside this same card.
+    if (step < QUIZ.length - 1) setStep(step + 1);
+  }
 
   /* A metric of ours that is a bare number is the only kind worth guessing. */
 
