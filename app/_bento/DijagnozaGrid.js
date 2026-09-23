@@ -16,7 +16,6 @@ import {
   IconStrategy,
   IconWeb,
 } from "../components/serviceIcons";
-import { FAQS } from "../components/Faq";
 import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
 import {
   ArrowIcon,
@@ -168,14 +167,6 @@ const STEPS = [
 /* The hero on the live site carries this claim; here it gets its own tile. */
 const PROOF = { count: "50+", label: "uspešnih saradnji" };
 const OPEN_SLOTS = 2;
-
-const NECE_SE_CUTI = [
-  "sinergija",
-  "disruptivno",
-  "360° rešenje",
-  "growth hacking",
-  "holistički pristup",
-];
 
 /* Heights are the ones the site's own carousel uses, so each mark keeps
    its intended size instead of being squashed to a common box. */
@@ -363,35 +354,6 @@ function ClockTile() {
   );
 }
 
-/* The five words, all struck through, one lit at a time. A statement card
-   rather than a 144px filler — it is the strongest thing we say about tone. */
-function BuzzCard() {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(
-      () => setI((v) => (v + 1) % NECE_SE_CUTI.length),
-      2000,
-    );
-    return () => clearInterval(id);
-  }, []);
-  return (
-    <article className={`${s.card} ${s.buzzCard}`}>
-      <span className={s.eyebrowOnDark}>Nećete čuti od nas</span>
-      <ul className={s.buzzList}>
-        {NECE_SE_CUTI.map((word, k) => (
-          <li
-            key={word}
-            className={`${s.buzzItem} ${k === i ? s.buzzItemOn : ""}`}
-          >
-            {word}
-          </li>
-        ))}
-      </ul>
-    </article>
-  );
-}
-
 function ClientsTile() {
   // Two identical runs, translated -50%, so the loop has no seam.
   const run = (key) =>
@@ -418,60 +380,6 @@ function ClientsTile() {
         </div>
       </div>
     </article>
-  );
-}
-
-/* The site's real FAQ, one question at a time; the answer is a flip. */
-function FaqTile() {
-  const [i, setI] = useState(0);
-  const [open, setOpen] = useState(false);
-  const item = FAQS[i];
-  const next = () => {
-    setOpen(false);
-    setI((v) => (v + 1) % FAQS.length);
-  };
-  return (
-    <div className={`${s.flip} ${s.faqFlip} ${open ? s.flipped : ""}`}>
-      <div className={s.flipInner}>
-        <article className={`${s.card} ${s.face} ${s.faqFace}`}>
-          <span className={s.faqTop}>
-            <span className={s.eyebrow}>Pitaju nas</span>
-            <span className={s.eyebrow}>
-              {i + 1} / {FAQS.length}
-            </span>
-          </span>
-          <p className={s.askText} key={item.question}>
-            {item.question}
-          </p>
-          <span className={s.faqRow}>
-            <button
-              type="button"
-              className={s.chip}
-              onClick={() => setOpen(true)}
-            >
-              Odgovor
-            </button>
-            <button
-              type="button"
-              className={s.textBtn}
-              onClick={next}
-              aria-label="Sledeće pitanje"
-            >
-              Sledeće <ArrowIcon size={11} />
-            </button>
-          </span>
-        </article>
-        <article className={`${s.card} ${s.face} ${s.faqFace} ${s.faqBack}`}>
-          <span className={s.eyebrowLight}>Odgovor</span>
-          <p className={s.faqAnswer}>{item.answer}</p>
-          <span className={s.faqRow}>
-            <button type="button" className={s.chipLight} onClick={next}>
-              Sledeće pitanje
-            </button>
-          </span>
-        </article>
-      </div>
-    </div>
   );
 }
 
@@ -532,30 +440,6 @@ function ProofTile() {
       <Stars />
       <span className={s.miniValue}>{PROOF.count}</span>
       <span className={s.muted}>{PROOF.label}</span>
-    </article>
-  );
-}
-
-/* Measures this very page; a slow tile bragging about speed would be worse
-   than no tile at all, so it shows nothing until the number is real. */
-function SpeedTile() {
-  const [secs, setSecs] = useState(null);
-  useEffect(() => {
-    const read = () => {
-      const nav = performance.getEntriesByType("navigation")[0];
-      const ms = nav?.domContentLoadedEventEnd || nav?.domInteractive;
-      if (ms) setSecs(ms / 1000);
-    };
-    if (document.readyState === "complete") read();
-    else window.addEventListener("load", read, { once: true });
-  }, []);
-  return (
-    <article className={`${s.card} ${s.mini}`}>
-      <span className={s.eyebrow}>Ova stranica</span>
-      <span className={s.miniValue} suppressHydrationWarning>
-        {secs == null ? "—" : `${secs.toFixed(1).replace(".", ",")} s`}
-      </span>
-      <span className={s.muted}>do učitavanja. Tako pravimo i vaš.</span>
     </article>
   );
 }
@@ -1157,8 +1041,8 @@ export default function DijagnozaGrid({
               </article>
             </Chapter>
 
-            {/* 02 ─ what we do, before anyone is asked anything */}
-            <Chapter n="02" title="Usluge" width="400px">
+            {/* 02 ─ what we do, at a size the card can carry */}
+            <Chapter n="02" title="Usluge" width="420px">
               <article className={`${s.card} ${s.allCard}`}>
                 <span className={s.eyebrow}>Sve što radimo</span>
                 <ul className={s.allList}>
@@ -1186,8 +1070,8 @@ export default function DijagnozaGrid({
               </article>
             </Chapter>
 
-            {/* 03 ─ three questions, then the recommendation in place */}
-            <Chapter n="03" title="Preporuka" width="340px">
+            {/* 03 ─ the three questions, and the call that follows them */}
+            <Chapter n="03" title="Preporuka" width="360px">
               <div className={s.resultFace} data-anchor="result">
                 {done
                   ? <>
@@ -1257,11 +1141,6 @@ export default function DijagnozaGrid({
                         : null}
                     </article>}
               </div>
-              <FaqTile />
-            </Chapter>
-
-            {/* 04 ─ the first call */}
-            <Chapter n="04" title="Razgovor" width="340px">
               <article className={`${s.card} ${s.book}`}>
                 <span className={s.eyebrowLight}>30 minuta, bez obaveze</span>
                 <p className={s.bookTitle}>Besplatan prvi razgovor.</p>
@@ -1277,27 +1156,10 @@ export default function DijagnozaGrid({
                   </a>
                 </div>
               </article>
-              <BuzzCard />
-              <div className={s.socialRow}>
-                {SOCIALS.map((so) => (
-                  <a
-                    key={so.id}
-                    className={s.social}
-                    href={so.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className={s.socialIcon} aria-hidden>
-                      <so.Icon />
-                    </span>
-                    <span className={s.socialHandle}>{so.handle}</span>
-                  </a>
-                ))}
-              </div>
             </Chapter>
 
-            {/* 05 ─ two case studies, stacked */}
-            <Chapter n="05" title="Projekti" width="400px">
+            {/* 04 ─ two case studies, stacked */}
+            <Chapter n="04" title="Projekti" width="400px">
               {cases.map((c) => (
                 <CaseCard key={c.slug} client={c} />
               ))}
@@ -1309,18 +1171,8 @@ export default function DijagnozaGrid({
               </a>
             </Chapter>
 
-            {/* 06 ─ who they were for, and the proof row */}
-            <Chapter n="06" title="Klijenti" width="400px">
-              <ClientsTile />
-              <div className={s.duo}>
-                <ProofTile />
-                <SpeedTile />
-              </div>
-              <LessonsTile lessons={lessons} />
-            </Chapter>
-
-            {/* 07 ─ and what they say, after you know who they are */}
-            <Chapter n="07" title="Šta kažu" width="340px">
+            {/* 05 ─ who they were, what they said, what it taught us */}
+            <Chapter n="05" title="Šta kažu" width="360px">
               {testimonials.length > 0
                 ? <article className={`${s.card} ${s.quote}`}>
                     <p className={s.quoteBody}>{testimonials[0].body}</p>
@@ -1344,11 +1196,12 @@ export default function DijagnozaGrid({
                       klijenti.
                     </span>
                   </article>}
-              <ClockTile />
+              <ClientsTile />
+              <LessonsTile lessons={lessons} />
             </Chapter>
 
-            {/* 08 ─ process */}
-            <Chapter n="08" title="Kako radimo" width="400px">
+            {/* 06 ─ process */}
+            <Chapter n="06" title="Kako radimo" width="400px">
               <article className={`${s.card} ${s.processCard}`}>
                 <div className={s.processTop}>
                   <span className={s.processNum} aria-hidden>
@@ -1383,7 +1236,7 @@ export default function DijagnozaGrid({
               <NewsletterCard />
             </Chapter>
 
-            <Chapter n="09" title="Blog" width="310px">
+            <Chapter n="07" title="Blog" width="310px">
               {articles.slice(0, 3).map((a) => (
                 <a
                   key={a.slug}
@@ -1407,7 +1260,13 @@ export default function DijagnozaGrid({
               </a>
             </Chapter>
 
-            <Chapter n="10" title="Kontakt" width="340px">
+            {/* 08 ─ the two bases, and the count that goes with them */}
+            <Chapter n="08" title="Gde smo" width="340px">
+              <ClockTile />
+              <ProofTile />
+            </Chapter>
+
+            <Chapter n="09" title="Kontakt" width="360px">
               <ContactCard
                 prefill={
                   first
@@ -1422,6 +1281,23 @@ export default function DijagnozaGrid({
                 <a className={s.directLink} href={`tel:${CONTACT.tel}`}>
                   <PhoneIcon /> {CONTACT.phone}
                 </a>
+              </div>
+
+              <div className={s.socialRow}>
+                {SOCIALS.map((so) => (
+                  <a
+                    key={so.id}
+                    className={s.social}
+                    href={so.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className={s.socialIcon} aria-hidden>
+                      <so.Icon />
+                    </span>
+                    <span className={s.socialHandle}>{so.handle}</span>
+                  </a>
+                ))}
               </div>
             </Chapter>
           </div>

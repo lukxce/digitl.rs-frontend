@@ -827,16 +827,19 @@ a.card:hover .iconCircleSm {
 }
 
 .allCard {
-  height: 100%;
-  gap: 4px;
+  flex: 1;
+  min-height: 0;
+  gap: 6px;
+  padding: 26px 24px;
 }
 .allList {
   list-style: none;
-  margin: 8px 0 0;
+  margin: 10px 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-height: 0;
 }
 
 .allRow {
@@ -864,16 +867,16 @@ a.card:hover .iconCircleSm {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
-  border-radius: 9px;
+  border-radius: 13px;
   background: var(--raised);
   color: var(--blue);
 }
 .allIcon svg {
-  width: 14px;
-  height: 14px;
+  width: 19px;
+  height: 19px;
 }
 .allText {
   display: flex;
@@ -1601,29 +1604,29 @@ a.card:hover .iconCircleSm {
 /* ── services list, sized to fill the card ───────────────── */
 .allName {
   display: block;
-  font-size: 15px;
+  font-size: 19px;
   font-weight: 650;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
 }
 .allDesc {
   display: block;
-  margin-top: 3px;
-  font-size: 12.5px;
+  margin-top: 4px;
+  font-size: 13.5px;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.42;
   color: var(--ink-2);
 }
 .allRow {
-  align-items: flex-start;
-  padding: 8px 0;
-  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  gap: 16px;
 }
 .allArrow {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
   border-radius: 50%;
   border: 1px solid var(--line);
@@ -2164,68 +2167,6 @@ a.card:hover .iconCircleSm {
 }
 
 /* ── FAQ tile: question in front, answer on the back ─────── */
-.faqFlip {
-  flex: none;
-  height: 144px;
-}
-.faqFace {
-  gap: 4px;
-  padding: 18px 20px;
-  justify-content: space-between;
-}
-.faqBack {
-  transform: rotateY(180deg);
-  color: #fff;
-  border-color: transparent;
-  background: var(--dark);
-}
-.stage[data-theme="dark"] .faqBack {
-  color: var(--page);
-}
-.faqTop {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-}
-.faqRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-.faqFace .chip,
-.faqFace .chipLight {
-  padding: 6px 12px;
-  font-size: 12px;
-}
-.faqAnswer {
-  margin: 4px 0 0;
-  font-size: 13.5px;
-  font-weight: 500;
-  line-height: 1.35;
-  letter-spacing: -0.02em;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.textBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink-3);
-}
-.textBtn:hover {
-  color: var(--blue);
-}
-
 /* ── lessons from the case studies ───────────────────────── */
 /* A filler, not a feature: it fills column slack and says so quietly. */
 .lessons {
@@ -2388,61 +2329,6 @@ a.card:hover .iconCircleSm {
   .pulse::after {
     animation: none;
   }
-}
-
-/* ── the jargon card ─────────────────────────────────────── */
-.buzzCard {
-  flex: none;
-  gap: 14px;
-  padding: 22px 24px 24px;
-  border-color: var(--contrast-bg);
-  /* Keyed to --contrast-raised so the dots invert with the card instead of
-     disappearing when it flips to near-white in dark mode. */
-  background:
-    radial-gradient(
-      circle at 1.5px 1.5px,
-      var(--contrast-raised) 1.5px,
-      transparent 0
-    )
-    0 0 / 18px 18px,
-    var(--contrast-bg);
-  color: var(--contrast-ink);
-}
-
-.eyebrowOnDark {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--contrast-ink-2);
-}
-
-.buzzList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.buzzItem {
-  font-size: 19px;
-  font-weight: 650;
-  line-height: 1.24;
-  letter-spacing: -0.035em;
-  color: var(--contrast-ink-2);
-  text-decoration: line-through;
-  text-decoration-thickness: 2px;
-  opacity: 0.5;
-  transition:
-    opacity 0.3s ease,
-    color 0.3s ease;
-}
-
-.buzzItemOn {
-  color: var(--contrast-ink);
-  opacity: 1;
 }
 
 /* ── the globe clock ─────────────────────────────────────── */
@@ -2652,7 +2538,6 @@ a.card:hover .iconCircleSm {
   .stack {
     flex: none;
   }
-  .buzzCard,
   .clockCard {
     flex: none;
   }
