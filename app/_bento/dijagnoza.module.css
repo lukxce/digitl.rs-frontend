@@ -725,7 +725,11 @@ a.card:hover .iconCircleSm {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+/* Takes the column's slack so the quiz and the call below it end flush
+   with every other column, instead of stopping 42px short. */
 .resultFace {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1080,7 +1084,7 @@ a.card:hover .iconCircleSm {
 
 /* ── 08 book + socials ───────────────────────────────────── */
 .book {
-  flex: 1;
+  flex: none;
   justify-content: flex-end;
   gap: 6px;
   color: #fff;
@@ -2333,18 +2337,19 @@ a.card:hover .iconCircleSm {
 
 /* ── the globe clock ─────────────────────────────────────── */
 .clockCard {
-  flex: none;
-  height: 208px;
+  flex: 1;
+  min-height: 208px;
   gap: 4px;
   overflow: hidden;
 }
 
 .globe {
   position: absolute;
-  top: 26px;
-  right: -30px;
-  width: 140px;
-  height: 140px;
+  top: 50%;
+  right: -46px;
+  width: 232px;
+  height: 232px;
+  transform: translateY(-50%);
 }
 
 .globeCanvas {
