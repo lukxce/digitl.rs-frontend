@@ -3,6 +3,7 @@
 import Image from "next/image";
 import figmaSvg from "../assets/figma.svg";
 import framerSvg from "../assets/framer.svg";
+import locationIcon from "../assets/location.svg";
 import photoshopSvg from "../assets/photoshop.svg";
 import stripeSvg from "../assets/stripe.svg";
 import elektromilLogo from "../assets/elektromil-logo.webp";
@@ -582,29 +583,6 @@ function StackTile() {
   );
 }
 
-function CapacityTile() {
-  const [month, setMonth] = useState("");
-  useEffect(() => {
-    const d = new Date();
-    d.setDate(1);
-    d.setMonth(d.getMonth() + 1);
-    setMonth(
-      new Intl.DateTimeFormat("sr-Latn-RS", { month: "long" }).format(d),
-    );
-  }, []);
-  return (
-    <article className={`${s.card} ${s.capacity}`}>
-      <span className={s.pulse} aria-hidden />
-      <span className={s.capacityText}>
-        <span className={s.strong} suppressHydrationWarning>
-          {OPEN_SLOTS} slobodna mesta{month ? ` za ${month}` : ""}
-        </span>
-        <span className={s.muted}>{FAQS[0].answer}</span>
-      </span>
-    </article>
-  );
-}
-
 /* Desktop only: a pill of chapter numbers that follows the track. */
 function ChapterNav({ trackRef }) {
   const [items, setItems] = useState([]);
@@ -1067,14 +1045,8 @@ export default function DijagnozaGrid({
 
   function answer(qid, oid) {
     setAnswers((a) => ({ ...a, [qid]: oid }));
+    // No scroll: the recommendation replaces the quiz inside this same card.
     if (step < QUIZ.length - 1) setStep(step + 1);
-    else
-      requestAnimationFrame(() => {
-        const el = trackRef.current;
-        const t = el?.querySelector("[data-anchor=result]");
-        if (el && t)
-          el.scrollTo({ left: t.offsetLeft - 30, behavior: "smooth" });
-      });
   }
 
   return (
@@ -1158,20 +1130,10 @@ export default function DijagnozaGrid({
                     <span className={s.muted}>
                       Full-Service marketing agencija
                     </span>
-                    <span className={s.badgeSocials}>
-                      {SOCIALS.map((so) => (
-                        <a
-                          key={so.id}
-                          className={s.badgeSocial}
-                          href={so.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={so.handle}
-                        >
-                          <so.Icon />
-                        </a>
-                      ))}
-                    </span>
+                  </span>
+                  <span className={s.available}>
+                    <span className={s.pulse} aria-hidden />
+                    {OPEN_SLOTS} slobodna mesta
                   </span>
                 </div>
 
@@ -1197,7 +1159,13 @@ export default function DijagnozaGrid({
 
                 <div className={s.badgeBottom}>
                   <p className={s.location}>
-                    <strong>Beograd / London</strong> · Projekti širom sveta
+                    <Image src={locationIcon} alt="" width={11} height={11} />
+                    <span>
+                      <strong className={s.locationCity}>
+                        Beograd / London
+                      </strong>{" "}
+                      · Projekti širom sveta
+                    </span>
                   </p>
                   <a
                     className={s.enLink}
@@ -1212,58 +1180,9 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 02 ─ quiz, with the clock filling the slack */}
-            <Chapter n="02" title="Tri pitanja" width="318px">
-              <article className={`${s.card} ${s.quiz}`}>
-                <div className={s.quizTop}>
-                  <span className={s.eyebrow}>
-                    {Math.min(step + 1, QUIZ.length)} / {QUIZ.length}
-                  </span>
-                  <span className={s.pips} aria-hidden>
-                    {QUIZ.map((qq, i) => (
-                      <span
-                        key={qq.id}
-                        className={`${s.pip} ${answers[qq.id] ? s.pipDone : ""} ${i === step && !done ? s.pipNow : ""}`}
-                      />
-                    ))}
-                  </span>
-                </div>
-                {done
-                  ? <div className={s.quizDone}>
-                      <p className={s.quizDoneTitle}>Gotovo.</p>
-                      <span className={s.muted}>Preporuka je spremna.</span>
-                    </div>
-                  : <>
-                      <h2 className={s.quizQ} key={q.id}>
-                        {q.q}
-                      </h2>
-                      <div className={s.options}>
-                        {q.options.map((o) => (
-                          <button
-                            key={o.id}
-                            type="button"
-                            className={s.option}
-                            onClick={() => answer(q.id, o.id)}
-                          >
-                            {o.label}
-                          </button>
-                        ))}
-                      </div>
-                      {step > 0
-                        ? <button
-                            type="button"
-                            className={s.back}
-                            onClick={() => setStep(step - 1)}
-                          >
-                            ← Nazad
-                          </button>
-                        : null}
-                    </>}
-              </article>
-              <ClockTile />
-            </Chapter>
 
             {/* 03 ─ recommendation, flipping to all services */}
-            <Chapter n="03" title="Ovo vam treba" width="336px">
+            <Chapter n="02" title="Dijagnoza" width="336px">
               <div
                 className={`${s.flip} ${s.flipTall} ${showAll ? s.flipped : ""}`}
                 data-anchor="result"
@@ -1298,12 +1217,44 @@ export default function DijagnozaGrid({
                             );
                           })}
                         </>
-                      : <article className={`${s.card} ${s.resultEmpty}`}>
-                          <span className={s.eyebrow}>Čeka odgovore</span>
-                          <p className={s.resultEmptyText}>
-                            Odgovorite na tri pitanja i reći ćemo odakle da se
-                            krene.
-                          </p>
+                      : <article className={`${s.card} ${s.quiz}`}>
+                          <div className={s.quizTop}>
+                            <span className={s.eyebrow}>
+                              {Math.min(step + 1, QUIZ.length)} / {QUIZ.length}
+                            </span>
+                            <span className={s.pips} aria-hidden>
+                              {QUIZ.map((qq, i) => (
+                                <span
+                                  key={qq.id}
+                                  className={`${s.pip} ${answers[qq.id] ? s.pipDone : ""} ${i === step && !done ? s.pipNow : ""}`}
+                                />
+                              ))}
+                            </span>
+                          </div>
+                          <h2 className={s.quizQ} key={q.id}>
+                            {q.q}
+                          </h2>
+                          <div className={s.options}>
+                            {q.options.map((o) => (
+                              <button
+                                key={o.id}
+                                type="button"
+                                className={s.option}
+                                onClick={() => answer(q.id, o.id)}
+                              >
+                                {o.label}
+                              </button>
+                            ))}
+                          </div>
+                          {step > 0
+                            ? <button
+                                type="button"
+                                className={s.back}
+                                onClick={() => setStep(step - 1)}
+                              >
+                                ← Nazad
+                              </button>
+                            : null}
                         </article>}
                     <button
                       type="button"
@@ -1356,7 +1307,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 04 ─ gap, small, with the buzz tile under it */}
-            <Chapter n="04" title="Sitnice" width="300px">
+            <Chapter n="03" title="Sitnice" width="300px">
               <FaqTile />
               <BuzzTile />
               <article className={`${s.card} ${s.book}`}>
@@ -1393,7 +1344,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 05 ─ two case studies, stacked */}
-            <Chapter n="05" title="Projekti" width="330px">
+            <Chapter n="04" title="Projekti" width="330px">
               {cases.map((c) => (
                 <CaseCard key={c.slug} client={c} />
               ))}
@@ -1406,7 +1357,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 06 ─ what the projects taught us, and the proof row */}
-            <Chapter n="06" title="Iz prakse" width="330px">
+            <Chapter n="05" title="Iz prakse" width="330px">
               <LessonsTile lessons={lessons} />
               <div className={s.duo}>
                 <ProofTile />
@@ -1416,7 +1367,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 07 ─ testimonial + the logo strip under it */}
-            <Chapter n="07" title="Šta kažu" width="330px">
+            <Chapter n="06" title="Šta kažu" width="330px">
               {testimonials.length > 0
                 ? <article className={`${s.card} ${s.quote}`}>
                     <p className={s.quoteBody}>{testimonials[0].body}</p>
@@ -1444,7 +1395,7 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 07 ─ process */}
-            <Chapter n="08" title="Kako radimo" width="330px">
+            <Chapter n="07" title="Kako radimo" width="330px">
               <article className={`${s.card} ${s.processCard}`}>
                 <div className={s.processTop}>
                   <span className={s.processNum} aria-hidden>
@@ -1482,7 +1433,7 @@ export default function DijagnozaGrid({
             {/* 08 ─ book small + independent social tiles */}
 
             {/* 09 ─ blog, three */}
-            <Chapter n="09" title="Blog" width="276px">
+            <Chapter n="08" title="Blog" width="276px">
               {articles.slice(0, 3).map((a) => (
                 <a
                   key={a.slug}
@@ -1508,8 +1459,7 @@ export default function DijagnozaGrid({
 
             {/* 10 ─ contact */}
 
-            <Chapter n="10" title="Kontakt" width="320px">
-              <CapacityTile />
+            <Chapter n="09" title="Kontakt" width="320px">
               <ContactCard
                 prefill={
                   first
@@ -1525,6 +1475,7 @@ export default function DijagnozaGrid({
                   <PhoneIcon /> {CONTACT.phone}
                 </a>
               </div>
+              <ClockTile />
             </Chapter>
           </div>
         </div>

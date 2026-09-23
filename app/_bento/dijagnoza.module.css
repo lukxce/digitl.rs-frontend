@@ -393,16 +393,20 @@ a.card:hover .iconCircleSm {
   }
 }
 
+/* A punched slot the lanyard clip hooks into, rather than a sticker on top. */
 .hole {
   position: absolute;
   top: 16px;
   left: 50%;
+  z-index: 3;
   transform: translateX(-50%);
-  width: 46px;
-  height: 8px;
-  border-radius: 999px;
+  width: 58px;
+  height: 17px;
+  border-radius: 46px;
   background: var(--page);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .badgeTop {
@@ -427,9 +431,10 @@ a.card:hover .iconCircleSm {
 }
 
 .who {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   min-width: 0;
 }
 .name {
@@ -441,23 +446,35 @@ a.card:hover .iconCircleSm {
 .available {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  align-self: flex-start;
+  gap: 6px;
   margin-left: auto;
-  padding: 7px 12px;
+  padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--raised);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   color: var(--ink-2);
   white-space: nowrap;
 }
 
 .pulse {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #35c759;
+  background: var(--lime);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
 }
 
 .headline {
@@ -483,14 +500,30 @@ a.card:hover .iconCircleSm {
   padding-top: 22px;
 }
 .location {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   font-size: 13px;
   font-weight: 500;
-  line-height: 1.45;
   color: var(--ink-3);
 }
-.location strong {
+
+.locationCity {
+  font-weight: 700;
   color: var(--ink);
-  font-weight: 600;
+}
+
+/* The pin asset is a dark glyph — invert it on dark surfaces. */
+.stage[data-theme="dark"] .location img {
+  filter: invert(1);
+  opacity: 0.6;
+}
+
+@media (prefers-color-scheme: dark) {
+  .stage[data-theme="auto"] .location img {
+    filter: invert(1);
+    opacity: 0.6;
+  }
 }
 
 /* ── 02 quiz ─────────────────────────────────────────────── */
@@ -586,7 +619,7 @@ a.card:hover .iconCircleSm {
 /* small filler tiles that absorb a column's slack */
 .filler {
   flex: none;
-  height: 148px;
+  height: 144px;
   gap: 4px;
   padding: 18px 20px;
   justify-content: space-between;
@@ -757,15 +790,6 @@ a.card:hover .iconCircleSm {
 
 .allServices:hover {
   border-color: var(--blue);
-}
-.resultEmpty {
-  flex: 1;
-}
-.resultEmptyText {
-  margin: 8px 0 0;
-  font-size: 14px;
-  line-height: 1.45;
-  color: var(--ink-2);
 }
 
 .allFace {
@@ -1541,7 +1565,7 @@ a.card:hover .iconCircleSm {
 }
 .allRow {
   align-items: flex-start;
-  padding: 11px 0;
+  padding: 8px 0;
   gap: 12px;
 }
 .allArrow {
@@ -1624,11 +1648,12 @@ a.card:hover .iconCircleSm {
 /* ── newsletter ──────────────────────────────────────────── */
 .newsletter {
   flex: none;
-  gap: 4px;
+  gap: 2px;
+  padding: 18px 20px;
 }
 .newsTitle {
-  margin: 8px 0 0;
-  font-size: 17px;
+  margin: 6px 0 0;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.2;
@@ -1638,7 +1663,7 @@ a.card:hover .iconCircleSm {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 12px;
+  margin-top: 10px;
   padding: 5px 5px 5px 15px;
   border-radius: 999px;
   border: 1px solid var(--line);
@@ -1764,17 +1789,19 @@ a.card:hover .iconCircleSm {
 }
 
 /* ── process: one card, and far less blue ────────────────── */
+/* Shares its chapter with the newsletter, so it gives up height first. */
 .processCard {
-  flex: none;
+  flex: 1;
+  min-height: 0;
   gap: 0;
-  padding: 24px;
+  padding: 22px;
 }
 
 .processTop {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  padding-bottom: 18px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -1813,29 +1840,7 @@ a.card:hover .iconCircleSm {
   color: #fff;
 }
 
-/* ── badge: socials, and the bilingual footer ────────────── */
-.badgeSocials {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.badgeSocial {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ink-3);
-  transition: color 0.16s ease;
-}
-
-.badgeSocial svg {
-  width: 15px;
-  height: 15px;
-}
-.badgeSocial:hover {
-  color: var(--ink);
-}
-
+/* ── badge: the bilingual footer ─────────────────────────── */
 .badgeBottom {
   display: flex;
   align-items: center;
@@ -2026,7 +2031,9 @@ a.card:hover .iconCircleSm {
 
 /* ── process: the connected stepper, a size up ───────────── */
 .processCard .stepList {
-  padding-top: 18px;
+  flex: 1;
+  min-height: 0;
+  padding-top: 14px;
   gap: 0;
 }
 
@@ -2071,7 +2078,7 @@ a.card:hover .iconCircleSm {
 }
 
 .stepText {
-  padding: 3px 0 18px;
+  padding: 2px 0 clamp(10px, 2.2vh, 18px);
   gap: 2px;
 }
 .stepItem:last-child .stepText {
@@ -2109,7 +2116,7 @@ a.card:hover .iconCircleSm {
 /* ── FAQ tile: question in front, answer on the back ─────── */
 .faqFlip {
   flex: none;
-  height: 148px;
+  height: 144px;
 }
 .faqFace {
   gap: 4px;
@@ -2269,51 +2276,6 @@ a.card:hover .iconCircleSm {
   filter: invert(var(--logo-invert));
 }
 
-/* ── capacity ────────────────────────────────────────────── */
-.capacity {
-  flex: none;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 16px 18px;
-}
-.capacityText {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-.capacity .muted {
-  font-size: 12.5px;
-}
-.pulse {
-  position: relative;
-  flex-shrink: 0;
-  width: 10px;
-  height: 10px;
-  margin-top: 5px;
-  border-radius: 50%;
-  background: #35c96b;
-}
-.pulse::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 2px solid #35c96b;
-  animation: ping 1.8s ease-out infinite;
-}
-@keyframes ping {
-  from {
-    transform: scale(0.6);
-    opacity: 0.9;
-  }
-  to {
-    transform: scale(1.6);
-    opacity: 0;
-  }
-}
-
 /* ── chapter nav: a pill that follows the track ──────────── */
 .chapterNav {
   position: fixed;
@@ -2442,7 +2404,7 @@ a.card:hover .iconCircleSm {
   /* Tall enough for all five services on the reverse, not just four. */
   .flipTall {
     flex: none;
-    height: 486px;
+    height: 520px;
   }
   .caseFlip {
     flex: none;
@@ -2502,8 +2464,7 @@ a.card:hover .iconCircleSm {
     min-height: 190px;
   }
   .duo,
-  .stack,
-  .capacity {
+  .stack {
     flex: none;
   }
 }
