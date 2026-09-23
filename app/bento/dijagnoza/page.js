@@ -22,6 +22,7 @@ async function getClients() {
       `*[_type == "clientShowcase"]{
         title, clientName, category, "slug": slug,
         "before": keyTakeaways[0].description,
+        "takeaways": keyTakeaways[].title,
         "cover": coverPhoto.asset->url,
         "metrics": successRate[]{title, subtitle}
       }`,
@@ -42,6 +43,7 @@ async function getClients() {
           cover: r.cover ?? null,
           category: r.category ?? "",
           before: firstSentence(r.before) ?? "",
+          takeaways: (r.takeaways ?? []).filter(Boolean),
           after,
         };
       })
@@ -57,9 +59,23 @@ export default async function DijagnozaPage() {
     tryGetArticlesForHome(3),
   ]);
 
+  /* One line per case-study takeaway, interleaved so two lessons from the
+     same client never follow each other. */
+  const lessons = [];
+  const most = Math.max(0, ...clients.map((c) => c.takeaways.length));
+  for (let i = 0; i < most; i++)
+    for (const c of clients)
+      if (c.takeaways[i])
+        lessons.push({
+          text: c.takeaways[i],
+          client: c.clientName,
+          href: c.href,
+        });
+
   return (
     <DijagnozaGrid
       clients={clients}
+      lessons={lessons}
       testimonials={[]}
       articles={articles.map(({ slug, title, publishedAt }) => ({
         slug,

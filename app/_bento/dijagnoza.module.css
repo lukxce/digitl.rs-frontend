@@ -1615,7 +1615,7 @@ a.card:hover .iconCircleSm {
   letter-spacing: -0.035em;
 }
 .processNote {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.78);
@@ -1765,9 +1765,9 @@ a.card:hover .iconCircleSm {
 
 /* ── process: one card, and far less blue ────────────────── */
 .processCard {
-  flex: 1;
+  flex: none;
   gap: 0;
-  padding: 22px;
+  padding: 24px;
 }
 
 .processTop {
@@ -1787,13 +1787,13 @@ a.card:hover .iconCircleSm {
 }
 
 .processTitle {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 650;
   letter-spacing: -0.035em;
   color: var(--ink);
 }
 .processNote {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   line-height: 1.4;
   color: var(--ink-2);
@@ -1950,10 +1950,10 @@ a.card:hover .iconCircleSm {
 
 /* ── client logos: a revolving strip at their own sizes ──── */
 .clientsCard {
-  flex: 1;
+  flex: none;
   justify-content: flex-start;
-  gap: 0;
-  padding: 22px 0 22px 22px;
+  gap: 14px;
+  padding: 20px 0 20px 22px;
   overflow: hidden;
 }
 
@@ -1962,11 +1962,11 @@ a.card:hover .iconCircleSm {
   padding-right: 22px;
 }
 
-/* Grid, not flex: the track is wider than the card and must not shrink. */
+/* Tall enough for the tallest mark so the strip never jumps. */
 .clientsCard .marquee {
-  flex: 1;
   display: grid;
   align-content: center;
+  min-height: 72px;
 }
 
 .marquee {
@@ -1993,7 +1993,7 @@ a.card:hover .iconCircleSm {
   display: flex;
   width: max-content;
   align-items: center;
-  gap: 44px;
+  gap: 36px;
   animation: marquee 18s linear infinite;
 }
 
@@ -2024,9 +2024,9 @@ a.card:hover .iconCircleSm {
   }
 }
 
-/* ── steps as an actual staircase ────────────────────────── */
+/* ── process: the connected stepper, a size up ───────────── */
 .processCard .stepList {
-  padding-top: 16px;
+  padding-top: 18px;
   gap: 0;
 }
 
@@ -2034,75 +2034,348 @@ a.card:hover .iconCircleSm {
   position: relative;
   flex: none;
   align-items: flex-start;
-  gap: 10px;
+  gap: 14px;
+  padding: 0 0 0 2px;
   border-top: none;
-  /* Each tread starts one notch further right than the one above it. */
-  padding: 0 0 16px calc(var(--i, 0) * 16px);
 }
 
-.stepItem:last-child {
-  padding-bottom: 0;
+/* The rail runs between the dots, not past the last one. */
+.stepItem::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 28px;
+  bottom: -2px;
+  width: 2px;
+  background: var(--line);
+}
+
+.stepItem:last-child::before {
+  display: none;
 }
 
 .stepNum {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  background: color-mix(in srgb, var(--blue) 12%, transparent);
-  color: var(--blue);
-  font-size: 10.5px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-
-.stepItem:last-child .stepNum {
+  border-radius: 50%;
   background: var(--blue);
   color: #fff;
-}
-
-/* The dotted riser dropping from one tread… */
-.stepItem::before {
-  content: "";
-  position: absolute;
-  left: calc(var(--i, 0) * 16px + 10px);
-  top: 26px;
-  bottom: 2px;
-  width: 2px;
-  background: repeating-linear-gradient(
-    180deg,
-    var(--ink-3) 0 3px,
-    transparent 3px 7px
-  );
-  opacity: 0.5;
-}
-
-/* …and the dotted run carrying it out to the next one. */
-.stepItem::after {
-  content: "";
-  position: absolute;
-  left: calc(var(--i, 0) * 16px + 10px);
-  bottom: 0;
-  width: 18px;
-  height: 2px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--ink-3) 0 3px,
-    transparent 3px 7px
-  );
-  opacity: 0.5;
-}
-
-.stepItem:last-child::before,
-.stepItem:last-child::after {
-  display: none;
+  font-size: 11.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  z-index: 1;
 }
 
 .stepText {
-  padding-top: 2px;
+  padding: 3px 0 18px;
+  gap: 2px;
+}
+.stepItem:last-child .stepText {
+  padding-bottom: 0;
+}
+.stepText .strong {
+  font-size: 16px;
+}
+.stepText .muted {
+  font-size: 13.5px;
+}
+
+/* ── two-city clock ──────────────────────────────────────── */
+.clockRow {
+  display: flex;
+  gap: 22px;
+  margin: 6px 0 2px;
+}
+.clockCity {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.clockRow .clockTime {
+  margin: 0;
+  font-size: 26px;
+}
+.clockLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+}
+
+/* ── FAQ tile: question in front, answer on the back ─────── */
+.faqFlip {
+  flex: none;
+  height: 148px;
+}
+.faqFace {
+  gap: 4px;
+  padding: 18px 20px;
+  justify-content: space-between;
+}
+.faqBack {
+  transform: rotateY(180deg);
+  color: #fff;
+  border-color: transparent;
+  background: var(--dark);
+}
+.stage[data-theme="dark"] .faqBack {
+  color: var(--page);
+}
+.faqTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.faqRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.faqFace .chip,
+.faqFace .chipLight {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+.faqAnswer {
+  margin: 4px 0 0;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.textBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+.textBtn:hover {
+  color: var(--blue);
+}
+
+/* ── lessons from the case studies ───────────────────────── */
+.lessons {
+  flex: 1;
+  min-height: 0;
+  gap: 8px;
+  justify-content: space-between;
+}
+.lessonText {
+  margin: auto 0;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  animation: swap 0.4s ease;
+}
+.lessonFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.lessonClient {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.lessonClient:hover {
+  color: var(--blue);
+}
+
+/* ── proof + speed, side by side ─────────────────────────── */
+.duo {
+  flex: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.mini {
+  height: 132px;
+  gap: 2px;
+  padding: 18px 20px;
+  justify-content: flex-end;
+}
+.miniValue {
+  margin-top: auto;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+.mini .muted {
+  font-size: 12px;
+  line-height: 1.3;
+}
+.stars {
+  display: flex;
+  gap: 1px;
+  color: var(--blue);
+}
+
+/* ── tool stack, two counter-rotating rows ───────────────── */
+.stack {
+  flex: none;
+  gap: 8px;
+  padding: 18px 0 18px 20px;
+}
+.stack .eyebrow {
+  margin-bottom: 2px;
+}
+.stackTrack {
+  gap: 8px;
+  animation-duration: 26s;
+}
+.stackReverse {
+  animation-direction: reverse;
+}
+.stackChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--raised);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.stackIcon {
+  width: 14px;
+  height: 14px;
+  filter: invert(var(--logo-invert));
+}
+
+/* ── capacity ────────────────────────────────────────────── */
+.capacity {
+  flex: none;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+}
+.capacityText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.capacity .muted {
+  font-size: 12.5px;
+}
+.pulse {
+  position: relative;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: #35c96b;
+}
+.pulse::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #35c96b;
+  animation: ping 1.8s ease-out infinite;
+}
+@keyframes ping {
+  from {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* ── chapter nav: a pill that follows the track ──────────── */
+.chapterNav {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  z-index: 1100;
+  display: flex;
+  gap: 2px;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.78);
+  backdrop-filter: blur(8px);
+  transform: translateX(-50%);
+}
+.navDot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 9px;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+.navDot:hover {
+  color: #fff;
+}
+.navDotOn {
+  background: var(--blue);
+  color: #fff;
+}
+.navTitle {
+  display: none;
+  white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.navDotOn .navTitle {
+  display: inline;
+}
+.stage[data-device="phone"] .chapterNav {
+  display: none;
+}
+@media (max-width: 720px) {
+  .chapterNav {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse::after {
+    animation: none;
+  }
 }
 
 @container dg (max-width: 720px) {
@@ -2217,5 +2490,20 @@ a.card:hover .iconCircleSm {
     width: 100%;
     border-radius: 28px 28px 0 0;
     padding: 22px 18px 30px;
+  }
+
+  /* The new tiles keep their own heights when stacked. */
+  .faqFlip {
+    flex: none;
+    height: 148px;
+  }
+  .lessons {
+    flex: none;
+    min-height: 190px;
+  }
+  .duo,
+  .stack,
+  .capacity {
+    flex: none;
   }
 }

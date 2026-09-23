@@ -1,6 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import figmaSvg from "../assets/figma.svg";
+import framerSvg from "../assets/framer.svg";
+import photoshopSvg from "../assets/photoshop.svg";
 import stripeSvg from "../assets/stripe.svg";
 import elektromilLogo from "../assets/elektromil-logo.webp";
 import primaDentalLogo from "../assets/primadental logo.webp";
@@ -14,6 +17,7 @@ import {
   IconStrategy,
   IconWeb,
 } from "../components/serviceIcons";
+import { FAQS } from "../components/Faq";
 import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
 import {
   ArrowIcon,
@@ -162,13 +166,27 @@ const STEPS = [
   ["Optimizacija", "Izveštaji i odluke o sledećem koraku."],
 ];
 
-const ASK = [
-  "Zašto Google Ads troši budžet na vaš brend",
-  "Treba li vam SEO ili samo brži sajt",
-  "Koliko vas stvarno košta jedan upit",
-  "Zašto konkurent sa gorim sajtom rangira bolje",
-  "Zašto saobraćaj raste, a prodaja ne",
+/* Two rows so the strip reads as a wall, not a queue. */
+const STACK = [
+  [
+    { label: "Google Ads" },
+    { label: "GA4" },
+    { label: "Search Console" },
+    { label: "Meta Ads" },
+    { label: "Looker Studio" },
+  ],
+  [
+    { label: "Figma", icon: figmaSvg },
+    { label: "Framer", icon: framerSvg },
+    { label: "Photoshop", icon: photoshopSvg },
+    { label: "Next.js" },
+    { label: "Sanity" },
+  ],
 ];
+
+/* The hero on the live site carries this claim; here it gets its own tile. */
+const PROOF = { count: "50+", label: "uspešnih saradnji" };
+const OPEN_SLOTS = 2;
 
 const NECE_SE_CUTI = [
   "sinergija",
@@ -214,8 +232,12 @@ function Chapter({ n, title, width, children }) {
   return (
     <section className={s.chapter} style={width ? { "--w": width } : undefined}>
       <header className={s.chapterHead}>
-        <span className={s.chapterNum}>{n}</span>
-        <span className={s.chapterTitle}>{title}</span>
+        <span className={s.chapterNum} data-n>
+          {n}
+        </span>
+        <span className={s.chapterTitle} data-title>
+          {title}
+        </span>
       </header>
       <div className={s.chapterBody}>{children}</div>
     </section>
@@ -276,39 +298,54 @@ function useStored(key, initial) {
 
 /* ── scattered filler tiles ──────────────────────────────── */
 
+const CITIES = [
+  ["Beograd", "Europe/Belgrade"],
+  ["London", "Europe/London"],
+];
+
+function readClock(zone) {
+  const p = new Intl.DateTimeFormat("en-GB", {
+    timeZone: zone,
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date());
+  const g = (t) => p.find((x) => x.type === t)?.value ?? "";
+  return { hh: g("hour"), mm: g("minute"), h: Number(g("hour")) };
+}
+
 function ClockTile() {
   const [now, setNow] = useState(null);
   useEffect(() => {
-    const read = () => {
-      const p = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/Belgrade",
-        hour: "2-digit",
-        minute: "2-digit",
-        hourCycle: "h23",
-      }).formatToParts(new Date());
-      const g = (t) => p.find((x) => x.type === t)?.value ?? "";
-      setNow({ hh: g("hour"), mm: g("minute"), h: Number(g("hour")) });
-    };
+    const read = () => setNow(CITIES.map(([, zone]) => readClock(zone)));
     read();
     const id = setInterval(read, 15_000);
     return () => clearInterval(id);
   }, []);
+  const h = now?.[0].h;
   const line =
-    now == null
+    h == null
       ? ""
-      : now.h < 8
+      : h < 8
         ? "Prerano. Kampanje rade."
-        : now.h < 17
+        : h < 17
           ? "Radimo. Javite se."
-          : now.h < 22
+          : h < 22
             ? "Još gledamo izveštaje."
             : "Spavamo. Google Ads ne.";
   return (
     <article className={`${s.card} ${s.filler}`}>
-      <span className={s.eyebrow}>Srbija · GMT+2</span>
-      <p className={s.clockTime} suppressHydrationWarning>
-        {now ? `${now.hh}:${now.mm}` : "--:--"}
-      </p>
+      <span className={s.eyebrow}>Dve kancelarije</span>
+      <div className={s.clockRow}>
+        {CITIES.map(([city], i) => (
+          <span key={city} className={s.clockCity}>
+            <span className={s.clockTime} suppressHydrationWarning>
+              {now ? `${now[i].hh}:${now[i].mm}` : "--:--"}
+            </span>
+            <span className={s.clockLabel}>{city}</span>
+          </span>
+        ))}
+      </div>
       <span className={s.muted}>{line}</span>
     </article>
   );
@@ -363,20 +400,268 @@ function ClientsTile() {
   );
 }
 
-function AskTile() {
+/* The site's real FAQ, one question at a time; the answer is a flip. */
+function FaqTile() {
   const [i, setI] = useState(0);
+  const [open, setOpen] = useState(false);
+  const item = FAQS[i];
+  const next = () => {
+    setOpen(false);
+    setI((v) => (v + 1) % FAQS.length);
+  };
   return (
-    <article className={`${s.card} ${s.filler}`}>
-      <span className={s.eyebrow}>Pitajte nas o</span>
-      <p className={s.askText}>{ASK[i]}</p>
-      <button
-        type="button"
-        className={s.chip}
-        onClick={() => setI((v) => (v + 1) % ASK.length)}
-      >
-        Još jedno
-      </button>
+    <div className={`${s.flip} ${s.faqFlip} ${open ? s.flipped : ""}`}>
+      <div className={s.flipInner}>
+        <article className={`${s.card} ${s.face} ${s.faqFace}`}>
+          <span className={s.faqTop}>
+            <span className={s.eyebrow}>Pitaju nas</span>
+            <span className={s.eyebrow}>
+              {i + 1} / {FAQS.length}
+            </span>
+          </span>
+          <p className={s.askText} key={item.question}>
+            {item.question}
+          </p>
+          <span className={s.faqRow}>
+            <button
+              type="button"
+              className={s.chip}
+              onClick={() => setOpen(true)}
+            >
+              Odgovor
+            </button>
+            <button
+              type="button"
+              className={s.textBtn}
+              onClick={next}
+              aria-label="Sledeće pitanje"
+            >
+              Sledeće <ArrowIcon size={11} />
+            </button>
+          </span>
+        </article>
+        <article className={`${s.card} ${s.face} ${s.faqFace} ${s.faqBack}`}>
+          <span className={s.eyebrowLight}>Odgovor</span>
+          <p className={s.faqAnswer}>{item.answer}</p>
+          <span className={s.faqRow}>
+            <button type="button" className={s.chipLight} onClick={next}>
+              Sledeće pitanje
+            </button>
+          </span>
+        </article>
+      </div>
+    </div>
+  );
+}
+
+/* Rotates through the case studies' own takeaways. Real lessons, not a
+   manifesto. */
+function LessonsTile({ lessons }) {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (lessons.length < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => setI((v) => (v + 1) % lessons.length), 6000);
+    return () => clearInterval(id);
+  }, [lessons.length]);
+  if (lessons.length === 0) return null;
+  const l = lessons[i];
+  return (
+    <article className={`${s.card} ${s.lessons}`}>
+      <span className={s.faqTop}>
+        <span className={s.eyebrow}>Naučeno na projektima</span>
+        <span className={s.eyebrow}>
+          {i + 1} / {lessons.length}
+        </span>
+      </span>
+      <p className={s.lessonText} key={l.text}>
+        {l.text}
+      </p>
+      <span className={s.lessonFoot}>
+        <a className={s.lessonClient} href={l.href}>
+          {l.client} <ArrowIcon size={11} />
+        </a>
+        <button
+          type="button"
+          className={s.chip}
+          onClick={() => setI((v) => (v + 1) % lessons.length)}
+        >
+          Sledeća
+        </button>
+      </span>
     </article>
+  );
+}
+
+function Stars() {
+  return (
+    <span className={s.stars} aria-hidden>
+      {[0, 1, 2, 3, 4].map((k) => (
+        <svg
+          key={k}
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            fill="currentColor"
+            d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"
+          />
+        </svg>
+      ))}
+    </span>
+  );
+}
+
+function ProofTile() {
+  return (
+    <article className={`${s.card} ${s.mini}`}>
+      <Stars />
+      <span className={s.miniValue}>{PROOF.count}</span>
+      <span className={s.muted}>{PROOF.label}</span>
+    </article>
+  );
+}
+
+/* Measures this very page; a slow tile bragging about speed would be worse
+   than no tile at all, so it shows nothing until the number is real. */
+function SpeedTile() {
+  const [secs, setSecs] = useState(null);
+  useEffect(() => {
+    const read = () => {
+      const nav = performance.getEntriesByType("navigation")[0];
+      const ms = nav?.domContentLoadedEventEnd || nav?.domInteractive;
+      if (ms) setSecs(ms / 1000);
+    };
+    if (document.readyState === "complete") read();
+    else window.addEventListener("load", read, { once: true });
+  }, []);
+  return (
+    <article className={`${s.card} ${s.mini}`}>
+      <span className={s.eyebrow}>Ova stranica</span>
+      <span className={s.miniValue} suppressHydrationWarning>
+        {secs == null ? "—" : `${secs.toFixed(1).replace(".", ",")} s`}
+      </span>
+      <span className={s.muted}>do učitavanja. Tako pravimo i vaš.</span>
+    </article>
+  );
+}
+
+function StackTile() {
+  const row = (items, key) =>
+    [...items, ...items].map((it, k) => (
+      <span key={`${key}-${it.label}-${k}`} className={s.stackChip}>
+        {it.icon
+          ? <Image
+              src={it.icon}
+              alt=""
+              width={14}
+              height={14}
+              className={s.stackIcon}
+              unoptimized
+            />
+          : null}
+        {it.label}
+      </span>
+    ));
+  return (
+    <article className={`${s.card} ${s.stack}`}>
+      <span className={s.eyebrow}>Sa čime radimo</span>
+      <div className={s.marquee}>
+        <div className={`${s.marqueeTrack} ${s.stackTrack}`}>
+          {row(STACK[0], "a")}
+        </div>
+      </div>
+      <div className={s.marquee}>
+        <div className={`${s.marqueeTrack} ${s.stackTrack} ${s.stackReverse}`}>
+          {row(STACK[1], "b")}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function CapacityTile() {
+  const [month, setMonth] = useState("");
+  useEffect(() => {
+    const d = new Date();
+    d.setDate(1);
+    d.setMonth(d.getMonth() + 1);
+    setMonth(
+      new Intl.DateTimeFormat("sr-Latn-RS", { month: "long" }).format(d),
+    );
+  }, []);
+  return (
+    <article className={`${s.card} ${s.capacity}`}>
+      <span className={s.pulse} aria-hidden />
+      <span className={s.capacityText}>
+        <span className={s.strong} suppressHydrationWarning>
+          {OPEN_SLOTS} slobodna mesta{month ? ` za ${month}` : ""}
+        </span>
+        <span className={s.muted}>{FAQS[0].answer}</span>
+      </span>
+    </article>
+  );
+}
+
+/* Desktop only: a pill of chapter numbers that follows the track. */
+function ChapterNav({ trackRef }) {
+  const [items, setItems] = useState([]);
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const secs = [...track.querySelectorAll("section")];
+    setItems(
+      secs.map((el, i) => ({
+        i,
+        n: el.querySelector("[data-n]")?.textContent ?? "",
+        title: el.querySelector("[data-title]")?.textContent ?? "",
+      })),
+    );
+    // The chapter whose left edge is nearest the track's left edge is the
+    // one being read. Cheaper and steadier than an observer.
+    const onScroll = () => {
+      const x = track.scrollLeft + 40;
+      let best = 0;
+      let dist = Number.POSITIVE_INFINITY;
+      secs.forEach((el, k) => {
+        const d = Math.abs(el.offsetLeft - x);
+        if (d < dist) {
+          dist = d;
+          best = k;
+        }
+      });
+      setActive(best);
+    };
+    onScroll();
+    track.addEventListener("scroll", onScroll, { passive: true });
+    return () => track.removeEventListener("scroll", onScroll);
+  }, [trackRef]);
+  if (items.length === 0) return null;
+  const go = (i) => {
+    const track = trackRef.current;
+    const el = track?.querySelectorAll("section")[i];
+    if (track && el)
+      track.scrollTo({ left: el.offsetLeft - 40, behavior: "smooth" });
+  };
+  return (
+    <nav className={s.chapterNav} aria-label="Poglavlja">
+      {items.map((it) => (
+        <button
+          key={it.i}
+          type="button"
+          className={`${s.navDot} ${it.i === active ? s.navDotOn : ""}`}
+          onClick={() => go(it.i)}
+          aria-label={`${it.n} ${it.title}`}
+          aria-current={it.i === active ? "true" : undefined}
+        >
+          <span className={s.navNum}>{it.n}</span>
+          <span className={s.navTitle}>{it.title}</span>
+        </button>
+      ))}
+    </nav>
   );
 }
 
@@ -747,6 +1032,7 @@ export default function DijagnozaGrid({
   clients = [],
   articles = [],
   testimonials = [],
+  lessons = [],
 }) {
   const trackRef = useRef(null);
   const stageRef = useRef(null);
@@ -1071,7 +1357,7 @@ export default function DijagnozaGrid({
 
             {/* 04 ─ gap, small, with the buzz tile under it */}
             <Chapter n="04" title="Sitnice" width="300px">
-              <AskTile />
+              <FaqTile />
               <BuzzTile />
               <article className={`${s.card} ${s.book}`}>
                 <span className={s.eyebrowLight}>30 minuta, bez obaveze</span>
@@ -1119,8 +1405,18 @@ export default function DijagnozaGrid({
               </a>
             </Chapter>
 
-            {/* 06 ─ testimonial (small) + ask tile */}
-            <Chapter n="06" title="Šta kažu" width="330px">
+            {/* 06 ─ what the projects taught us, and the proof row */}
+            <Chapter n="06" title="Iz prakse" width="330px">
+              <LessonsTile lessons={lessons} />
+              <div className={s.duo}>
+                <ProofTile />
+                <SpeedTile />
+              </div>
+              <StackTile />
+            </Chapter>
+
+            {/* 07 ─ testimonial + the logo strip under it */}
+            <Chapter n="07" title="Šta kažu" width="330px">
               {testimonials.length > 0
                 ? <article className={`${s.card} ${s.quote}`}>
                     <p className={s.quoteBody}>{testimonials[0].body}</p>
@@ -1144,14 +1440,11 @@ export default function DijagnozaGrid({
                       klijenti.
                     </span>
                   </article>}
-            </Chapter>
-
-            <Chapter n="07" title="Klijenti" width="300px">
               <ClientsTile />
             </Chapter>
 
             {/* 07 ─ process */}
-            <Chapter n="08" title="Kako radimo" width="282px">
+            <Chapter n="08" title="Kako radimo" width="330px">
               <article className={`${s.card} ${s.processCard}`}>
                 <div className={s.processTop}>
                   <span className={s.processNum} aria-hidden>
@@ -1183,6 +1476,7 @@ export default function DijagnozaGrid({
                   ))}
                 </ol>
               </article>
+              <NewsletterCard />
             </Chapter>
 
             {/* 08 ─ book small + independent social tiles */}
@@ -1213,11 +1507,9 @@ export default function DijagnozaGrid({
             </Chapter>
 
             {/* 10 ─ contact */}
-            <Chapter n="10" title="Newsletter" width="264px">
-              <NewsletterCard />
-            </Chapter>
 
-            <Chapter n="11" title="Kontakt" width="320px">
+            <Chapter n="10" title="Kontakt" width="320px">
+              <CapacityTile />
               <ContactCard
                 prefill={
                   first
@@ -1237,6 +1529,8 @@ export default function DijagnozaGrid({
           </div>
         </div>
       </div>
+
+      <ChapterNav trackRef={trackRef} />
 
       <ServiceSheet
         id={sheet}

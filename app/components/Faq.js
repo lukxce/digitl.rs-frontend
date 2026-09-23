@@ -36,7 +36,7 @@ const faqItemVariants = {
   },
 };
 
-const FAQS = [
+export const FAQS = [
   {
     question: "Koliko brzo možemo da krenemo?",
     answer:
@@ -191,19 +191,17 @@ export default function Faq() {
       />
     );
 
-    return reduceMotion ? (
-      <li key={item.question} className={styles.listItem}>
-        {faqItem}
-      </li>
-    ) : (
-      <motion.li
-        key={item.question}
-        className={styles.listItem}
-        variants={faqItemVariants}
-      >
-        {faqItem}
-      </motion.li>
-    );
+    return reduceMotion
+      ? <li key={item.question} className={styles.listItem}>
+          {faqItem}
+        </li>
+      : <motion.li
+          key={item.question}
+          className={styles.listItem}
+          variants={faqItemVariants}
+        >
+          {faqItem}
+        </motion.li>;
   });
 
   return (
@@ -211,19 +209,17 @@ export default function Faq() {
       <ScrollReveal className={styles.titleContainer}>
         <Title title="Imate još pitanja pre nego što krenemo?" />
       </ScrollReveal>
-      {reduceMotion ? (
-        <ul className={styles.list}>{listContent}</ul>
-      ) : (
-        <motion.ul
-          className={styles.list}
-          variants={faqListVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={scrollRevealViewport}
-        >
-          {listContent}
-        </motion.ul>
-      )}
+      {reduceMotion
+        ? <ul className={styles.list}>{listContent}</ul>
+        : <motion.ul
+            className={styles.list}
+            variants={faqListVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={scrollRevealViewport}
+          >
+            {listContent}
+          </motion.ul>}
       <ScrollReveal delay={0.24}>
         <div className={styles.rootInner}>
           <p className={styles.followUpText}>Imate dodatna pitanja?</p>
