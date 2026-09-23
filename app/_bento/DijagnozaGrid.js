@@ -1025,16 +1025,29 @@ export default function DijagnozaGrid({
                     </article>}
               </div>
               <article className={`${s.card} ${s.book}`}>
+                <span className={s.bookGlyph} aria-hidden />
                 <span className={s.eyebrowLight}>30 minuta, bez obaveze</span>
                 <p className={s.bookTitle}>Besplatan prvi razgovor.</p>
+                <p className={s.bookNote}>
+                  Pogledamo brojeve i kažemo šta je prioritet, a šta može da
+                  čeka.
+                </p>
                 <div className={s.bookRow}>
                   <a
-                    className={s.btnLight}
+                    className={s.bookTile}
                     href={`mailto:${CONTACT.email}?subject=Zakazivanje razgovora`}
                   >
-                    <MailIcon /> Zakažite
+                    <span className={s.bookTileText}>
+                      <span className={s.bookTileName}>Zakažite</span>
+                      <span className={s.bookTileSub}>{CONTACT.email}</span>
+                    </span>
+                    <MailIcon />
                   </a>
-                  <a className={s.btnLightGhost} href={`tel:${CONTACT.tel}`}>
+                  <a className={s.bookTile} href={`tel:${CONTACT.tel}`}>
+                    <span className={s.bookTileText}>
+                      <span className={s.bookTileName}>Pozovite</span>
+                      <span className={s.bookTileSub}>{CONTACT.phone}</span>
+                    </span>
                     <PhoneIcon />
                   </a>
                 </div>
