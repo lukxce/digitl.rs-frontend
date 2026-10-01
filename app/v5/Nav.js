@@ -4,13 +4,14 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import logo from "../assets/digitl-logo.png";
 import n from "./nav.module.css";
+import { SERVICES } from "./content";
 import { Btn, EASE, useApp } from "./ui";
 
 export const LINKS = [
   { href: "#usluge", label: "Usluge" },
-  { href: "#rezultati", label: "Rezultati" },
-  { href: "#provera", label: "Provera sajta" },
   { href: "#proces", label: "Kako radimo" },
+  { href: "#rezultati", label: "Rezultati" },
+  { href: "#blog", label: "Blog" },
   { href: "#kontakt", label: "Kontakt" },
 ];
 
@@ -45,7 +46,10 @@ function Menu({ onClose }) {
 
 /** A plain bar at the top that turns into a small pill and follows the page. */
 export default function Nav() {
-  const { book } = useApp();
+  const { book, plan } = useApp();
+  const planLine = plan
+    ? plan.top.map((id) => SERVICES.find((x) => x.id === id).name).join(" · ")
+    : null;
   const [floating, setFloating] = useState(false);
   const [section, setSection] = useState("");
   const [open, setOpen] = useState(false);
@@ -133,14 +137,18 @@ export default function Nav() {
               <Logo />
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span
-                  key={section}
+                  key={`${section}-${planLine ?? ""}`}
                   className={n.section}
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.25, ease: EASE }}
                 >
-                  {section}
+                  {planLine
+                    ? <>
+                        <b className={n.planChip}>Vaš plan</b> {planLine}
+                      </>
+                    : section}
                 </motion.span>
               </AnimatePresence>
               <button

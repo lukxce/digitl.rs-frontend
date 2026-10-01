@@ -247,3 +247,24 @@ export function Head({ label, title, intro, id, center = false }) {
     </div>
   );
 }
+
+/** The line that closes a section and hands over to the next one. */
+export function Bridge({ text, to, label }) {
+  const { scrollTo } = useApp();
+  return (
+    <Reveal className={b.bridge}>
+      <span className={b.bridgeLine} aria-hidden="true" />
+      <p>{text}</p>
+      <button
+        type="button"
+        className={b.bridgeBtn}
+        onClick={() => scrollTo(to)}
+      >
+        {label}
+        <span className={b.bridgeArrow}>
+          <ArrowRight size={14} />
+        </span>
+      </button>
+    </Reveal>
+  );
+}

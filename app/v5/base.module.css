@@ -360,3 +360,53 @@
     transition-duration: 0.001s !important;
   }
 }
+
+/* ── bridge: the hand-over line at the end of a section ──────────────── */
+.bridge {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  margin-top: clamp(40px, 5vw, 64px);
+  text-align: center;
+}
+.bridgeLine {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(transparent, var(--accent));
+}
+.bridge p {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink-2);
+  max-width: 30em;
+}
+.bridgeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 6px 0 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  transition: background 0.3s var(--ease);
+}
+.bridgeBtn:hover {
+  background: var(--accent);
+}
+.bridgeArrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.16);
+  transform: rotate(90deg);
+  transition: transform 0.35s var(--ease);
+}
+.bridgeBtn:hover .bridgeArrow {
+  transform: rotate(90deg) translateX(3px);
+}

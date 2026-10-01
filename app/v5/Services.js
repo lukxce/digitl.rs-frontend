@@ -6,7 +6,7 @@ import b from "./base.module.css";
 import { SERVICES } from "./content";
 import { ArrowRight, Check, Rotate, Search } from "./icons";
 import s from "./services.module.css";
-import { EASE, Head, useApp } from "./ui";
+import { Bridge, EASE, Head, useApp } from "./ui";
 
 /* ── one small looping scene per service, drawn in CSS ─────────────────── */
 /* ads: clicks from Google and Meta travel into an enquiry inbox */
@@ -232,7 +232,7 @@ export default function Services() {
         <div className={s.top}>
           <Head
             id="usluge"
-            label="Usluge"
+            label="Šta radimo"
             title="Pet usluga, jedan tim."
             intro="Oglasi, SEO, web, mreže i brend. Svaka ima svoj posao, a vode se zajedno. Okrenite karticu za detalje."
           />
@@ -255,6 +255,11 @@ export default function Services() {
             />
           ))}
         </ul>
+        <Bridge
+          text="To je šta radimo. Evo kako to izgleda kad radimo za vas."
+          to="#proces"
+          label="Kako radimo"
+        />
       </div>
     </section>
   );

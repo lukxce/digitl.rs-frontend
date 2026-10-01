@@ -86,14 +86,31 @@ async function getClients() {
 async function getArticles() {
   try {
     const rows = await sanityClient.fetch(
-      `*[_type == "article"] | order(publishedAt desc)[0...3]{ title, "slug": slug, publishedAt }`,
+      `*[_type == "article"] | order(publishedAt desc)[0...4]{
+        title, "slug": slug, publishedAt, description,
+        "cover": cover.asset->url,
+        "author": author.name, "avatar": author.avatar.asset->url,
+        "body": blocks[].body
+      }`,
     );
     return rows
-      .map((r) => ({
-        title: r.title,
-        slug: typeof r.slug === "string" ? r.slug : r.slug?.current,
-        publishedAt: r.publishedAt,
-      }))
+      .map((r) => {
+        const words = (r.body ?? [])
+          .filter((x) => typeof x === "string")
+          .join(" ")
+          .split(/\s+/)
+          .filter(Boolean).length;
+        return {
+          title: r.title,
+          slug: typeof r.slug === "string" ? r.slug : r.slug?.current,
+          publishedAt: r.publishedAt,
+          description: r.description ?? "",
+          cover: r.cover ? `${r.cover}?w=1200&fm=webp&q=78` : null,
+          author: r.author ?? null,
+          avatar: r.avatar ? `${r.avatar}?w=96&fm=webp` : null,
+          minutes: words ? Math.max(1, Math.round(words / 200)) : null,
+        };
+      })
       .filter((a) => a.slug);
   } catch {
     return [];
