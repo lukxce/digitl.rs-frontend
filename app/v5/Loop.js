@@ -219,9 +219,9 @@ export default function Loop() {
         </div>
 
         <Bridge
-          text="Tako radimo. Evo šta je to donelo firmama sa kojima radimo."
-          to="#rezultati"
-          label="Rezultati"
+          text="Gde je vaš sajt u ovom krugu? Proverite za dvadeset sekundi."
+          to="#provera"
+          label="Proverite svoj sajt"
         />
       </div>
     </section>

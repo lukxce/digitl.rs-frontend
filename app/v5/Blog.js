@@ -30,7 +30,7 @@ function Meta({ a, light = false }) {
   );
 }
 
-function Newsletter({ covers }) {
+function Newsletter() {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [state, setState] = useState("idle");
@@ -120,39 +120,16 @@ function Newsletter({ covers }) {
             </p>
           : null}
       </div>
-      <div className={l.fan} aria-hidden="true">
-        {covers.slice(0, 3).map((src, i) => (
-          <motion.span
-            key={src}
-            className={l.fanCard}
-            style={{ zIndex: 3 - i }}
-            initial={{ rotate: 0, x: 0, y: 30, opacity: 0 }}
-            whileInView={{
-              rotate: [-8, 2, 10][i],
-              x: [-70, 0, 70][i],
-              y: [10, -10, 14][i],
-              opacity: 1,
-            }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ delay: 0.15 + i * 0.12, duration: 0.9, ease: EASE }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src} alt="" />
-          </motion.span>
-        ))}
-      </div>
     </div>
   );
 }
 
 export default function Blog({ articles }) {
   if (!articles.length) return null;
-  const [first, ...rest] = articles;
-  const side = rest.slice(0, 3);
-  const covers = articles.map((a) => a.cover).filter(Boolean);
+  const list = articles.slice(0, 3);
 
   return (
-    <section className={b.section} data-section="Blog">
+    <section className={`${b.section} ${l.section}`} data-section="Blog">
       <div className={b.container}>
         <div className={l.top}>
           <Head
@@ -166,59 +143,31 @@ export default function Blog({ articles }) {
           </a>
         </div>
 
-        <div className={l.grid}>
-          <motion.a
-            href={`/journal/${first.slug}`}
-            className={l.featured}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: EASE }}
-          >
-            <span className={l.cover}>
-              {first.cover
-                ? // eslint-disable-next-line @next/next/no-img-element
-                  <img src={first.cover} alt="" loading="lazy" />
-                : null}
-              <span className={l.new}>Najnovije</span>
-            </span>
-            <span className={l.fBody}>
-              <Meta a={first} />
-              <b className={l.fTitle}>{first.title}</b>
-              <span className={l.desc}>{first.description}</span>
-              <span className={l.read}>
-                Pročitajte <ArrowRight size={14} />
+        <div className={l.cards}>
+          {list.map((a, i) => (
+            <motion.a
+              key={a.slug}
+              href={`/journal/${a.slug}`}
+              className={l.post}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ delay: i * 0.08, duration: 0.7, ease: EASE }}
+            >
+              <span className={l.cover}>
+                {a.cover
+                  ? // eslint-disable-next-line @next/next/no-img-element
+                    <img src={a.cover} alt="" loading="lazy" />
+                  : null}
+                {i === 0 ? <span className={l.new}>Najnovije</span> : null}
               </span>
-            </span>
-          </motion.a>
-
-          <div className={l.side}>
-            {side.map((a, i) => (
-              <motion.a
-                key={a.slug}
-                href={`/journal/${a.slug}`}
-                className={l.row}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ delay: i * 0.1, duration: 0.7, ease: EASE }}
-              >
-                <span className={l.thumb}>
-                  {a.cover
-                    ? // eslint-disable-next-line @next/next/no-img-element
-                      <img src={a.cover} alt="" loading="lazy" />
-                    : null}
-                </span>
-                <span className={l.rBody}>
-                  <Meta a={a} />
-                  <b>{a.title}</b>
-                </span>
-              </motion.a>
-            ))}
-          </div>
+              <Meta a={a} />
+              <b className={l.title}>{a.title}</b>
+            </motion.a>
+          ))}
         </div>
 
-        <Newsletter covers={covers} />
+        <Newsletter />
       </div>
     </section>
   );

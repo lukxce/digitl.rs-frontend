@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import b from "./base.module.css";
-import { Bridge, EASE, Head, Reveal } from "./ui";
+import { EASE, Head, Reveal } from "./ui";
 import v from "./voices.module.css";
 
 /* Slots for real client quotes. Until they arrive, each is marked as waiting
@@ -103,11 +103,6 @@ export default function Voices() {
             </Reveal>
           ))}
         </div>
-        <Bridge
-          text="A gde ste vi? Za dvadeset sekundi vidite kako vaš sajt stoji."
-          to="#provera"
-          label="Proverite svoj sajt"
-        />
       </div>
     </section>
   );

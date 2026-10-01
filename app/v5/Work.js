@@ -273,13 +273,23 @@ function AllCases({ clients }) {
   );
 }
 
+// Two cases on the page. The plan's closest match takes the first slot.
+const CARDS = [
+  { re: /elektro/i, C: Elektro },
+  { re: /thermiq/i, C: Thermiq },
+  { re: /moler/i, C: Moler },
+  { re: /klim/i, C: Klima },
+];
+
 export default function Work({ clients }) {
   const { plan } = useApp();
-  const elektro = find(clients, /elektro/i);
-  const moler = find(clients, /moler/i);
-  const thermiq = find(clients, /thermiq/i);
-  const klima = find(clients, /klim/i);
-  const is = (c) => Boolean(c && plan?.match === c.slug);
+  const available = CARDS.map((x) => ({ ...x, c: find(clients, x.re) })).filter(
+    (x) => x.c,
+  );
+  const match = available.find((x) => x.c.slug === plan?.match);
+  const picks = match
+    ? [match, ...available.filter((x) => x !== match)].slice(0, 2)
+    : available.slice(0, 2);
 
   return (
     <section className={`${b.section} ${w.section}`} data-section="Rezultati">
@@ -289,16 +299,15 @@ export default function Work({ clients }) {
           label="Da li radi?"
           title="Firme koje već rastu sa nama."
           intro={
-            plan?.match
-              ? "Svaki broj je iz objavljene studije slučaja. Projekat najsličniji vašem je označen."
+            match
+              ? "Svaki broj je iz objavljene studije slučaja. Prvi je projekat najsličniji vašem."
               : "Svaki broj je iz objavljene studije slučaja. Sajtove možete da otvorite i izmerite sami."
           }
         />
         <div className={w.grid}>
-          {elektro ? <Elektro c={elektro} closest={is(elektro)} /> : null}
-          {moler ? <Moler c={moler} closest={is(moler)} /> : null}
-          {thermiq ? <Thermiq c={thermiq} closest={is(thermiq)} /> : null}
-          {klima ? <Klima c={klima} closest={is(klima)} /> : null}
+          {picks.map(({ C, c }) => (
+            <C key={c.slug} c={c} closest={plan?.match === c.slug} />
+          ))}
           <AllCases clients={clients} />
         </div>
       </div>

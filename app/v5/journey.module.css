@@ -214,7 +214,7 @@
   box-shadow: var(--ring);
 }
 .stage {
-  height: clamp(430px, 38vw, 470px);
+  height: clamp(390px, 31vw, 420px);
   padding: clamp(14px, 2vw, 22px);
   overflow: hidden;
 }
@@ -699,46 +699,6 @@
   color: var(--accent);
 }
 
-/* the "4" moment from the old site */
-.lead {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(16px, 3vw, 40px);
-}
-.four {
-  font-size: clamp(140px, 17vw, 260px);
-  font-weight: 800;
-  letter-spacing: -0.07em;
-  line-height: 0.8;
-  color: var(--accent);
-}
-.leadText {
-  display: grid;
-  gap: 14px;
-}
-.leadTitle {
-  font-size: clamp(26px, 3.2vw, 46px);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 1.1;
-  color: var(--ink-3);
-  max-width: 20em;
-}
-.leadTitle b {
-  font-weight: 800;
-  color: var(--ink);
-}
-@media (max-width: 560px) {
-  .lead {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .four {
-    font-size: 120px;
-  }
-}
-
 /* plan screen */
 .split {
   display: grid;
@@ -816,4 +776,167 @@
 .vBad span {
   font-size: 14px;
   font-weight: 700;
+}
+
+/* compact layout: steps on the left, the project window on the right */
+.wrap {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+@media (min-width: 1000px) {
+  .wrap {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 40px;
+  }
+}
+.left {
+  display: grid;
+  gap: 24px;
+}
+.intro4 {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+}
+.four {
+  font-size: clamp(96px, 9vw, 150px);
+  font-weight: 800;
+  letter-spacing: -0.07em;
+  line-height: 0.8;
+  color: var(--accent);
+}
+.introText {
+  display: grid;
+  gap: 8px;
+}
+.introText p {
+  font-size: clamp(19px, 1.7vw, 25px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--ink-3);
+}
+.introText b {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.steps {
+  display: grid;
+  gap: 6px;
+}
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px 14px 14px;
+  border-radius: 20px;
+  background: transparent;
+  text-align: left;
+  overflow: hidden;
+  transition:
+    background 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+}
+.step:hover {
+  background: rgb(255 255 255 / 0.6);
+}
+.step[data-on] {
+  background: #fff;
+  box-shadow:
+    0 20px 40px -26px rgb(11 11 22 / 0.35),
+    var(--ring);
+}
+.stepNo {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink-3);
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: var(--ring);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+.step[data-on] .stepNo {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: none;
+}
+.stepMain {
+  display: grid;
+  align-content: center;
+  min-height: 34px;
+}
+.stepMain > b {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--ink-3);
+  transition: color 0.3s var(--ease);
+}
+.step[data-on] .stepMain > b {
+  color: var(--ink);
+}
+.stepMore {
+  display: grid;
+  gap: 10px;
+  overflow: hidden;
+}
+.stepBody {
+  padding-top: 6px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.chips i {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-style: normal;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.chips svg {
+  color: var(--accent);
+}
+.progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--grey);
+}
+.progress i {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform-origin: left;
+}
+
+@media (min-width: 1000px) {
+  .window {
+    position: sticky;
+    top: 96px;
+  }
 }

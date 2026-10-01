@@ -6,15 +6,24 @@
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 14px;
-  margin-top: clamp(32px, 4vw, 52px);
+  gap: 12px;
+  margin-top: clamp(28px, 3.5vw, 44px);
+  align-items: stretch;
 }
-@media (min-width: 960px) {
+@media (min-width: 760px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .dark {
+  .ink {
     grid-column: 1 / -1;
+  }
+}
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.72fr);
+  }
+  .ink {
+    grid-column: auto;
   }
 }
 
@@ -516,4 +525,109 @@
   font-size: 11.5px;
   font-weight: 700;
   backdrop-filter: blur(6px);
+}
+
+/* compact sizing for the two-card layout */
+.card {
+  gap: 14px;
+  padding: clamp(18px, 2vw, 26px);
+  border-radius: 30px;
+}
+.name,
+.nameBig {
+  font-size: clamp(26px, 2.3vw, 34px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.sub,
+.subDark {
+  margin-top: -4px;
+  font-size: 14.5px;
+}
+.shot {
+  aspect-ratio: 16 / 10;
+  border-radius: 18px;
+}
+.stats {
+  gap: 10px;
+}
+.stats b {
+  font-size: clamp(22px, 2vw, 28px);
+}
+.stats em {
+  font-size: 12px;
+}
+.lesson {
+  font-size: 16px;
+}
+.timeline {
+  padding: 14px;
+  border-radius: 20px;
+}
+.tlLine {
+  left: 28px;
+  right: 28px;
+  top: 28px;
+}
+.tlStep i {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 6px;
+}
+.tlStep i::after {
+  inset: 8px;
+}
+.tlStep b {
+  font-size: 16px;
+}
+.tlStep em {
+  font-size: 12px;
+}
+/* thermiq becomes a normal-width card: image on top, then copy */
+.dark {
+  display: flex;
+  flex-direction: column;
+  grid-column: auto !important;
+}
+.dark .darkCopy {
+  order: 2;
+  gap: 14px;
+}
+.dark .thermiqShot {
+  order: 1;
+}
+.thermiqShot .shot {
+  height: auto;
+  aspect-ratio: 16 / 10;
+  min-height: 0;
+}
+.field {
+  padding: 12px;
+  border-radius: 18px;
+  gap: 8px;
+}
+.dots {
+  gap: 3px;
+}
+/* the "see all" card */
+.ink {
+  gap: 16px;
+}
+.allNum {
+  font-size: clamp(56px, 5vw, 80px);
+}
+.allText {
+  font-size: 16px;
+}
+@media (min-width: 760px) and (max-width: 1199px) {
+  .ink {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: 24px;
+  }
+  .ink .allSites {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }

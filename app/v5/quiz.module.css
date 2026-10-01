@@ -340,3 +340,62 @@
   color: var(--ink-4);
   text-align: center;
 }
+
+/* phones: the card flips — questions on the front, the plan on the back */
+.mVerdict {
+  display: none;
+}
+@media (max-width: 899px) {
+  .card {
+    perspective: 1600px;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+  .ask,
+  .live {
+    grid-area: 1 / 1;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: transform 0.85s var(--ease);
+    border-radius: 28px;
+  }
+  .ask {
+    background: #fff;
+    box-shadow:
+      0 30px 70px -40px rgb(11 11 22 / 0.35),
+      var(--ring);
+  }
+  .live {
+    transform: rotateY(180deg);
+    box-shadow: 0 30px 70px -40px rgb(11 11 22 / 0.35);
+  }
+  .card[data-flipped] .ask {
+    transform: rotateY(-180deg);
+  }
+  .card[data-flipped] .live {
+    transform: rotateY(0deg);
+  }
+  .card[data-flipped] .verdict {
+    display: none;
+  }
+  .mVerdict {
+    display: grid;
+    gap: 12px;
+  }
+  .mVerdict p {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+  .mActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+  }
+  .live .matchWait {
+    display: none;
+  }
+}

@@ -7,7 +7,7 @@ import b from "./base.module.css";
 import { SERVICES } from "./content";
 import { Check } from "./icons";
 import j from "./journey.module.css";
-import { Bridge, EASE, Reveal, Roll, useApp, useVisible } from "./ui";
+import { Bridge, EASE, Roll, useApp, useVisible } from "./ui";
 
 const DWELL = 7500;
 
@@ -307,8 +307,6 @@ export default function Journey() {
   const { plan } = useApp();
   const ref = useRef(null);
   const visible = useVisible(ref, 0.3);
-  const headRef = useRef(null);
-  const inView = useVisible(headRef, 0.5);
   const [step, setStep] = useState(0);
   const [held, setHeld] = useState(false);
   const running = visible && !held;
@@ -327,124 +325,124 @@ export default function Journey() {
 
   return (
     <section className={`${b.section} ${j.section}`} data-section="Kako radimo">
-      <div className={b.container}>
-        <div ref={headRef} className={j.lead}>
-          <span id="proces" className={b.anchor} />
-          <span className={j.four} aria-hidden="true">
-            <Roll value={inView ? 4 : 0} ms={1400} />
-          </span>
-          <div className={j.leadText}>
-            <Reveal as="span" className={b.label}>
-              Kako radimo
-            </Reveal>
-            <Reveal as="h2" i={1} className={j.leadTitle}>
-              <b>Jedan povezan proces</b> koji drži strategiju, egzekuciju i
-              rezultate u istom pravcu, <b>od početka do kraja.</b>
-            </Reveal>
-          </div>
-        </div>
-
-        <div ref={ref} className={j.timeline} role="tablist" aria-label="Faze">
-          {STEPS.map((s, i) => (
-            <button
-              key={s.name}
-              type="button"
-              role="tab"
-              aria-selected={i === step}
-              className={j.stop}
-              data-state={i === step ? "now" : i < step ? "done" : "next"}
-              onClick={() => {
-                setHeld(true);
-                setStep(i);
-              }}
-            >
-              <span className={j.bar}>
-                {i < step ? <i style={{ transform: "scaleX(1)" }} /> : null}
-                {i === step
-                  ? <motion.i
-                      key={`${step}-${running}`}
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: running ? 1 : 1 }}
-                      transition={{
-                        duration: running ? DWELL / 1000 : 0.4,
-                        ease: running ? "linear" : EASE,
-                      }}
-                    />
-                  : null}
-              </span>
-              <span className={j.when}>Korak {i + 1}</span>
-              <b>{s.name}</b>
-            </button>
-          ))}
-        </div>
-
-        <div className={j.body}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={step}
-              className={j.copy}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4, ease: EASE }}
-            >
-              <span className={j.bigNo}>0{step + 1}</span>
-              <h3>{cur.name}</h3>
-              <p>{cur.body}</p>
-              <span className={j.miniLabel}>Šta dobijate</span>
-              <ul className={j.get}>
-                {cur.get.map((g) => (
-                  <li key={g}>
-                    <Check size={13} strokeWidth={3} /> {g}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </AnimatePresence>
-
-          <div className={j.window}>
-            <div className={j.winHead}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={logo.src} alt="" />
-              <span className={j.winTitle}>
-                {planNames ? "Vaš projekat" : "Primer projekta"}
-              </span>
-              <span className={j.winPlan}>
-                {(planNames ?? ["Web", "Plaćeno oglašavanje", "SEO"]).map(
-                  (p) => (
-                    <i key={p}>{p}</i>
-                  ),
-                )}
-              </span>
+      <div ref={ref} className={`${b.container} ${j.wrap}`}>
+        <span id="proces" className={b.anchor} />
+        <div className={j.left}>
+          <div className={j.intro4}>
+            <span className={j.four} aria-hidden="true">
+              <Roll value={visible ? 4 : 0} ms={1400} />
+            </span>
+            <div className={j.introText}>
+              <span className={b.label}>Kako radimo</span>
+              <p>
+                <b>Jedan povezan proces</b> koji drži strategiju, egzekuciju i
+                rezultate u istom pravcu, <b>od početka do kraja.</b>
+              </p>
             </div>
-            <div className={j.tabs}>
-              {STEPS.map((s, i) => (
-                <span key={s.tab} data-on={i === step ? "true" : undefined}>
-                  {s.tab}
-                </span>
+          </div>
+
+          <ol className={j.steps} role="tablist" aria-label="Koraci">
+            {STEPS.map((s, i) => {
+              const on = i === step;
+              return (
+                <li key={s.name}>
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={on}
+                    className={j.step}
+                    data-on={on ? "true" : undefined}
+                    onClick={() => {
+                      setHeld(true);
+                      setStep(i);
+                    }}
+                  >
+                    <span className={j.stepNo}>{i + 1}</span>
+                    <span className={j.stepMain}>
+                      <b>{s.name}</b>
+                      <AnimatePresence initial={false}>
+                        {on
+                          ? <motion.span
+                              key="d"
+                              className={j.stepMore}
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.45, ease: EASE }}
+                            >
+                              <span className={j.stepBody}>{s.body}</span>
+                              <span className={j.chips}>
+                                {s.get.map((g) => (
+                                  <i key={g}>
+                                    <Check size={11} strokeWidth={3} /> {g}
+                                  </i>
+                                ))}
+                              </span>
+                            </motion.span>
+                          : null}
+                      </AnimatePresence>
+                    </span>
+                    {on
+                      ? <span className={j.progress}>
+                          <motion.i
+                            key={`${step}-${running}`}
+                            initial={{ scaleX: running ? 0 : 1 }}
+                            animate={{ scaleX: 1 }}
+                            transition={{
+                              duration: running ? DWELL / 1000 : 0.3,
+                              ease: running ? "linear" : EASE,
+                            }}
+                          />
+                        </span>
+                      : null}
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+
+        <div className={j.window}>
+          <div className={j.winHead}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={logo.src} alt="" />
+            <span className={j.winTitle}>
+              {planNames ? "Vaš projekat" : "Primer projekta"}
+            </span>
+            <span className={j.winPlan}>
+              {(planNames ?? ["Web", "Plaćeno oglašavanje", "SEO"]).map((p) => (
+                <i key={p}>{p}</i>
               ))}
-            </div>
-            <div className={j.stage}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={step}
-                  className={j.stageInner}
-                  initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-                  transition={{ duration: 0.45, ease: EASE }}
-                >
-                  <Screen />
-                </motion.div>
-              </AnimatePresence>
-            </div>
+            </span>
+          </div>
+          <div className={j.tabs}>
+            {STEPS.map((s, i) => (
+              <span key={s.tab} data-on={i === step ? "true" : undefined}>
+                {s.tab}
+              </span>
+            ))}
+          </div>
+          <div className={j.stage}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={step}
+                className={j.stageInner}
+                initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+                transition={{ duration: 0.45, ease: EASE }}
+              >
+                <Screen />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
-
+      </div>
+      <div className={b.container}>
         <Bridge
-          text="Ova četiri koraka se ponavljaju svakog meseca. Evo kako to izgleda iz ugla vašeg kupca."
-          to="#put-kupca"
-          label="Put kupca"
+          text="Tako radimo. Evo šta je to donelo drugima."
+          to="#rezultati"
+          label="Rezultati"
         />
       </div>
     </section>

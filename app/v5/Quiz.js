@@ -49,7 +49,7 @@ export default function Quiz({ clients }) {
   const cur = QUIZ[step];
 
   return (
-    <div id="plan" className={q.card}>
+    <div id="plan" className={q.card} data-flipped={done ? "true" : undefined}>
       {/* left: the question, or the verdict */}
       <div className={q.ask}>
         <div className={q.top}>
@@ -156,6 +156,19 @@ export default function Quiz({ clients }) {
 
       {/* right: the plan assembling live */}
       <div className={q.live} aria-live="polite">
+        {done
+          ? <div className={q.mVerdict}>
+              <p>{plan.gap}</p>
+              <div className={q.mActions}>
+                <Btn variant="accent" size="sm" onClick={() => book()}>
+                  Pošaljite nam plan
+                </Btn>
+                <button type="button" className={q.again} onClick={restart}>
+                  <Rotate size={13} /> Ispočetka
+                </button>
+              </div>
+            </div>
+          : null}
         <div className={q.liveHead}>
           <span>Vaš plan</span>
           <em>

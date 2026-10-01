@@ -307,3 +307,110 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* compact: three posts in a row, newsletter as one slim bar */
+.section {
+  background: #fff;
+}
+.cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin-top: clamp(24px, 3vw, 36px);
+}
+@media (min-width: 760px) {
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 759px) {
+  .cards {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin: clamp(24px, 3vw, 36px) -16px 0;
+    padding: 0 16px 6px;
+    scrollbar-width: none;
+  }
+  .cards::-webkit-scrollbar {
+    display: none;
+  }
+  .post {
+    flex: none;
+    width: 80%;
+    scroll-snap-align: start;
+  }
+}
+.post {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 10px 10px 18px;
+  border-radius: 24px;
+  background: var(--mist);
+  box-shadow: var(--ring);
+  transition:
+    box-shadow 0.4s var(--ease),
+    transform 0.4s var(--ease);
+}
+.post:hover {
+  box-shadow: var(--lift), var(--ring);
+  transform: translateY(-3px);
+}
+.post .cover {
+  border-radius: 16px;
+  aspect-ratio: 16 / 9;
+}
+.post:hover .cover img {
+  transform: scale(1.05);
+}
+.post .meta {
+  padding: 0 6px;
+}
+.title {
+  padding: 0 6px;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  transition: color 0.3s var(--ease);
+}
+.post:hover .title {
+  color: var(--accent);
+}
+
+.news {
+  grid-template-columns: minmax(0, 1fr) !important;
+  margin-top: 12px;
+  padding: clamp(18px, 2.4vw, 26px) clamp(18px, 2.6vw, 32px);
+  border-radius: 26px;
+}
+.newsCopy {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 10px 24px;
+}
+@media (min-width: 900px) {
+  .newsCopy {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    column-gap: 40px;
+    row-gap: 6px;
+  }
+  .newsCopy > :not(.form):not(.ok):not(.err) {
+    grid-column: 1;
+  }
+  .form,
+  .ok {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: center;
+    margin: 0 !important;
+    width: 100%;
+  }
+  .err {
+    grid-column: 2;
+  }
+}
+.newsCopy h3 {
+  font-size: clamp(22px, 2vw, 28px);
+}

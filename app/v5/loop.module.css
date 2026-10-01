@@ -247,3 +247,46 @@
     display: none;
   }
 }
+
+/* compact */
+.section {
+  background: var(--mist);
+}
+.diagram {
+  max-width: 400px;
+}
+.label {
+  font-size: 13px;
+  padding: 5px 10px 5px 5px;
+}
+.label i {
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+}
+.center b {
+  font-size: clamp(24px, 2.6vw, 36px);
+}
+.card {
+  gap: 10px;
+  padding: clamp(18px, 2.2vw, 26px);
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.card h3 {
+  font-size: clamp(24px, 2.2vw, 30px);
+}
+.card p {
+  font-size: 15.5px;
+}
+.list button {
+  background: #fff;
+}
+@media (max-width: 640px) {
+  .diagram {
+    max-width: 300px;
+  }
+}
+.metric {
+  background: var(--mist);
+}
