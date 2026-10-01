@@ -1,10 +1,18 @@
+import { Manrope } from "next/font/google";
 import { sanityClient } from "../../lib/sanity/client.js";
 import HomeV5 from "./HomeV5";
+
+// Serbian needs latin-ext (č, ć, đ, š, ž).
+const sans = Manrope({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-v5-sans",
+  display: "swap",
+});
 
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Marketing koji donosi prave rezultate",
+  title: "Marketing koji se meri profitom",
   // A design study next to the live homepage — keep it out of search.
   robots: { index: false, follow: false },
 };
@@ -17,10 +25,20 @@ function parseMetric(value) {
   const rest = m[2];
   // Serbian thousands separator: a dot followed by exactly three digits.
   if (/^\d{1,3}(\.\d{3})+$/.test(raw)) {
-    return { num: Number(raw.replaceAll(".", "")), decimals: 0, thousands: true, suffix: rest };
+    return {
+      num: Number(raw.replaceAll(".", "")),
+      decimals: 0,
+      thousands: true,
+      suffix: rest,
+    };
   }
   const decimals = raw.includes(".") ? raw.split(".")[1].length : 0;
-  return { num: Number(raw.replace(",", ".")), decimals, thousands: false, suffix: rest };
+  return {
+    num: Number(raw.replace(",", ".")),
+    decimals,
+    thousands: false,
+    suffix: rest,
+  };
 }
 
 async function getClients() {
@@ -42,7 +60,11 @@ async function getClients() {
           // The client's own years in business is their history, not our result.
           .filter((m) => !/godin\w*\s+iskustva/i.test(m.subtitle))
           .slice(0, 3)
-          .map((m) => ({ value: m.title, label: m.subtitle, ...parseMetric(m.title) }));
+          .map((m) => ({
+            value: m.title,
+            label: m.subtitle,
+            ...parseMetric(m.title),
+          }));
         if (!slug || !r.cover || metrics.length === 0) return null;
         return {
           slug,
@@ -80,5 +102,5 @@ async function getArticles() {
 
 export default async function Page() {
   const [clients, articles] = await Promise.all([getClients(), getArticles()]);
-  return <HomeV5 clients={clients} articles={articles} />;
+  return <HomeV5 clients={clients} articles={articles} fonts={sans.variable} />;
 }

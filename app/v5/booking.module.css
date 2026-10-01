@@ -1,0 +1,292 @@
+.section {
+  position: relative;
+  padding: clamp(72px, 9vw, 130px) 0;
+  background: #fff;
+}
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  max-width: 1180px;
+  margin: clamp(36px, 5vw, 56px) auto 0;
+}
+@media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 20px;
+  }
+}
+
+.side {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.steps {
+  display: grid;
+  gap: 0;
+  padding: 10px;
+  border-radius: 32px;
+  background: var(--accent-soft);
+}
+.steps li {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  padding: 16px 14px;
+}
+.steps li + li {
+  box-shadow: 0 -1px 0 color-mix(in oklab, var(--accent) 12%, transparent);
+}
+.steps li > span:last-child {
+  display: grid;
+  gap: 4px;
+}
+.steps b {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.steps li > span:last-child > span {
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+.stepNo {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+}
+.note {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px;
+  border-radius: 26px;
+  background: var(--secondary-soft);
+}
+.note p {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+.note b {
+  color: var(--ink);
+}
+.note a {
+  color: var(--accent);
+  font-weight: 700;
+}
+.noteIcon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.card {
+  border-radius: 32px;
+  padding: clamp(18px, 2.6vw, 30px);
+  background: #fff;
+  box-shadow:
+    0 40px 90px -50px rgb(8 8 28 / 0.4),
+    0 0 0 1px var(--line);
+  min-width: 0;
+}
+.form {
+  display: grid;
+  gap: 20px;
+}
+.group {
+  display: grid;
+  gap: 10px;
+}
+.groupLabel,
+.field > span {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.groupLabel em,
+.field em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--ink-4);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 15px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-3);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.chip:hover {
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink-4);
+}
+.chipOn,
+.chipOn:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: none;
+}
+.fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+@media (min-width: 600px) {
+  .fields {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.wide {
+  grid-column: 1 / -1;
+}
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  min-height: 50px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--mist);
+  padding: 13px 16px;
+  font-size: 16px;
+  outline: none;
+  resize: vertical;
+  transition:
+    background 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.field input:focus,
+.field textarea:focus {
+  background: #fff;
+  box-shadow: 0 0 0 1.5px var(--accent);
+}
+.attach {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: var(--secondary-soft);
+  cursor: pointer;
+}
+.attach input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.attachBox {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  margin-top: 1px;
+  border-radius: 7px;
+  background: #fff;
+  color: transparent;
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+.attach input:checked + .attachBox {
+  background: var(--ink);
+  color: var(--secondary);
+  box-shadow: none;
+}
+.attach input:focus-visible + .attachBox {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.attach > span:last-child {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.attach b {
+  font-size: 14px;
+  word-break: break-word;
+}
+.attach em {
+  font-style: normal;
+  font-size: 12.5px;
+  color: var(--secondary-ink);
+}
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.submit {
+  width: 100%;
+}
+.micro {
+  font-size: 12.5px;
+  color: var(--ink-4);
+  text-align: center;
+}
+.error {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--danger);
+  text-align: center;
+}
+.done {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 56px 12px;
+  text-align: center;
+}
+.done h3 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.done p {
+  font-size: 15px;
+  color: var(--ink-3);
+}
+.doneMark {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--success);
+  color: #fff;
+}

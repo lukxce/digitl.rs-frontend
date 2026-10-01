@@ -1,0 +1,228 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(112px, 13vh, 150px);
+  background:
+    radial-gradient(
+      60% 50% at 80% 70%,
+      color-mix(in oklab, var(--secondary) 18%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      70% 60% at 15% 80%,
+      color-mix(in oklab, var(--accent) 12%, transparent),
+      transparent 70%
+    ), linear-gradient(180deg, #fff 0%, var(--accent-soft) 100%);
+}
+.copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.8);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-3);
+  backdrop-filter: blur(8px);
+}
+.status b {
+  color: var(--ink);
+}
+@media (max-width: 560px) {
+  .statusLong {
+    display: none;
+  }
+}
+.title {
+  margin-top: 24px !important;
+  font-size: clamp(46px, 6.4vw, 104px);
+}
+@media (max-width: 640px) {
+  .title {
+    font-size: min(12vw, 52px);
+  }
+}
+.accent {
+  color: var(--accent);
+}
+.lead {
+  margin: 24px auto 0;
+  max-width: 38em;
+  font-size: clamp(16.5px, 1.4vw, 20px);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+/* the landscape */
+.land {
+  position: relative;
+  z-index: 1;
+  height: clamp(320px, 38vw, 540px);
+  margin-top: clamp(-120px, -7vw, -10px);
+}
+.field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+.pin[data-ready="false"] .chip,
+.pin[data-ready="false"] .stem,
+.pin[data-ready="false"] .dot {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.chip,
+.stem,
+.dot {
+  transition:
+    opacity 0.6s var(--ease) var(--d),
+    transform 0.6s var(--ease) var(--d);
+}
+.chip {
+  position: absolute;
+  left: 0;
+  bottom: 46px;
+  translate: -50% 0;
+  display: grid;
+  gap: 1px;
+  padding: 9px 14px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow:
+    0 18px 40px -18px rgb(8 8 28 / 0.35),
+    0 0 0 1px rgb(8 8 28 / 0.06);
+  white-space: nowrap;
+  text-align: left;
+}
+.chip b {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.chip span {
+  font-size: 11.5px;
+  color: var(--ink-4);
+}
+.stem {
+  position: absolute;
+  left: -0.5px;
+  bottom: 8px;
+  width: 1px;
+  height: 38px;
+  background: linear-gradient(var(--line-2), var(--accent));
+}
+.dot {
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px var(--accent);
+}
+.pinEnd .chip {
+  background: var(--secondary);
+  box-shadow: 0 18px 40px -16px
+    color-mix(in oklab, var(--secondary-ink) 60%, transparent);
+  translate: -88% 0;
+}
+.pinEnd .dot {
+  box-shadow: 0 0 0 3px #58c41a;
+}
+@media (max-width: 760px) {
+  .pinSm {
+    display: none;
+  }
+  .pinEnd .chip {
+    translate: calc(-100% + 18px) 0;
+  }
+}
+.landNote {
+  position: absolute;
+  right: clamp(16px, 3vw, 32px);
+  bottom: 12px;
+  font-size: 12px;
+  color: var(--ink-4);
+}
+
+.logos {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 26px 0 34px;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 1000px) {
+  .logos {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+.logosLabel {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+.logos ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px 40px;
+}
+.logos li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.logos img {
+  height: 32px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition:
+    filter 0.4s var(--ease),
+    opacity 0.4s var(--ease);
+}
+.logos li:hover img {
+  filter: none;
+  opacity: 1;
+}
+.logos li span {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink-4);
+}

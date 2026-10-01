@@ -1,29 +1,34 @@
 "use client";
 
+import b from "./base.module.css";
 import Booking from "./Booking";
+import Cases from "./Cases";
+import Faq from "./Faq";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import Nav from "./Nav";
-import { Faq, Journal, Marquee, Process, Proof, Services, WithWithout } from "./Sections";
-import s from "./v5.module.css";
+import Story from "./Story";
+import { AppProvider } from "./ui";
+import YourTurn from "./YourTurn";
 
-export default function HomeV5({ clients, articles }) {
+/** digitl.rs/v5 — one story in five chapters: the promise, the problem and the
+    system, the proof, the visitor's own site, and how to start. Brings its own
+    chrome, so the global SiteNav hides itself (data-own-chrome). */
+export default function HomeV5({ clients, articles, fonts }) {
   return (
-    // data-own-chrome hides the site-wide nav pill; this page brings its own nav.
-    <div className={s.root} data-own-chrome>
-      <Nav />
-      <main>
-        <Hero clients={clients} />
-        <Marquee clients={clients} />
-        <Services />
-        <WithWithout />
-        <Proof clients={clients} />
-        <Process />
-        <Faq />
-        <Journal articles={articles} />
-        <Booking />
-      </main>
-      <Footer />
+    <div className={`${b.root} ${fonts}`} data-own-chrome>
+      <AppProvider>
+        <Nav />
+        <main>
+          <Hero clients={clients} />
+          <Story />
+          <Cases clients={clients} />
+          <YourTurn />
+          <Booking />
+          <Faq />
+        </main>
+        <Footer articles={articles} />
+      </AppProvider>
     </div>
   );
 }

@@ -1,185 +1,152 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
-import logo from "../assets/digitl-logo.png";
-import { Btn, Counter, EASE, Kicker, useVisible } from "./ui";
-import s from "./v5.module.css";
+import { motion } from "motion/react";
+import { useRef } from "react";
+import elektromil from "../assets/clients/elektromil.webp";
+import primaDental from "../assets/clients/prima-dental.webp";
+import startupsRs from "../assets/clients/startups-rs.webp";
+import thermiq from "../assets/clients/thermiq.webp";
+import b from "./base.module.css";
+import GrowthField from "./GrowthField";
+import h from "./hero.module.css";
+import { Btn, EASE, useApp } from "./ui";
 
-const DWELL = 4800;
+// Milestones from published case studies, pinned along the growth line.
+const MILESTONES = [
+  {
+    at: 0.12,
+    t: "Start: nevidljiv u pretrazi",
+    s: "ThermiQ, pre",
+    hideSm: true,
+  },
+  { at: 0.45, t: "1. mesec: prvi upiti sa pretrage", s: "ElektroMil" },
+  {
+    at: 0.72,
+    t: "3. mesec: najveći izvor upita",
+    s: "ElektroMil",
+    hideSm: true,
+  },
+  {
+    at: 0.95,
+    t: "3.157 stranica u Google-u",
+    s: "ThermiQ, za tri meseca",
+    end: true,
+  },
+];
 
-/** Real case studies cycling in a product window — the hero's proof. */
-function CaseWindow({ clients }) {
-  const ref = useRef(null);
-  const visible = useVisible(ref, 0.3);
-  const [i, setI] = useState(0);
-  const [touched, setTouched] = useState(false);
-  const c = clients[i];
-
-  useEffect(() => {
-    if (!visible || touched || clients.length < 2) return;
-    const id = setTimeout(() => setI((v) => (v + 1) % clients.length), DWELL);
-    return () => clearTimeout(id);
-  }, [visible, touched, i, clients.length]);
-
-  if (!c) return null;
-
+function Line({ delay, children }) {
   return (
-    <div ref={ref} className={s.heroStage}>
-      <div className={s.heroPanel}>
-        <span className={s.ghostCard1} aria-hidden="true" />
-        <span className={s.ghostCard2} aria-hidden="true" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={logo.src} alt="" className={s.panelMark} aria-hidden="true" />
-
-        <div className={s.window}>
-          <div className={s.windowHead}>
-            <span className={s.windowDots} aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-            <div className={s.windowTabs} role="tablist" aria-label="Projekti">
-              {clients.map((x, k) => (
-                <button
-                  key={x.slug}
-                  type="button"
-                  role="tab"
-                  aria-selected={k === i}
-                  className={`${s.windowTab} ${k === i ? s.windowTabOn : ""}`}
-                  onClick={() => {
-                    setTouched(true);
-                    setI(k);
-                  }}
-                >
-                  {x.name}
-                  {k === i && visible && !touched ? (
-                    <motion.span
-                      key={`p-${i}`}
-                      className={s.windowTabBar}
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: DWELL / 1000, ease: "linear" }}
-                    />
-                  ) : null}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className={s.windowBody}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={c.slug}
-                className={s.windowCase}
-                initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
-                transition={{ duration: 0.45, ease: EASE }}
-              >
-                <div className={s.windowCover}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={c.cover} alt={`Sajt za ${c.name}`} />
-                </div>
-                <div className={s.windowMeta}>
-                  <span className={s.windowClient}>
-                    {c.logo ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={c.logo} alt="" />
-                    ) : null}
-                    <b>{c.name}</b>
-                  </span>
-                  <span className={s.windowCat}>{c.category}</span>
-                </div>
-                <div className={s.windowStats}>
-                  {c.metrics.map((m) => (
-                    <div key={m.label} className={s.tile}>
-                      <b>
-                        <Counter metric={m} run={visible} />
-                      </b>
-                      <span>{m.label}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-      <p className={s.source}>Brojevi iz studija slučaja na digitl.rs.</p>
-    </div>
-  );
-}
-
-function LogoChip({ clients }) {
-  const logos = clients.filter((c) => c.logo).slice(0, 3);
-  return (
-    <span className={s.capChip} aria-hidden="true">
-      {logos.map((c) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img key={c.slug} src={c.logo} alt="" />
-      ))}
+    <span className={b.lineMask}>
+      <span className={b.lineUp} style={{ animationDelay: `${delay}ms` }}>
+        {children}
+      </span>
     </span>
   );
 }
 
-export default function Hero({ clients }) {
-  const lines = [
-    <>Marketing koji</>,
-    <>
-      donosi <LogoChip clients={clients} />
-    </>,
-    <span className={s.accentText}>prave rezultate.</span>,
+function Logos({ clients }) {
+  const local = [
+    { src: thermiq.src, name: "ThermiQ" },
+    { src: elektromil.src, name: "ElektroMil" },
+    { src: primaDental.src, name: "Prima Dental" },
+    { src: startupsRs.src, name: "Startups.rs" },
   ];
+  const cms = clients
+    .filter(
+      (c) =>
+        c.logo &&
+        !local.some((l) => l.name.toLowerCase() === c.name.toLowerCase()),
+    )
+    .map((c) => ({ src: c.logo, name: c.name, label: true }));
+  return (
+    <div className={h.logos}>
+      <span className={h.logosLabel}>50+ saradnji, među njima</span>
+      <ul>
+        {[...local, ...cms].map((l, i) => (
+          <motion.li
+            key={l.name}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4 + i * 0.07, duration: 0.6, ease: EASE }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={l.src} alt={l.name} />
+            {l.label ? <span>{l.name}</span> : null}
+          </motion.li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default function Hero({ clients }) {
+  const { openAudit, book } = useApp();
+  const pins = useRef(null);
 
   return (
-    <section id="top" className={s.hero} data-theme="light">
-      <span className={s.blobA} aria-hidden="true" />
-      <span className={s.blobB} aria-hidden="true" />
-      <div className={`${s.container} ${s.heroGrid}`}>
-        <div className={s.heroCopy}>
-          <span className={`${s.fadeUp}`} style={{ animationDelay: "40ms" }}>
-            <Kicker dot>2 slobodna mesta</Kicker>
-          </span>
-          <h1 className={s.display}>
-            {lines.map((line, i) => (
-              <span key={i} className={s.lineMask}>
-                <span className={s.lineUp} style={{ animationDelay: `${120 + i * 90}ms` }}>
-                  {line}
-                </span>
-              </span>
-            ))}
-          </h1>
-          <p className={`${s.lead} ${s.fadeUp}`} style={{ animationDelay: "550ms" }}>
-            Gradimo brendove koji se izdvajaju, konvertuju bolje i rastu brže. Oglasi, SEO,
-            web, mreže i brend, kao jedan sistem.
+    <section id="top" className={h.hero} data-theme="light">
+      <div className={`${b.container} ${h.copy}`}>
+        <p
+          className={`${h.status} ${b.fadeUp}`}
+          style={{ animationDelay: "40ms" }}
+        >
+          <span className={b.liveDot} />
+          <span className={h.statusLong}>
+            Agencija za rast · Beograd / London ·
+          </span>{" "}
+          <b>2 slobodna mesta</b>
+        </p>
+        <h1 className={`${b.display} ${h.title}`}>
+          <Line delay={100}>Marketing koji se meri</Line>
+          <Line delay={190}>
+            <span className={h.accent}>profitom,</span> ne aktivnošću.
+          </Line>
+        </h1>
+        <div className={b.fadeUp} style={{ animationDelay: "520ms" }}>
+          <p className={h.lead}>
+            Strategija, oglasi, SEO, sajt i brend, vođeni kao jedan sistem za
+            rast i mereni jednim brojem: koliko su vam doneli.
           </p>
-          <div className={`${s.heroCtas} ${s.fadeUp}`} style={{ animationDelay: "680ms" }}>
-            <Btn href="#pregled" variant="accent" size="lg" arrow>
-              Zakažite razgovor
+          <div className={h.ctas}>
+            <Btn variant="accent" size="lg" arrow onClick={() => book()}>
+              Zakažite strateški razgovor
             </Btn>
-            <Btn href="#projekti" variant="ghost" size="lg">
-              Naši projekti
+            <Btn variant="ghost" size="lg" onClick={openAudit}>
+              Proverite svoj sajt
             </Btn>
-          </div>
-          <a href="#pregled" className={`${s.tertiary} ${s.fadeUp}`} style={{ animationDelay: "780ms" }}>
-            Ili besplatan pregled od 30 minuta, bez obaveze
-          </a>
-          <div className={`${s.heroMeta} ${s.fadeUp}`} style={{ animationDelay: "880ms" }}>
-            <span>Beograd / London</span>
-            <span className={s.metaDot} />
-            <span>50+ uspešnih saradnji</span>
           </div>
         </div>
+      </div>
 
-        <motion.div
-          className={s.heroVisual}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 1.1, ease: EASE }}
-        >
-          <CaseWindow clients={clients} />
-        </motion.div>
+      <div className={h.land}>
+        <GrowthField
+          className={h.field}
+          theme="light"
+          horizon={0.6}
+          anchorRoot={pins}
+        />
+        <div ref={pins} className={h.pins} aria-hidden="true">
+          {MILESTONES.map((m, i) => (
+            <div
+              key={m.t}
+              data-at={m.at}
+              className={`${h.pin} ${m.hideSm ? h.pinSm : ""} ${m.end ? h.pinEnd : ""}`}
+              style={{ "--d": `${i * 160}ms` }}
+            >
+              <span className={h.chip}>
+                <b>{m.t}</b>
+                <span>{m.s}</span>
+              </span>
+              <i className={h.stem} />
+              <i className={h.dot} />
+            </div>
+          ))}
+        </div>
+        <p className={h.landNote}>Prekretnice iz naših studija slučaja</p>
+      </div>
+
+      <div className={b.container}>
+        <Logos clients={clients} />
       </div>
     </section>
   );

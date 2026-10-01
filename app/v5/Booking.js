@@ -2,93 +2,100 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { Btn, EASE, Kicker, Reveal } from "./ui";
-import s from "./v5.module.css";
+import b from "./base.module.css";
+import s from "./booking.module.css";
+import { ArrowRight, Check, Message } from "./icons";
+import { Chapter, EASE, Reveal, useApp } from "./ui";
 
-const TOPICS = ["Oglasi", "SEO", "Sajt", "Mreže", "Brend", "Nisam siguran"];
-const TIMES = ["10:00", "12:00", "14:00", "16:00"];
-
-/** The next five working days, built on the client so the server and the browser agree. */
-function nextWorkdays(n = 5) {
-  const out = [];
-  const d = new Date();
-  d.setHours(12, 0, 0, 0);
-  while (out.length < n) {
-    d.setDate(d.getDate() + 1);
-    const wd = d.getDay();
-    if (wd === 0 || wd === 6) continue;
-    out.push({
-      key: d.toISOString().slice(0, 10),
-      day: d.toLocaleDateString("sr-Latn-RS", { weekday: "short" }).replace(".", ""),
-      date: d.toLocaleDateString("sr-Latn-RS", { day: "numeric", month: "numeric" }),
-      long: d.toLocaleDateString("sr-Latn-RS", { weekday: "long", day: "numeric", month: "long" }),
-    });
-  }
-  return out;
-}
+const GOALS = [
+  "Strategija i brend",
+  "Oglasi",
+  "SEO",
+  "Sajt ili e-commerce",
+  "Mreže i sadržaj",
+  "Ceo marketing",
+];
+const BUDGETS = [
+  "Do 1.000 €",
+  "1.000 – 3.000 €",
+  "3.000 – 10.000 €",
+  "10.000 € +",
+];
+const STEPS = [
+  {
+    t: "Razgovor od 30 minuta",
+    d: "Besplatno i bez obaveze. Pogledamo vaše brojeve, sajt i konkurenciju.",
+  },
+  {
+    t: "Plan",
+    d: "Kažemo šta je prioritet, šta može da čeka, i koji broj pratimo.",
+  },
+  {
+    t: "Start za 1–2 nedelje",
+    d: "Obično krećemo u roku od jedne do dve nedelje od dogovora.",
+  },
+];
 
 function Chip({ on, children, onClick }) {
   return (
-    <button type="button" className={`${s.chip} ${on ? s.chipOn : ""}`} aria-pressed={on} onClick={onClick}>
-      {on ? (
-        <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      ) : null}
+    <button
+      type="button"
+      className={`${s.chip} ${on ? s.chipOn : ""}`}
+      aria-pressed={on}
+      onClick={onClick}
+    >
+      {on ? <Check size={13} strokeWidth={3} /> : null}
       {children}
     </button>
   );
 }
 
-function SummaryLine({ label, value }) {
-  return (
-    <div className={s.sumLine}>
-      <span>{label}</span>
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.b
-          key={value || "—"}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -6 }}
-          transition={{ duration: 0.3, ease: EASE }}
-        >
-          {value || "—"}
-        </motion.b>
-      </AnimatePresence>
-    </div>
-  );
-}
-
 export default function Booking() {
-  const [days, setDays] = useState([]);
-  const [topics, setTopics] = useState([]);
-  const [day, setDay] = useState(null);
-  const [time, setTime] = useState(null);
+  const { audit, topic } = useApp();
+  const [goals, setGoals] = useState([]);
+  const [budget, setBudget] = useState(null);
   const [email, setEmail] = useState("");
   const [site, setSite] = useState("");
   const [note, setNote] = useState("");
+  const [attach, setAttach] = useState(true);
   const [company, setCompany] = useState("");
   const [state, setState] = useState("idle");
   const [error, setError] = useState("");
 
-  useEffect(() => setDays(nextWorkdays()), []);
+  useEffect(() => {
+    if (topic) setGoals((g) => (g.includes(topic) ? g : [...g, topic]));
+  }, [topic]);
+  useEffect(() => {
+    if (audit?.host) setSite((v) => v || audit.host);
+  }, [audit?.host]);
 
-  const dayObj = days.find((d) => d.key === day);
-  const slot = dayObj && time ? `${dayObj.long}, ${time}` : dayObj ? dayObj.long : time ?? "";
+  const toggle = (g) =>
+    setGoals((arr) =>
+      arr.includes(g) ? arr.filter((x) => x !== g) : [...arr, g],
+    );
+  const report = audit?.scores
+    ? `Brzina ${audit.scores.performance} · SEO ${audit.scores.seo} · Pristupačnost ${audit.scores.accessibility} · Dobre prakse ${audit.scores.bestPractices}`
+    : null;
 
   async function submit(e) {
     e.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setError("Upišite email na koji možemo da odgovorimo.");
+      setError("Upišite mejl na koji možemo da odgovorimo.");
       return;
     }
     setError("");
     setState("sending");
     const text = [
-      "Besplatan pregled (digitl.rs/v5)",
-      `Teme: ${topics.length ? topics.join(", ") : "nije izabrano"}`,
-      `Željeni termin: ${slot || "nije izabran"}`,
+      "Strateški razgovor (digitl.rs/v5)",
+      `Interesuje ih: ${goals.length ? goals.join(", ") : "nije izabrano"}`,
+      `Mesečni budžet za marketing: ${budget ?? "nije izabran"}`,
       site.trim() ? `Sajt: ${site.trim()}` : null,
+      report && attach
+        ? `Provera sajta (${audit.host}, telefon): ${report}; LCP ${audit.metrics?.lcp?.display ?? "?"}`
+        : null,
+      audit?.error && attach
+        ? `Provera sajta nije uspela (${audit.host}): ${audit.error}`
+        : null,
       note.trim() ? `Poruka: ${note.trim()}` : null,
     ]
       .filter(Boolean)
@@ -103,138 +110,194 @@ export default function Booking() {
       setState("done");
     } catch {
       setState("idle");
-      setError("Zahtev nije poslat. Pokušajte ponovo za minut, ili pišite na hello@digitl.rs.");
+      setError(
+        "Poruka nije poslata. Pokušajte ponovo za minut, ili pišite na hello@digitl.rs.",
+      );
     }
   }
 
   return (
-    <section id="pregled" className={s.section} data-theme="light">
-      <div className={s.container}>
-        <div className={s.bookGrid}>
-          <div className={s.bookMain}>
-            <Reveal>
-              <Kicker dot>Besplatan pregled</Kicker>
-            </Reveal>
-            <Reveal i={1} as="h2" className={s.h2}>
-              30 minuta. Bez obaveze.
-            </Reveal>
-            <Reveal i={2} as="p" className={s.body}>
-              Pogledamo vaše brojeve i kažemo šta bismo prvo promenili. Ako vam posle toga ne trebamo,
-              i to je dobar ishod.
-            </Reveal>
+    <section className={s.section} data-theme="light">
+      <div className={b.container}>
+        <Chapter
+          n="5"
+          name="Početak"
+          id="pocetak"
+          title={
+            <>
+              Sledeći krug <em>počinje razgovorom.</em>
+            </>
+          }
+          sub="Primamo ograničen broj klijenata, da bi svaki radio direktno sa ljudima koji odlučuju. Trenutno: dva slobodna mesta."
+        />
 
-            <AnimatePresence mode="wait">
-              {state === "done" ? (
-                <motion.div
-                  key="done"
-                  className={s.bookDone}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, ease: EASE }}
-                >
-                  <span className={s.doneCheck}>
-                    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" strokeWidth="2.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+        <div className={s.grid}>
+          <div className={s.side}>
+            <ol className={s.steps}>
+              {STEPS.map((st, i) => (
+                <Reveal as="li" key={st.t} i={i}>
+                  <span className={s.stepNo}>{i + 1}</span>
+                  <span>
+                    <b>{st.t}</b>
+                    <span>{st.d}</span>
                   </span>
-                  <h3 className={s.h3}>Zahtev je stigao.</h3>
-                  <p className={s.body}>Javljamo se na {email} da potvrdimo termin.</p>
-                </motion.div>
-              ) : (
-                <motion.form key="form" className={s.bookForm} onSubmit={submit} noValidate exit={{ opacity: 0 }}>
-                  <fieldset>
-                    <legend>Šta da pogledamo?</legend>
-                    <div className={s.chipRow}>
-                      {TOPICS.map((t) => (
-                        <Chip
-                          key={t}
-                          on={topics.includes(t)}
-                          onClick={() => setTopics((v) => (v.includes(t) ? v.filter((x) => x !== t) : [...v, t]))}
-                        >
-                          {t}
-                        </Chip>
-                      ))}
+                </Reveal>
+              ))}
+            </ol>
+            <Reveal i={3} className={s.note}>
+              <span className={s.noteIcon}>
+                <Message size={17} />
+              </span>
+              <p>
+                <b>Radite sa ljudima koji donose odluke,</b> ne sa account
+                menadžerom. Ili pišite direktno na{" "}
+                <a href="mailto:hello@digitl.rs">hello@digitl.rs</a>.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className={s.card}>
+            <AnimatePresence mode="wait" initial={false}>
+              {state === "done"
+                ? <motion.div
+                    key="done"
+                    className={s.done}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, ease: EASE }}
+                    role="status"
+                  >
+                    <span className={s.doneMark}>
+                      <Check size={28} strokeWidth={3} />
+                    </span>
+                    <h3>Poruka je stigla</h3>
+                    <p>
+                      Javljamo se na <b>{email.trim()}</b> da dogovorimo termin.
+                    </p>
+                  </motion.div>
+                : <motion.form
+                    key="form"
+                    className={s.form}
+                    onSubmit={submit}
+                    exit={{ opacity: 0 }}
+                    noValidate
+                  >
+                    <div className={s.group}>
+                      <span className={s.groupLabel}>Šta vas zanima</span>
+                      <div className={s.chips}>
+                        {GOALS.map((g) => (
+                          <Chip
+                            key={g}
+                            on={goals.includes(g)}
+                            onClick={() => toggle(g)}
+                          >
+                            {g}
+                          </Chip>
+                        ))}
+                      </div>
                     </div>
-                  </fieldset>
-                  <fieldset>
-                    <legend>Kog dana?</legend>
-                    <div className={s.chipRow}>
-                      {days.map((d) => (
-                        <Chip key={d.key} on={day === d.key} onClick={() => setDay(d.key)}>
-                          <span className={s.dayChip}>
-                            <b>{d.day}</b> {d.date}
+                    <div className={s.group}>
+                      <span className={s.groupLabel}>
+                        Mesečni budžet za marketing <em>(okvirno)</em>
+                      </span>
+                      <div className={s.chips}>
+                        {BUDGETS.map((g) => (
+                          <Chip
+                            key={g}
+                            on={budget === g}
+                            onClick={() => setBudget(budget === g ? null : g)}
+                          >
+                            {g}
+                          </Chip>
+                        ))}
+                      </div>
+                    </div>
+                    <div className={s.fields}>
+                      <label className={s.field}>
+                        <span>Mejl</span>
+                        <input
+                          type="email"
+                          autoComplete="email"
+                          placeholder="ime@firma.rs"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                        />
+                      </label>
+                      <label className={s.field}>
+                        <span>
+                          Sajt <em>(nije obavezno)</em>
+                        </span>
+                        <input
+                          type="text"
+                          inputMode="url"
+                          autoComplete="url"
+                          placeholder="firma.rs"
+                          value={site}
+                          onChange={(e) => setSite(e.target.value)}
+                        />
+                      </label>
+                      <label className={`${s.field} ${s.wide}`}>
+                        <span>
+                          Šta želite da postignete <em>(nije obavezno)</em>
+                        </span>
+                        <textarea
+                          rows={2}
+                          placeholder="Npr. više porudžbina do leta, uz istu cenu po kupcu."
+                          value={note}
+                          onChange={(e) => setNote(e.target.value)}
+                        />
+                      </label>
+                    </div>
+                    {report || audit?.error
+                      ? <label className={s.attach}>
+                          <input
+                            type="checkbox"
+                            checked={attach}
+                            onChange={(e) => setAttach(e.target.checked)}
+                          />
+                          <span className={s.attachBox}>
+                            <Check size={12} strokeWidth={3} />
                           </span>
-                        </Chip>
-                      ))}
-                    </div>
-                  </fieldset>
-                  <fieldset>
-                    <legend>U koje vreme?</legend>
-                    <div className={s.chipRow}>
-                      {TIMES.map((t) => (
-                        <Chip key={t} on={time === t} onClick={() => setTime(t)}>
-                          {t}
-                        </Chip>
-                      ))}
-                    </div>
-                  </fieldset>
-                  <div className={s.fields}>
-                    <label>
-                      <span>Email</span>
-                      <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="ime@firma.rs" />
-                    </label>
-                    <label>
-                      <span>
-                        Sajt <em>(opciono)</em>
-                      </span>
-                      <input type="url" inputMode="url" value={site} onChange={(e) => setSite(e.target.value)} placeholder="firma.rs" />
-                    </label>
-                    <label className={s.fieldWide}>
-                      <span>
-                        Nešto što treba da znamo <em>(opciono)</em>
-                      </span>
-                      <textarea rows={3} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Npr. oglasi troše, a upita nema." />
-                    </label>
-                    {/* honeypot — hidden from people, filled by bots */}
+                          <span>
+                            <b>Priložite proveru za {audit.host}</b>
+                            <em>
+                              {report ??
+                                "Merenje nije uspelo, izmerićemo ručno."}
+                            </em>
+                          </span>
+                        </label>
+                      : null}
                     <input
-                      className={s.hp}
+                      type="text"
+                      name="company"
                       tabIndex={-1}
                       autoComplete="off"
-                      name="company"
+                      className={s.honeypot}
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
                       aria-hidden="true"
                     />
-                  </div>
-                  <div className={s.bookActions}>
-                    <button type="submit" className={`${s.btn} ${s.btn_accent} ${s.btn_lg}`} disabled={state === "sending"}>
-                      <span>{state === "sending" ? "Šaljemo…" : "Pošaljite zahtev"}</span>
+                    <button
+                      type="submit"
+                      className={`${b.btn} ${b.btn_accent} ${b.btn_lg} ${s.submit}`}
+                      disabled={state === "sending"}
+                    >
+                      <span>
+                        {state === "sending" ? "Šaljemo…" : "Pošaljite"}
+                      </span>
+                      <ArrowRight size={17} />
                     </button>
-                    <p className={s.micro}>Slanje zahteva vas ni na šta ne obavezuje.</p>
-                  </div>
-                  {error ? (
-                    <p className={s.formError} role="alert">
-                      {error}
-                    </p>
-                  ) : null}
-                </motion.form>
-              )}
+                    {error
+                      ? <p className={s.error} role="alert">
+                          {error}
+                        </p>
+                      : <p className={s.micro}>
+                          Slanje ne obavezuje ni na šta.
+                        </p>}
+                  </motion.form>}
             </AnimatePresence>
           </div>
-
-          <aside className={s.summary}>
-            <span className={s.summaryLabel}>Vaš pregled</span>
-            <SummaryLine label="Teme" value={topics.join(", ")} />
-            <SummaryLine label="Termin" value={slot} />
-            <SummaryLine label="Kontakt" value={email.trim()} />
-            <div className={s.sumFoot}>
-              <span>30 min</span>
-              <span>Besplatno, bez obaveze</span>
-            </div>
-            <Btn href="mailto:hello@digitl.rs" variant="glass" size="md">
-              Ili pišite na hello@digitl.rs
-            </Btn>
-          </aside>
         </div>
       </div>
     </section>

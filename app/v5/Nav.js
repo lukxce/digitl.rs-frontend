@@ -3,192 +3,147 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import logo from "../assets/digitl-logo.png";
-import { Btn, EASE } from "./ui";
-import s from "./v5.module.css";
+import n from "./nav.module.css";
+import { Btn, EASE, useApp } from "./ui";
 
-export const SECTIONS = [
-  { id: "usluge", chapter: "01", label: "Usluge" },
-  { id: "zasto", chapter: "02", label: "Zašto mi" },
-  { id: "projekti", chapter: "03", label: "Projekti" },
-  { id: "proces", chapter: "04", label: "Kako radimo" },
-  { id: "pitanja", chapter: "05", label: "Pitanja" },
-  { id: "pregled", chapter: "06", label: "Pregled" },
+// The page is one story; the bar shows where in it you are.
+export const CHAPTERS = [
+  { id: "problem", n: "1", label: "Problem" },
+  { id: "sistem", n: "2", label: "Sistem" },
+  { id: "dokazi", n: "3", label: "Dokazi" },
+  { id: "dijagnoza", n: "4", label: "Vaš sajt" },
+  { id: "pocetak", n: "5", label: "Početak" },
 ];
 
-function Logo({ dark }) {
-  return (
-    <a href="#top" className={s.navLogo} aria-label="Digitl, na vrh">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={logo.src} alt="" style={dark ? { filter: "invert(1)" } : undefined} />
-      <span>digitl</span>
-    </a>
-  );
-}
-
 export default function Nav() {
-  const [floating, setFloating] = useState(false);
-  const [current, setCurrent] = useState(null);
-  const [dark, setDark] = useState(false);
+  const { book } = useApp();
+  const [solid, setSolid] = useState(false);
+  const [fill, setFill] = useState(() => CHAPTERS.map(() => 0));
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     let raf = 0;
     const read = () => {
       raf = 0;
-      setFloating(window.scrollY > window.innerHeight * 0.55);
-      // The section under the pill sets its theme and the chapter label.
-      const probe = 44;
-      let theme = "light";
-      for (const el of document.querySelectorAll("[data-theme]")) {
-        const r = el.getBoundingClientRect();
-        if (r.top <= probe && r.bottom > probe) theme = el.dataset.theme;
-      }
-      setDark(theme === "dark");
-      let cur = null;
-      for (const sec of SECTIONS) {
-        const el = document.getElementById(sec.id);
-        if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) cur = sec.id;
-      }
-      setCurrent(cur);
+      setSolid(window.scrollY > 24);
+      // Each chapter fills from its own top to the next chapter's top.
+      const line = window.innerHeight * 0.45;
+      const tops = CHAPTERS.map((c) => {
+        const el = document.getElementById(c.id);
+        return el
+          ? el.getBoundingClientRect().top + window.scrollY
+          : Number.POSITIVE_INFINITY;
+      });
+      const end =
+        document.documentElement.scrollHeight - window.innerHeight * 0.6;
+      const y = window.scrollY + line;
+      setFill(
+        tops.map((top, i) => {
+          const next = tops[i + 1] ?? end;
+          return Math.min(1, Math.max(0, (y - top) / Math.max(1, next - top)));
+        }),
+      );
     };
-    const onScroll = () => {
+    const on = () => {
       if (!raf) raf = requestAnimationFrame(read);
     };
     read();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("scroll", on, { passive: true });
+    window.addEventListener("resize", on);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scroll", on);
+      window.removeEventListener("resize", on);
       cancelAnimationFrame(raf);
     };
   }, []);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
-
-  const cur = SECTIONS.find((x) => x.id === current);
+  let current = -1;
+  fill.forEach((v, i) => {
+    if (v > 0) current = i;
+  });
 
   return (
-    <>
-      <header className={s.topbar}>
-        <Logo />
-        <nav className={s.topLinks} aria-label="Glavna">
-          {SECTIONS.slice(0, 5).map((x) => (
-            <a key={x.id} href={`#${x.id}`}>
-              {x.label}
+    <header className={`${n.bar} ${solid ? n.solid : ""}`}>
+      <div className={n.inner}>
+        <a href="#top" className={n.logo} aria-label="Digitl, na vrh">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logo.src} alt="" />
+          <span>digitl</span>
+        </a>
+
+        <nav className={n.story} aria-label="Poglavlja">
+          {CHAPTERS.map((c, i) => (
+            <a
+              key={c.id}
+              href={`#${c.id}`}
+              data-on={i === current ? "true" : undefined}
+              data-done={fill[i] >= 1 ? "true" : undefined}
+            >
+              <span className={n.label}>
+                <i>{c.n}</i> {c.label}
+              </span>
+              <span className={n.track}>
+                <span style={{ transform: `scaleX(${fill[i]})` }} />
+              </span>
             </a>
           ))}
         </nav>
-        <div className={s.topActions}>
-          <Btn href="#pregled" variant="accent" size="sm">
+
+        <div className={n.actions}>
+          <Btn
+            variant="accent"
+            size="sm"
+            onClick={() => book()}
+            className={n.cta}
+          >
             Zakažite razgovor
           </Btn>
-          <button type="button" className={s.menuBtn} onClick={() => setOpen(true)}>
-            Meni
+          <button
+            type="button"
+            className={n.menuBtn}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {current >= 0 ? `${CHAPTERS[current].n}/5` : "Meni"}
           </button>
         </div>
-      </header>
+      </div>
 
       <AnimatePresence>
-        {floating ? (
-          <motion.div
-            className={`${s.pill} ${dark ? s.pillDark : ""}`}
-            initial={{ opacity: 0, y: -24, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -24, scale: 0.96 }}
-            transition={{ duration: 0.5, ease: EASE }}
-          >
-            <Logo dark={dark} />
-            <div className={s.pillMid}>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={cur?.id ?? "none"}
-                  className={s.pillChapter}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.3, ease: EASE }}
-                >
-                  {cur ? (
-                    <>
-                      <b>{cur.chapter}</b> {cur.label}
-                    </>
-                  ) : (
-                    "Digitl"
-                  )}
-                </motion.span>
-              </AnimatePresence>
-              <span className={s.dashes} aria-hidden="true">
-                {SECTIONS.map((x) => (
-                  <i
-                    key={x.id}
-                    className={
-                      SECTIONS.findIndex((y) => y.id === x.id) <=
-                      SECTIONS.findIndex((y) => y.id === current)
-                        ? s.dashOn
-                        : ""
-                    }
-                  />
-                ))}
-              </span>
-            </div>
-            <button type="button" className={s.pillMenu} onClick={() => setOpen(true)}>
-              Meni
-            </button>
-            <Btn href="#pregled" variant={dark ? "white" : "accent"} size="sm">
-              Zakažite
-            </Btn>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            className={s.menu}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Meni"
-            initial={{ clipPath: "circle(0% at 50% 0%)" }}
-            animate={{ clipPath: "circle(150% at 50% 0%)" }}
-            exit={{ clipPath: "circle(0% at 50% 0%)" }}
-            transition={{ duration: 0.7, ease: EASE }}
-          >
-            <div className={s.menuTop}>
-              <Logo dark />
-              <button type="button" className={s.menuClose} onClick={() => setOpen(false)}>
-                Zatvori
-              </button>
-            </div>
-            <nav className={s.menuLinks}>
-              {SECTIONS.map((x, i) => (
-                <motion.a
-                  key={x.id}
-                  href={`#${x.id}`}
+        {open
+          ? <motion.nav
+              className={n.sheet}
+              aria-label="Poglavlja"
+              initial={{ opacity: 0, y: -10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: EASE }}
+            >
+              {CHAPTERS.map((c, i) => (
+                <a
+                  key={c.id}
+                  href={`#${c.id}`}
                   onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 + i * 0.05, duration: 0.6, ease: EASE }}
+                  data-on={i === current ? "true" : undefined}
                 >
-                  <span>{x.chapter}</span>
-                  {x.label}
-                </motion.a>
+                  <i>{c.n}</i>
+                  {c.label}
+                </a>
               ))}
-            </nav>
-            <div className={s.menuFoot}>
-              <Btn href="#pregled" variant="white" size="lg" onClick={() => setOpen(false)}>
+              <Btn
+                variant="accent"
+                size="md"
+                arrow
+                onClick={() => {
+                  setOpen(false);
+                  book();
+                }}
+              >
                 Zakažite razgovor
               </Btn>
-              <a href="mailto:hello@digitl.rs">hello@digitl.rs</a>
-            </div>
-          </motion.div>
-        ) : null}
+            </motion.nav>
+          : null}
       </AnimatePresence>
-    </>
+    </header>
   );
 }

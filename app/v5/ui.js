@@ -1,63 +1,63 @@
 "use client";
 
+import { useLenis } from "lenis/react";
 import { motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
-import s from "./v5.module.css";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+import b from "./base.module.css";
+import { ArrowRight } from "./icons";
 
 export const EASE = [0.16, 1, 0.3, 1];
 
-export function Sparkle({ size = 12 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 0C12 6.4 17.6 12 24 12C17.6 12 12 17.6 12 24C12 17.6 6.4 12 0 12C6.4 12 12 6.4 12 0Z" />
-    </svg>
-  );
+/* ── page state shared between chapters ───────────────────────────────── */
+// The site check travels: the contact form offers to attach it.
+const App = createContext(null);
+
+export function AppProvider({ children }) {
+  const lenis = useLenis();
+  const [audit, setAudit] = useState(null);
+  const [focusAudit, setFocusAudit] = useState(0);
+  const [topic, setTopic] = useState(null);
+
+  const scrollTo = (selector, offset = -80) => {
+    const el = document.querySelector(selector);
+    if (!el) return;
+    if (lenis) lenis.scrollTo(el, { offset, duration: 1.3 });
+    else
+      window.scrollTo({
+        top: el.getBoundingClientRect().top + window.scrollY + offset,
+        behavior: "smooth",
+      });
+  };
+
+  const value = {
+    audit,
+    setAudit,
+    scrollTo,
+    focusAudit,
+    openAudit: () => {
+      scrollTo("#provera", -120);
+      setFocusAudit((n) => n + 1);
+    },
+    topic,
+    book: (t = null) => {
+      if (t) setTopic(t);
+      scrollTo("#pocetak");
+    },
+  };
+  return <App.Provider value={value}>{children}</App.Provider>;
 }
 
-export function Arrow({ size = 16 }) {
-  return (
-    <svg className={s.btnArrow} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
+export const useApp = () => useContext(App);
 
-export function Kicker({ children, dark = false, dot = false }) {
-  return (
-    <span className={`${s.kicker} ${dark ? s.kickerDark : ""}`}>
-      {dot ? <span className={s.liveDot} /> : <Sparkle />}
-      {children}
-    </span>
-  );
-}
-
-/** Pill button. variant: accent | ink | ghost | white | glass. size: sm | md | lg */
-export function Btn({ href, variant = "ink", size = "md", children, arrow = false, ...rest }) {
-  const cls = `${s.btn} ${s[`btn_${variant}`]} ${s[`btn_${size}`]}`;
-  const inner = (
-    <>
-      <span>{children}</span>
-      {arrow ? <Arrow /> : null}
-    </>
-  );
-  return href ? (
-    <a href={href} className={cls} {...rest}>
-      {inner}
-    </a>
-  ) : (
-    <button type="button" className={cls} {...rest}>
-      {inner}
-    </button>
-  );
-}
-
-/** True while the element is at least `amount` on screen — drives autoplay. */
+/* ── hooks ────────────────────────────────────────────────────────────── */
 export function useVisible(ref, amount = 0.35) {
   const [v, setV] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => setV(e.isIntersecting), { threshold: amount });
+    const io = new IntersectionObserver(([e]) => setV(e.isIntersecting), {
+      threshold: amount,
+    });
     io.observe(el);
     return () => io.disconnect();
   }, [ref, amount]);
@@ -91,85 +91,113 @@ export function useTween(target, ms = 1100, run = true) {
   return v;
 }
 
-/** A metric from a case study, rolled up when it comes on screen. */
-export function Counter({ metric, run = true }) {
-  const v = useTween(metric.num ?? 0, 1300, run);
-  if (metric.num == null) return <span className={s.tnum}>{metric.text}</span>;
+/* ── numbers ──────────────────────────────────────────────────────────── */
+const sr = (n, d = 0) =>
+  n.toLocaleString("sr-RS", {
+    minimumFractionDigits: d,
+    maximumFractionDigits: d,
+  });
+export const fmt = sr;
+
+/** A case-study metric ("3.157", "29.8K", "1. mesec"), rolled up on view. */
+export function Counter({ metric, run = true, ms = 1300 }) {
+  const v = useTween(metric.num ?? 0, ms, run);
+  if (metric.num == null) return <span className={b.tnum}>{metric.text}</span>;
   const shown = metric.thousands
-    ? Math.round(v).toLocaleString("sr-RS")
+    ? sr(Math.round(v))
     : v.toFixed(metric.decimals);
   return (
-    <span className={s.tnum}>
+    <span className={b.tnum}>
       {shown}
       {metric.suffix}
     </span>
   );
 }
 
-export function Reveal({ i = 0, children, className = "", as = "div" }) {
+export function Roll({
+  value,
+  decimals = 0,
+  run = true,
+  ms = 1100,
+  prefix = "",
+  suffix = "",
+}) {
+  const v = useTween(value, ms, run);
+  return (
+    <span className={b.tnum}>
+      {prefix}
+      {sr(v, decimals)}
+      {suffix}
+    </span>
+  );
+}
+
+/* ── primitives ───────────────────────────────────────────────────────── */
+/** Pill button. variant: accent | ink | ghost | white | glass. size: sm | md | lg */
+export function Btn({
+  href,
+  variant = "ink",
+  size = "md",
+  children,
+  arrow = false,
+  className = "",
+  ...rest
+}) {
+  const cls = `${b.btn} ${b[`btn_${variant}`]} ${b[`btn_${size}`]} ${className}`;
+  const inner = (
+    <>
+      <span>{children}</span>
+      {arrow ? <ArrowRight size={size === "sm" ? 15 : 17} /> : null}
+    </>
+  );
+  return href
+    ? <a href={href} className={cls} {...rest}>
+        {inner}
+      </a>
+    : <button type="button" className={cls} {...rest}>
+        {inner}
+      </button>;
+}
+
+export function Reveal({
+  i = 0,
+  children,
+  className = "",
+  as = "div",
+  y = 20,
+  ...rest
+}) {
   const M = motion[as];
   return (
     <M
       className={className}
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ delay: i * 0.07, duration: 0.7, ease: EASE }}
+      transition={{ delay: i * 0.08, duration: 0.8, ease: EASE }}
+      {...rest}
     >
       {children}
     </M>
   );
 }
 
-/** Section header: kicker + big H2 left, intro paragraph bottom-right. */
-export function SectionHead({ kicker, title, intro, dark = false, id }) {
+/** Centred chapter head: number + name, the line that carries the story, one sentence under it. */
+export function Chapter({ n, name, title, sub, id }) {
   return (
-    <div className={s.sectionHead}>
-      <div className={s.sectionHeadLeft}>
-        <Reveal>
-          <Kicker dark={dark}>{kicker}</Kicker>
-        </Reveal>
-        <Reveal i={1} as="h2" className={s.h2}>
-          {title}
-        </Reveal>
-      </div>
-      {intro ? (
-        <Reveal i={2} as="p" className={s.sectionIntro}>
-          {intro}
-        </Reveal>
-      ) : null}
-      {id ? <span id={id} className={s.anchor} /> : null}
-    </div>
-  );
-}
-
-/** Segmented control with a pill that slides to the active option. */
-export function Segmented({ id, options, value, onChange, dark = false, renderLabel }) {
-  return (
-    <div className={`${s.seg} ${dark ? s.segDark : ""}`} role="tablist">
-      {options.map((o) => {
-        const active = o === value || o?.key === value;
-        const key = o?.key ?? o;
-        return (
-          <button
-            key={key}
-            type="button"
-            role="tab"
-            aria-selected={active}
-            className={`${s.segBtn} ${active ? s.segBtnOn : ""}`}
-            onClick={() => onChange(key)}
-          >
-            {active ? (
-              <motion.span
-                layoutId={`seg-${id}`}
-                className={s.segPill}
-                transition={{ duration: 0.4, ease: EASE }}
-              />
-            ) : null}
-            <span className={s.segLabel}>{renderLabel ? renderLabel(o) : (o?.label ?? o)}</span>
-          </button>
-        );
-      })}
+    <div className={b.chapter}>
+      {id ? <span id={id} className={b.anchor} /> : null}
+      <Reveal className={b.chapterTag}>
+        <i>{n}</i> {name}
+      </Reveal>
+      <Reveal as="h2" i={1} className={b.chapterTitle}>
+        {title}
+      </Reveal>
+      {sub
+        ? <Reveal as="p" i={2} className={b.chapterSub}>
+            {sub}
+          </Reveal>
+        : null}
     </div>
   );
 }
