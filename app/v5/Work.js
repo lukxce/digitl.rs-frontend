@@ -1,16 +1,88 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 import b from "./base.module.css";
 import { ArrowUpRight } from "./icons";
 import { Counter, EASE, Head, useApp, useVisible } from "./ui";
 import w from "./work.module.css";
 
-const DWELL = 4800;
+/** One case: the cover shown whole, the lesson as a headline, the numbers in a row. */
+function Case({ c, i, closest }) {
+  const ref = useRef(null);
+  const run = useVisible(ref, 0.35);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
+  const lesson = c.takeaways?.[0]?.title;
+  const [m1, m2] = c.metrics;
 
-/** Project list on the left, a large live preview on the right. The preview
-    cycles on its own until the visitor points at a project. */
+  return (
+    <motion.a
+      ref={ref}
+      layout
+      href={c.href}
+      className={w.case}
+      style={{ order: i }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{
+        duration: 0.9,
+        ease: EASE,
+        layout: { duration: 0.7, ease: EASE },
+      }}
+    >
+      <motion.span
+        className={w.cover}
+        initial={{ clipPath: "inset(18% 6% 18% 6% round 28px)" }}
+        whileInView={{ clipPath: "inset(0% 0% 0% 0% round 28px)" }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 1.1, ease: EASE }}
+      >
+        <motion.img
+          src={c.cover}
+          alt={`Sajt za ${c.name}`}
+          loading="lazy"
+          style={{ y, scale: 1.12 }}
+        />
+        <span className={w.tag}>{c.category}</span>
+        {closest ? <span className={w.closest}>Najsličnije vama</span> : null}
+      </motion.span>
+
+      <span className={w.meta}>
+        <span className={w.who}>
+          {c.logo
+            ? <span className={w.logo}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={c.logo} alt="" />
+              </span>
+            : null}
+          <b>{c.name}</b>
+        </span>
+        <span className={w.go}>
+          <ArrowUpRight size={18} />
+        </span>
+      </span>
+
+      {lesson ? <span className={w.lesson}>{lesson}</span> : null}
+
+      <span className={w.numbers}>
+        {[m1, m2].filter(Boolean).map((m, k) => (
+          <span key={m.label} className={k ? w.num2 : w.num1}>
+            <b>
+              <Counter metric={m} run={run} ms={1500} />
+            </b>
+            <em>{m.label}</em>
+          </span>
+        ))}
+      </span>
+    </motion.a>
+  );
+}
+
 export default function Work({ clients }) {
   const { plan } = useApp();
   const list = (
@@ -20,23 +92,6 @@ export default function Work({ clients }) {
         )
       : clients
   ).slice(0, 4);
-  const ref = useRef(null);
-  const visible = useVisible(ref, 0.35);
-  const [active, setActive] = useState(0);
-  const [held, setHeld] = useState(false);
-
-  useEffect(() => {
-    if (plan?.match) setActive(0);
-  }, [plan?.match]);
-
-  useEffect(() => {
-    if (!visible || held || list.length < 2) return;
-    const t = setTimeout(() => setActive((v) => (v + 1) % list.length), DWELL);
-    return () => clearTimeout(t);
-  }, [visible, held, active, list.length]);
-
-  const cur = list[active] ?? list[0];
-  if (!cur) return null;
 
   return (
     <section className={`${b.section} ${w.section}`} data-section="Rezultati">
@@ -49,115 +104,25 @@ export default function Work({ clients }) {
             intro="Svaki broj je iz objavljene studije slučaja. Sajtove možete da otvorite i izmerite sami."
           />
           <a className={w.all} href="/projects">
-            Svi projekti <ArrowUpRight size={15} />
+            Sve studije slučaja <ArrowUpRight size={15} />
           </a>
         </div>
-
-        <div
-          ref={ref}
-          className={w.layout}
-          onPointerLeave={() => setHeld(false)}
-        >
-          <ol className={w.list}>
-            {list.map((c, i) => {
-              const on = i === active;
-              const m = c.metrics[0];
-              return (
-                <li key={c.slug}>
-                  <button
-                    type="button"
-                    className={w.row}
-                    data-on={on ? "true" : undefined}
-                    onPointerEnter={(e) => {
-                      if (e.pointerType !== "mouse") return;
-                      setHeld(true);
-                      setActive(i);
-                    }}
-                    onClick={() => {
-                      setHeld(true);
-                      setActive(i);
-                    }}
-                    aria-pressed={on}
-                  >
-                    <span className={w.idx}>0{i + 1}</span>
-                    <span className={w.name}>
-                      <b>{c.name}</b>
-                      <span>{c.category}</span>
-                    </span>
-                    {m
-                      ? <span className={w.metric}>
-                          <b>{m.value}</b>
-                          <span>{m.label}</span>
-                        </span>
-                      : null}
-                    {plan?.match === c.slug
-                      ? <span className={w.match}>Najsličnije vama</span>
-                      : null}
-                    {on && visible && !held
-                      ? <motion.i
-                          key={`bar-${active}`}
-                          className={w.bar}
-                          initial={{ scaleX: 0 }}
-                          animate={{ scaleX: 1 }}
-                          transition={{
-                            duration: DWELL / 1000,
-                            ease: "linear",
-                          }}
-                        />
-                      : null}
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-
-          <a
-            className={w.preview}
-            href={cur.href}
-            aria-label={`Studija slučaja: ${cur.name}`}
-          >
-            <AnimatePresence mode="popLayout" initial={false}>
-              <motion.span
-                key={cur.slug}
-                className={w.shot}
-                initial={{
-                  opacity: 0,
-                  scale: 1.06,
-                  clipPath: "inset(0 0 0 100%)",
-                }}
-                animate={{ opacity: 1, scale: 1, clipPath: "inset(0 0 0 0%)" }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8, ease: EASE }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={cur.cover} alt={`Sajt za ${cur.name}`} />
-              </motion.span>
-            </AnimatePresence>
-            <span className={w.overlay}>
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={cur.slug}
-                  className={w.stats}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.45, ease: EASE, delay: 0.15 }}
-                >
-                  {cur.metrics.slice(0, 3).map((m) => (
-                    <span key={m.label} className={w.stat}>
-                      <b>
-                        <Counter metric={m} run={visible} />
-                      </b>
-                      <span>{m.label}</span>
-                    </span>
-                  ))}
-                </motion.span>
-              </AnimatePresence>
-              <span className={w.open}>
-                Studija slučaja <ArrowUpRight size={15} />
-              </span>
-            </span>
-          </a>
+        {/* Two columns, the second set lower; on phones they collapse into one list in order. */}
+        <div className={w.grid}>
+          {[0, 1].map((col) => (
+            <div key={col} className={`${w.col} ${col ? w.colLow : ""}`}>
+              {list.map((c, i) =>
+                i % 2 === col
+                  ? <Case
+                      key={c.slug}
+                      c={c}
+                      i={i}
+                      closest={plan?.match === c.slug}
+                    />
+                  : null,
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </section>

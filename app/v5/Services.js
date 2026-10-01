@@ -9,18 +9,35 @@ import s from "./services.module.css";
 import { EASE, Head, useApp } from "./ui";
 
 /* ── one small looping scene per service, drawn in CSS ─────────────────── */
+/* ads: clicks from Google and Meta travel into an enquiry inbox */
+const INBOX = ["Upit sa Google-a", "Poruka sa Instagrama", "Upit sa Google-a"];
 function ArtAds() {
   return (
     <span className={s.artAds}>
-      <span className={s.adCard}>
-        <em>Sponzorisano</em>
-        <i />
-        <i />
-        <span className={s.adBtn}>Kupite</span>
+      <span className={s.src} data-src="g">
+        <i>G</i> Pretraga
       </span>
-      <span className={s.cursor} />
-      <span className={s.adToast}>
-        <Check size={11} strokeWidth={3} /> +1 upit
+      <span className={s.src} data-src="m">
+        <i>M</i> Meta
+      </span>
+      <svg className={s.paths} viewBox="0 0 220 150" aria-hidden="true">
+        <path d="M70 34 C 110 34, 110 70, 142 70" />
+        <path d="M70 112 C 110 112, 110 82, 142 82" />
+      </svg>
+      <i className={`${s.dot} ${s.dotG}`} />
+      <i className={`${s.dot} ${s.dotM}`} />
+      <span className={s.inbox}>
+        <em>Novi upiti</em>
+        {INBOX.map((t, k) => (
+          <span
+            key={k}
+            className={s.inRow}
+            style={{ animationDelay: `${0.9 + k * 1.1}s` }}
+          >
+            <i />
+            {t}
+          </span>
+        ))}
       </span>
     </span>
   );
@@ -49,20 +66,49 @@ function ArtSeo() {
   );
 }
 
+/* web: a site assembles itself, then scores 100 across the board */
 function ArtWeb() {
   return (
     <span className={s.artWeb}>
-      <span className={s.phone}>
-        <span className={s.load} />
-        <span className={s.ln} style={{ width: "55%" }} />
-        <span className={s.block} />
-        <span className={s.ln} style={{ width: "85%" }} />
-        <span className={s.ln} style={{ width: "70%" }} />
-        <span className={s.webBtn} />
+      <span className={s.browser}>
+        <span className={s.chrome}>
+          <span className={s.lights}>
+            <i />
+            <i />
+            <i />
+          </span>
+          <span className={s.url}>
+            vasafirma.rs
+            <i className={s.urlLoad} />
+          </span>
+        </span>
+        <span className={s.page}>
+          <span className={s.pNav}>
+            <i />
+            <i />
+            <i />
+          </span>
+          <span className={s.pHero}>
+            <span className={s.pText}>
+              <i />
+              <i />
+              <b>Naručite</b>
+            </span>
+            <span className={s.pImg} />
+          </span>
+          <span className={s.pCards}>
+            <i />
+            <i />
+            <i />
+          </span>
+        </span>
       </span>
-      <span className={s.gauge}>
-        <b>100</b>
-        <em>brzina</em>
+      <span className={s.scores}>
+        {[0, 1, 2, 3].map((k) => (
+          <span key={k} style={{ animationDelay: `${k * 0.08}s` }}>
+            100
+          </span>
+        ))}
       </span>
     </span>
   );
