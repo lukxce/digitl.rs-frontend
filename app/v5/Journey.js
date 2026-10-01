@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import logo from "../assets/digitl-logo.png";
 import b from "./base.module.css";
 import { SERVICES } from "./content";
-import { ArrowLeft, ArrowRight, Check } from "./icons";
+import { Check } from "./icons";
 import j from "./journey.module.css";
 import { EASE, Roll, useApp, useVisible } from "./ui";
 
@@ -325,116 +325,62 @@ export default function Journey() {
 
   return (
     <section className={`${b.section} ${j.section}`} data-section="Kako radimo">
-      <div ref={ref} className={`${b.container} ${j.wrap}`}>
+      <div ref={ref} className={b.container}>
         <span id="proces" className={b.anchor} />
-        <div className={j.left}>
-          <div className={j.intro4}>
-            <span className={j.four} aria-hidden="true">
-              <Roll value={visible ? 4 : 0} ms={1400} />
-            </span>
-            <div className={j.introText}>
-              <span className={b.label}>Kako radimo</span>
-              <p>
-                <b>Jedan povezan proces</b> koji drži strategiju, egzekuciju i
-                rezultate u istom pravcu, <b>od početka do kraja.</b>
-              </p>
-            </div>
-          </div>
-
-          <ol className={j.steps} role="tablist" aria-label="Koraci">
-            {STEPS.map((s, i) => {
-              const on = i === step;
-              return (
-                <li key={s.name}>
-                  <button
-                    type="button"
-                    role="tab"
-                    aria-selected={on}
-                    className={j.step}
-                    data-on={on ? "true" : undefined}
-                    onClick={() => {
-                      setHeld(true);
-                      setStep(i);
-                    }}
-                  >
-                    <span className={j.stepNo}>{i + 1}</span>
-                    <span className={j.stepMain}>
-                      <b>{s.name}</b>
-                      <AnimatePresence initial={false}>
-                        {on
-                          ? <motion.span
-                              key="d"
-                              className={j.stepMore}
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.45, ease: EASE }}
-                            >
-                              <span className={j.stepBody}>{s.body}</span>
-                              <span className={j.chips}>
-                                {s.get.map((g) => (
-                                  <i key={g}>
-                                    <Check size={11} strokeWidth={3} /> {g}
-                                  </i>
-                                ))}
-                              </span>
-                            </motion.span>
-                          : null}
-                      </AnimatePresence>
-                    </span>
-                    {on
-                      ? null
-                      : <span className={j.stepGo} aria-hidden="true">
-                          <ArrowRight size={15} />
-                        </span>}
-                    {on
-                      ? <span className={j.progress}>
-                          <motion.i
-                            key={`${step}-${running}`}
-                            initial={{ scaleX: running ? 0 : 1 }}
-                            animate={{ scaleX: 1 }}
-                            transition={{
-                              duration: running ? DWELL / 1000 : 0.3,
-                              ease: running ? "linear" : EASE,
-                            }}
-                          />
-                        </span>
-                      : null}
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-
-          <div className={j.controls}>
-            <button
-              type="button"
-              className={j.ctrl}
-              aria-label="Prethodni korak"
-              onClick={() => {
-                setHeld(true);
-                setStep((v) => (v + STEPS.length - 1) % STEPS.length);
-              }}
-            >
-              <ArrowLeft size={16} />
-            </button>
-            <button
-              type="button"
-              className={j.next}
-              onClick={() => {
-                setHeld(true);
-                setStep((v) => (v + 1) % STEPS.length);
-              }}
-            >
-              Sledeći korak: {STEPS[(step + 1) % STEPS.length].name}
-              <span>
-                <ArrowRight size={15} />
-              </span>
-            </button>
+        <div className={j.intro4}>
+          <span className={j.four} aria-hidden="true">
+            <Roll value={visible ? 4 : 0} ms={1400} />
+          </span>
+          <div className={j.introText}>
+            <span className={b.label}>Kako radimo</span>
+            <p>
+              <b>Jedan povezan proces</b> koji drži strategiju, egzekuciju i
+              rezultate u istom pravcu, <b>od početka do kraja.</b>
+            </p>
           </div>
         </div>
 
-        <div className={j.window}>
+        <div className={j.tabs4} role="tablist" aria-label="Koraci">
+          {STEPS.map((s, i) => {
+            const on = i === step;
+            return (
+              <button
+                key={s.name}
+                type="button"
+                role="tab"
+                aria-selected={on}
+                className={j.tab}
+                data-on={on ? "true" : undefined}
+                onClick={() => {
+                  setHeld(true);
+                  setStep(i);
+                }}
+              >
+                {on
+                  ? <motion.span
+                      layoutId="journey-tab"
+                      className={j.tabPill}
+                      transition={{ duration: 0.45, ease: EASE }}
+                    />
+                  : null}
+                <span className={j.tabNo}>{i + 1}</span>
+                <span className={j.tabName}>{s.name}</span>
+                {on && running
+                  ? <span className={j.tabBar}>
+                      <motion.i
+                        key={`bar-${step}`}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: DWELL / 1000, ease: "linear" }}
+                      />
+                    </span>
+                  : null}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className={j.app}>
           <div className={j.winHead}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={logo.src} alt="" />
@@ -447,34 +393,45 @@ export default function Journey() {
               ))}
             </span>
           </div>
-          <div className={j.tabs}>
-            {STEPS.map((s, i) => (
-              <button
-                key={s.tab}
-                type="button"
-                data-on={i === step ? "true" : undefined}
-                onClick={() => {
-                  setHeld(true);
-                  setStep(i);
-                }}
-              >
-                {s.tab}
-              </button>
-            ))}
-          </div>
-          <div className={j.stage}>
+          <div className={j.appBody}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={step}
-                className={j.stageInner}
-                initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-                transition={{ duration: 0.45, ease: EASE }}
+                className={j.side}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 8 }}
+                transition={{ duration: 0.4, ease: EASE }}
               >
-                <Screen />
+                <span className={j.sideNo}>
+                  Korak {step + 1} od {STEPS.length}
+                </span>
+                <h3>{cur.name}</h3>
+                <p>{cur.body}</p>
+                <span className={j.miniLabel}>Šta dobijate</span>
+                <ul className={j.sideGet}>
+                  {cur.get.map((g) => (
+                    <li key={g}>
+                      <Check size={13} strokeWidth={3} /> {g}
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             </AnimatePresence>
+            <div className={j.stage}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={step}
+                  className={j.stageInner}
+                  initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+                  transition={{ duration: 0.45, ease: EASE }}
+                >
+                  <Screen />
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>

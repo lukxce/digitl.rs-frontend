@@ -98,6 +98,13 @@ function Elektro({ c, closest }) {
         ))}
       </span>
       {lesson ? <span className={w.lesson}>„{lesson}“</span> : null}
+      <span className={w.didLight}>
+        {["Sajt od nule", "Lokalni SEO", "Pretrage sa kupovnom namerom"].map(
+          (d) => (
+            <i key={d}>{d}</i>
+          ),
+        )}
+      </span>
     </a>
   );
 }
@@ -148,49 +155,96 @@ function Moler({ c, closest }) {
   );
 }
 
-/* ThermiQ: every dot is ten indexed pages */
+/* ThermiQ: from invisible in search to a steady stream of visits.
+   Numbers from the case study: 1.57K clicks from Google, 29.8K impressions,
+   3.157 indexed pages, average position 9.6, in three months. The case study
+   describes indexing rising in steps and traffic following a few weeks behind;
+   the little chart draws exactly that, as an illustration. */
+const STEPS_PATH =
+  "M0,92 L40,92 L40,74 L95,74 L95,52 L150,52 L150,30 L210,30 L210,12 L260,12";
+const VISITS_PATH =
+  "M0,96 C40,96 70,92 100,86 C140,76 170,62 200,44 C225,30 245,20 260,16";
+const DID = [
+  "Novi identitet",
+  "Sajt za hiljade proizvoda",
+  "SEO na nivou šablona",
+  "Kalkulator toplotne pumpe",
+];
+
 function Thermiq({ c, closest }) {
   const ref = useRef(null);
   const run = useVisible(ref, 0.3);
-  const indexed = c.metrics.find((m) => /indeks/i.test(m.label));
-  const total = indexed?.num ? Math.round(indexed.num / 10) : 316;
-  const cols = 32;
+  const visits = { num: 1570, decimals: 0, thousands: true, suffix: "" };
+  const small = [
+    ["29.8K", "pojavljivanja u pretrazi"],
+    ["3.157", "stranica u Google-u"],
+    ["9.6", "prosečna pozicija"],
+  ];
   return (
     <a
       ref={ref}
       href={c.href}
       className={`${w.card} ${w.dark} ${closest ? w.isClosest : ""}`}
     >
-      <span className={w.darkCopy}>
-        <CardTop c={c} dark closest={closest} />
-        <span className={w.nameBig}>{c.name}</span>
-        <span className={w.subDark}>
-          Distributer grejanja i klimatizacije iz Beograda. Isti Bosch, Vaillant
-          i MDV kao kod svih, drugačija odluka.
+      <CardTop c={c} dark closest={closest} />
+      <Shot c={c} />
+      <span className={w.nameBig}>{c.name}</span>
+      <span className={w.subDark}>
+        Od praktično nevidljivog u pretrazi do stalnog toka poseta, za tri
+        meseca.
+      </span>
+
+      <span className={w.hero}>
+        <span className={w.heroNum}>
+          <b>
+            <Counter metric={visits} run={run} ms={1800} />
+          </b>
+          <em>poseta iz Google pretrage za tri meseca</em>
         </span>
-        <Stats metrics={c.metrics} run={run} dark />
-        <span className={w.field}>
-          <span
-            className={w.dots}
-            style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
-          >
-            {Array.from({ length: total }, (_, i) => (
-              <i
-                key={i}
-                data-on={run ? "true" : undefined}
-                style={{
-                  transitionDelay: `${(Math.floor(i / cols) + (i % cols)) * 22}ms`,
-                }}
-              />
-            ))}
-          </span>
-          <span className={w.fieldNote}>
-            Svaka tačka je deset stranica u Google-u.
-          </span>
+        <svg
+          className={w.spark}
+          viewBox="0 0 260 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <motion.path
+            d={STEPS_PATH}
+            className={w.sparkSteps}
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: run ? 1 : 0 }}
+            transition={{ duration: 1.4, ease: EASE }}
+          />
+          <motion.path
+            d={VISITS_PATH}
+            className={w.sparkVisits}
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: run ? 1 : 0 }}
+            transition={{ duration: 1.6, ease: EASE, delay: 0.35 }}
+          />
+        </svg>
+      </span>
+      <span className={w.sparkLegend}>
+        <span>
+          <i data-k="steps" /> stranice u Google-u
+        </span>
+        <span>
+          <i data-k="visits" /> posete, nekoliko nedelja kasnije
         </span>
       </span>
-      <span className={w.thermiqShot}>
-        <Shot c={c} />
+
+      <span className={w.smallStats}>
+        {small.map(([v, k]) => (
+          <span key={k}>
+            <b>{v}</b>
+            <em>{k}</em>
+          </span>
+        ))}
+      </span>
+
+      <span className={w.did}>
+        {DID.map((d) => (
+          <i key={d}>{d}</i>
+        ))}
       </span>
     </a>
   );

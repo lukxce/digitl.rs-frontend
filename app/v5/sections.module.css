@@ -1,39 +1,40 @@
-/* site check band */
+/* site check */
 .check {
   position: relative;
   padding: clamp(8px, 2vw, 24px) 0 clamp(56px, 7vw, 96px);
   background: var(--mist);
 }
-.bandText {
+.checkHead {
   display: grid;
-  gap: 6px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px 32px;
+  align-items: end;
+  margin-bottom: 16px;
 }
-.bandLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: rgb(255 255 255 / 0.8);
+@media (min-width: 900px) {
+  .checkHead {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .checkHead .label,
+  .checkHead span {
+    grid-column: 1 / -1;
+  }
+  .checkHead p {
+    justify-self: end;
+    text-align: right;
+  }
 }
-.bandLabel i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--secondary);
-  box-shadow: 0 0 0 4px rgb(158 243 74 / 0.25);
-}
-.bandText h2 {
+.checkHead h2 {
   font-size: clamp(26px, 2.6vw, 36px);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.05;
 }
-.bandText p {
+.checkHead p {
   font-size: 15px;
   line-height: 1.45;
-  color: rgb(255 255 255 / 0.8);
-  max-width: 30em;
+  color: var(--ink-3);
+  max-width: 34em;
 }
 
 /* steps */

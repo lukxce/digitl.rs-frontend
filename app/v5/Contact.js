@@ -6,7 +6,22 @@ import b from "./base.module.css";
 import c from "./contact.module.css";
 import { CONTACT, SERVICES } from "./content";
 import { ArrowRight, Check, Mail, Phone } from "./icons";
+import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
 import { EASE, useApp } from "./ui";
+
+const SOCIALS = [
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/digitl.rs",
+    Icon: IconInstagram,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/digitl-rs",
+    Icon: IconLinkedin,
+  },
+  { label: "X", href: "https://x.com/digitl_rs", Icon: IconX },
+];
 
 const TOPICS = [...SERVICES.map((s) => s.name), "Ceo marketing"];
 
@@ -101,6 +116,20 @@ export default function Contact() {
                 </span>
                 <Phone size={18} />
               </a>
+            </div>
+            <div className={c.socials}>
+              <span>Pratite nas</span>
+              {SOCIALS.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                >
+                  <Icon />
+                </a>
+              ))}
             </div>
             {plan
               ? <p className={c.planNote}>

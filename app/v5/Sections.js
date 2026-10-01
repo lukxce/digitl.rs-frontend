@@ -9,26 +9,20 @@ import { Plus } from "./icons";
 import x from "./sections.module.css";
 import { EASE, Head } from "./ui";
 
-/* ── Provera sajta: a slim call to action, the full report opens below ─── */
+/* ── Provera sajta: the full console, right under the four steps ──────── */
 export function Check() {
   return (
     <section className={x.check} data-section="Provera sajta">
       <div className={b.container}>
-        <Audit
-          compact
-          intro={
-            <div className={x.bandText}>
-              <span className={x.bandLabel}>
-                <i /> Besplatno · rezultat za 20 sekundi
-              </span>
-              <h2>Krenite od svog sajta.</h2>
-              <p>
-                Isti test kojim vas Google ocenjuje na telefonu, i šta bismo
-                prvo popravili.
-              </p>
-            </div>
-          }
-        />
+        <div className={x.checkHead}>
+          <span className={b.label}>Besplatna provera</span>
+          <h2>Krenite od svog sajta.</h2>
+          <p>
+            Isti test kojim Google ocenjuje sajtove na telefonu. Za dvadesetak
+            sekundi vidite ocenu i šta bismo prvo popravili.
+          </p>
+        </div>
+        <Audit />
       </div>
     </section>
   );
