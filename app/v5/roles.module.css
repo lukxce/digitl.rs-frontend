@@ -1,0 +1,340 @@
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: clamp(36px, 4.5vw, 56px);
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1.5px var(--line);
+}
+@media (min-width: 1000px) {
+  .board {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+}
+
+.we,
+.you {
+  position: relative;
+  padding: clamp(22px, 3.4vw, 44px);
+  min-width: 0;
+}
+.we {
+  overflow: hidden;
+  background: var(--panel-gradient);
+  color: #fff;
+}
+.you {
+  background: #fff;
+}
+.spark {
+  right: -60px;
+  top: -60px;
+}
+.colHead {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+}
+.colHead h3 {
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.colHead span {
+  font-size: 13px;
+  color: var(--ink-4);
+}
+.we .colHead span {
+  color: var(--accent-pale);
+}
+
+.weList,
+.youList {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+}
+.weList li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 20px;
+  padding: 12px 16px 12px 12px;
+  background: rgb(255 255 255 / 0.08);
+  transition: background 0.5s var(--ease);
+}
+.weList li.busy {
+  background: rgb(255 255 255 / 0.16);
+}
+.weIcon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 12px;
+  background: rgb(255 255 255 / 0.1);
+}
+.weText {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+.weText b {
+  font-size: 16px;
+  font-weight: 600;
+}
+.weText span {
+  font-size: 12.5px;
+  color: var(--accent-pale);
+}
+.weState {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.weState em,
+.youState em {
+  font-style: normal;
+}
+.weDone {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--success-pale);
+}
+@media (max-width: 560px) {
+  .weState em,
+  .youState em {
+    display: none;
+  }
+}
+
+.youList button {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  border-radius: 20px;
+  padding: 10px 14px 10px 10px;
+  text-align: left;
+  background: var(--mist);
+  transition: background 0.4s var(--ease);
+}
+.youList button:hover {
+  background: var(--grey);
+}
+.youList button.signed {
+  background: var(--secondary-soft);
+}
+.youText {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+.youText b {
+  font-size: 16px;
+  font-weight: 600;
+}
+.youText span {
+  font-size: 12.5px;
+  color: var(--ink-4);
+}
+.youState {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+.signed .youState {
+  color: var(--secondary-ink);
+}
+.box {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  color: transparent;
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.signed .box {
+  background: var(--ink);
+  color: var(--secondary);
+  box-shadow: none;
+}
+
+.thumb {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  flex: none;
+  border-radius: 16px;
+  padding: 10px;
+}
+.thumbChips {
+  background: var(--accent-soft);
+  align-content: center;
+  gap: 4px;
+}
+.thumbChips i {
+  height: 7px;
+  border-radius: 4px;
+  background: var(--accent);
+}
+.thumbChips i:nth-child(2) {
+  width: 70%;
+  opacity: 0.5;
+}
+.thumbChips i:nth-child(3) {
+  width: 85%;
+  opacity: 0.5;
+}
+.thumbSite {
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line);
+  align-content: start;
+  gap: 4px;
+  padding-top: 12px;
+}
+.thumbSite i {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--ink-5);
+}
+.thumbSite i:first-child {
+  width: 50%;
+  background: var(--ink);
+}
+.thumbSite i:last-child {
+  width: 60%;
+  height: 10px;
+  border-radius: 99px;
+  background: var(--accent);
+  margin-top: 3px;
+}
+.thumbBudget {
+  background: var(--secondary-soft);
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+}
+.thumbBudget span {
+  display: flex;
+  width: 100%;
+  height: 8px;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.thumbBudget span i:nth-child(1) {
+  flex: 3;
+  background: var(--secondary-ink);
+}
+.thumbBudget span i:nth-child(2) {
+  flex: 2;
+  background: color-mix(in oklab, var(--secondary-ink) 50%, white);
+}
+.thumbBudget span i:nth-child(3) {
+  flex: 1.4;
+  background: color-mix(in oklab, var(--secondary-ink) 25%, white);
+}
+.thumbBudget b {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--secondary-ink);
+}
+.thumbNext {
+  position: relative;
+  background: var(--spark-soft);
+  align-content: center;
+  gap: 5px;
+}
+.thumbNext i {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--spark);
+}
+.thumbNext i:nth-child(2) {
+  width: 65%;
+  opacity: 0.6;
+}
+.thumbNext svg {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  color: var(--spark-ink);
+}
+
+.note {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 14px;
+  border-radius: 24px;
+  padding: 18px 22px;
+  background: linear-gradient(
+    90deg,
+    var(--secondary-soft),
+    color-mix(in oklab, var(--spark) 7%, white)
+  );
+}
+.note p {
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--ink-3);
+  max-width: 52em;
+}
+.note b {
+  color: var(--ink);
+  font-weight: 700;
+}
+.noteIcon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.tally {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+.tallyBar {
+  display: flex;
+  flex: 1;
+  gap: 4px;
+}
+.tallyBar i {
+  flex: 1;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--grey);
+  transition: background 0.4s var(--ease);
+}
+.tallyBar i[data-on] {
+  background: var(--secondary-ink);
+}

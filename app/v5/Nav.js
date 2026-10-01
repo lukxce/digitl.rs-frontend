@@ -8,11 +8,12 @@ import { Btn, EASE, useApp } from "./ui";
 
 // The page is one story; the bar shows where in it you are.
 export const CHAPTERS = [
-  { id: "problem", n: "1", label: "Problem" },
+  { id: "usluge", n: "1", label: "Usluge" },
   { id: "sistem", n: "2", label: "Sistem" },
-  { id: "dokazi", n: "3", label: "Dokazi" },
-  { id: "dijagnoza", n: "4", label: "Vaš sajt" },
-  { id: "pocetak", n: "5", label: "Početak" },
+  { id: "rezultati", n: "3", label: "Rezultati" },
+  { id: "pozicija", n: "4", label: "Zašto" },
+  { id: "proces", n: "5", label: "Proces" },
+  { id: "razgovor", n: "6", label: "Razgovor" },
 ];
 
 export default function Nav() {
@@ -104,7 +105,9 @@ export default function Nav() {
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
-            {current >= 0 ? `${CHAPTERS[current].n}/5` : "Meni"}
+            {current >= 0
+              ? `${CHAPTERS[current].n}/${CHAPTERS.length}`
+              : "Meni"}
           </button>
         </div>
       </div>

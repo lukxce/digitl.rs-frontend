@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import b from "./base.module.css";
 import { Check, X } from "./icons";
 import s from "./story.module.css";
-import { Btn, Chapter, EASE, useApp, useVisible } from "./ui";
+import { Btn, EASE, SectionHead, useApp, useVisible } from "./ui";
 
 /* Five people each run a piece of the marketing and each report looks good;
    nobody owns revenue. Flip the switch and the same five pieces become one
@@ -125,16 +125,11 @@ export default function Story() {
   return (
     <section className={s.section} data-theme="light">
       <div className={b.container}>
-        <Chapter
-          n="1"
-          name="Problem"
-          id="problem"
-          title={
-            <>
-              Pet ljudi radi vaš marketing. <em>Niko ne odgovara za prihod.</em>
-            </>
-          }
-          sub="Svako šalje svoj izveštaj i svaki izgleda dobro. Ali niko ne kaže koliko je novih kupaca stiglo, i šta je to koštalo."
+        <SectionHead
+          id="sistem"
+          kicker="Sistem"
+          title="Pet problema obično znači pet dobavljača."
+          intro="Svako šalje svoj izveštaj i svaki izgleda dobro, ali niko ne odgovara za prihod. Mi istih pet stvari vodimo kao jedan krug."
         />
 
         <div className={s.switchRow}>
@@ -164,8 +159,6 @@ export default function Story() {
           className={`${s.stage} ${joined ? s.joined : ""}`}
           style={{ aspectRatio: `${L.W} / ${L.H}` }}
         >
-          <span id="sistem" className={s.anchor} />
-
           <svg
             className={s.svg}
             viewBox={`0 0 ${L.W} ${L.H}`}

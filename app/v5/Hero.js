@@ -1,38 +1,15 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useRef } from "react";
 import elektromil from "../assets/clients/elektromil.webp";
 import primaDental from "../assets/clients/prima-dental.webp";
 import startupsRs from "../assets/clients/startups-rs.webp";
 import thermiq from "../assets/clients/thermiq.webp";
+import Audit from "./Audit";
 import b from "./base.module.css";
 import GrowthField from "./GrowthField";
 import h from "./hero.module.css";
 import { Btn, EASE, useApp } from "./ui";
-
-// Milestones from published case studies, pinned along the growth line.
-const MILESTONES = [
-  {
-    at: 0.12,
-    t: "Start: nevidljiv u pretrazi",
-    s: "ThermiQ, pre",
-    hideSm: true,
-  },
-  { at: 0.45, t: "1. mesec: prvi upiti sa pretrage", s: "ElektroMil" },
-  {
-    at: 0.72,
-    t: "3. mesec: najveći izvor upita",
-    s: "ElektroMil",
-    hideSm: true,
-  },
-  {
-    at: 0.95,
-    t: "3.157 stranica u Google-u",
-    s: "ThermiQ, za tri meseca",
-    end: true,
-  },
-];
 
 function Line({ delay, children }) {
   return (
@@ -81,7 +58,6 @@ function Logos({ clients }) {
 
 export default function Hero({ clients }) {
   const { openAudit, book } = useApp();
-  const pins = useRef(null);
 
   return (
     <section id="top" className={h.hero} data-theme="light">
@@ -119,30 +95,11 @@ export default function Hero({ clients }) {
       </div>
 
       <div className={h.land}>
-        <GrowthField
-          className={h.field}
-          theme="light"
-          horizon={0.6}
-          anchorRoot={pins}
-        />
-        <div ref={pins} className={h.pins} aria-hidden="true">
-          {MILESTONES.map((m, i) => (
-            <div
-              key={m.t}
-              data-at={m.at}
-              className={`${h.pin} ${m.hideSm ? h.pinSm : ""} ${m.end ? h.pinEnd : ""}`}
-              style={{ "--d": `${i * 160}ms` }}
-            >
-              <span className={h.chip}>
-                <b>{m.t}</b>
-                <span>{m.s}</span>
-              </span>
-              <i className={h.stem} />
-              <i className={h.dot} />
-            </div>
-          ))}
-        </div>
-        <p className={h.landNote}>Prekretnice iz naših studija slučaja</p>
+        <GrowthField className={h.field} theme="light" horizon={0.6} />
+      </div>
+
+      <div className={`${b.container} ${h.consoleWrap}`}>
+        <Audit />
       </div>
 
       <div className={b.container}>

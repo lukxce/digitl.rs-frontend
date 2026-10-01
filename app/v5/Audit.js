@@ -420,7 +420,7 @@ export default function Audit() {
   const open = state === "running" || state === "done";
 
   return (
-    <div id="provera" className={a.console} data-chapter>
+    <div id="dijagnoza" className={a.console} data-chapter>
       <div className={a.top}>
         <span className={a.live}>
           <span className={b.liveDot} />

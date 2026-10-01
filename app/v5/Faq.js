@@ -5,7 +5,7 @@ import { useState } from "react";
 import b from "./base.module.css";
 import f from "./faq.module.css";
 import { Plus } from "./icons";
-import { EASE } from "./ui";
+import { Btn, EASE, Kicker, Reveal } from "./ui";
 
 const FAQ = [
   {
@@ -34,21 +34,34 @@ const FAQ = [
   },
   {
     q: "Mogu li da vidim sajtove koje ste napravili?",
-    a: "Da. Svi projekti su na stranici Projekti, sa brojevima. Brzinu svakog sajta možete sami da izmerite u 4. poglavlju ove stranice.",
+    a: "Da. Svi projekti su na stranici Projekti, sa brojevima. Brzinu svakog sajta možete sami da izmerite u alatu na vrhu ove stranice.",
   },
 ];
 
 export default function Faq() {
   const [open, setOpen] = useState(0);
   return (
-    <section className={f.section} data-theme="light">
+    <section className={b.section} data-theme="light">
+      <span id="pitanja" className={b.anchor} />
       <div className={`${b.container} ${f.grid}`}>
         <div className={f.side}>
-          <h2 className={f.title}>Pitanja pre prvog razgovora</h2>
-          <p className={f.sideText}>
-            Kratki, iskreni odgovori. Za sve ostalo: hello@digitl.rs
-          </p>
+          <Reveal>
+            <Kicker>Pitanja</Kicker>
+          </Reveal>
+          <Reveal i={1} as="h2" className={b.h2}>
+            Pitanja koja čujemo pre prvog razgovora
+          </Reveal>
+          <Reveal i={2} as="p" className={f.sideText}>
+            Kratki, iskreni odgovori. Za sve ostalo postoji razgovor od 30
+            minuta, ili mejl.
+          </Reveal>
+          <Reveal i={3}>
+            <Btn href="mailto:hello@digitl.rs" variant="ghost" size="md">
+              hello@digitl.rs
+            </Btn>
+          </Reveal>
         </div>
+
         <ul className={f.list}>
           {FAQ.map((x, i) => {
             const on = open === i;

@@ -4,12 +4,13 @@ import { useLenis } from "lenis/react";
 import { motion } from "motion/react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import b from "./base.module.css";
-import { ArrowRight } from "./icons";
+import { ArrowRight, Sparkle } from "./icons";
 
 export const EASE = [0.16, 1, 0.3, 1];
 
-/* ── page state shared between chapters ───────────────────────────────── */
-// The site check travels: the contact form offers to attach it.
+/* ── page state shared between sections ───────────────────────────────── */
+// The audit result travels: the speed chart marks the visitor's own load time
+// and the booking form offers to attach the report.
 const App = createContext(null);
 
 export function AppProvider({ children }) {
@@ -18,10 +19,10 @@ export function AppProvider({ children }) {
   const [focusAudit, setFocusAudit] = useState(0);
   const [topic, setTopic] = useState(null);
 
-  const scrollTo = (selector, offset = -80) => {
+  const scrollTo = (selector, offset = -20) => {
     const el = document.querySelector(selector);
     if (!el) return;
-    if (lenis) lenis.scrollTo(el, { offset, duration: 1.3 });
+    if (lenis) lenis.scrollTo(el, { offset, duration: 1.2 });
     else
       window.scrollTo({
         top: el.getBoundingClientRect().top + window.scrollY + offset,
@@ -34,14 +35,16 @@ export function AppProvider({ children }) {
     setAudit,
     scrollTo,
     focusAudit,
+    // Scroll to the diagnosis console and put the cursor in the domain field.
     openAudit: () => {
-      scrollTo("#provera", -120);
+      scrollTo("#dijagnoza", -90);
       setFocusAudit((n) => n + 1);
     },
     topic,
+    // Jump to the booking form with a topic chip already picked.
     book: (t = null) => {
       if (t) setTopic(t);
-      scrollTo("#pocetak");
+      scrollTo("#razgovor", -20);
     },
   };
   return <App.Provider value={value}>{children}</App.Provider>;
@@ -50,6 +53,8 @@ export function AppProvider({ children }) {
 export const useApp = () => useContext(App);
 
 /* ── hooks ────────────────────────────────────────────────────────────── */
+
+/** True while the element is at least `amount` on screen — drives autoplay. */
 export function useVisible(ref, amount = 0.35) {
   const [v, setV] = useState(false);
   useEffect(() => {
@@ -91,7 +96,23 @@ export function useTween(target, ms = 1100, run = true) {
   return v;
 }
 
-/* ── numbers ──────────────────────────────────────────────────────────── */
+/** Steps 0…n on a timer while `active`, restarting from 0 each time it turns on. */
+export function useSteps(active, n, ms, start = 250) {
+  const [k, setK] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const ts = [setTimeout(() => setK(0), 0)];
+    for (let s = 1; s <= n; s++)
+      ts.push(setTimeout(() => setK(s), reduce ? 0 : start + ms * (s - 1)));
+    return () => ts.forEach(clearTimeout);
+  }, [active, n, ms, start]);
+  return k;
+}
+
+/* ── number formatting ────────────────────────────────────────────────── */
 const sr = (n, d = 0) =>
   n.toLocaleString("sr-RS", {
     minimumFractionDigits: d,
@@ -99,10 +120,11 @@ const sr = (n, d = 0) =>
   });
 export const fmt = sr;
 
-/** A case-study metric ("3.157", "29.8K", "1. mesec"), rolled up on view. */
+/** A metric from a case study, rolled up when it comes on screen. */
 export function Counter({ metric, run = true, ms = 1300 }) {
   const v = useTween(metric.num ?? 0, ms, run);
   if (metric.num == null) return <span className={b.tnum}>{metric.text}</span>;
+  // Keep the case study's own notation ("3.157", "29.8K", "9.6").
   const shown = metric.thousands
     ? sr(Math.round(v))
     : v.toFixed(metric.decimals);
@@ -114,6 +136,7 @@ export function Counter({ metric, run = true, ms = 1300 }) {
   );
 }
 
+/** A plain number that rolls, Serbian notation. */
 export function Roll({
   value,
   decimals = 0,
@@ -133,6 +156,21 @@ export function Roll({
 }
 
 /* ── primitives ───────────────────────────────────────────────────────── */
+export function Kicker({ children, tone = "light", dot = false }) {
+  const cls = {
+    light: "",
+    dark: b.kickerDark,
+    lime: b.kickerLime,
+    white: b.kickerWhite,
+  }[tone];
+  return (
+    <span className={`${b.kicker} ${cls}`}>
+      {dot ? <span className={b.liveDot} /> : <Sparkle size={12} />}
+      {children}
+    </span>
+  );
+}
+
 /** Pill button. variant: accent | ink | ghost | white | glass. size: sm | md | lg */
 export function Btn({
   href,
@@ -164,7 +202,7 @@ export function Reveal({
   children,
   className = "",
   as = "div",
-  y = 20,
+  y = 18,
   ...rest
 }) {
   const M = motion[as];
@@ -174,7 +212,7 @@ export function Reveal({
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ delay: i * 0.08, duration: 0.8, ease: EASE }}
+      transition={{ delay: i * 0.07, duration: 0.7, ease: EASE }}
       {...rest}
     >
       {children}
@@ -182,22 +220,71 @@ export function Reveal({
   );
 }
 
-/** Centred chapter head: number + name, the line that carries the story, one sentence under it. */
-export function Chapter({ n, name, title, sub, id }) {
+/** Kicker + big H2 on the left, intro paragraph bottom-right. */
+export function SectionHead({ kicker, title, intro, dark = false, tone, id }) {
   return (
-    <div className={b.chapter}>
+    <div className={b.head}>
       {id ? <span id={id} className={b.anchor} /> : null}
-      <Reveal className={b.chapterTag}>
-        <i>{n}</i> {name}
-      </Reveal>
-      <Reveal as="h2" i={1} className={b.chapterTitle}>
-        {title}
-      </Reveal>
-      {sub
-        ? <Reveal as="p" i={2} className={b.chapterSub}>
-            {sub}
+      <div className={b.headLeft}>
+        <Reveal>
+          <Kicker tone={tone ?? (dark ? "dark" : "light")}>{kicker}</Kicker>
+        </Reveal>
+        <Reveal
+          i={1}
+          as="h2"
+          className={b.h2}
+          style={dark ? { color: "#fff" } : undefined}
+        >
+          {title}
+        </Reveal>
+      </div>
+      {intro
+        ? <Reveal i={2} as="p" className={dark ? b.headIntroDark : b.headIntro}>
+            {intro}
           </Reveal>
         : null}
     </div>
   );
+}
+
+/** Segmented control with a pill that slides to the active option. */
+export function Segmented({
+  id,
+  options,
+  value,
+  onChange,
+  tone = "light",
+  label,
+}) {
+  const cls = { light: "", dark: b.segDark, lime: b.segLime }[tone];
+  return (
+    <div className={`${b.seg} ${cls}`} role="tablist" aria-label={label}>
+      {options.map((o) => {
+        const active = o.key === value;
+        return (
+          <button
+            key={o.key}
+            type="button"
+            role="tab"
+            aria-selected={active}
+            className={`${b.segBtn} ${active ? b.segBtnOn : ""}`}
+            onClick={() => onChange(o.key)}
+          >
+            {active
+              ? <motion.span
+                  layoutId={`seg-${id}`}
+                  className={b.segPill}
+                  transition={{ duration: 0.4, ease: EASE }}
+                />
+              : null}
+            <span className={b.segLabel}>{o.label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+export function Honest({ children, dark = false }) {
+  return <span className={dark ? b.honestDark : b.honest}>{children}</span>;
 }
