@@ -3,8 +3,10 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import logo from "../assets/digitl-logo.png";
+import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
+import { CONTACT } from "./content";
+import { ArrowRight, Mail, Phone } from "./icons";
 import n from "./nav.module.css";
-import { SERVICES } from "./content";
 import { Btn, EASE, useApp } from "./ui";
 
 export const LINKS = [
@@ -13,6 +15,20 @@ export const LINKS = [
   { href: "#rezultati", label: "Rezultati" },
   { href: "#blog", label: "Blog" },
   { href: "#kontakt", label: "Kontakt" },
+];
+
+const SOCIALS = [
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/digitl.rs",
+    Icon: IconInstagram,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/digitl-rs",
+    Icon: IconLinkedin,
+  },
+  { label: "X", href: "https://x.com/digitl_rs", Icon: IconX },
 ];
 
 function Logo() {
@@ -25,33 +41,82 @@ function Logo() {
   );
 }
 
-function Menu({ onClose }) {
+/** The menu panel: pages on the left, how to reach us on the right. */
+function Menu({ onClose, onBook }) {
   return (
-    <motion.nav
+    <motion.div
       className={n.sheet}
+      role="dialog"
       aria-label="Meni"
-      initial={{ opacity: 0, y: -8, scale: 0.98 }}
+      initial={{ opacity: 0, y: -10, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -8, scale: 0.98 }}
-      transition={{ duration: 0.3, ease: EASE }}
+      exit={{ opacity: 0, y: -10, scale: 0.97 }}
+      transition={{ duration: 0.35, ease: EASE }}
     >
-      {LINKS.map((l) => (
-        <a key={l.href} href={l.href} onClick={onClose}>
-          {l.label}
+      <nav className={n.sheetLinks} aria-label="Stranica">
+        {LINKS.map((l, i) => (
+          <motion.a
+            key={l.href}
+            href={l.href}
+            onClick={onClose}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.05 + i * 0.04, duration: 0.35, ease: EASE }}
+          >
+            {l.label}
+            <ArrowRight size={15} />
+          </motion.a>
+        ))}
+      </nav>
+      <div className={n.sheetSide}>
+        <span className={n.status}>
+          <i /> 2 slobodna mesta
+        </span>
+        <a className={n.contact} href={`mailto:${CONTACT.email}`}>
+          <span>
+            <Mail size={16} />
+          </span>
+          <b>{CONTACT.email}</b>
         </a>
-      ))}
-    </motion.nav>
+        <a className={n.contact} href={`tel:${CONTACT.tel}`}>
+          <span>
+            <Phone size={16} />
+          </span>
+          <b>{CONTACT.phone}</b>
+        </a>
+        <div className={n.socials}>
+          {SOCIALS.map(({ label, href, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+            >
+              <Icon />
+            </a>
+          ))}
+        </div>
+        <Btn
+          variant="accent"
+          size="sm"
+          onClick={() => {
+            onClose();
+            onBook();
+          }}
+        >
+          Zakažite razgovor
+        </Btn>
+        <span className={n.city}>Beograd / London</span>
+      </div>
+    </motion.div>
   );
 }
 
 /** A plain bar at the top that turns into a small pill and follows the page. */
 export default function Nav() {
-  const { book, plan } = useApp();
-  const planLine = plan
-    ? plan.top.map((id) => SERVICES.find((x) => x.id === id).name).join(" · ")
-    : null;
+  const { book } = useApp();
   const [floating, setFloating] = useState(false);
-  const [section, setSection] = useState("");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -59,12 +124,6 @@ export default function Nav() {
     const read = () => {
       raf = 0;
       setFloating(window.scrollY > window.innerHeight * 0.55);
-      let cur = "";
-      for (const el of document.querySelectorAll("[data-section]")) {
-        if (el.getBoundingClientRect().top <= window.innerHeight * 0.4)
-          cur = el.dataset.section;
-      }
-      setSection(cur);
     };
     const on = () => {
       if (!raf) raf = requestAnimationFrame(read);
@@ -91,6 +150,21 @@ export default function Nav() {
     };
   }, [open]);
 
+  const menuBtn = (cls) => (
+    <button
+      type="button"
+      className={cls}
+      aria-expanded={open}
+      onClick={() => setOpen((v) => !v)}
+    >
+      <span className={n.burger} data-open={open ? "true" : undefined}>
+        <i />
+        <i />
+      </span>
+      Meni
+    </button>
+  );
+
   return (
     <>
       <header className={n.bar}>
@@ -111,17 +185,12 @@ export default function Nav() {
           >
             Zakažite razgovor
           </Btn>
-          <button
-            type="button"
-            className={n.menuBtn}
-            aria-expanded={open && !floating}
-            onClick={() => setOpen((v) => !v)}
-          >
-            Meni
-          </button>
+          {menuBtn(n.menuBtn)}
         </div>
         <AnimatePresence>
-          {open && !floating ? <Menu onClose={() => setOpen(false)} /> : null}
+          {open && !floating
+            ? <Menu onClose={() => setOpen(false)} onBook={book} />
+            : null}
         </AnimatePresence>
       </header>
 
@@ -135,30 +204,22 @@ export default function Nav() {
               transition={{ duration: 0.45, ease: EASE }}
             >
               <Logo />
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={`${section}-${planLine ?? ""}`}
-                  className={n.section}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.25, ease: EASE }}
-                >
-                  {planLine
-                    ? <>
-                        <b className={n.planChip}>Vaš plan</b> {planLine}
-                      </>
-                    : section}
-                </motion.span>
-              </AnimatePresence>
-              <button
-                type="button"
-                className={n.pillMenu}
-                aria-expanded={open}
-                onClick={() => setOpen((v) => !v)}
-              >
-                Meni
-              </button>
+              <nav className={n.pillLinks} aria-label="Brze veze">
+                {LINKS.slice(0, 4).map((l) => (
+                  <a key={l.href} href={l.href}>
+                    {l.label}
+                  </a>
+                ))}
+              </nav>
+              <span className={n.pillIcons}>
+                <a href={`tel:${CONTACT.tel}`} aria-label="Pozovite">
+                  <Phone size={15} />
+                </a>
+                <a href={`mailto:${CONTACT.email}`} aria-label="Pišite nam">
+                  <Mail size={15} />
+                </a>
+              </span>
+              {menuBtn(n.pillMenu)}
               <Btn
                 variant="accent"
                 size="sm"
@@ -168,7 +229,9 @@ export default function Nav() {
                 Zakažite
               </Btn>
               <AnimatePresence>
-                {open ? <Menu onClose={() => setOpen(false)} /> : null}
+                {open
+                  ? <Menu onClose={() => setOpen(false)} onBook={book} />
+                  : null}
               </AnimatePresence>
             </motion.div>
           : null}

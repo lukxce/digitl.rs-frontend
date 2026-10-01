@@ -28,11 +28,11 @@ export default function HomeV5({ clients, articles, fonts }) {
           <Hero clients={clients} />
           <Services />
           <Journey />
+          <Check />
           <Work clients={clients} />
           <Voices />
           <Blog articles={articles} />
           <Loop />
-          <Check />
           <Contact />
           <Faq />
         </main>

@@ -336,7 +336,7 @@ function Results({ r, host, onAgain }) {
   );
 }
 
-export default function Audit() {
+export default function Audit({ compact = false, intro = null }) {
   const { setAudit, focusAudit, book } = useApp();
   const input = useRef(null);
   const ctrl = useRef(null);
@@ -420,65 +420,76 @@ export default function Audit() {
   const open = state === "running" || state === "done";
 
   return (
-    <div id="provera" className={a.console} data-chapter>
-      <div className={a.top}>
-        <span className={a.live}>
-          <span className={b.liveDot} />
-          Uživo, preko Google PageSpeed Insights
-        </span>
-        <span className={a.free}>Besplatno · bez prijave</span>
+    <div
+      id="provera"
+      className={`${a.console} ${compact ? a.compact : ""}`}
+      data-chapter
+    >
+      {compact
+        ? null
+        : <div className={a.top}>
+            <span className={a.live}>
+              <span className={b.liveDot} />
+              Uživo, preko Google PageSpeed Insights
+            </span>
+            <span className={a.free}>Besplatno · bez prijave</span>
+          </div>}
+
+      <div className={compact ? a.bandRow : undefined}>
+        {compact ? intro : null}
+        <form className={a.form} onSubmit={run}>
+          <Search
+            size={24}
+            className={`${a.spark} ${state === "running" ? b.spin : ""}`}
+          />
+          <label htmlFor="audit-url" className={b.srOnly}>
+            Adresa vašeg sajta
+          </label>
+          <input
+            id="audit-url"
+            ref={input}
+            className={a.input}
+            value={text}
+            inputMode="url"
+            autoComplete="url"
+            autoCapitalize="none"
+            spellCheck={false}
+            placeholder={focused ? "vasafirma.rs" : `Ukucajte svoj sajt: ${ph}`}
+            onChange={(e) => {
+              setText(e.target.value);
+              if (state === "error") setState("idle");
+            }}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+          />
+          <button
+            type="submit"
+            className={`${b.btn} ${b.btn_accent} ${a.go}`}
+            disabled={state === "running"}
+          >
+            <span className={a.goLabel}>
+              {state === "running" ? "Merimo…" : "Proveri sajt"}
+            </span>
+            <span className={b.arrow}>
+              <ArrowRight size={16} />
+            </span>
+          </button>
+        </form>
       </div>
 
-      <form className={a.form} onSubmit={run}>
-        <Search
-          size={24}
-          className={`${a.spark} ${state === "running" ? b.spin : ""}`}
-        />
-        <label htmlFor="audit-url" className={b.srOnly}>
-          Adresa vašeg sajta
-        </label>
-        <input
-          id="audit-url"
-          ref={input}
-          className={a.input}
-          value={text}
-          inputMode="url"
-          autoComplete="url"
-          autoCapitalize="none"
-          spellCheck={false}
-          placeholder={focused ? "vasafirma.rs" : `Ukucajte svoj sajt: ${ph}`}
-          onChange={(e) => {
-            setText(e.target.value);
-            if (state === "error") setState("idle");
-          }}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-        />
-        <button
-          type="submit"
-          className={`${b.btn} ${b.btn_accent} ${a.go}`}
-          disabled={state === "running"}
-        >
-          <span className={a.goLabel}>
-            {state === "running" ? "Merimo…" : "Proveri sajt"}
-          </span>
-          <span className={b.arrow}>
-            <ArrowRight size={16} />
-          </span>
-        </button>
-      </form>
-
-      <div className={a.chips}>
-        {CATEGORIES.map(([k, label]) => (
-          <span key={k} className={a.chip}>
-            <i data-k={k} />
-            {label}
-          </span>
-        ))}
-        <span className={a.chipNote}>
-          Isti test kojim Google ocenjuje sajtove na telefonu.
-        </span>
-      </div>
+      {compact
+        ? null
+        : <div className={a.chips}>
+            {CATEGORIES.map(([k, label]) => (
+              <span key={k} className={a.chip}>
+                <i data-k={k} />
+                {label}
+              </span>
+            ))}
+            <span className={a.chipNote}>
+              Isti test kojim Google ocenjuje sajtove na telefonu.
+            </span>
+          </div>}
 
       <AnimatePresence initial={false}>
         {state === "error"
@@ -543,7 +554,7 @@ export default function Audit() {
           : null}
       </AnimatePresence>
 
-      {state === "idle" || state === "error"
+      {!compact && (state === "idle" || state === "error")
         ? <p className={a.foot}>
             Upišite adresu i za dvadesetak sekundi vidite ocenu, šta se na
             telefonu učitava sporo i šta bismo prvo popravili. Bez mejla, bez

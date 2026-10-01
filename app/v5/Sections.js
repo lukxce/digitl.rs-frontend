@@ -7,27 +7,27 @@ import b from "./base.module.css";
 import { FAQ } from "./content";
 import { Plus } from "./icons";
 import x from "./sections.module.css";
-import { Bridge, EASE, Head } from "./ui";
+import { EASE, Head } from "./ui";
 
-/* ── Provera sajta: the live PageSpeed check ──────────────────────────── */
+/* ── Provera sajta: a slim call to action, the full report opens below ─── */
 export function Check() {
   return (
-    <section className={`${b.section} ${x.check}`} data-section="Provera sajta">
+    <section className={x.check} data-section="Provera sajta">
       <div className={b.container}>
-        <Head
-          center
-          id="provera-naslov"
-          label="Vaš red"
-          title="Krenite od svog sajta."
-          intro="Isti test kojim Google ocenjuje sajtove na telefonu. Za dvadesetak sekundi vidite ocenu, šta kasni i šta bismo prvo popravili."
-        />
-        <div className={x.console}>
-          <Audit />
-        </div>
-        <Bridge
-          text="Rezultat provere ide uz vašu poruku. Ostalo je samo da se upoznamo."
-          to="#kontakt"
-          label="Razgovarajmo"
+        <Audit
+          compact
+          intro={
+            <div className={x.bandText}>
+              <span className={x.bandLabel}>
+                <i /> Besplatno · rezultat za 20 sekundi
+              </span>
+              <h2>Krenite od svog sajta.</h2>
+              <p>
+                Isti test kojim vas Google ocenjuje na telefonu, i šta bismo
+                prvo popravili.
+              </p>
+            </div>
+          }
         />
       </div>
     </section>

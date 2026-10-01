@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import logo from "../assets/digitl-logo.png";
 import b from "./base.module.css";
 import { SERVICES } from "./content";
-import { Check } from "./icons";
+import { ArrowLeft, ArrowRight, Check } from "./icons";
 import j from "./journey.module.css";
-import { Bridge, EASE, Roll, useApp, useVisible } from "./ui";
+import { EASE, Roll, useApp, useVisible } from "./ui";
 
 const DWELL = 7500;
 
@@ -383,6 +383,11 @@ export default function Journey() {
                       </AnimatePresence>
                     </span>
                     {on
+                      ? null
+                      : <span className={j.stepGo} aria-hidden="true">
+                          <ArrowRight size={15} />
+                        </span>}
+                    {on
                       ? <span className={j.progress}>
                           <motion.i
                             key={`${step}-${running}`}
@@ -400,6 +405,33 @@ export default function Journey() {
               );
             })}
           </ol>
+
+          <div className={j.controls}>
+            <button
+              type="button"
+              className={j.ctrl}
+              aria-label="Prethodni korak"
+              onClick={() => {
+                setHeld(true);
+                setStep((v) => (v + STEPS.length - 1) % STEPS.length);
+              }}
+            >
+              <ArrowLeft size={16} />
+            </button>
+            <button
+              type="button"
+              className={j.next}
+              onClick={() => {
+                setHeld(true);
+                setStep((v) => (v + 1) % STEPS.length);
+              }}
+            >
+              Sledeći korak: {STEPS[(step + 1) % STEPS.length].name}
+              <span>
+                <ArrowRight size={15} />
+              </span>
+            </button>
+          </div>
         </div>
 
         <div className={j.window}>
@@ -417,9 +449,17 @@ export default function Journey() {
           </div>
           <div className={j.tabs}>
             {STEPS.map((s, i) => (
-              <span key={s.tab} data-on={i === step ? "true" : undefined}>
+              <button
+                key={s.tab}
+                type="button"
+                data-on={i === step ? "true" : undefined}
+                onClick={() => {
+                  setHeld(true);
+                  setStep(i);
+                }}
+              >
                 {s.tab}
-              </span>
+              </button>
             ))}
           </div>
           <div className={j.stage}>
@@ -437,13 +477,6 @@ export default function Journey() {
             </AnimatePresence>
           </div>
         </div>
-      </div>
-      <div className={b.container}>
-        <Bridge
-          text="Tako radimo. Evo šta je to donelo drugima."
-          to="#rezultati"
-          label="Rezultati"
-        />
       </div>
     </section>
   );

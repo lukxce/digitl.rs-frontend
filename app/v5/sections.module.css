@@ -1,12 +1,39 @@
-/* site check */
+/* site check band */
 .check {
-  background:
-    radial-gradient(60% 60% at 50% 0%, var(--accent-soft), transparent 70%),
-    #fff;
+  position: relative;
+  padding: clamp(8px, 2vw, 24px) 0 clamp(56px, 7vw, 96px);
+  background: var(--mist);
 }
-.console {
-  max-width: 1120px;
-  margin: clamp(32px, 4vw, 48px) auto 0;
+.bandText {
+  display: grid;
+  gap: 6px;
+}
+.bandLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: rgb(255 255 255 / 0.8);
+}
+.bandLabel i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--secondary);
+  box-shadow: 0 0 0 4px rgb(158 243 74 / 0.25);
+}
+.bandText h2 {
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+.bandText p {
+  font-size: 15px;
+  line-height: 1.45;
+  color: rgb(255 255 255 / 0.8);
+  max-width: 30em;
 }
 
 /* steps */
