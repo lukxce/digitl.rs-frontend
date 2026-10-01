@@ -222,4 +222,6 @@ export const CONTACT = {
   email: "hello@digitl.rs",
   phone: "064 133 8383",
   tel: "+381641338383",
+  // the client portal (digitl hub)
+  hub: "https://hub.digitl.rs/login",
 };

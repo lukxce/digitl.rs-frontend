@@ -2,74 +2,58 @@
 
 import logo from "../assets/digitl-logo.png";
 import b from "./base.module.css";
+import { CONTACT } from "./content";
 import f from "./footer.module.css";
-import GrowthField from "./GrowthField";
-import { LINKS } from "./Nav";
-import { Btn, useApp } from "./ui";
+import { Lock } from "./icons";
+import { LINKS, SOCIALS } from "./Nav";
 
-export default function Footer({ articles }) {
-  const { book, openAudit } = useApp();
+export default function Footer() {
   return (
-    <footer className={f.footer} data-theme="dark">
-      <div className={`${b.container} ${f.top}`}>
-        <p className={f.line}>
-          Rast koji se vidi <span>u prihodu.</span>
-        </p>
-        <div className={f.ctas}>
-          <Btn variant="white" onClick={() => book()}>
-            Zakažite strateški razgovor
-          </Btn>
-          <Btn variant="glass" arrow={false} onClick={openAudit}>
-            Proverite svoj sajt
-          </Btn>
-        </div>
-      </div>
-
-      <div className={f.land} aria-hidden="true">
-        <GrowthField className={f.field} theme="blue" horizon={0.62} />
-      </div>
-
-      <div className={`${b.container} ${f.cols}`}>
-        <div className={f.brand}>
-          <a href="#top" className={f.logo} aria-label="Digitl, na vrh">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={logo.src} alt="" />
-            <span>digitl</span>
-          </a>
-          <p>
-            Agencija za rast. Strategija, oglasi, SEO, sajt i brend kao jedan
-            sistem.
-          </p>
-          <p className={f.meta}>Beograd / London · hello@digitl.rs</p>
-        </div>
-        <nav className={f.col} aria-label="Na ovoj stranici">
-          <span>Stranica</span>
-          {LINKS.map((l) => (
-            <a key={l.href} href={l.href}>
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <nav className={f.col} aria-label="Digitl">
-          <span>Digitl</span>
-          <a href="/projects">Projekti</a>
-          <a href="/journal">Blog</a>
-          <a href="mailto:hello@digitl.rs">Kontakt</a>
-        </nav>
-        {articles.length
-          ? <nav className={f.col} aria-label="Sa bloga">
-              <span>Sa bloga</span>
-              {articles.map((a) => (
-                <a key={a.slug} href={`/journal/${a.slug}`}>
-                  {a.title}
+    <footer className={f.footer}>
+      <div className={b.container}>
+        <div className={f.card}>
+          <div className={f.row}>
+            <div className={f.brand}>
+              <a href="#top" className={f.logo} aria-label="Digitl, na vrh">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={logo.src} alt="" />
+                <span>digitl</span>
+              </a>
+              <p>
+                Agencija za rast. Strategija, oglasi, SEO, sajt i brend kao
+                jedan sistem.
+              </p>
+            </div>
+            <nav className={f.links} aria-label="Na ovoj stranici">
+              {LINKS.map((l) => (
+                <a key={l.href} href={l.href}>
+                  {l.label}
                 </a>
               ))}
             </nav>
-          : null}
-      </div>
-      <div className={`${b.container} ${f.base}`}>
-        <span>© 2026 Digitl</span>
-        <span>Marketing koji se meri profitom, ne aktivnošću.</span>
+            <div className={f.socials}>
+              {SOCIALS.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                >
+                  <Icon />
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className={f.base}>
+            <span>© 2026 Digitl · Beograd / London</span>
+            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+            <a className={f.login} href={CONTACT.hub}>
+              <Lock size={13} />
+              Prijava za klijente
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );

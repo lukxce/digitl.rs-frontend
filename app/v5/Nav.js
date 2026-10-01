@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import logo from "../assets/digitl-logo.png";
 import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
 import { CONTACT } from "./content";
-import { ArrowRight, Mail, Phone } from "./icons";
+import { ArrowRight, ArrowUpRight, Lock, Mail, Phone } from "./icons";
 import n from "./nav.module.css";
 import { Btn, EASE, useApp } from "./ui";
 
@@ -17,7 +17,7 @@ export const LINKS = [
   { href: "#kontakt", label: "Kontakt" },
 ];
 
-const SOCIALS = [
+export const SOCIALS = [
   {
     label: "Instagram",
     href: "https://www.instagram.com/digitl.rs",
@@ -53,21 +53,37 @@ function Menu({ onClose, onBook }) {
       exit={{ opacity: 0, y: -10, scale: 0.97 }}
       transition={{ duration: 0.35, ease: EASE }}
     >
-      <nav className={n.sheetLinks} aria-label="Stranica">
-        {LINKS.map((l, i) => (
-          <motion.a
-            key={l.href}
-            href={l.href}
-            onClick={onClose}
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.05 + i * 0.04, duration: 0.35, ease: EASE }}
-          >
-            {l.label}
-            <ArrowRight size={15} />
-          </motion.a>
-        ))}
-      </nav>
+      <div className={n.sheetMain}>
+        <nav className={n.sheetLinks} aria-label="Stranica">
+          {LINKS.map((l, i) => (
+            <motion.a
+              key={l.href}
+              href={l.href}
+              onClick={onClose}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                delay: 0.05 + i * 0.04,
+                duration: 0.35,
+                ease: EASE,
+              }}
+            >
+              {l.label}
+              <ArrowRight size={15} />
+            </motion.a>
+          ))}
+        </nav>
+        <a className={n.login} href={CONTACT.hub}>
+          <span className={n.loginIcon}>
+            <Lock size={16} />
+          </span>
+          <span className={n.loginText}>
+            <b>Prijava za klijente</b>
+            <small>Izveštaji, odobrenja i zahtevi</small>
+          </span>
+          <ArrowUpRight size={15} />
+        </a>
+      </div>
       <div className={n.sheetSide}>
         <span className={n.status}>
           <i /> 2 slobodna mesta

@@ -164,6 +164,12 @@ export const Mail = (p) => (
     <path d="m3 7 9 6 9-6" />
   </I>
 );
+export const Lock = (p) => (
+  <I {...p}>
+    <rect x="4.5" y="10.5" width="15" height="10" rx="2.5" />
+    <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" />
+  </I>
+);
 export const Shield = (p) => (
   <I {...p}>
     <path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" />

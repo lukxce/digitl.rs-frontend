@@ -36,7 +36,7 @@ export default function HomeV5({ clients, articles, fonts }) {
           <Contact />
           <Faq />
         </main>
-        <Footer articles={[]} />
+        <Footer />
       </AppProvider>
     </div>
   );
