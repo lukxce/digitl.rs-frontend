@@ -12,14 +12,14 @@ import { EASE, Head } from "./ui";
 /* ── Provera sajta: the full console, right under the four steps ──────── */
 export function Check() {
   return (
-    <section className={x.check} data-section="Provera sajta">
+    <section className={`${b.glow} ${x.check}`} data-section="Provera sajta">
       <div className={b.container}>
         <div className={x.checkHead}>
           <span className={b.label}>Besplatna provera</span>
           <h2>Krenite od svog sajta.</h2>
           <p>
-            Isti test kojim Google ocenjuje sajtove na telefonu. Za dvadesetak
-            sekundi vidite ocenu i šta bismo prvo popravili.
+            Isti test kojim Google ocenjuje sajtove na telefonu. Ocena i prve
+            popravke za dvadesetak sekundi, bez prijave.
           </p>
         </div>
         <Audit />

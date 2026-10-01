@@ -15,6 +15,38 @@ import { ArrowRight } from "./icons";
 
 export const EASE = [0.16, 1, 0.3, 1];
 
+/* Phones run without Lenis, and native smooth scrolling is unreliable there
+   (older iOS ignores it, some webviews drop it), so tween it ourselves. A
+   touch or wheel from the reader stops the tween. */
+function glide(to) {
+  const from = window.scrollY;
+  const dist = to - from;
+  if (
+    Math.abs(dist) < 2 ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    window.scrollTo(0, to);
+    return;
+  }
+  const ms = Math.min(1100, 420 + Math.abs(dist) * 0.12);
+  const t0 = performance.now();
+  let raf = 0;
+  const stop = () => {
+    cancelAnimationFrame(raf);
+    window.removeEventListener("touchstart", stop);
+    window.removeEventListener("wheel", stop);
+  };
+  window.addEventListener("touchstart", stop, { passive: true });
+  window.addEventListener("wheel", stop, { passive: true });
+  const tick = (now) => {
+    const t = Math.min(1, (now - t0) / ms);
+    window.scrollTo(0, from + dist * (1 - (1 - t) ** 4));
+    if (t < 1) raf = requestAnimationFrame(tick);
+    else stop();
+  };
+  raf = requestAnimationFrame(tick);
+}
+
 /* ── page state shared between sections ───────────────────────────────── */
 // The three questions under the hero produce a plan; services, results and
 // the contact form all read it. The site check result travels the same way.
@@ -27,15 +59,15 @@ export function AppProvider({ children }) {
   const [focusAudit, setFocusAudit] = useState(0);
   const [topic, setTopic] = useState(null);
 
-  const scrollTo = (selector, offset = -90) => {
+  // Section anchors already sit 90px above their heading, so they need no
+  // extra offset; anything else is pulled up clear of the nav.
+  const scrollTo = (selector, offset) => {
     const el = document.querySelector(selector);
     if (!el) return;
-    if (lenis) lenis.scrollTo(el, { offset, duration: 1.2 });
-    else
-      window.scrollTo({
-        top: el.getBoundingClientRect().top + window.scrollY + offset,
-        behavior: "smooth",
-      });
+    const off = offset ?? (el.classList.contains(b.anchor) ? 0 : -90);
+    const top = el.getBoundingClientRect().top + window.scrollY + off;
+    if (lenis) lenis.scrollTo(top, { duration: 1.2 });
+    else glide(top);
   };
 
   const value = {

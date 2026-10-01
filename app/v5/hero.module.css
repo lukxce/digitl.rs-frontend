@@ -82,6 +82,16 @@
   max-width: 1040px;
   margin-top: clamp(-150px, -9vw, -40px);
 }
+/* phones: show a strip of the field, not a screenful of it */
+@media (max-width: 640px) {
+  .land {
+    height: 230px;
+    margin-top: -20px;
+  }
+  .quizWrap {
+    margin-top: -125px;
+  }
+}
 .field {
   position: absolute;
   inset: 0;
@@ -140,4 +150,54 @@
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--ink-4);
+}
+
+/* phones and tablets: an even grid, every logo centred in its own cell */
+@media (max-width: 999px) {
+  .logos {
+    justify-items: center;
+    gap: 18px;
+    text-align: center;
+  }
+  .logos ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 0;
+  }
+  .logos li {
+    justify-content: center;
+    min-height: 64px;
+    padding: 0 8px;
+  }
+  .logos li:nth-child(odd) {
+    box-shadow: inset -1px 0 0 var(--line);
+  }
+  .logos li:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+  .logos img {
+    height: 26px;
+    max-width: 118px;
+  }
+  .logos li span {
+    font-size: 14.5px;
+  }
+}
+@media (min-width: 640px) and (max-width: 999px) {
+  .logos ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .logos li:nth-child(odd) {
+    box-shadow: none;
+  }
+  .logos li:not(:nth-child(3n)) {
+    box-shadow: inset -1px 0 0 var(--line);
+  }
+  .logos li:nth-child(n + 3) {
+    border-top: 0;
+  }
+  .logos li:nth-child(n + 4) {
+    border-top: 1px solid var(--line);
+  }
 }

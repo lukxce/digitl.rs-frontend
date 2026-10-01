@@ -67,7 +67,10 @@ function Person({ q, dark = false }) {
 export default function Voices() {
   const [main, ...rest] = QUOTES;
   return (
-    <section className={`${b.section} ${v.section}`} data-section="Utisci">
+    <section
+      className={`${b.section} ${b.glow} ${v.section}`}
+      data-section="Utisci"
+    >
       <div className={b.container}>
         <Head
           id="utisci"

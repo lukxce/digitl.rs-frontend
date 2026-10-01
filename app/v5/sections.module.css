@@ -1,15 +1,18 @@
 /* site check */
 .check {
   position: relative;
-  padding: clamp(8px, 2vw, 24px) 0 clamp(56px, 7vw, 96px);
-  background: var(--mist);
+  padding: clamp(56px, 7vw, 96px) 0;
+  --glow-1: 92% 28%;
+  --glow-2: 8% 62%;
+  --dots-at: 50% 62%;
+  --dots-size: 60% 45%;
 }
 .checkHead {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 6px 32px;
+  gap: 8px 32px;
   align-items: end;
-  margin-bottom: 16px;
+  margin-bottom: clamp(18px, 2.4vw, 28px);
 }
 @media (min-width: 900px) {
   .checkHead {

@@ -88,9 +88,9 @@
   margin: 0 auto;
   padding: 6px 6px 6px 16px;
   border-radius: 999px;
-  background: rgb(255 255 255 / 0.86);
-  backdrop-filter: blur(14px) saturate(1.4);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  background: rgb(255 255 255 / 0.95);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
   box-shadow:
     0 16px 40px -20px rgb(11 11 22 / 0.35),
     var(--ring);

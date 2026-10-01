@@ -432,7 +432,6 @@ export default function Audit({ compact = false, intro = null }) {
               <span className={b.liveDot} />
               Uživo, preko Google PageSpeed Insights
             </span>
-            <span className={a.free}>Besplatno · bez prijave</span>
           </div>}
 
       <div className={compact ? a.bandRow : undefined}>
@@ -486,9 +485,6 @@ export default function Audit({ compact = false, intro = null }) {
                 {label}
               </span>
             ))}
-            <span className={a.chipNote}>
-              Isti test kojim Google ocenjuje sajtove na telefonu.
-            </span>
           </div>}
 
       <AnimatePresence initial={false}>
@@ -553,14 +549,6 @@ export default function Audit({ compact = false, intro = null }) {
             </motion.div>
           : null}
       </AnimatePresence>
-
-      {!compact && (state === "idle" || state === "error")
-        ? <p className={a.foot}>
-            Upišite adresu i za dvadesetak sekundi vidite ocenu, šta se na
-            telefonu učitava sporo i šta bismo prvo popravili. Bez mejla, bez
-            prijave.
-          </p>
-        : null}
     </div>
   );
 }

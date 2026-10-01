@@ -352,13 +352,17 @@
     box-shadow: none;
     padding: 0;
   }
+  /* A two-beat turn: the visible face swings to edge-on and goes hidden,
+     then the other swings in. Only one face is ever visible, so nothing on
+     the back (the bars animate on their own layers) can show through. */
   .ask,
   .live {
     grid-area: 1 / 1;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    transition: transform 0.85s var(--ease);
     border-radius: 28px;
+    transform: rotateY(0deg);
+    transition:
+      transform 0.38s cubic-bezier(0.2, 0.7, 0.2, 1) 0.32s,
+      visibility 0s 0.32s;
   }
   .ask {
     background: #fff;
@@ -367,14 +371,26 @@
       var(--ring);
   }
   .live {
-    transform: rotateY(180deg);
+    visibility: hidden;
+    transform: rotateY(-90deg);
     box-shadow: 0 30px 70px -40px rgb(11 11 22 / 0.35);
+    transition:
+      transform 0.32s cubic-bezier(0.5, 0, 0.9, 0.5),
+      visibility 0s 0.32s;
   }
   .card[data-flipped] .ask {
-    transform: rotateY(-180deg);
+    visibility: hidden;
+    transform: rotateY(90deg);
+    transition:
+      transform 0.32s cubic-bezier(0.5, 0, 0.9, 0.5),
+      visibility 0s 0.32s;
   }
   .card[data-flipped] .live {
+    visibility: visible;
     transform: rotateY(0deg);
+    transition:
+      transform 0.38s cubic-bezier(0.2, 0.7, 0.2, 1) 0.32s,
+      visibility 0s 0.32s;
   }
   .card[data-flipped] .verdict {
     display: none;

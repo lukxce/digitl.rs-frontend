@@ -83,11 +83,10 @@
 
 .chips {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   padding: 0 clamp(18px, 2.4vw, 26px) 20px;
-  overflow-x: auto;
-  scrollbar-width: none;
 }
 .chips::-webkit-scrollbar {
   display: none;

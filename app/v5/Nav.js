@@ -42,7 +42,7 @@ function Logo() {
 }
 
 /** The menu panel: pages on the left, how to reach us on the right. */
-function Menu({ onClose, onBook }) {
+function Menu({ onClose, onBook, onGo }) {
   return (
     <motion.div
       className={n.sheet}
@@ -59,7 +59,10 @@ function Menu({ onClose, onBook }) {
             <motion.a
               key={l.href}
               href={l.href}
-              onClick={onClose}
+              onClick={(e) => {
+                onClose();
+                onGo(e, l.href);
+              }}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{
@@ -131,7 +134,12 @@ function Menu({ onClose, onBook }) {
 
 /** A plain bar at the top that turns into a small pill and follows the page. */
 export default function Nav() {
-  const { book } = useApp();
+  const { book, scrollTo } = useApp();
+  // in-page links glide instead of jumping (Lenis is off on phones)
+  const go = (e, href) => {
+    e.preventDefault();
+    scrollTo(href);
+  };
   const [floating, setFloating] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -187,7 +195,7 @@ export default function Nav() {
         <Logo />
         <nav className={n.links} aria-label="Glavna">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href}>
+            <a key={l.href} href={l.href} onClick={(e) => go(e, l.href)}>
               {l.label}
             </a>
           ))}
@@ -205,7 +213,7 @@ export default function Nav() {
         </div>
         <AnimatePresence>
           {open && !floating
-            ? <Menu onClose={() => setOpen(false)} onBook={book} />
+            ? <Menu onClose={() => setOpen(false)} onBook={book} onGo={go} />
             : null}
         </AnimatePresence>
       </header>
@@ -222,7 +230,7 @@ export default function Nav() {
               <Logo />
               <nav className={n.pillLinks} aria-label="Brze veze">
                 {LINKS.slice(0, 4).map((l) => (
-                  <a key={l.href} href={l.href}>
+                  <a key={l.href} href={l.href} onClick={(e) => go(e, l.href)}>
                     {l.label}
                   </a>
                 ))}
@@ -246,7 +254,11 @@ export default function Nav() {
               </Btn>
               <AnimatePresence>
                 {open
-                  ? <Menu onClose={() => setOpen(false)} onBook={book} />
+                  ? <Menu
+                      onClose={() => setOpen(false)}
+                      onBook={book}
+                      onGo={go}
+                    />
                   : null}
               </AnimatePresence>
             </motion.div>

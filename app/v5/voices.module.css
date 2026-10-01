@@ -1,5 +1,7 @@
 .section {
-  background: var(--mist);
+  --glow-1: 10% 26%;
+  --glow-2: 92% 70%;
+  --dots-at: 62% 55%;
 }
 .grid {
   display: grid;

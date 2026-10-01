@@ -99,6 +99,65 @@
   position: relative;
   padding: clamp(64px, 8vw, 120px) 0;
 }
+/* A soft band of brand light behind a section: the hero's palette, quieter,
+   faded out at the top and bottom so it meets its white neighbours without
+   a seam. Sections move the two glows and the dot field with custom props. */
+.glow {
+  isolation: isolate;
+  background: #fff;
+}
+.glow::before,
+.glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.glow::before {
+  background:
+    radial-gradient(
+      var(--glow-1-size, 45% 55%) at var(--glow-1, 88% 25%),
+      color-mix(in oklab, var(--secondary) 24%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      var(--glow-2-size, 55% 60%) at var(--glow-2, 8% 70%),
+      color-mix(in oklab, var(--accent) 13%, transparent),
+      transparent 72%
+    ), var(--accent-soft);
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent,
+    #000 22%,
+    #000 78%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent,
+    #000 22%,
+    #000 78%,
+    transparent
+  );
+}
+.glow::after {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--accent) 24%, transparent) 1px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(
+    var(--dots-size, 55% 50%) at var(--dots-at, 50% 50%),
+    #000 0%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    var(--dots-size, 55% 50%) at var(--dots-at, 50% 50%),
+    #000 0%,
+    transparent 100%
+  );
+}
 .anchor {
   position: absolute;
   top: -90px;
