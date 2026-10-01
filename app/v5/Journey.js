@@ -7,7 +7,7 @@ import b from "./base.module.css";
 import { SERVICES } from "./content";
 import { Check } from "./icons";
 import j from "./journey.module.css";
-import { Bridge, EASE, Head, useApp, useVisible } from "./ui";
+import { Bridge, EASE, Reveal, Roll, useApp, useVisible } from "./ui";
 
 const DWELL = 7500;
 
@@ -24,7 +24,7 @@ function AuditScreen() {
     <div className={j.screen}>
       <div className={j.docHead}>
         <b>Audit · vasafirma.rs</b>
-        <span>Nedelja 1</span>
+        <span>Korak 1</span>
       </div>
       <ul className={j.audit}>
         {AUDIT.map(([k, v, tone], i) => (
@@ -39,118 +39,91 @@ function AuditScreen() {
           </motion.li>
         ))}
       </ul>
+      <div className={j.verdicts}>
+        <motion.div
+          className={j.vGood}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.45, ease: EASE }}
+        >
+          <b>Radi</b>
+          <span>Preporuke i stari klijenti</span>
+        </motion.div>
+        <motion.div
+          className={j.vBad}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.45, duration: 0.45, ease: EASE }}
+        >
+          <b>Ne radi</b>
+          <span>Sajt ne vodi do upita</span>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+const CHANNELS = [
+  ["Sajt i SEO", 40, "a"],
+  ["Google oglasi", 35, "b"],
+  ["Meta", 25, "c"],
+];
+function PlanScreen() {
+  return (
+    <div className={j.screen}>
+      <div className={j.docHead}>
+        <b>Plan rasta</b>
+        <span>Korak 2</span>
+      </div>
       <div className={j.priorities}>
-        <span className={j.miniLabel}>Plan, po redu</span>
+        <span className={j.miniLabel}>Prioriteti, po redu</span>
         {[
           "Ubrzati sajt i dodati stranicu za svaku uslugu",
           "Uvesti praćenje poziva i formi",
-          "Tek onda oglasi",
+          "Pokrenuti Google oglase za glavne usluge",
         ].map((t, i) => (
           <motion.span
             key={t}
             className={j.prio}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3 + i * 0.3, duration: 0.45, ease: EASE }}
+            transition={{ delay: 0.2 + i * 0.25, duration: 0.45, ease: EASE }}
           >
             <b>{i + 1}</b>
             {t}
           </motion.span>
         ))}
       </div>
-    </div>
-  );
-}
-
-const PAGES = ["/usluga-1", "/usluga-2", "/usluga-3", "/cenovnik", "/kontakt"];
-function BuildScreen() {
-  return (
-    <div className={`${j.screen} ${j.buildGrid}`}>
-      <div className={j.site}>
-        <span className={j.siteBar}>
-          <i />
-          <i />
-          <i />
-          <em>vasafirma.rs</em>
-        </span>
-        <span className={j.sitePage}>
-          {[
-            ["58%", 0.2],
-            ["82%", 0.35],
-            ["70%", 0.45],
-          ].map(([w, d]) => (
+      <div className={j.split}>
+        <span className={j.miniLabel}>Kanali i budžet</span>
+        <span className={j.splitBar}>
+          {CHANNELS.map(([k, v, c], i) => (
             <motion.i
-              key={w}
-              className={j.ln}
-              style={{ width: w }}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: d, duration: 0.4, ease: EASE }}
+              key={k}
+              data-s={c}
+              initial={{ width: 0 }}
+              animate={{ width: `${v}%` }}
+              transition={{ delay: 1 + i * 0.15, duration: 0.7, ease: EASE }}
             />
           ))}
-          <motion.b
-            className={j.siteBtn}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6, duration: 0.4, ease: EASE }}
-          >
-            Zakažite
-          </motion.b>
-          <motion.i
-            className={j.siteImg}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.75, duration: 0.6 }}
-          />
-          <span className={j.siteCards}>
-            {[0, 1, 2].map((k) => (
-              <motion.i
-                key={k}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: 0.95 + k * 0.1,
-                  duration: 0.4,
-                  ease: EASE,
-                }}
-              />
-            ))}
-          </span>
         </span>
-        <motion.span
-          className={j.speed}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.5, ease: EASE }}
-        >
-          {[0, 1, 2, 3].map((k) => (
-            <i key={k}>100</i>
+        <span className={j.legend}>
+          {CHANNELS.map(([k, v, c]) => (
+            <span key={k}>
+              <i data-s={c} /> {k} {v}%
+            </span>
           ))}
-        </motion.span>
+        </span>
       </div>
-      <div className={j.tree}>
-        <span className={j.miniLabel}>Stranice za pretragu</span>
-        <span className={j.root}>vasafirma.rs</span>
-        {PAGES.map((p, i) => (
-          <motion.span
-            key={p}
-            className={j.leaf}
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 + i * 0.22, duration: 0.4, ease: EASE }}
-          >
-            {p}
-          </motion.span>
-        ))}
-        <motion.span
-          className={j.gbp}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 0.5 }}
-        >
-          <Check size={12} strokeWidth={3} /> Google profil popunjen
-        </motion.span>
-      </div>
+      <motion.div
+        className={j.goal}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.7, duration: 0.45, ease: EASE }}
+      >
+        <span className={j.miniLabel}>Broj koji pratimo</span>
+        <b>Upiti mesečno i cena po upitu</b>
+      </motion.div>
     </div>
   );
 }
@@ -297,47 +270,35 @@ function ReportScreen() {
 
 const STEPS = [
   {
-    when: "Nedelja 1",
     name: "Razumevanje",
-    tab: "audit.pdf",
-    title: "Prvo gledamo brojeve, pa tek onda predlažemo.",
-    body: "Analiziramo biznis, ciljeve i dosadašnje brojeve, da vidimo šta radi, a šta ne. Na kraju prve nedelje dobijate plan: šta prvo, šta kasnije i koji broj pratimo.",
+    tab: "audit",
+    body: "Analiziramo biznis, ciljeve i dosadašnje brojeve da vidimo šta radi, a šta ne.",
     get: [
-      "Audit sajta i oglasa",
+      "Audit sajta, oglasa i profila",
       "Pregled konkurencije",
-      "Plan po prioritetima",
+      "Šta radi, a šta ne",
     ],
     Screen: AuditScreen,
   },
   {
-    when: "Nedelje 2–4",
-    name: "Gradimo",
-    tab: "sajt",
-    title: "Sajt i stranice koje pretvaraju posetu u upit.",
-    body: "Pre prvog plaćenog klika postavljamo temelj: brz sajt, stranicu za svaku uslugu i sređen Google profil, da svaki posetilac ima gde da stigne.",
-    get: [
-      "Novi sajt ili popravke",
-      "Stranica za svaku uslugu",
-      "Google profil",
-    ],
-    Screen: BuildScreen,
+    name: "Planiranje",
+    tab: "plan",
+    body: "Postavljamo prioritete, kanale i jasan plan rasta.",
+    get: ["Prioriteti po redu", "Kanali i budžet", "Broj koji pratimo"],
+    Screen: PlanScreen,
   },
   {
-    when: "Lansiranje",
-    name: "Uživo",
+    name: "Lansiranje",
     tab: "kampanje",
-    title: "Oglasi kreću tek kad se svaki upit beleži.",
-    body: "Pokrećemo, testiramo i skaliramo ono što zarađuje. Pre toga povezujemo praćenje poziva, formi i poruka, da znamo odakle je došao svaki upit.",
-    get: ["Google i Meta kampanje", "Praćenje poziva i formi", "Prvi upiti"],
+    body: "Pokrećemo, testiramo i skaliramo ono što zarađuje.",
+    get: ["Sajt i kampanje uživo", "Praćenje poziva i formi", "Prvi upiti"],
     Screen: LaunchScreen,
   },
   {
-    when: "Svakog meseca",
-    name: "Merimo",
+    name: "Optimizacija",
     tab: "izveštaj",
-    title: "Izveštaj od jedne strane i odluka o sledećem koraku.",
-    body: "Jasni izveštaji i konkretne odluke: šta je donelo upite, šta gasimo i gde ide sledeći dinar. Pa krug ponovo, sa boljim brojevima na ulazu.",
-    get: ["Mesečni izveštaj", "Šta radi, a šta gasimo", "Sledeći korak"],
+    body: "Jasni izveštaji i konkretne odluke o sledećem koraku.",
+    get: ["Mesečni izveštaj", "Šta gasimo, a šta pojačavamo", "Sledeći korak"],
     Screen: ReportScreen,
   },
 ];
@@ -346,6 +307,8 @@ export default function Journey() {
   const { plan } = useApp();
   const ref = useRef(null);
   const visible = useVisible(ref, 0.3);
+  const headRef = useRef(null);
+  const inView = useVisible(headRef, 0.5);
   const [step, setStep] = useState(0);
   const [held, setHeld] = useState(false);
   const running = visible && !held;
@@ -365,12 +328,21 @@ export default function Journey() {
   return (
     <section className={`${b.section} ${j.section}`} data-section="Kako radimo">
       <div className={b.container}>
-        <Head
-          id="proces"
-          label="Kako radimo"
-          title="Prvih 90 dana, iznutra."
-          intro="Ovako izgleda saradnja: šta radimo, kada, i šta vi dobijate u ruke. Tipičan tok, a tačan raspored zavisi od obima."
-        />
+        <div ref={headRef} className={j.lead}>
+          <span id="proces" className={b.anchor} />
+          <span className={j.four} aria-hidden="true">
+            <Roll value={inView ? 4 : 0} ms={1400} />
+          </span>
+          <div className={j.leadText}>
+            <Reveal as="span" className={b.label}>
+              Kako radimo
+            </Reveal>
+            <Reveal as="h2" i={1} className={j.leadTitle}>
+              <b>Jedan povezan proces</b> koji drži strategiju, egzekuciju i
+              rezultate u istom pravcu, <b>od početka do kraja.</b>
+            </Reveal>
+          </div>
+        </div>
 
         <div ref={ref} className={j.timeline} role="tablist" aria-label="Faze">
           {STEPS.map((s, i) => (
@@ -400,7 +372,7 @@ export default function Journey() {
                     />
                   : null}
               </span>
-              <span className={j.when}>{s.when}</span>
+              <span className={j.when}>Korak {i + 1}</span>
               <b>{s.name}</b>
             </button>
           ))}
@@ -417,7 +389,7 @@ export default function Journey() {
               transition={{ duration: 0.4, ease: EASE }}
             >
               <span className={j.bigNo}>0{step + 1}</span>
-              <h3>{cur.title}</h3>
+              <h3>{cur.name}</h3>
               <p>{cur.body}</p>
               <span className={j.miniLabel}>Šta dobijate</span>
               <ul className={j.get}>
@@ -470,9 +442,9 @@ export default function Journey() {
         </div>
 
         <Bridge
-          text="Tako izgleda iznutra. Evo šta je to donelo drugima."
-          to="#rezultati"
-          label="Rezultati"
+          text="Ova četiri koraka se ponavljaju svakog meseca. Evo kako to izgleda iz ugla vašeg kupca."
+          to="#put-kupca"
+          label="Put kupca"
         />
       </div>
     </section>

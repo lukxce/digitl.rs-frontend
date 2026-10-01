@@ -698,3 +698,122 @@
 .decision[data-tone="next"] b {
   color: var(--accent);
 }
+
+/* the "4" moment from the old site */
+.lead {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(16px, 3vw, 40px);
+}
+.four {
+  font-size: clamp(140px, 17vw, 260px);
+  font-weight: 800;
+  letter-spacing: -0.07em;
+  line-height: 0.8;
+  color: var(--accent);
+}
+.leadText {
+  display: grid;
+  gap: 14px;
+}
+.leadTitle {
+  font-size: clamp(26px, 3.2vw, 46px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: var(--ink-3);
+  max-width: 20em;
+}
+.leadTitle b {
+  font-weight: 800;
+  color: var(--ink);
+}
+@media (max-width: 560px) {
+  .lead {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .four {
+    font-size: 120px;
+  }
+}
+
+/* plan screen */
+.split {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--mist);
+}
+.splitBar {
+  display: flex;
+  gap: 3px;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.splitBar i {
+  display: block;
+  height: 100%;
+}
+.splitBar i[data-s="a"] {
+  background: var(--accent);
+}
+.splitBar i[data-s="b"] {
+  background: var(--ink-5);
+}
+.splitBar i[data-s="c"] {
+  background: var(--secondary);
+}
+.goal {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--secondary-soft);
+}
+.goal b {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* understanding screen */
+.verdicts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.vGood,
+.vBad {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 16px;
+}
+.vGood {
+  background: color-mix(in oklab, var(--success) 10%, white);
+}
+.vGood b {
+  color: var(--success);
+}
+.vBad {
+  background: var(--spark-soft);
+}
+.vBad b {
+  color: var(--spark-ink);
+}
+.vGood b,
+.vBad b {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.vGood span,
+.vBad span {
+  font-size: 14px;
+  font-weight: 700;
+}

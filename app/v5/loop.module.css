@@ -1,0 +1,249 @@
+.section {
+  background: #fff;
+}
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  margin-top: clamp(28px, 4vw, 48px);
+  align-items: center;
+}
+@media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 48px;
+  }
+}
+
+.diagram {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+.diagram svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.ring {
+  fill: none;
+  stroke: var(--grey);
+  stroke-width: 3;
+}
+.ringOn {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.tick {
+  stroke: var(--line-2);
+  stroke-width: 1.2;
+}
+.runner {
+  fill: var(--accent);
+}
+.runnerGlow {
+  fill: color-mix(in oklab, var(--accent) 18%, transparent);
+}
+.node {
+  fill: #fff;
+  stroke: var(--accent-pale);
+  stroke-width: 3;
+  transition:
+    r 0.4s var(--ease),
+    fill 0.4s var(--ease),
+    stroke 0.4s var(--ease);
+}
+.node[data-on] {
+  fill: var(--secondary);
+  stroke: var(--ink);
+}
+
+.label {
+  position: absolute;
+  translate: -50% -50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink-3);
+  white-space: nowrap;
+  box-shadow: var(--ring);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.label i {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--mist);
+  font-style: normal;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+.label:hover {
+  color: var(--ink);
+}
+.label[data-on] {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: var(--lift);
+}
+.label[data-on] i {
+  background: var(--secondary);
+  color: var(--ink);
+}
+@media (max-width: 640px) {
+  .label {
+    display: none;
+  }
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  width: 54%;
+  text-align: center;
+}
+.lap {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.center b {
+  font-size: clamp(28px, 3.4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.side {
+  display: grid;
+  gap: 12px;
+}
+.card {
+  display: grid;
+  gap: 12px;
+  padding: clamp(20px, 2.6vw, 30px);
+  border-radius: 30px;
+  background: var(--mist);
+}
+.cardNo {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.card h3 {
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+}
+.card p {
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: var(--ink-3);
+  max-width: 30em;
+}
+.mini {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.who {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.who i {
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-style: normal;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+.metric {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: #fff;
+}
+.metric b {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.list button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 12px 0 6px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink-3);
+  box-shadow: var(--ring);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+.list button i {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--mist);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 800;
+}
+.list button[data-on] {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: none;
+}
+.list button[data-on] i {
+  background: var(--secondary);
+  color: var(--ink);
+}
+@media (min-width: 1000px) {
+  .list {
+    display: none;
+  }
+}

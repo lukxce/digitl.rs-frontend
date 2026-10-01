@@ -229,37 +229,34 @@
 
 /* moler pages */
 .pages {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 .page {
-  display: grid;
-  gap: 5px;
-  padding: 10px;
-  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px 7px 7px;
+  border-radius: 999px;
   background: #fff;
   box-shadow: var(--ring);
 }
 .page i {
-  height: 34px;
-  border-radius: 9px;
-  background: linear-gradient(135deg, var(--accent-pale), var(--accent-soft));
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 .page s {
-  height: 5px;
-  border-radius: 3px;
-  background: var(--grey);
-  text-decoration: none;
+  display: none;
 }
 .page s + s {
   width: 65%;
 }
 .page b {
-  margin-top: 2px;
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 1.2;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 /* thermiq dark panel */
@@ -353,28 +350,23 @@
 /* klima prices */
 .prices {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
-  padding: 14px;
-  border-radius: 22px;
-  background: #fff;
 }
 .priceRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 9px 4px;
-  font-size: 14.5px;
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: #fff;
+  font-size: 14px;
   font-weight: 700;
 }
-.priceRow + .priceRow {
-  border-top: 1px solid var(--line);
-}
+
 .swap {
   position: relative;
   display: grid;
-  justify-items: end;
-  min-width: 132px;
+  justify-items: start;
 }
 .swap em,
 .swap b {
@@ -457,102 +449,71 @@
   background: var(--secondary);
 }
 
-/* wall of real sites */
-.wall {
-  margin-top: clamp(56px, 7vw, 96px);
-}
-.wallHead {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 18px;
-}
-.wallHead b {
-  font-size: clamp(20px, 1.8vw, 26px);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-.wallHead span {
-  font-size: 14px;
-  color: var(--ink-4);
-}
-.rail {
-  overflow: hidden;
-  padding-bottom: 40px;
-  mask-image: linear-gradient(
-    90deg,
-    transparent,
-    #000 6%,
-    #000 94%,
-    transparent
-  );
-}
-.belt {
-  display: flex;
-  width: max-content;
-  animation: belt 70s linear infinite;
-}
-.rail:hover .belt {
-  animation-play-state: paused;
-}
-@keyframes belt {
-  to {
-    transform: translateX(-50%);
-  }
-}
-.set {
-  display: flex;
-  gap: 16px;
-  padding-right: 16px;
-}
+/* the real site in each card */
 .shot {
-  display: grid;
-  gap: 10px;
-  width: clamp(280px, 26vw, 400px);
-  flex: none;
-}
-.shot[data-low] {
-  margin-top: 40px;
-}
-.shotImg {
   display: block;
   overflow: hidden;
   aspect-ratio: 16 / 9;
   border-radius: 22px;
-  background: var(--mist);
+  background: #fff;
+  box-shadow: 0 24px 50px -30px rgb(11 11 22 / 0.45);
 }
-.shotImg img {
+.shot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.8s var(--ease);
 }
-.shot:hover .shotImg img {
+.card:hover .shot img {
+  transform: scale(1.04);
+}
+.thermiqShot {
+  display: block;
+  align-self: stretch;
+}
+.thermiqShot .shot {
+  height: 100%;
+  aspect-ratio: auto;
+  min-height: 280px;
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+}
+@media (min-width: 960px) {
+  .dark {
+    align-items: stretch !important;
+  }
+}
+
+.allSites {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.allSite {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  background: rgb(255 255 255 / 0.08);
+}
+.allSite img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+.ink:hover .allSite img {
   transform: scale(1.05);
 }
-.shotCap {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 0 4px;
-}
-.shotCap b {
-  font-size: 14.5px;
-  font-weight: 800;
-}
-.shotCap em {
-  font-style: normal;
-  font-size: 12.5px;
-  color: var(--ink-4);
-}
-@media (prefers-reduced-motion: reduce) {
-  .belt {
-    animation: none;
-  }
-  .rail {
-    overflow-x: auto;
-  }
+.allSite b {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgb(11 11 22 / 0.7);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
 }

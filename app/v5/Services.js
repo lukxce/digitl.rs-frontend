@@ -177,7 +177,7 @@ function Card({ x, i, rank, wide, onAsk }) {
             </span>
             <span className={s.frontText}>
               <b>{x.name}</b>
-              <em>{x.role}</em>
+              <em>{x.body}</em>
             </span>
             <span className={s.hint}>
               <Rotate size={13} /> Okrenite
@@ -187,7 +187,7 @@ function Card({ x, i, rank, wide, onAsk }) {
           <div className={s.back} aria-hidden={!flipped}>
             <span className={s.backName}>{x.name}</span>
             <p className={s.hear}>„{x.hear}“</p>
-            <p className={s.body}>{x.body}</p>
+            <p className={s.body}>{x.feeds}</p>
             <ul className={s.includes}>
               {x.includes.map((t) => (
                 <li key={t}>
@@ -233,8 +233,8 @@ export default function Services() {
           <Head
             id="usluge"
             label="Šta radimo"
-            title="Pet usluga, jedan tim."
-            intro="Oglasi, SEO, web, mreže i brend. Svaka ima svoj posao, a vode se zajedno. Okrenite karticu za detalje."
+            title="Sve što radimo."
+            intro="Kompletan marketing kao jedan sistem, ne meni nepovezanih usluga. Okrenite karticu za detalje."
           />
           {plan
             ? <p className={s.planNote}>

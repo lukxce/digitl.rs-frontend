@@ -6,6 +6,7 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import Journey from "./Journey";
+import Loop from "./Loop";
 import Nav from "./Nav";
 import { Check, Faq } from "./Sections";
 import Services from "./Services";
@@ -27,6 +28,7 @@ export default function HomeV5({ clients, articles, fonts }) {
           <Hero clients={clients} />
           <Services />
           <Journey />
+          <Loop />
           <Work clients={clients} />
           <Voices />
           <Check />

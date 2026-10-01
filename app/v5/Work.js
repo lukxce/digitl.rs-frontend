@@ -27,6 +27,16 @@ function CardTop({ c, dark = false, closest = false }) {
   );
 }
 
+/** The client's real site, shown as it is. */
+function Shot({ c }) {
+  return (
+    <span className={w.shot}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={c.cover} alt={`Sajt za ${c.name}`} loading="lazy" />
+    </span>
+  );
+}
+
 function Stats({ metrics, run, dark = false }) {
   return (
     <span className={`${w.stats} ${dark ? w.statsDark : ""}`}>
@@ -59,6 +69,7 @@ function Elektro({ c, closest }) {
       className={`${w.card} ${w.tBlue} ${closest ? w.isClosest : ""}`}
     >
       <CardTop c={c} closest={closest} />
+      <Shot c={c} />
       <span className={w.name}>{c.name}</span>
       <span className={w.sub}>
         Električar iz Niša. Deset godina posla samo na preporuci, nula prisustva
@@ -110,6 +121,7 @@ function Moler({ c, closest }) {
       className={`${w.card} ${w.tMist} ${closest ? w.isClosest : ""}`}
     >
       <CardTop c={c} closest={closest} />
+      <Shot c={c} />
       <span className={w.name}>{c.name}</span>
       <span className={w.sub}>
         Jedanaest godina rada i nijedan red na internetu. Šest usluga su šest
@@ -142,7 +154,7 @@ function Thermiq({ c, closest }) {
   const run = useVisible(ref, 0.3);
   const indexed = c.metrics.find((m) => /indeks/i.test(m.label));
   const total = indexed?.num ? Math.round(indexed.num / 10) : 316;
-  const cols = 24;
+  const cols = 32;
   return (
     <a
       ref={ref}
@@ -157,29 +169,28 @@ function Thermiq({ c, closest }) {
           i MDV kao kod svih, drugačija odluka.
         </span>
         <Stats metrics={c.metrics} run={run} dark />
+        <span className={w.field}>
+          <span
+            className={w.dots}
+            style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+          >
+            {Array.from({ length: total }, (_, i) => (
+              <i
+                key={i}
+                data-on={run ? "true" : undefined}
+                style={{
+                  transitionDelay: `${(Math.floor(i / cols) + (i % cols)) * 22}ms`,
+                }}
+              />
+            ))}
+          </span>
+          <span className={w.fieldNote}>
+            Svaka tačka je deset stranica u Google-u.
+          </span>
+        </span>
       </span>
-      <span className={w.field}>
-        <span className={w.fieldHead}>
-          <b>
-            <Roll value={run ? (indexed?.num ?? 3157) : 0} ms={2200} />
-          </b>
-          <em>indeksiranih stranica za tri meseca</em>
-        </span>
-        <span
-          className={w.dots}
-          style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
-        >
-          {Array.from({ length: total }, (_, i) => (
-            <i
-              key={i}
-              data-on={run ? "true" : undefined}
-              style={{
-                transitionDelay: `${(Math.floor(i / cols) + (i % cols)) * 22}ms`,
-              }}
-            />
-          ))}
-        </span>
-        <span className={w.fieldNote}>Svaka tačka je deset stranica.</span>
+      <span className={w.thermiqShot}>
+        <Shot c={c} />
       </span>
     </a>
   );
@@ -196,6 +207,7 @@ function Klima({ c, closest }) {
       className={`${w.card} ${w.tLime} ${closest ? w.isClosest : ""}`}
     >
       <CardTop c={c} closest={closest} />
+      <Shot c={c} />
       <span className={w.name}>{c.name}</span>
       <span className={w.sub}>
         Kod konkurencije cena ostaje tajna dok serviser ne dođe. Ovde stoji na
@@ -245,66 +257,19 @@ function AllCases({ clients }) {
         uspešnih saradnji, od majstora iz Niša do distributera sa hiljadama
         proizvoda.
       </span>
-      <span className={w.allLogos}>
-        {clients
-          .filter((c) => c.logo)
-          .map((c) => (
-            <span key={c.slug}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={c.logo} alt={c.name} />
-            </span>
-          ))}
+      <span className={w.allSites}>
+        {clients.slice(0, 4).map((c) => (
+          <span key={c.slug} className={w.allSite}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={c.cover} alt="" loading="lazy" />
+            <b>{c.name}</b>
+          </span>
+        ))}
       </span>
       <span className={w.allBtn}>
         Sve studije slučaja <ArrowUpRight size={16} />
       </span>
     </a>
-  );
-}
-
-function Wall({ clients }) {
-  const items = [...clients, ...clients, ...clients];
-  return (
-    <div className={w.wall}>
-      <div className={`${b.container} ${w.wallHead}`}>
-        <b>Kako to izgleda uživo</b>
-        <span>Pravi sajtovi naših klijenata</span>
-      </div>
-      <div className={w.rail}>
-        <div className={w.belt}>
-          {[0, 1].map((copy) => (
-            <div
-              key={copy}
-              className={w.set}
-              aria-hidden={copy ? "true" : undefined}
-            >
-              {items.map((c, i) => (
-                <a
-                  key={`${c.slug}-${i}`}
-                  href={c.href}
-                  className={w.shot}
-                  data-low={i % 2 ? "true" : undefined}
-                  tabIndex={copy ? -1 : 0}
-                >
-                  <span className={w.shotImg}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={c.cover}
-                      alt={copy ? "" : `Sajt za ${c.name}`}
-                      loading="lazy"
-                    />
-                  </span>
-                  <span className={w.shotCap}>
-                    <b>{c.name}</b>
-                    <em>{c.category}</em>
-                  </span>
-                </a>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -337,7 +302,6 @@ export default function Work({ clients }) {
           <AllCases clients={clients} />
         </div>
       </div>
-      <Wall clients={clients} />
       <div className={b.container}>
         <Bridge
           text="Brojevi su jedno. Evo šta kažu ljudi sa kojima radimo."
