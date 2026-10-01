@@ -1,6 +1,7 @@
-/* The bento layout test marks itself with data-bento and supplies its own
-   chrome; :has() avoids the hydration flash a usePathname check would give. */
-body:has([data-bento]) .header {
+/* Pages that supply their own chrome mark themselves (data-bento, data-own-chrome);
+   :has() avoids the hydration flash a usePathname check would give. */
+body:has([data-bento]) .header,
+body:has([data-own-chrome]) .header {
   display: none;
 }
 
