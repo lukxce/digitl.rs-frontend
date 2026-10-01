@@ -1,0 +1,441 @@
+/* site check */
+.check {
+  background:
+    radial-gradient(60% 60% at 50% 0%, var(--accent-soft), transparent 70%),
+    #fff;
+}
+.console {
+  max-width: 1120px;
+  margin: clamp(32px, 4vw, 48px) auto 0;
+}
+
+/* steps */
+.steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+@media (min-width: 700px) {
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.steps li {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 20px;
+  border-radius: var(--r-card);
+  background: var(--mist);
+  cursor: default;
+  transition:
+    background 0.45s var(--ease),
+    box-shadow 0.45s var(--ease);
+}
+.steps li[data-on] {
+  background: #fff;
+  box-shadow:
+    var(--lift),
+    0 0 0 2px var(--accent);
+}
+.stepTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.stepNo {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 800;
+  box-shadow: var(--ring);
+  transition:
+    background 0.4s var(--ease),
+    color 0.4s var(--ease);
+}
+.steps li[data-on] .stepNo {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: none;
+}
+.stepTrack {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--grey);
+  overflow: hidden;
+}
+.stepTrack i {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.scene {
+  display: grid;
+  place-items: center;
+  height: 140px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: var(--ring);
+  overflow: hidden;
+}
+.steps li[data-on] .scene {
+  background: var(--accent-soft);
+  box-shadow: none;
+}
+.steps h3 {
+  margin-top: 4px !important;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.steps p {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+/* scene: talk */
+.sTalk {
+  display: grid;
+  gap: 6px;
+  width: 84%;
+}
+.bubbleQ,
+.bubbleA {
+  max-width: 85%;
+  padding: 7px 11px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  animation: pop 0.5s var(--ease) both;
+}
+.bubbleQ {
+  justify-self: start;
+  background: var(--accent);
+  color: #fff;
+  border-bottom-left-radius: 4px;
+}
+.bubbleA {
+  justify-self: end;
+  background: #fff;
+  color: var(--ink);
+  border-bottom-right-radius: 4px;
+  box-shadow: var(--ring);
+  animation-delay: 0.8s;
+}
+.typing {
+  justify-self: start;
+  display: inline-flex;
+  gap: 3px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--accent);
+  animation: pop 0.4s var(--ease) both 1.6s;
+}
+.typing i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+  animation: blink 1s infinite;
+}
+.typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* scene: plan */
+.sPlan {
+  display: grid;
+  gap: 6px;
+  width: 84%;
+}
+.task {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: var(--ring);
+  animation: pop 0.45s var(--ease) both;
+}
+.task:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.task:nth-child(3) {
+  animation-delay: 1s;
+}
+.task i {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1.5px var(--line-2);
+}
+.task i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: var(--accent);
+  transform: scale(0);
+  animation: tick 0.35s var(--ease) both;
+}
+.task:nth-child(1) i::after {
+  animation-delay: 0.9s;
+}
+.task:nth-child(2) i::after {
+  animation-delay: 1.4s;
+}
+.task:nth-child(3) i::after {
+  animation-delay: 1.9s;
+}
+@keyframes tick {
+  to {
+    transform: scale(1);
+  }
+}
+
+/* scene: launch */
+.sLaunch {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  width: 80%;
+}
+.launchBar {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--grey);
+  overflow: hidden;
+}
+.launchBar i {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--accent);
+  transform-origin: left;
+  animation: fill 1.6s var(--ease) both 0.2s;
+}
+.launchLive {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  animation: pop 0.45s var(--ease) both 1.7s;
+}
+@keyframes fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* scene: optimise */
+.sOpt {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  width: 70%;
+  height: 96px;
+}
+.sOpt i {
+  flex: 1;
+  border-radius: 8px 8px 4px 4px;
+  background: var(--accent-pale);
+  transform-origin: bottom;
+  animation: grow 0.8s var(--ease) both;
+}
+.sOpt i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.sOpt i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.sOpt i[data-best] {
+  background: var(--accent);
+  animation-delay: 0.45s;
+}
+.sOpt em {
+  position: absolute;
+  right: -6px;
+  top: -26px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--secondary);
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  animation: pop 0.45s var(--ease) both 1.2s;
+}
+@keyframes grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* never */
+.never {
+  padding: clamp(36px, 5vw, 56px) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+}
+.neverInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .neverInner {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+.neverLabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 26px;
+}
+.words li {
+  position: relative;
+  font-size: clamp(22px, 2.6vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--ink-5);
+  transition: color 0.4s var(--ease);
+}
+.words li[data-lit] {
+  color: var(--ink);
+}
+.words i {
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: 54%;
+  height: 0.08em;
+  border-radius: 999px;
+  background: var(--spark);
+  transform-origin: left;
+}
+
+/* faq */
+.faq {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+@media (min-width: 1000px) {
+  .faq {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 56px;
+    align-items: start;
+  }
+}
+.faqList {
+  display: grid;
+  gap: 8px;
+}
+.faqList li {
+  border-radius: 22px;
+  background: var(--mist);
+}
+.faqList button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 20px;
+  text-align: left;
+  font-size: clamp(16px, 1.3vw, 18px);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.faqList button i {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: 50%;
+  background: #fff;
+  transition:
+    transform 0.4s var(--ease),
+    background 0.4s var(--ease),
+    color 0.4s var(--ease);
+}
+.faqList .plusOn {
+  transform: rotate(45deg);
+  background: var(--accent);
+  color: #fff;
+}
+.answer {
+  overflow: hidden;
+}
+.answer p {
+  padding: 0 20px 20px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  max-width: 40em;
+}

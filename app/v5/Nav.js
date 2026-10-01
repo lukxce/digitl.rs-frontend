@@ -6,44 +6,61 @@ import logo from "../assets/digitl-logo.png";
 import n from "./nav.module.css";
 import { Btn, EASE, useApp } from "./ui";
 
-// The page is one story; the bar shows where in it you are.
-export const CHAPTERS = [
-  { id: "usluge", n: "1", label: "Usluge" },
-  { id: "sistem", n: "2", label: "Sistem" },
-  { id: "rezultati", n: "3", label: "Rezultati" },
-  { id: "pozicija", n: "4", label: "Zašto" },
-  { id: "proces", n: "5", label: "Proces" },
-  { id: "razgovor", n: "6", label: "Razgovor" },
+export const LINKS = [
+  { href: "#usluge", label: "Usluge" },
+  { href: "#rezultati", label: "Rezultati" },
+  { href: "#provera", label: "Provera sajta" },
+  { href: "#proces", label: "Kako radimo" },
+  { href: "#kontakt", label: "Kontakt" },
 ];
 
+function Logo() {
+  return (
+    <a href="#top" className={n.logo} aria-label="Digitl, na vrh">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={logo.src} alt="" />
+      <span>digitl</span>
+    </a>
+  );
+}
+
+function Menu({ onClose }) {
+  return (
+    <motion.nav
+      className={n.sheet}
+      aria-label="Meni"
+      initial={{ opacity: 0, y: -8, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -8, scale: 0.98 }}
+      transition={{ duration: 0.3, ease: EASE }}
+    >
+      {LINKS.map((l) => (
+        <a key={l.href} href={l.href} onClick={onClose}>
+          {l.label}
+        </a>
+      ))}
+    </motion.nav>
+  );
+}
+
+/** A plain bar at the top that turns into a small pill and follows the page. */
 export default function Nav() {
   const { book } = useApp();
-  const [solid, setSolid] = useState(false);
-  const [fill, setFill] = useState(() => CHAPTERS.map(() => 0));
+  const [floating, setFloating] = useState(false);
+  const [section, setSection] = useState("");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     let raf = 0;
     const read = () => {
       raf = 0;
-      setSolid(window.scrollY > 24);
-      // Each chapter fills from its own top to the next chapter's top.
-      const line = window.innerHeight * 0.45;
-      const tops = CHAPTERS.map((c) => {
-        const el = document.getElementById(c.id);
-        return el
-          ? el.getBoundingClientRect().top + window.scrollY
-          : Number.POSITIVE_INFINITY;
-      });
-      const end =
-        document.documentElement.scrollHeight - window.innerHeight * 0.6;
-      const y = window.scrollY + line;
-      setFill(
-        tops.map((top, i) => {
-          const next = tops[i + 1] ?? end;
-          return Math.min(1, Math.max(0, (y - top) / Math.max(1, next - top)));
-        }),
-      );
+      setFloating(window.scrollY > window.innerHeight * 0.55);
+      let cur = "";
+      for (const el of document.querySelectorAll("[data-section]")) {
+        if (el.getBoundingClientRect().top <= window.innerHeight * 0.4)
+          cur = el.dataset.section;
+      }
+      setSection(cur);
     };
     const on = () => {
       if (!raf) raf = requestAnimationFrame(read);
@@ -58,38 +75,29 @@ export default function Nav() {
     };
   }, []);
 
-  let current = -1;
-  fill.forEach((v, i) => {
-    if (v > 0) current = i;
-  });
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    const onScroll = () => setOpen(false);
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScroll, { passive: true, once: true });
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [open]);
 
   return (
-    <header className={`${n.bar} ${solid ? n.solid : ""}`}>
-      <div className={n.inner}>
-        <a href="#top" className={n.logo} aria-label="Digitl, na vrh">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={logo.src} alt="" />
-          <span>digitl</span>
-        </a>
-
-        <nav className={n.story} aria-label="Poglavlja">
-          {CHAPTERS.map((c, i) => (
-            <a
-              key={c.id}
-              href={`#${c.id}`}
-              data-on={i === current ? "true" : undefined}
-              data-done={fill[i] >= 1 ? "true" : undefined}
-            >
-              <span className={n.label}>
-                <i>{c.n}</i> {c.label}
-              </span>
-              <span className={n.track}>
-                <span style={{ transform: `scaleX(${fill[i]})` }} />
-              </span>
+    <>
+      <header className={n.bar}>
+        <Logo />
+        <nav className={n.links} aria-label="Glavna">
+          {LINKS.map((l) => (
+            <a key={l.href} href={l.href}>
+              {l.label}
             </a>
           ))}
         </nav>
-
         <div className={n.actions}>
           <Btn
             variant="accent"
@@ -102,51 +110,61 @@ export default function Nav() {
           <button
             type="button"
             className={n.menuBtn}
-            aria-expanded={open}
+            aria-expanded={open && !floating}
             onClick={() => setOpen((v) => !v)}
           >
-            {current >= 0
-              ? `${CHAPTERS[current].n}/${CHAPTERS.length}`
-              : "Meni"}
+            Meni
           </button>
         </div>
-      </div>
+        <AnimatePresence>
+          {open && !floating ? <Menu onClose={() => setOpen(false)} /> : null}
+        </AnimatePresence>
+      </header>
 
       <AnimatePresence>
-        {open
-          ? <motion.nav
-              className={n.sheet}
-              aria-label="Poglavlja"
-              initial={{ opacity: 0, y: -10, scale: 0.98 }}
+        {floating
+          ? <motion.div
+              className={n.pill}
+              initial={{ opacity: 0, y: -20, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: EASE }}
+              exit={{ opacity: 0, y: -20, scale: 0.96 }}
+              transition={{ duration: 0.45, ease: EASE }}
             >
-              {CHAPTERS.map((c, i) => (
-                <a
-                  key={c.id}
-                  href={`#${c.id}`}
-                  onClick={() => setOpen(false)}
-                  data-on={i === current ? "true" : undefined}
+              <Logo />
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={section}
+                  className={n.section}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.25, ease: EASE }}
                 >
-                  <i>{c.n}</i>
-                  {c.label}
-                </a>
-              ))}
+                  {section}
+                </motion.span>
+              </AnimatePresence>
+              <button
+                type="button"
+                className={n.pillMenu}
+                aria-expanded={open}
+                onClick={() => setOpen((v) => !v)}
+              >
+                Meni
+              </button>
               <Btn
                 variant="accent"
-                size="md"
-                arrow
-                onClick={() => {
-                  setOpen(false);
-                  book();
-                }}
+                size="sm"
+                arrow={false}
+                onClick={() => book()}
               >
-                Zakažite razgovor
+                Zakažite
               </Btn>
-            </motion.nav>
+              <AnimatePresence>
+                {open ? <Menu onClose={() => setOpen(false)} /> : null}
+              </AnimatePresence>
+            </motion.div>
           : null}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

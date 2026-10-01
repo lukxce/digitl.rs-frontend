@@ -4,7 +4,7 @@ import logo from "../assets/digitl-logo.png";
 import b from "./base.module.css";
 import f from "./footer.module.css";
 import GrowthField from "./GrowthField";
-import { CHAPTERS } from "./Nav";
+import { LINKS } from "./Nav";
 import { Btn, useApp } from "./ui";
 
 export default function Footer({ articles }) {
@@ -16,10 +16,10 @@ export default function Footer({ articles }) {
           Rast koji se vidi <span>u prihodu.</span>
         </p>
         <div className={f.ctas}>
-          <Btn variant="white" size="lg" arrow onClick={() => book()}>
+          <Btn variant="white" onClick={() => book()}>
             Zakažite strateški razgovor
           </Btn>
-          <Btn variant="glass" size="lg" onClick={openAudit}>
+          <Btn variant="glass" arrow={false} onClick={openAudit}>
             Proverite svoj sajt
           </Btn>
         </div>
@@ -42,11 +42,11 @@ export default function Footer({ articles }) {
           </p>
           <p className={f.meta}>Beograd / London · hello@digitl.rs</p>
         </div>
-        <nav className={f.col} aria-label="Poglavlja">
-          <span>Priča</span>
-          {CHAPTERS.map((c) => (
-            <a key={c.id} href={`#${c.id}`}>
-              {c.n}. {c.label}
+        <nav className={f.col} aria-label="Na ovoj stranici">
+          <span>Stranica</span>
+          {LINKS.map((l) => (
+            <a key={l.href} href={l.href}>
+              {l.label}
             </a>
           ))}
         </nav>

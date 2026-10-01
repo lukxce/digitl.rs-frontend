@@ -19,11 +19,6 @@ function I({ size = 16, children, fill = false, ...rest }) {
   );
 }
 
-export const Sparkle = (p) => (
-  <I fill {...p}>
-    <path d="M12 0C12 6.4 17.6 12 24 12C17.6 12 12 17.6 12 24C12 17.6 6.4 12 0 12C6.4 12 12 6.4 12 0Z" />
-  </I>
-);
 export const ArrowRight = (p) => (
   <I {...p}>
     <path d="M5 12h14M13 6l6 6-6 6" />

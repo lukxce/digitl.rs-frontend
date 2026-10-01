@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import a from "./audit.module.css";
 import b from "./base.module.css";
-import { ArrowRight, Check, Rotate, Sparkle } from "./icons";
+import { ArrowRight, Check, Rotate, Search } from "./icons";
 import { Btn, EASE, Roll, useApp } from "./ui";
 
 const PLACEHOLDERS = [
@@ -323,7 +323,7 @@ function Results({ r, host, onAgain }) {
           </div>
 
           <div className={a.resCtas}>
-            <Btn variant="accent" size="md" arrow onClick={() => book("Sajt")}>
+            <Btn variant="accent" size="sm" onClick={() => book("Web")}>
               Pošaljite nam izveštaj
             </Btn>
           </div>
@@ -420,7 +420,7 @@ export default function Audit() {
   const open = state === "running" || state === "done";
 
   return (
-    <div id="dijagnoza" className={a.console} data-chapter>
+    <div id="provera" className={a.console} data-chapter>
       <div className={a.top}>
         <span className={a.live}>
           <span className={b.liveDot} />
@@ -430,8 +430,8 @@ export default function Audit() {
       </div>
 
       <form className={a.form} onSubmit={run}>
-        <Sparkle
-          size={26}
+        <Search
+          size={24}
           className={`${a.spark} ${state === "running" ? b.spin : ""}`}
         />
         <label htmlFor="audit-url" className={b.srOnly}>
@@ -456,13 +456,15 @@ export default function Audit() {
         />
         <button
           type="submit"
-          className={`${b.btn} ${b.btn_accent} ${b.btn_md} ${a.go}`}
+          className={`${b.btn} ${b.btn_accent} ${a.go}`}
           disabled={state === "running"}
         >
           <span className={a.goLabel}>
             {state === "running" ? "Merimo…" : "Proveri sajt"}
           </span>
-          <ArrowRight size={17} />
+          <span className={b.arrow}>
+            <ArrowRight size={16} />
+          </span>
         </button>
       </form>
 
@@ -495,7 +497,7 @@ export default function Audit() {
                     variant="ink"
                     size="sm"
                     arrow
-                    onClick={() => book("Sajt")}
+                    onClick={() => book("Web")}
                   >
                     Pošaljite adresu nama
                   </Btn>

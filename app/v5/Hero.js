@@ -5,10 +5,10 @@ import elektromil from "../assets/clients/elektromil.webp";
 import primaDental from "../assets/clients/prima-dental.webp";
 import startupsRs from "../assets/clients/startups-rs.webp";
 import thermiq from "../assets/clients/thermiq.webp";
-import Audit from "./Audit";
 import b from "./base.module.css";
 import GrowthField from "./GrowthField";
 import h from "./hero.module.css";
+import Quiz from "./Quiz";
 import { Btn, EASE, useApp } from "./ui";
 
 function Line({ delay, children }) {
@@ -43,8 +43,9 @@ function Logos({ clients }) {
           <motion.li
             key={l.name}
             initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4 + i * 0.07, duration: 0.6, ease: EASE }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.06, duration: 0.6, ease: EASE }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={l.src} alt={l.name} />
@@ -57,10 +58,10 @@ function Logos({ clients }) {
 }
 
 export default function Hero({ clients }) {
-  const { openAudit, book } = useApp();
+  const { scrollTo, book } = useApp();
 
   return (
-    <section id="top" className={h.hero} data-theme="light">
+    <section id="top" className={h.hero} data-section="Početak">
       <div className={`${b.container} ${h.copy}`}>
         <p
           className={`${h.status} ${b.fadeUp}`}
@@ -80,15 +81,19 @@ export default function Hero({ clients }) {
         </h1>
         <div className={b.fadeUp} style={{ animationDelay: "520ms" }}>
           <p className={h.lead}>
-            Strategija, oglasi, SEO, sajt i brend, vođeni kao jedan sistem za
-            rast i mereni jednim brojem: koliko su vam doneli.
+            Oglasi, SEO, sajt, mreže i brend, vođeni kao jedan sistem i mereni
+            jednim brojem: koliko su vam doneli.
           </p>
           <div className={h.ctas}>
-            <Btn variant="accent" size="lg" arrow onClick={() => book()}>
-              Zakažite strateški razgovor
+            <Btn variant="accent" onClick={() => book()}>
+              Zakažite razgovor
             </Btn>
-            <Btn variant="ghost" size="lg" onClick={openAudit}>
-              Proverite svoj sajt
+            <Btn
+              variant="ghost"
+              arrow={false}
+              onClick={() => scrollTo("#plan", -100)}
+            >
+              Tri pitanja za vaš plan
             </Btn>
           </div>
         </div>
@@ -98,8 +103,8 @@ export default function Hero({ clients }) {
         <GrowthField className={h.field} theme="light" horizon={0.6} />
       </div>
 
-      <div className={`${b.container} ${h.consoleWrap}`}>
-        <Audit />
+      <div className={`${b.container} ${h.quizWrap}`}>
+        <Quiz clients={clients} />
       </div>
 
       <div className={b.container}>

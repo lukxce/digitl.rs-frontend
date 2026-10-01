@@ -1,24 +1,18 @@
 "use client";
 
 import b from "./base.module.css";
-import Booking from "./Booking";
-import Data from "./Data";
-import Faq from "./Faq";
+import Contact from "./Contact";
 import Footer from "./Footer";
 import Hero from "./Hero";
-import Manifesto from "./Manifesto";
 import Nav from "./Nav";
-import Position from "./Position";
-import Problems from "./Problems";
-import Process from "./Process";
-import Results from "./Results";
-import Roles from "./Roles";
-import Story from "./Story";
+import { Check, Faq, Never, Steps } from "./Sections";
+import Services from "./Services";
 import { AppProvider } from "./ui";
+import Work from "./Work";
 
-/** digitl.rs/v5 — brings its own chrome, so the global SiteNav hides itself
-    (data-own-chrome). Order: the problems we hear, why they need one system,
-    proof, why position and speed are money, how we work, the conversation. */
+/** digitl.rs/v5 — "first you, then us": three questions under the hero build
+    a plan that the services, results and contact form then follow. Brings its
+    own chrome, so the global SiteNav hides itself (data-own-chrome). */
 export default function HomeV5({ clients, articles, fonts }) {
   return (
     <div className={`${b.root} ${fonts}`} data-own-chrome>
@@ -26,15 +20,12 @@ export default function HomeV5({ clients, articles, fonts }) {
         <Nav />
         <main>
           <Hero clients={clients} />
-          <Problems clients={clients} />
-          <Story />
-          <Results clients={clients} />
-          <Manifesto clients={clients} />
-          <Position clients={clients} />
-          <Data />
-          <Process />
-          <Roles />
-          <Booking />
+          <Services />
+          <Work clients={clients} />
+          <Check />
+          <Steps />
+          <Never />
+          <Contact />
           <Faq />
         </main>
         <Footer articles={articles} />

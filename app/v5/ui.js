@@ -2,24 +2,32 @@
 
 import { useLenis } from "lenis/react";
 import { motion } from "motion/react";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  Fragment,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import b from "./base.module.css";
-import { ArrowRight, Sparkle } from "./icons";
+import { ArrowRight } from "./icons";
 
 export const EASE = [0.16, 1, 0.3, 1];
 
 /* ── page state shared between sections ───────────────────────────────── */
-// The audit result travels: the speed chart marks the visitor's own load time
-// and the booking form offers to attach the report.
+// The three questions under the hero produce a plan; services, results and
+// the contact form all read it. The site check result travels the same way.
 const App = createContext(null);
 
 export function AppProvider({ children }) {
   const lenis = useLenis();
+  const [plan, setPlan] = useState(null);
   const [audit, setAudit] = useState(null);
   const [focusAudit, setFocusAudit] = useState(0);
   const [topic, setTopic] = useState(null);
 
-  const scrollTo = (selector, offset = -20) => {
+  const scrollTo = (selector, offset = -90) => {
     const el = document.querySelector(selector);
     if (!el) return;
     if (lenis) lenis.scrollTo(el, { offset, duration: 1.2 });
@@ -31,20 +39,20 @@ export function AppProvider({ children }) {
   };
 
   const value = {
+    plan,
+    setPlan,
     audit,
     setAudit,
     scrollTo,
     focusAudit,
-    // Scroll to the diagnosis console and put the cursor in the domain field.
     openAudit: () => {
-      scrollTo("#dijagnoza", -90);
+      scrollTo("#provera", -110);
       setFocusAudit((n) => n + 1);
     },
     topic,
-    // Jump to the booking form with a topic chip already picked.
     book: (t = null) => {
       if (t) setTopic(t);
-      scrollTo("#razgovor", -20);
+      scrollTo("#kontakt");
     },
   };
   return <App.Provider value={value}>{children}</App.Provider>;
@@ -53,8 +61,6 @@ export function AppProvider({ children }) {
 export const useApp = () => useContext(App);
 
 /* ── hooks ────────────────────────────────────────────────────────────── */
-
-/** True while the element is at least `amount` on screen — drives autoplay. */
 export function useVisible(ref, amount = 0.35) {
   const [v, setV] = useState(false);
   useEffect(() => {
@@ -96,35 +102,17 @@ export function useTween(target, ms = 1100, run = true) {
   return v;
 }
 
-/** Steps 0…n on a timer while `active`, restarting from 0 each time it turns on. */
-export function useSteps(active, n, ms, start = 250) {
-  const [k, setK] = useState(0);
-  useEffect(() => {
-    if (!active) return;
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const ts = [setTimeout(() => setK(0), 0)];
-    for (let s = 1; s <= n; s++)
-      ts.push(setTimeout(() => setK(s), reduce ? 0 : start + ms * (s - 1)));
-    return () => ts.forEach(clearTimeout);
-  }, [active, n, ms, start]);
-  return k;
-}
-
-/* ── number formatting ────────────────────────────────────────────────── */
+/* ── numbers ──────────────────────────────────────────────────────────── */
 const sr = (n, d = 0) =>
   n.toLocaleString("sr-RS", {
     minimumFractionDigits: d,
     maximumFractionDigits: d,
   });
-export const fmt = sr;
 
-/** A metric from a case study, rolled up when it comes on screen. */
+/** A case-study metric ("3.157", "29.8K", "1. mesec"), rolled up on view. */
 export function Counter({ metric, run = true, ms = 1300 }) {
   const v = useTween(metric.num ?? 0, ms, run);
   if (metric.num == null) return <span className={b.tnum}>{metric.text}</span>;
-  // Keep the case study's own notation ("3.157", "29.8K", "9.6").
   const shown = metric.thousands
     ? sr(Math.round(v))
     : v.toFixed(metric.decimals);
@@ -136,7 +124,6 @@ export function Counter({ metric, run = true, ms = 1300 }) {
   );
 }
 
-/** A plain number that rolls, Serbian notation. */
 export function Roll({
   value,
   decimals = 0,
@@ -156,36 +143,25 @@ export function Roll({
 }
 
 /* ── primitives ───────────────────────────────────────────────────────── */
-export function Kicker({ children, tone = "light", dot = false }) {
-  const cls = {
-    light: "",
-    dark: b.kickerDark,
-    lime: b.kickerLime,
-    white: b.kickerWhite,
-  }[tone];
-  return (
-    <span className={`${b.kicker} ${cls}`}>
-      {dot ? <span className={b.liveDot} /> : <Sparkle size={12} />}
-      {children}
-    </span>
-  );
-}
-
-/** Pill button. variant: accent | ink | ghost | white | glass. size: sm | md | lg */
+/** Pill button; the arrow sits in its own circle. variant: accent | ink | ghost | white | glass */
 export function Btn({
   href,
   variant = "ink",
   size = "md",
   children,
-  arrow = false,
+  arrow = true,
   className = "",
   ...rest
 }) {
-  const cls = `${b.btn} ${b[`btn_${variant}`]} ${b[`btn_${size}`]} ${className}`;
+  const cls = `${b.btn} ${b[`btn_${variant}`]} ${size === "sm" ? b.btnSm : ""} ${arrow ? "" : b.btnNoArrow} ${className}`;
   const inner = (
     <>
       <span>{children}</span>
-      {arrow ? <ArrowRight size={size === "sm" ? 15 : 17} /> : null}
+      {arrow
+        ? <span className={b.arrow}>
+            <ArrowRight size={size === "sm" ? 14 : 16} />
+          </span>
+        : null}
     </>
   );
   return href
@@ -211,7 +187,7 @@ export function Reveal({
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.25 }}
       transition={{ delay: i * 0.07, duration: 0.7, ease: EASE }}
       {...rest}
     >
@@ -220,71 +196,54 @@ export function Reveal({
   );
 }
 
-/** Kicker + big H2 on the left, intro paragraph bottom-right. */
-export function SectionHead({ kicker, title, intro, dark = false, tone, id }) {
+/** Headline words rise out of a mask, one after another, on first view. */
+export function Words({ text, as = "h2", className = "", delay = 0 }) {
+  const M = motion[as];
+  const words = String(text).split(" ");
   return (
-    <div className={b.head}>
+    <M
+      className={className}
+      initial="hide"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.5 }}
+      aria-label={text}
+    >
+      {words.map((w, i) => (
+        <Fragment key={`${w}-${i}`}>
+          <span className={b.wordMask} aria-hidden="true">
+            <motion.span
+              className={b.word}
+              variants={{ hide: { y: "110%" }, show: { y: "0%" } }}
+              transition={{
+                duration: 0.8,
+                ease: EASE,
+                delay: delay + i * 0.05,
+              }}
+            >
+              {w}
+            </motion.span>
+          </span>
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
+      ))}
+    </M>
+  );
+}
+
+/** Section head: a small label, the headline, one sentence under it. */
+export function Head({ label, title, intro, id, center = false }) {
+  return (
+    <div className={`${b.head} ${center ? b.headCenter : ""}`}>
       {id ? <span id={id} className={b.anchor} /> : null}
-      <div className={b.headLeft}>
-        <Reveal>
-          <Kicker tone={tone ?? (dark ? "dark" : "light")}>{kicker}</Kicker>
-        </Reveal>
-        <Reveal
-          i={1}
-          as="h2"
-          className={b.h2}
-          style={dark ? { color: "#fff" } : undefined}
-        >
-          {title}
-        </Reveal>
-      </div>
+      <Reveal as="span" className={b.label}>
+        {label}
+      </Reveal>
+      <Words text={title} className={b.h2} delay={0.08} />
       {intro
-        ? <Reveal i={2} as="p" className={dark ? b.headIntroDark : b.headIntro}>
+        ? <Reveal as="p" i={3} className={b.intro}>
             {intro}
           </Reveal>
         : null}
     </div>
   );
-}
-
-/** Segmented control with a pill that slides to the active option. */
-export function Segmented({
-  id,
-  options,
-  value,
-  onChange,
-  tone = "light",
-  label,
-}) {
-  const cls = { light: "", dark: b.segDark, lime: b.segLime }[tone];
-  return (
-    <div className={`${b.seg} ${cls}`} role="tablist" aria-label={label}>
-      {options.map((o) => {
-        const active = o.key === value;
-        return (
-          <button
-            key={o.key}
-            type="button"
-            role="tab"
-            aria-selected={active}
-            className={`${b.segBtn} ${active ? b.segBtnOn : ""}`}
-            onClick={() => onChange(o.key)}
-          >
-            {active
-              ? <motion.span
-                  layoutId={`seg-${id}`}
-                  className={b.segPill}
-                  transition={{ duration: 0.4, ease: EASE }}
-                />
-              : null}
-            <span className={b.segLabel}>{o.label}</span>
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
-export function Honest({ children, dark = false }) {
-  return <span className={dark ? b.honestDark : b.honest}>{children}</span>;
 }
