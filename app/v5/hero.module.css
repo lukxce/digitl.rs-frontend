@@ -73,8 +73,8 @@
 .land {
   position: relative;
   z-index: 1;
-  height: clamp(190px, 19vw, 280px);
-  margin-top: clamp(28px, 3.4vw, 48px);
+  height: clamp(210px, 22vw, 320px);
+  margin-top: clamp(14px, 2vw, 28px);
   /* a finger dragged sideways moves the chart; up and down still scrolls */
   touch-action: pan-y;
 }
@@ -86,8 +86,8 @@
 }
 @media (max-width: 640px) {
   .land {
-    height: 150px;
-    margin-top: 26px;
+    height: 180px;
+    margin-top: 18px;
   }
 }
 .field {
