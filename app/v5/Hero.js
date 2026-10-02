@@ -9,6 +9,7 @@ import b from "./base.module.css";
 import GrowthField from "./GrowthField";
 import h from "./hero.module.css";
 import Quiz from "./Quiz";
+import { useRef } from "react";
 import { Btn, EASE, useApp } from "./ui";
 
 function Line({ delay, children }) {
@@ -59,6 +60,7 @@ function Logos({ clients }) {
 
 export default function Hero({ clients }) {
   const { scrollTo, book } = useApp();
+  const marker = useRef(null);
 
   return (
     <section id="top" className={h.hero} data-section="Početak">
@@ -99,8 +101,13 @@ export default function Hero({ clients }) {
         </div>
       </div>
 
+      {/* the growth line, with a marker that names the step under it */}
       <div className={h.land}>
-        <GrowthField className={h.field} theme="light" horizon={0.6} />
+        <GrowthField className={h.field} markerRef={marker} />
+        <div ref={marker} className={h.marker} aria-hidden="true">
+          <i>1</i>
+          <span>Razumevanje</span>
+        </div>
       </div>
 
       <div className={`${b.container} ${h.quizWrap}`}>

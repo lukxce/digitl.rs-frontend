@@ -2,46 +2,38 @@
 
 import { useEffect, useRef } from "react";
 
-/* A terrain of points seen in perspective. Its height is a rising revenue
-   curve (low on the left, high on the right) with slow waves through it. It
-   answers the reader: it swells and gathers under the cursor anywhere in the
-   hero, a click or tap sends a ripple through it, and every answer in the
-   three questions (a "v5:grow" event) sends a wave up the curve and lifts the
-   right side, so the plan visibly grows the line. One ridge row is traced as
-   the trend line, and any [data-at] element inside `anchorRoot` is pinned to
-   it (at = 0…1 from left to right). Pauses off screen; a still frame for
-   reduced motion. */
+/* A terrain of points seen in perspective whose ridge is a rising growth
+   line: low on the left, high on the right, slow waves through it.
+
+   It reads like a chart you can touch. A marker rides the line and names the
+   stretch it is on — our four steps, then growth — and the points around it
+   light up. The marker follows the mouse anywhere in the hero, a finger
+   dragged across the field, or, left alone, walks the line by itself. A
+   click or tap sends a ripple through the points, and every answer in the
+   three questions (the "v5:grow" event) sends a wave up the line and lifts
+   its right side, so the plan visibly grows the curve. Pauses off screen;
+   one still frame for reduced motion. */
 
 const COLS = 112;
 const ROWS = 40;
 const RIDGE = Math.round(0.5 * (ROWS - 1));
 
-const THEMES = {
-  light: {
-    stops: [
-      [0, [176, 175, 255]],
-      [0.55, [42, 41, 255]],
-      [1, [88, 196, 26]],
-    ],
-    alpha: (near, tone) => (0.22 + 0.78 * near) * (0.45 + 0.55 * tone),
-    line: ["rgba(42,41,255,0)", "rgba(42,41,255,0.85)", "rgba(88,196,26,1)"],
-    glow: "rgba(42,41,255,0.35)",
-  },
-  blue: {
-    stops: [
-      [0, [150, 150, 255]],
-      [0.6, [255, 255, 255]],
-      [1, [158, 243, 74]],
-    ],
-    alpha: (near, tone) => (0.2 + 0.7 * near) * (0.4 + 0.6 * tone),
-    line: [
-      "rgba(255,255,255,0)",
-      "rgba(255,255,255,0.8)",
-      "rgba(158,243,74,1)",
-    ],
-    glow: "rgba(158,243,74,0.5)",
-  },
-};
+const STOPS = [
+  [0, [176, 175, 255]],
+  [0.55, [42, 41, 255]],
+  [1, [88, 196, 26]],
+];
+const alphaOf = (near, tone) => (0.22 + 0.78 * near) * (0.45 + 0.55 * tone);
+
+// Where along the line each step sits (0…1, left to right).
+export const STRETCHES = [
+  { to: 0.2, no: "1", name: "Razumevanje" },
+  { to: 0.4, no: "2", name: "Planiranje" },
+  { to: 0.6, no: "3", name: "Lansiranje" },
+  { to: 0.84, no: "4", name: "Optimizacija" },
+  { to: 1.01, no: "↗", name: "Rast" },
+];
+const stretchAt = (u) => STRETCHES.find((s) => u < s.to) ?? STRETCHES[4];
 
 function heightAt(x, z, t) {
   // An S-curve plus a steady climb, so the line never flattens at the end.
@@ -54,30 +46,24 @@ function heightAt(x, z, t) {
   return growth * ridge + waves * (0.4 + growth);
 }
 
-function colourAt(stops, v) {
-  for (let i = 1; i < stops.length; i++) {
-    const [p1, c1] = stops[i];
-    const [p0, c0] = stops[i - 1];
+function colourAt(v) {
+  for (let i = 1; i < STOPS.length; i++) {
+    const [p1, c1] = STOPS[i];
+    const [p0, c0] = STOPS[i - 1];
     if (v <= p1) {
       const k = (v - p0) / (p1 - p0);
       return c0.map((c, j) => Math.round(c + (c1[j] - c) * k));
     }
   }
-  return stops[stops.length - 1][1];
+  return STOPS[STOPS.length - 1][1];
 }
 
-export default function GrowthField({
-  className,
-  theme = "light",
-  horizon = 0.56,
-  anchorRoot,
-}) {
+export default function GrowthField({ className, markerRef, horizon = 0.45 }) {
   const ref = useRef(null);
 
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
-    const th = THEMES[theme];
     const ctx = canvas.getContext("2d");
     const reduce = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -86,17 +72,17 @@ export default function GrowthField({
     let h = 0;
     let raf = 0;
     let running = false;
-    const mouse = { x: -9999, y: -9999, sx: 0, sy: 0, k: 0 };
-    const ripples = []; // { x, y, t } in canvas pixels / seconds
-    const surges = []; // { t, a } waves that run up the curve
+    const t0 = performance.now();
+    let last = 0;
+
+    // the marker: where it is (u, 0…1 along the line) and who drives it
+    const mark = { u: 0.08, auto: 0.08, manual: -1, until: 0, label: "" };
+    const ripples = []; // { x, y, t }
+    const surges = []; // { t, a }
     let boost = 0;
     let boostTo = 0;
     let lastPoke = 0;
-    const t0 = performance.now();
-    const anchors = () =>
-      anchorRoot?.current
-        ? [...anchorRoot.current.querySelectorAll("[data-at]")]
-        : [];
+    let crestX = []; // screen x of each ridge column, from the last frame
 
     const size = () => {
       const r = canvas.getBoundingClientRect();
@@ -108,8 +94,19 @@ export default function GrowthField({
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
+    // u of the ridge column nearest a screen x
+    const uAtX = (x) => {
+      if (!crestX.length) return -1;
+      let best = 0;
+      for (let c = 1; c < crestX.length; c++)
+        if (Math.abs(crestX[c] - x) < Math.abs(crestX[best] - x)) best = c;
+      return best / (COLS - 1);
+    };
+
     const draw = (now) => {
       const t = (now - t0) / 1000;
+      const dt = Math.min(0.05, Math.max(0, t - last));
+      last = t;
       const rise = reduce ? 1 : 1 - (1 - Math.min(1, t / 2.4)) ** 3;
       ctx.clearRect(0, 0, w, h);
       const narrow = w < 700;
@@ -118,40 +115,47 @@ export default function GrowthField({
       const camY = 1.15;
       const spanX = narrow ? 0.95 : 1.45;
       const cx = w * 0.5;
-      const inside = mouse.x > -999;
-      mouse.k += ((inside ? 1 : 0) - mouse.k) * 0.06;
-      if (inside) {
-        // a soft trail behind the real pointer
-        mouse.sx += (mouse.x - mouse.sx) * 0.14;
-        mouse.sy += (mouse.y - mouse.sy) * 0.14;
+
+      // marker: a hand drives it while present, otherwise it walks the line
+      const handed = mark.manual >= 0 && t < mark.until;
+      if (handed) mark.auto = mark.u;
+      else if (!reduce && rise > 0.9) {
+        mark.auto += dt * 0.055;
+        if (mark.auto > 1.06) mark.auto = -0.04;
       }
+      const target = handed ? mark.manual : mark.auto;
+      // jump instead of sweeping back across the whole line on a loop
+      if (Math.abs(target - mark.u) > 0.5) mark.u = target;
+      else mark.u += (target - mark.u) * (handed ? 0.2 : 0.1);
+      const mu = Math.round(Math.max(0, Math.min(1, mark.u)) * (COLS - 1));
+
       boost += (boostTo - boost) * 0.04;
-      // when nobody has touched it for a while, a quiet wave shows it is alive
       if (!reduce && t - lastPoke > 9 && rise > 0.99) {
         surges.push({ t, a: 0.55 });
         lastPoke = t;
       }
       while (ripples.length && t - ripples[0].t > 2.2) ripples.shift();
       while (surges.length && t - surges[0].t > 1.6) surges.shift();
+
       const crest = new Array(COLS).fill(null);
+      const markX = crestX[mu] ?? -9999;
 
       for (let r = ROWS - 1; r >= 0; r--) {
         const z = r / (ROWS - 1);
         const depth = 1.1 + z * 3.4;
         for (let c = 0; c < COLS; c++) {
           const x = (c / (COLS - 1)) * 2 - 1;
-          // answers lift the right-hand side: the plan grows the curve
           const y =
             heightAt(x, z, t) *
             rise *
             (1 + boost * 0.32 * ((x + 1) / 2) ** 1.5);
-          let sx = cx + ((x * spanX) / depth) * f;
+          const sx = cx + ((x * spanX) / depth) * f;
           let sy = hz + ((camY - y * 1.75) / depth) * f * 0.42;
-          const dx = sx - mouse.sx;
-          const dy = sy - mouse.sy;
-          const pull = mouse.k * Math.exp(-(dx * dx + dy * dy) / 26000);
-          let lift = 54 * pull;
-          sx -= dx * 0.12 * pull; // points gather toward the cursor
+          // the stretch under the marker lights up, nearest rows most
+          const lit =
+            Math.exp(-((sx - markX) ** 2) / (narrow ? 900 : 2200)) *
+            (1 - z * 0.55);
+          let lift = 10 * lit;
           for (const rp of ripples) {
             const age = t - rp.t;
             const ring = Math.hypot(sx - rp.x, sy - rp.y) - age * 520;
@@ -165,18 +169,23 @@ export default function GrowthField({
           sy -= lift;
           if (r === RIDGE) crest[c] = [sx, sy];
           if (sx < -10 || sx > w + 10 || sy > h + 10 || sy < -10) continue;
-          const tone = Math.min(1, Math.max(0, y / 1.05 + lift / 80));
+          const tone = Math.min(
+            1,
+            Math.max(0, y / 1.05 + lift / 80 + lit * 0.35),
+          );
           const near = 1 - z;
           const edge = Math.min(1, (sx / w) * 7, ((w - sx) / w) * 7);
-          const a = th.alpha(near, tone) * edge;
-          const col = colourAt(th.stops, tone);
-          const s = (1 + near * 2.2) * (1 + tone * 0.5);
+          const a = Math.min(1, alphaOf(near, tone) * edge * (1 + lit * 0.8));
+          const col = colourAt(tone);
+          const s = (1 + near * 2.2) * (1 + tone * 0.5) * (1 + lit * 0.5);
           ctx.fillStyle = `rgba(${col[0]},${col[1]},${col[2]},${a.toFixed(3)})`;
           ctx.fillRect(sx - s / 2, sy - s / 2, s, s);
         }
       }
+      crestX = crest.map((p) => p[0]);
 
-      const pts = crest.filter((p) => p && p[0] > -20 && p[0] < w + 20);
+      // the growth line
+      const pts = crest.filter((p) => p[0] > -20 && p[0] < w + 20);
       if (pts.length > 2) {
         const g = ctx.createLinearGradient(
           pts[0][0],
@@ -184,14 +193,14 @@ export default function GrowthField({
           pts[pts.length - 1][0],
           0,
         );
-        g.addColorStop(0, th.line[0]);
-        g.addColorStop(0.5, th.line[1]);
-        g.addColorStop(1, th.line[2]);
+        g.addColorStop(0, "rgba(42,41,255,0)");
+        g.addColorStop(0.5, "rgba(42,41,255,0.85)");
+        g.addColorStop(1, "rgba(88,196,26,1)");
         ctx.save();
         ctx.strokeStyle = g;
         ctx.lineWidth = 2.2 + boost * 0.8;
         ctx.lineJoin = "round";
-        ctx.shadowColor = th.glow;
+        ctx.shadowColor = "rgba(42,41,255,0.35)";
         ctx.shadowBlur = 12 + boost * 10;
         ctx.beginPath();
         pts.forEach(([x, y], i) =>
@@ -201,13 +210,51 @@ export default function GrowthField({
         ctx.restore();
       }
 
-      // Pin the milestone chips to the line.
-      for (const el of anchors()) {
-        const p = crest[Math.round(Number(el.dataset.at) * (COLS - 1))];
-        if (!p) continue;
-        el.style.transform = `translate(${p[0].toFixed(1)}px, ${(p[1] - 6).toFixed(1)}px)`;
-        el.dataset.ready = rise > 0.98 ? "true" : "false";
-      }
+      // the marker: a hairline down, a dot on the line, a label above
+      const p = crest[mu];
+      const show = p && mark.u >= 0 && mark.u <= 1 && rise > 0.9;
+      const el = markerRef?.current;
+      if (show) {
+        const [px, py0] = p;
+        const py = py0 - 6;
+        const hair = ctx.createLinearGradient(0, py, 0, h);
+        hair.addColorStop(0, "rgba(42,41,255,0.45)");
+        hair.addColorStop(1, "rgba(42,41,255,0)");
+        ctx.save();
+        ctx.strokeStyle = hair;
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 4]);
+        ctx.beginPath();
+        ctx.moveTo(px, py + 8);
+        ctx.lineTo(px, h);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = "rgba(42,41,255,0.14)";
+        ctx.beginPath();
+        ctx.arc(px, py, 13, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#fff";
+        ctx.strokeStyle = mark.u > 0.84 ? "rgb(88,196,26)" : "rgb(42,41,255)";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(px, py, 6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+        if (el) {
+          const half = narrow ? 62 : 80;
+          const lx = Math.max(half, Math.min(w - half, px));
+          el.style.transform = `translate(${lx.toFixed(1)}px, ${(py - 16).toFixed(1)}px)`;
+          const s = stretchAt(mark.u);
+          if (mark.label !== s.name) {
+            mark.label = s.name;
+            el.firstChild.textContent = s.no;
+            el.lastChild.textContent = s.name;
+            el.dataset.end = s.no === "↗" ? "true" : "false";
+          }
+          el.dataset.on = "true";
+        }
+      } else if (el) el.dataset.on = "false";
     };
 
     const loop = (now) => {
@@ -226,6 +273,7 @@ export default function GrowthField({
 
     size();
     draw(performance.now() + (reduce ? 5000 : 0));
+    if (reduce) draw(performance.now() + 5000); // crest known: place marker
     const io = new IntersectionObserver(
       ([e]) => (e.isIntersecting ? start() : stop()),
       { threshold: 0 },
@@ -236,28 +284,35 @@ export default function GrowthField({
       if (!running) draw(performance.now() + 5000);
     });
     ro.observe(canvas);
-    // The whole section listens, so the field answers the cursor even over
-    // the headline or the questions that sit on top of it.
+
+    // The mouse drives the marker anywhere in the hero (over the headline or
+    // the questions too); a finger drives it only on the field itself, so
+    // scrolling the page still works everywhere else.
     const host = canvas.closest("section") ?? canvas.parentElement;
+    const field = canvas.parentElement;
     const now = () => (performance.now() - t0) / 1000;
     const local = (e) => {
       const r = canvas.getBoundingClientRect();
       return [e.clientX - r.left, e.clientY - r.top];
     };
+    const steer = (x, hold) => {
+      const u = uAtX(x);
+      if (u < 0) return;
+      mark.manual = u;
+      mark.until = now() + hold;
+      lastPoke = now();
+      start();
+    };
     const onMove = (e) => {
       if (e.pointerType === "touch") return;
-      const [x, y] = local(e);
-      if (mouse.x < -999) {
-        mouse.sx = x;
-        mouse.sy = y;
-      }
-      mouse.x = x;
-      mouse.y = y;
-      lastPoke = now();
+      steer(local(e)[0], 30);
     };
+    // the mouse left the hero: let the marker walk on from where it is
     const onLeave = () => {
-      mouse.x = -9999;
-      mouse.y = -9999;
+      mark.until = 0;
+    };
+    const onFieldMove = (e) => {
+      if (e.pointerType === "touch") steer(local(e)[0], 3);
     };
     const ripple = (x, y) => {
       ripples.push({ x, y, t: now() });
@@ -265,8 +320,7 @@ export default function GrowthField({
       lastPoke = now();
       start();
     };
-    // A mouse click ripples at once; a finger only on a tap, not when it
-    // starts a scroll.
+    // a mouse click ripples at once; a finger only on a tap, not a scroll
     let touch = null;
     const onDown = (e) => {
       if (e.pointerType === "touch") touch = local(e);
@@ -275,7 +329,10 @@ export default function GrowthField({
     const onUp = (e) => {
       if (e.pointerType !== "touch" || !touch) return;
       const [x, y] = local(e);
-      if (Math.hypot(x - touch[0], y - touch[1]) < 12) ripple(x, y);
+      if (Math.hypot(x - touch[0], y - touch[1]) < 12) {
+        ripple(x, y);
+        steer(x, 3);
+      }
       touch = null;
     };
     const onGrow = (e) => {
@@ -287,6 +344,7 @@ export default function GrowthField({
     host?.addEventListener("pointerleave", onLeave);
     host?.addEventListener("pointerdown", onDown);
     host?.addEventListener("pointerup", onUp);
+    field?.addEventListener("pointermove", onFieldMove);
     window.addEventListener("v5:grow", onGrow);
     return () => {
       stop();
@@ -296,9 +354,10 @@ export default function GrowthField({
       host?.removeEventListener("pointerleave", onLeave);
       host?.removeEventListener("pointerdown", onDown);
       host?.removeEventListener("pointerup", onUp);
+      field?.removeEventListener("pointermove", onFieldMove);
       window.removeEventListener("v5:grow", onGrow);
     };
-  }, [theme, horizon, anchorRoot]);
+  }, [horizon, markerRef]);
 
   return <canvas ref={ref} className={className} aria-hidden="true" />;
 }

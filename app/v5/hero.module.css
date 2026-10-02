@@ -69,27 +69,77 @@
   margin-top: 30px;
 }
 
-/* the landscape */
+/* the landscape: its own band, the questions only touch its lower edge,
+   so the whole line (and the marker on it) stays in view */
 .land {
   position: relative;
   z-index: 1;
-  height: clamp(320px, 38vw, 540px);
-  margin-top: clamp(-120px, -7vw, -10px);
+  height: clamp(300px, 32vw, 460px);
+  margin-top: clamp(-60px, -3vw, 0px);
+  /* a finger dragged sideways moves the marker; up and down still scrolls */
+  touch-action: pan-y;
 }
 .quizWrap {
   position: relative;
   z-index: 3;
   max-width: 1040px;
-  margin-top: clamp(-150px, -9vw, -40px);
+  margin-top: clamp(-56px, -3.5vw, -24px);
 }
-/* phones: show a strip of the field, not a screenful of it */
 @media (max-width: 640px) {
   .land {
-    height: 230px;
-    margin-top: -20px;
+    height: 270px;
+    margin-top: 4px;
   }
-  .quizWrap {
-    margin-top: -125px;
+}
+
+/* the label that rides the line */
+.marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 5px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow:
+    0 10px 24px -12px rgb(11 11 22 / 0.35),
+    var(--ring);
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  translate: -50% -100%;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+  pointer-events: none;
+  will-change: transform;
+}
+.marker[data-on="true"] {
+  opacity: 1;
+}
+.marker i {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-style: normal;
+  font-size: 11.5px;
+  font-weight: 800;
+  transition: background 0.3s var(--ease);
+}
+.marker[data-end="true"] i {
+  background: var(--secondary);
+  color: var(--ink);
+}
+@media (max-width: 640px) {
+  .marker {
+    font-size: 12.5px;
   }
 }
 .field {
