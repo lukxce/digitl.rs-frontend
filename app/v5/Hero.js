@@ -6,7 +6,7 @@ import primaDental from "../assets/clients/prima-dental.webp";
 import startupsRs from "../assets/clients/startups-rs.webp";
 import thermiq from "../assets/clients/thermiq.webp";
 import b from "./base.module.css";
-import GrowthBars from "./GrowthBars";
+import GrowthRibbon from "./GrowthRibbon";
 import h from "./hero.module.css";
 import Quiz from "./Quiz";
 import { Btn, EASE, useApp } from "./ui";
@@ -111,9 +111,9 @@ export default function Hero({ clients }) {
         </div>
       </div>
 
-      {/* the growth chart in dots; it answers the pointer and the questions */}
+      {/* the growth ribbon; it answers the pointer and the questions */}
       <div className={h.land}>
-        <GrowthBars className={h.field} />
+        <GrowthRibbon className={h.field} />
       </div>
 
       <div className={`${b.container} ${h.quizWrap}`}>
