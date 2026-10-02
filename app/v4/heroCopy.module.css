@@ -1,0 +1,75 @@
+.copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+.copy[data-align="left"] {
+  justify-items: start;
+  text-align: left;
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.8);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+.status b {
+  color: var(--ink);
+}
+@media (max-width: 560px) {
+  .statusLong {
+    display: none;
+  }
+}
+.title {
+  margin-top: 22px;
+  max-width: 14em;
+  font-size: clamp(40px, 5.4vw, 84px);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+.copy[data-align="left"] .title {
+  font-size: clamp(40px, 4.4vw, 68px);
+}
+.title span {
+  color: var(--accent);
+}
+.lead {
+  margin-top: 20px;
+  max-width: 36em;
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+.copy[data-align="left"] .ctas {
+  justify-content: flex-start;
+}
+.copy[data-tone="dark"] .title,
+.copy[data-tone="dark"] .status b {
+  color: #fff;
+}
+.copy[data-tone="dark"] .lead,
+.copy[data-tone="dark"] .status {
+  color: rgb(255 255 255 / 0.72);
+}
+.copy[data-tone="dark"] .status {
+  background: rgb(255 255 255 / 0.08);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14);
+}

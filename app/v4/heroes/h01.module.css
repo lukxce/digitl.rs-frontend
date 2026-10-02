@@ -1,0 +1,737 @@
+/* 01 · Prvo mesto */
+
+.hero {
+  --row: 68px;
+  --gap: 4px;
+  position: relative;
+  padding: clamp(48px, 7vw, 96px) clamp(16px, 4vw, 56px) clamp(44px, 6vw, 80px);
+  background:
+    radial-gradient(
+      44% 58% at 76% 42%,
+      color-mix(in oklab, var(--accent) 10%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      36% 42% at 98% 100%,
+      color-mix(in oklab, var(--secondary) 26%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      30% 40% at 0% 0%,
+      color-mix(in oklab, var(--accent) 5%, transparent),
+      transparent 70%
+    ), #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 80px);
+  max-width: 1320px;
+  margin: 0 auto;
+}
+@media (max-width: 1040px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  justify-self: end;
+}
+@media (max-width: 1040px) {
+  .stage {
+    justify-self: start;
+  }
+}
+
+/* two quiet sheets behind the card, like a stack of result pages */
+.deck {
+  position: relative;
+}
+.deck::before,
+.deck::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  border-radius: var(--r-card);
+  background: #fff;
+  box-shadow: var(--ring);
+  translate: -50% 0;
+}
+.deck::before {
+  bottom: -12px;
+  width: calc(100% - 36px);
+  height: 60%;
+  opacity: 0.8;
+}
+.deck::after {
+  bottom: -23px;
+  width: calc(100% - 76px);
+  height: 50%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  padding: 16px 16px 14px;
+  border-radius: var(--r-card);
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04),
+    0 44px 80px -44px rgb(26 25 120 / 0.42);
+}
+
+/* ── search field ─────────────────────────────────────────────────── */
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 58px;
+  padding: 0 7px 0 18px;
+  border-radius: 999px;
+  background: var(--mist);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition:
+    background 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.bar:hover {
+  box-shadow: inset 0 0 0 1px var(--line-2);
+}
+.bar:focus-within {
+  background: #fff;
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px var(--accent-soft);
+}
+.lens {
+  display: grid;
+  place-items: center;
+  flex: none;
+  color: var(--ink-3);
+}
+.bar:focus-within .lens {
+  color: var(--accent);
+}
+.field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  cursor: text;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.input,
+.ghost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  font-size: 16.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.input {
+  border: 0;
+  outline: 0;
+  padding: 0;
+  background: transparent;
+  caret-color: var(--accent);
+}
+.input:focus-visible {
+  outline: none;
+}
+.input::placeholder {
+  color: var(--ink-4);
+  font-weight: 500;
+}
+/* when the field is not in use, the typed text is drawn by .ghost so it can
+   carry a blinking caret during the automatic typing */
+.input:not(:focus) {
+  color: transparent;
+}
+.ghost {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: pre;
+  pointer-events: none;
+}
+.input:focus + .ghost {
+  visibility: hidden;
+}
+.caret {
+  display: none;
+  width: 2px;
+  height: 1.15em;
+  margin-left: 1px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.caret[data-on="true"] {
+  display: inline-block;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.go {
+  flex: none;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: var(--glow);
+  transition:
+    background 0.3s var(--ease),
+    transform 0.2s var(--ease);
+}
+.go:hover {
+  background: var(--accent-deep);
+}
+.go:active {
+  transform: scale(0.97);
+}
+.load {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 0;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.load::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.load[data-on="true"] {
+  opacity: 1;
+}
+.load[data-on="true"]::after {
+  animation: sweep 0.9s var(--ease) infinite;
+}
+@keyframes sweep {
+  from {
+    translate: -100% 0;
+  }
+  to {
+    translate: 260% 0;
+  }
+}
+
+/* ── hint + live rank ─────────────────────────────────────────────── */
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 6px 10px;
+}
+.hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-4);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.hint[data-user="false"] {
+  color: var(--accent);
+}
+.hint svg {
+  flex: none;
+}
+.short {
+  display: none;
+}
+@media (max-width: 560px) {
+  .long {
+    display: none;
+  }
+  .short {
+    display: inline;
+  }
+}
+.hint b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ink);
+  font-weight: 700;
+}
+.rank {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  height: 28px;
+  padding: 0 4px 0 11px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  transition:
+    background 0.4s var(--ease),
+    color 0.4s var(--ease);
+}
+.rank[data-top="true"] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+}
+.rankNo {
+  position: relative;
+  display: grid;
+  min-width: 34px;
+  height: 22px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.rankNo b {
+  display: grid;
+  place-items: center;
+  grid-area: 1 / 1;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.rank[data-top="true"] .rankNo {
+  background: var(--secondary);
+  box-shadow: none;
+}
+
+/* ── results ──────────────────────────────────────────────────────── */
+.list {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 0 6px;
+}
+.rail {
+  display: grid;
+  grid-auto-rows: var(--row);
+  gap: var(--gap);
+}
+.rail li {
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink-5);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.35s var(--ease);
+}
+.rail li[data-on="true"] {
+  color: var(--accent);
+}
+.rail li[data-top="true"] {
+  color: var(--ink);
+}
+.stack {
+  display: grid;
+  min-width: 0;
+}
+.stack > * {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+.rows,
+.skel {
+  display: grid;
+  grid-auto-rows: var(--row);
+  gap: var(--gap);
+  transition: opacity 0.45s var(--ease);
+}
+.rows[data-on="false"],
+.skel[data-on="false"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 0 12px;
+  border-radius: 18px;
+  background: #fff;
+  transition:
+    background 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
+}
+.row:not([data-mine]):hover {
+  background: var(--mist);
+}
+.row[data-mine] {
+  z-index: 2;
+  background: var(--accent-soft);
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent-pale),
+    0 14px 30px -18px color-mix(in oklab, var(--accent) 55%, transparent);
+}
+.row[data-top] {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent-mid),
+    0 18px 36px -18px color-mix(in oklab, var(--accent) 65%, transparent);
+}
+
+.fav {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 800;
+  background: var(--mist);
+  color: var(--ink-2);
+  box-shadow: var(--ring);
+}
+.fav[data-tone="ink"] {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: none;
+}
+.fav[data-tone="spark"] {
+  background: var(--spark-soft);
+  color: var(--spark-ink);
+}
+.fav[data-tone="lime"] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+}
+.fav[data-tone="pale"] {
+  background: #fff;
+  color: var(--ink-3);
+}
+.fav[data-tone="mine"] {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 14px -6px var(--accent);
+}
+
+.body {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+.url,
+.title,
+.text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.url {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--ink-4);
+}
+.url b {
+  flex: none;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.path {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tag {
+  flex: none;
+  margin-left: 4px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  font-size: 10.5px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.5;
+  color: #fff;
+}
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--accent);
+}
+.row:not([data-mine]) .title {
+  color: color-mix(in oklab, var(--accent) 82%, var(--ink));
+}
+.text {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+.badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 999px;
+  background: var(--secondary);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink);
+}
+.badge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 color-mix(in oklab, var(--secondary) 80%, transparent);
+  animation: pulse 1.5s var(--ease) 0.15s 3;
+}
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--secondary) 85%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 14px color-mix(in oklab, var(--secondary) 0%, transparent);
+  }
+}
+
+/* placeholders while a search is being typed */
+.skelRow {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+}
+.skelFav {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--mist);
+}
+.skelLines {
+  display: grid;
+  gap: 7px;
+}
+.skelLines i {
+  display: block;
+  height: 9px;
+  border-radius: 6px;
+  background:
+    linear-gradient(90deg, var(--mist) 0%, #e9e9ef 40%, var(--mist) 80%) 0 0 /
+    300% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+.skelLines i:nth-child(2) {
+  height: 12px;
+  background-color: var(--accent-soft);
+}
+@keyframes shimmer {
+  to {
+    background-position: -300% 0;
+  }
+}
+
+/* ── what moved it ────────────────────────────────────────────────── */
+.foot {
+  display: flex;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 14px;
+  padding: 14px 4px 2px;
+  border-top: 1px solid var(--line);
+}
+.footLabel {
+  flex: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-4);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 11px 0 7px;
+  border-radius: 999px;
+  background: var(--mist);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-4);
+  transition:
+    background 0.45s var(--ease),
+    color 0.45s var(--ease),
+    transform 0.45s var(--ease);
+}
+.chipMark {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  color: transparent;
+  box-shadow: var(--ring);
+  transition:
+    background 0.45s var(--ease),
+    color 0.45s var(--ease);
+}
+.chip[data-state="now"] {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.chip[data-state="now"] .chipMark {
+  background: rgb(255 255 255 / 0.2);
+  color: #fff;
+  box-shadow: none;
+}
+.chip[data-state="done"] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+}
+.chip[data-state="done"] .chipMark {
+  background: var(--secondary);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.caption {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-4);
+  text-align: center;
+}
+
+/* ── phones ───────────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .hero {
+    --row: 68px;
+  }
+  .card {
+    padding: 10px 10px 12px;
+    border-radius: 24px;
+  }
+  .bar {
+    height: 54px;
+    padding: 0 5px 0 14px;
+    gap: 8px;
+  }
+  .go {
+    height: 42px;
+    padding: 0 15px;
+    font-size: 14px;
+  }
+  .meta {
+    padding: 12px 4px 8px;
+  }
+  .hint {
+    font-size: 12.5px;
+  }
+  .list {
+    grid-template-columns: 16px minmax(0, 1fr);
+    gap: 0 2px;
+  }
+  .row,
+  .skelRow {
+    gap: 10px;
+    padding: 0 8px;
+    grid-template-columns: 30px minmax(0, 1fr) auto;
+  }
+  .skelRow {
+    grid-template-columns: 30px minmax(0, 1fr);
+  }
+  .fav,
+  .skelFav {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+  .title {
+    font-size: 15px;
+  }
+  .text {
+    font-size: 13px;
+  }
+  .url {
+    font-size: 12px;
+  }
+  /* on a phone the badge sits on the card's edge, so the title keeps its width */
+  .badge {
+    position: absolute;
+    top: -10px;
+    left: 6px;
+    height: 22px;
+    padding: 0 8px;
+    font-size: 11.5px;
+  }
+  .foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 4px 0;
+  }
+  .chip {
+    height: 26px;
+    font-size: 12px;
+  }
+  .caption {
+    margin-top: 30px;
+    font-size: 12.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret[data-on="true"],
+  .load[data-on="true"]::after,
+  .skelLines i,
+  .badge::after {
+    animation: none;
+  }
+}

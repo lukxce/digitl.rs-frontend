@@ -1,0 +1,393 @@
+/* 03 · Zid radova */
+
+.hero {
+  --pad-x: clamp(16px, 4vw, 56px);
+  --gap: 22px;
+  --rx: 22deg;
+  --ry: -8deg;
+  --rz: -13deg;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 44%) minmax(0, 1fr);
+  align-items: center;
+  min-height: clamp(720px, 58vw, 840px);
+  padding: clamp(48px, 7vw, 96px) var(--pad-x);
+  background: #fff;
+  overflow: hidden;
+}
+
+.copy {
+  position: relative;
+  z-index: 3;
+  max-width: 560px;
+}
+
+/* The wall: bleeds past the right and bottom edges of the frame and fades
+   out towards the copy and the top, so the text keeps a clean white ground. */
+.wall {
+  position: absolute;
+  z-index: 1;
+  top: -26%;
+  bottom: -34%;
+  left: 45%;
+  right: -14%;
+  perspective: 1400px;
+  perspective-origin: 20% 40%;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 15%),
+    linear-gradient(180deg, transparent 0, #000 20%, #000 82%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 15%),
+    linear-gradient(180deg, transparent 0, #000 20%, #000 82%, transparent);
+  mask-composite: intersect;
+}
+
+.plane {
+  --px: 0;
+  --py: 0;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--rx) + var(--py) * -6deg))
+    rotateY(calc(var(--ry) + var(--px) * 9deg)) rotateZ(var(--rz));
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Only the tiles take the pointer: in a 3D context the column boxes would
+   otherwise win hit testing over their own tiles. */
+.col {
+  position: relative;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  transform-style: preserve-3d;
+  animation: rise var(--dur) linear var(--delay) infinite;
+}
+.col[data-dir="down"] .track {
+  animation-name: fall;
+}
+.hero[data-run="0"] .track,
+.col:hover .track,
+.col:focus-within .track,
+.col[data-hold] .track {
+  animation-play-state: paused;
+}
+
+@keyframes rise {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+@keyframes fall {
+  from {
+    transform: translate3d(0, -50%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.repeat {
+  display: contents;
+}
+
+/* A tile: one real client site. */
+.tile {
+  position: relative;
+  display: block;
+  flex: none;
+  aspect-ratio: 16 / 9;
+  margin-bottom: var(--gap);
+  border-radius: 17px;
+  overflow: hidden;
+  background: var(--mist);
+  box-shadow:
+    0 0 0 1px rgb(11 11 22 / 0.07),
+    0 22px 40px -26px rgb(11 11 22 / 0.5);
+  transform: translateZ(1px);
+  pointer-events: auto;
+  transition:
+    transform 0.55s var(--ease),
+    box-shadow 0.55s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  transition: transform 0.7s var(--ease);
+}
+a.tile:hover,
+a.tile:focus-visible,
+a.tile[data-active] {
+  z-index: 2;
+  transform: translateZ(70px) scale(1.045);
+  box-shadow:
+    0 0 0 1px rgb(11 11 22 / 0.08),
+    0 46px 70px -34px rgb(11 11 22 / 0.6);
+}
+a.tile:hover img,
+a.tile:focus-visible img,
+a.tile[data-active] img {
+  transform: scale(1.04);
+}
+a.tile:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 17px;
+}
+
+/* Overlay chip: the client and its first real result. */
+/* Anchored right: on the left column the wall fades out towards the copy,
+   so the chip sits on the side of the tile that stays visible. */
+.chip {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: max-content;
+  max-width: calc(100% - 20px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 9px 9px 14px;
+  border-radius: 13px;
+  background: rgb(255 255 255 / 0.97);
+  box-shadow:
+    0 0 0 1px rgb(11 11 22 / 0.06),
+    0 12px 26px -14px rgb(11 11 22 / 0.55);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.45s var(--ease);
+  pointer-events: none;
+}
+a.tile:hover .chip,
+a.tile:focus-visible .chip,
+a.tile[data-active] .chip {
+  opacity: 1;
+  transform: none;
+}
+.chipText {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  line-height: 1.25;
+}
+.chipName {
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.chipMetric {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-3);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.chipMetric strong {
+  font-weight: 800;
+  color: var(--accent);
+}
+.chipGo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Placeholder tiles when there are no client cases: generic site sketches. */
+.ph {
+  --tint: var(--accent-soft);
+  --mark: var(--accent);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  grid-template-rows: 14% auto auto 1fr;
+  gap: 7% 8%;
+  padding: 7% 8%;
+  background: var(--tint);
+}
+.ph[data-v="b"] {
+  --tint: var(--secondary-soft);
+  --mark: var(--secondary-ink);
+}
+.ph[data-v="c"] {
+  --tint: var(--spark-soft);
+  --mark: var(--spark);
+}
+.ph[data-v="d"] {
+  --tint: var(--mist);
+  --mark: var(--ink-2);
+}
+.ph i {
+  display: block;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--mark) 22%, white);
+}
+.ph .phBar {
+  grid-column: 1 / -1;
+  border-radius: 8px;
+  background: #fff;
+}
+.ph .phHead {
+  height: 14px;
+  background: var(--mark);
+  opacity: 0.85;
+}
+.ph .phLine {
+  grid-column: 1;
+  height: 8px;
+}
+.ph .phBtn {
+  grid-column: 1;
+  width: 46%;
+  height: 16px;
+  background: var(--mark);
+}
+.ph .phArt {
+  grid-column: 2;
+  grid-row: 2 / 5;
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* A quiet label in the corner, flat (outside the 3D wall). */
+.legend {
+  position: absolute;
+  z-index: 3;
+  right: var(--pad-x);
+  bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.92);
+  box-shadow:
+    var(--ring),
+    0 10px 24px -16px rgb(11 11 22 / 0.4);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-2);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.legendDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--secondary);
+  box-shadow: 0 0 0 3px var(--secondary-soft);
+}
+
+/* Tablet and phone: copy on top, the wall as a tilted band below. */
+@media (max-width: 900px) {
+  .hero {
+    --gap: 14px;
+    --rx: 16deg;
+    --ry: 0deg;
+    --rz: -9deg;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding-bottom: 0;
+  }
+  .wall {
+    position: relative;
+    inset: auto;
+    height: 380px;
+    margin: 32px calc(-1 * var(--pad-x)) 0;
+    perspective: 1100px;
+    perspective-origin: 50% 40%;
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 0,
+      #000 16%,
+      #000 84%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0,
+      #000 16%,
+      #000 84%,
+      transparent
+    );
+  }
+  .plane {
+    inset: -34% 3%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .col:nth-child(3) {
+    display: none;
+  }
+  .chip {
+    right: 8px;
+    bottom: 8px;
+    max-width: calc(100% - 16px);
+    gap: 8px;
+    padding: 7px 7px 7px 11px;
+    border-radius: 11px;
+  }
+  .chipName {
+    font-size: 12.5px;
+  }
+  .chipMetric {
+    font-size: 10.5px;
+    line-height: 1.2;
+  }
+  .chipGo {
+    width: 28px;
+    height: 28px;
+  }
+  .legend {
+    right: 50%;
+    bottom: 14px;
+    transform: translateX(50%);
+  }
+}
+
+@media (min-width: 560px) and (max-width: 900px) {
+  .plane {
+    inset: -30% -6%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .col:nth-child(3) {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+    transform: translate3d(0, -12%, 0);
+  }
+  .col[data-dir="down"] .track {
+    transform: translate3d(0, -30%, 0);
+  }
+  .tile,
+  .tile img,
+  .chip {
+    transition: none;
+  }
+}
