@@ -6,10 +6,9 @@ import primaDental from "../assets/clients/prima-dental.webp";
 import startupsRs from "../assets/clients/startups-rs.webp";
 import thermiq from "../assets/clients/thermiq.webp";
 import b from "./base.module.css";
-import GrowthField from "./GrowthField";
+import GrowthBars from "./GrowthBars";
 import h from "./hero.module.css";
 import Quiz from "./Quiz";
-import { useRef } from "react";
 import { Btn, EASE, useApp } from "./ui";
 
 function Line({ delay, children }) {
@@ -36,31 +35,42 @@ function Logos({ clients }) {
         !local.some((l) => l.name.toLowerCase() === c.name.toLowerCase()),
     )
     .map((c) => ({ src: c.logo, name: c.name, label: true }));
+  const items = [...local, ...cms];
+  // Phones get the row twice so it can loop without a seam; the copy is
+  // hidden from screen readers and from wide screens.
+  const row = (copy) =>
+    items.map((l) => (
+      <li
+        key={`${copy ? "b" : "a"}-${l.name}`}
+        aria-hidden={copy || undefined}
+        data-copy={copy ? "true" : undefined}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={l.src} alt={copy ? "" : l.name} />
+        {l.label ? <span>{l.name}</span> : null}
+      </li>
+    ));
   return (
-    <div className={h.logos}>
+    <motion.div
+      className={h.logos}
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: EASE }}
+    >
       <span className={h.logosLabel}>50+ saradnji, među njima</span>
-      <ul>
-        {[...local, ...cms].map((l, i) => (
-          <motion.li
-            key={l.name}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.06, duration: 0.6, ease: EASE }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={l.src} alt={l.name} />
-            {l.label ? <span>{l.name}</span> : null}
-          </motion.li>
-        ))}
-      </ul>
-    </div>
+      <div className={h.rail}>
+        <ul className={h.track}>
+          {row(false)}
+          {row(true)}
+        </ul>
+      </div>
+    </motion.div>
   );
 }
 
 export default function Hero({ clients }) {
   const { scrollTo, book } = useApp();
-  const marker = useRef(null);
 
   return (
     <section id="top" className={h.hero} data-section="Početak">
@@ -101,13 +111,9 @@ export default function Hero({ clients }) {
         </div>
       </div>
 
-      {/* the growth line, with a marker that names the step under it */}
+      {/* the growth chart in dots; it answers the pointer and the questions */}
       <div className={h.land}>
-        <GrowthField className={h.field} markerRef={marker} />
-        <div ref={marker} className={h.marker} aria-hidden="true">
-          <i>1</i>
-          <span>Razumevanje</span>
-        </div>
+        <GrowthBars className={h.field} />
       </div>
 
       <div className={`${b.container} ${h.quizWrap}`}>

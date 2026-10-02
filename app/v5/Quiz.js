@@ -27,7 +27,7 @@ export default function Quiz({ clients }) {
   const [answers, setAnswers] = useState([]);
   const done = Boolean(plan);
 
-  // The field in the hero grows with every answer (see GrowthField).
+  // The field in the hero grows with every answer (see GrowthBars).
   const grow = (level, done = false) =>
     window.dispatchEvent(
       new CustomEvent("v5:grow", { detail: { level, done } }),

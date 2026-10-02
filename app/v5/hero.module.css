@@ -69,77 +69,25 @@
   margin-top: 30px;
 }
 
-/* the landscape: its own band, the questions only touch its lower edge,
-   so the whole line (and the marker on it) stays in view */
+/* the dot chart: its own band between the buttons and the questions */
 .land {
   position: relative;
   z-index: 1;
-  height: clamp(300px, 32vw, 460px);
-  margin-top: clamp(-60px, -3vw, 0px);
-  /* a finger dragged sideways moves the marker; up and down still scrolls */
+  height: clamp(190px, 19vw, 280px);
+  margin-top: clamp(28px, 3.4vw, 48px);
+  /* a finger dragged sideways moves the chart; up and down still scrolls */
   touch-action: pan-y;
 }
 .quizWrap {
   position: relative;
   z-index: 3;
   max-width: 1040px;
-  margin-top: clamp(-56px, -3.5vw, -24px);
+  margin-top: 4px;
 }
 @media (max-width: 640px) {
   .land {
-    height: 270px;
-    margin-top: 4px;
-  }
-}
-
-/* the label that rides the line */
-.marker {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 5px 12px 5px 5px;
-  border-radius: 999px;
-  background: #fff;
-  box-shadow:
-    0 10px 24px -12px rgb(11 11 22 / 0.35),
-    var(--ring);
-  font-size: 13.5px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  translate: -50% -100%;
-  opacity: 0;
-  transition: opacity 0.3s var(--ease);
-  pointer-events: none;
-  will-change: transform;
-}
-.marker[data-on="true"] {
-  opacity: 1;
-}
-.marker i {
-  display: grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #fff;
-  font-style: normal;
-  font-size: 11.5px;
-  font-weight: 800;
-  transition: background 0.3s var(--ease);
-}
-.marker[data-end="true"] i {
-  background: var(--secondary);
-  color: var(--ink);
-}
-@media (max-width: 640px) {
-  .marker {
-    font-size: 12.5px;
+    height: 150px;
+    margin-top: 26px;
   }
 }
 .field {
@@ -168,17 +116,23 @@
   font-weight: 600;
   color: var(--ink-4);
 }
-.logos ul {
+.rail {
+  min-width: 0;
+}
+.track {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 22px 40px;
 }
-.logos li {
+.track li {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+}
+.track li[data-copy] {
+  display: none;
 }
 .logos img {
   height: 32px;
@@ -191,63 +145,71 @@
     filter 0.4s var(--ease),
     opacity 0.4s var(--ease);
 }
-.logos li:hover img {
+.track li:hover img {
   filter: none;
   opacity: 1;
 }
-.logos li span {
+.track li span {
   font-size: 16px;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--ink-4);
 }
 
-/* phones and tablets: an even grid, every logo centred in its own cell */
+/* phones and tablets: the logos run past in an endless loop */
 @media (max-width: 999px) {
   .logos {
     justify-items: center;
-    gap: 18px;
-    text-align: center;
+    gap: 16px;
   }
-  .logos ul {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: 100%;
+  .rail {
+    width: calc(100% + 2 * clamp(16px, 3vw, 32px));
+    margin: 0 calc(-1 * clamp(16px, 3vw, 32px));
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 14%,
+      #000 86%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 14%,
+      #000 86%,
+      transparent
+    );
+  }
+  .track {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     gap: 0;
+    width: max-content;
+    animation: logoLoop 26s linear infinite;
   }
-  .logos li {
-    justify-content: center;
-    min-height: 64px;
-    padding: 0 8px;
-  }
-  .logos li:nth-child(odd) {
-    box-shadow: inset -1px 0 0 var(--line);
-  }
-  .logos li:nth-child(n + 3) {
-    border-top: 1px solid var(--line);
+  .track li,
+  .track li[data-copy] {
+    display: inline-flex;
+    flex: none;
+    /* a margin, not a gap, so half the track is exactly one row */
+    margin-right: 44px;
   }
   .logos img {
-    height: 26px;
-    max-width: 118px;
+    height: 28px;
+    max-width: 130px;
   }
-  .logos li span {
-    font-size: 14.5px;
+  .track li span {
+    font-size: 15px;
   }
 }
-@media (min-width: 640px) and (max-width: 999px) {
-  .logos ul {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+@keyframes logoLoop {
+  to {
+    transform: translateX(-50%);
   }
-  .logos li:nth-child(odd) {
-    box-shadow: none;
-  }
-  .logos li:not(:nth-child(3n)) {
-    box-shadow: inset -1px 0 0 var(--line);
-  }
-  .logos li:nth-child(n + 3) {
-    border-top: 0;
-  }
-  .logos li:nth-child(n + 4) {
-    border-top: 1px solid var(--line);
+}
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
   }
 }
