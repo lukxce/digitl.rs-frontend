@@ -27,9 +27,15 @@ export default function Quiz({ clients }) {
   const [answers, setAnswers] = useState([]);
   const done = Boolean(plan);
 
+  // The field in the hero grows with every answer (see GrowthField).
+  const grow = (level, done = false) =>
+    window.dispatchEvent(
+      new CustomEvent("v5:grow", { detail: { level, done } }),
+    );
   const choose = (id) => {
     const next = [...answers.slice(0, step), id];
     setAnswers(next);
+    grow(next.length / QUIZ.length, step === QUIZ.length - 1);
     if (step < QUIZ.length - 1) setStep(step + 1);
     else setPlan(makePlan(next));
   };
@@ -37,6 +43,7 @@ export default function Quiz({ clients }) {
     setPlan(null);
     setAnswers([]);
     setStep(0);
+    grow(0);
   };
 
   const score = scoresFor(done ? answers : answers.slice(0, step));

@@ -3,10 +3,14 @@
 import { useEffect, useRef } from "react";
 
 /* A terrain of points seen in perspective. Its height is a rising revenue
-   curve (low on the left, high on the right) with slow waves through it, and
-   it swells toward the cursor. One ridge row is traced as the trend line, and
-   any [data-at] element inside `anchorRoot` is pinned to that line (at = 0…1
-   from left to right). Pauses off screen; a still frame for reduced motion. */
+   curve (low on the left, high on the right) with slow waves through it. It
+   answers the reader: it swells and gathers under the cursor anywhere in the
+   hero, a click or tap sends a ripple through it, and every answer in the
+   three questions (a "v5:grow" event) sends a wave up the curve and lifts the
+   right side, so the plan visibly grows the line. One ridge row is traced as
+   the trend line, and any [data-at] element inside `anchorRoot` is pinned to
+   it (at = 0…1 from left to right). Pauses off screen; a still frame for
+   reduced motion. */
 
 const COLS = 112;
 const ROWS = 40;
@@ -82,7 +86,12 @@ export default function GrowthField({
     let h = 0;
     let raf = 0;
     let running = false;
-    const mouse = { x: -9999, y: -9999, k: 0 };
+    const mouse = { x: -9999, y: -9999, sx: 0, sy: 0, k: 0 };
+    const ripples = []; // { x, y, t } in canvas pixels / seconds
+    const surges = []; // { t, a } waves that run up the curve
+    let boost = 0;
+    let boostTo = 0;
+    let lastPoke = 0;
     const t0 = performance.now();
     const anchors = () =>
       anchorRoot?.current
@@ -109,7 +118,21 @@ export default function GrowthField({
       const camY = 1.15;
       const spanX = narrow ? 0.95 : 1.45;
       const cx = w * 0.5;
-      mouse.k += ((mouse.x > -999 ? 1 : 0) - mouse.k) * 0.06;
+      const inside = mouse.x > -999;
+      mouse.k += ((inside ? 1 : 0) - mouse.k) * 0.06;
+      if (inside) {
+        // a soft trail behind the real pointer
+        mouse.sx += (mouse.x - mouse.sx) * 0.14;
+        mouse.sy += (mouse.y - mouse.sy) * 0.14;
+      }
+      boost += (boostTo - boost) * 0.04;
+      // when nobody has touched it for a while, a quiet wave shows it is alive
+      if (!reduce && t - lastPoke > 9 && rise > 0.99) {
+        surges.push({ t, a: 0.55 });
+        lastPoke = t;
+      }
+      while (ripples.length && t - ripples[0].t > 2.2) ripples.shift();
+      while (surges.length && t - surges[0].t > 1.6) surges.shift();
       const crest = new Array(COLS).fill(null);
 
       for (let r = ROWS - 1; r >= 0; r--) {
@@ -117,16 +140,32 @@ export default function GrowthField({
         const depth = 1.1 + z * 3.4;
         for (let c = 0; c < COLS; c++) {
           const x = (c / (COLS - 1)) * 2 - 1;
-          const y = heightAt(x, z, t) * rise;
-          const sx = cx + ((x * spanX) / depth) * f;
+          // answers lift the right-hand side: the plan grows the curve
+          const y =
+            heightAt(x, z, t) *
+            rise *
+            (1 + boost * 0.32 * ((x + 1) / 2) ** 1.5);
+          let sx = cx + ((x * spanX) / depth) * f;
           let sy = hz + ((camY - y * 1.75) / depth) * f * 0.42;
-          const dx = sx - mouse.x;
-          const dy = sy - mouse.y;
-          const lift = mouse.k * 42 * Math.exp(-(dx * dx + dy * dy) / 14000);
+          const dx = sx - mouse.sx;
+          const dy = sy - mouse.sy;
+          const pull = mouse.k * Math.exp(-(dx * dx + dy * dy) / 26000);
+          let lift = 54 * pull;
+          sx -= dx * 0.12 * pull; // points gather toward the cursor
+          for (const rp of ripples) {
+            const age = t - rp.t;
+            const ring = Math.hypot(sx - rp.x, sy - rp.y) - age * 520;
+            lift += 30 * Math.exp(-(ring * ring) / 1100) * Math.exp(-age * 1.5);
+          }
+          for (const sg of surges) {
+            const at = -1.35 + (t - sg.t) * 2.1;
+            lift +=
+              sg.a * 46 * Math.exp(-((x - at) ** 2) / 0.025) * (1 - z * 0.5);
+          }
           sy -= lift;
           if (r === RIDGE) crest[c] = [sx, sy];
           if (sx < -10 || sx > w + 10 || sy > h + 10 || sy < -10) continue;
-          const tone = Math.min(1, Math.max(0, y / 1.05 + lift / 90));
+          const tone = Math.min(1, Math.max(0, y / 1.05 + lift / 80));
           const near = 1 - z;
           const edge = Math.min(1, (sx / w) * 7, ((w - sx) / w) * 7);
           const a = th.alpha(near, tone) * edge;
@@ -150,10 +189,10 @@ export default function GrowthField({
         g.addColorStop(1, th.line[2]);
         ctx.save();
         ctx.strokeStyle = g;
-        ctx.lineWidth = 2.2;
+        ctx.lineWidth = 2.2 + boost * 0.8;
         ctx.lineJoin = "round";
         ctx.shadowColor = th.glow;
-        ctx.shadowBlur = 12;
+        ctx.shadowBlur = 12 + boost * 10;
         ctx.beginPath();
         pts.forEach(([x, y], i) =>
           i ? ctx.lineTo(x, y - 6) : ctx.moveTo(x, y - 6),
@@ -197,24 +236,67 @@ export default function GrowthField({
       if (!running) draw(performance.now() + 5000);
     });
     ro.observe(canvas);
-    const host = canvas.parentElement;
-    const onMove = (e) => {
+    // The whole section listens, so the field answers the cursor even over
+    // the headline or the questions that sit on top of it.
+    const host = canvas.closest("section") ?? canvas.parentElement;
+    const now = () => (performance.now() - t0) / 1000;
+    const local = (e) => {
       const r = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - r.left;
-      mouse.y = e.clientY - r.top;
+      return [e.clientX - r.left, e.clientY - r.top];
+    };
+    const onMove = (e) => {
+      if (e.pointerType === "touch") return;
+      const [x, y] = local(e);
+      if (mouse.x < -999) {
+        mouse.sx = x;
+        mouse.sy = y;
+      }
+      mouse.x = x;
+      mouse.y = y;
+      lastPoke = now();
     };
     const onLeave = () => {
       mouse.x = -9999;
       mouse.y = -9999;
     };
+    const ripple = (x, y) => {
+      ripples.push({ x, y, t: now() });
+      if (ripples.length > 5) ripples.shift();
+      lastPoke = now();
+      start();
+    };
+    // A mouse click ripples at once; a finger only on a tap, not when it
+    // starts a scroll.
+    let touch = null;
+    const onDown = (e) => {
+      if (e.pointerType === "touch") touch = local(e);
+      else ripple(...local(e));
+    };
+    const onUp = (e) => {
+      if (e.pointerType !== "touch" || !touch) return;
+      const [x, y] = local(e);
+      if (Math.hypot(x - touch[0], y - touch[1]) < 12) ripple(x, y);
+      touch = null;
+    };
+    const onGrow = (e) => {
+      boostTo = Math.max(0, Math.min(1, e.detail?.level ?? 0));
+      surges.push({ t: now(), a: e.detail?.done ? 1.5 : 1 });
+      lastPoke = now();
+    };
     host?.addEventListener("pointermove", onMove);
     host?.addEventListener("pointerleave", onLeave);
+    host?.addEventListener("pointerdown", onDown);
+    host?.addEventListener("pointerup", onUp);
+    window.addEventListener("v5:grow", onGrow);
     return () => {
       stop();
       io.disconnect();
       ro.disconnect();
       host?.removeEventListener("pointermove", onMove);
       host?.removeEventListener("pointerleave", onLeave);
+      host?.removeEventListener("pointerdown", onDown);
+      host?.removeEventListener("pointerup", onUp);
+      window.removeEventListener("v5:grow", onGrow);
     };
   }, [theme, horizon, anchorRoot]);
 
