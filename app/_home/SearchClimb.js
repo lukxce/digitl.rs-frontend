@@ -302,7 +302,7 @@ function Pointer() {
   );
 }
 
-export default function SearchClimb() {
+export default function SearchClimb({ footer = null }) {
   const reduce = useReducedMotion();
   const first = EXAMPLES[0];
   const [typed, setTyped] = useState(first.q);
@@ -641,6 +641,7 @@ export default function SearchClimb() {
               </ul>
             </div>
           </div>
+          {footer}
         </div>
       </div>
     </div>

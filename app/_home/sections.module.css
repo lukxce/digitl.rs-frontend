@@ -7,37 +7,75 @@
   --dots-at: 50% 62%;
   --dots-size: 60% 45%;
 }
-.planHead {
+/* the explanation on the left, a compact quiz on the right */
+.planGrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 8px 32px;
-  align-items: end;
-  margin-bottom: clamp(18px, 2.4vw, 28px);
+  gap: 28px;
+  align-items: center;
 }
-@media (min-width: 900px) {
-  .planHead {
-    grid-template-columns: auto minmax(0, 1fr);
+@media (min-width: 1000px) {
+  .planGrid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: clamp(40px, 6vw, 96px);
   }
-  .planHead .label,
-  .planHead span {
-    grid-column: 1 / -1;
-  }
-  .planHead p {
-    justify-self: end;
-    text-align: right;
-  }
+}
+.planHead {
+  display: grid;
+  gap: 12px;
+  align-content: center;
+  justify-items: start;
 }
 .planHead h2 {
-  font-size: clamp(26px, 2.6vw, 36px);
+  font-size: clamp(30px, 3.4vw, 48px);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
 }
 .planHead p {
-  font-size: 15px;
-  line-height: 1.45;
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.5;
   color: var(--ink-3);
-  max-width: 34em;
+  max-width: 30em;
+}
+.planGet {
+  display: grid;
+  gap: 10px;
+  margin-top: 6px;
+}
+.planGet li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.planGet li span {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--secondary);
+  color: var(--ink);
+}
+.planHead small {
+  font-size: 13px;
+  color: var(--ink-4);
+}
+/* the compact quiz never needs to be wider than this */
+.planGrid > :last-child {
+  width: 100%;
+  max-width: 640px;
+  justify-self: end;
+}
+@media (max-width: 999px) {
+  .planGrid > :last-child {
+    justify-self: stretch;
+    max-width: none;
+  }
 }
 
 /* steps */

@@ -35,17 +35,14 @@ function Logos({ clients }) {
     )
     .map((c) => ({ src: c.logo, name: c.name, label: true }));
   const items = [...local, ...cms];
-  // Phones get the row twice so it can loop without a seam; the copy is
-  // hidden from screen readers and from wide screens.
+  // The strip runs on a loop: four identical copies, moved left by one copy
+  // per cycle, so there is never a gap even on wide screens. Only the first
+  // copy is read by screen readers.
   const row = (copy) =>
     items.map((l) => (
-      <li
-        key={`${copy ? "b" : "a"}-${l.name}`}
-        aria-hidden={copy || undefined}
-        data-copy={copy ? "true" : undefined}
-      >
+      <li key={`${copy}-${l.name}`} aria-hidden={copy > 0 || undefined}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={l.src} alt={copy ? "" : l.name} />
+        <img src={l.src} alt={copy > 0 ? "" : l.name} />
         {l.label ? <span>{l.name}</span> : null}
       </li>
     ));
@@ -57,12 +54,11 @@ function Logos({ clients }) {
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: EASE }}
     >
-      <span className={h.logosLabel}>50+ saradnji, među njima</span>
+      <span className={h.logosLabel}>
+        <b>50+</b> saradnji, među njima
+      </span>
       <div className={h.rail}>
-        <ul className={h.track}>
-          {row(false)}
-          {row(true)}
-        </ul>
+        <ul className={h.track}>{[0, 1, 2, 3].map((copy) => row(copy))}</ul>
       </div>
     </motion.div>
   );

@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import b from "./base.module.css";
 import { FAQ } from "./content";
-import { Plus } from "./icons";
+import { Check, Plus } from "./icons";
 import Quiz from "./Quiz";
 import x from "./sections.module.css";
 import { EASE, Head } from "./ui";
@@ -15,15 +15,33 @@ export function PlanSection({ clients }) {
     <section className={`${b.glow} ${x.plan}`} data-section="Vaš plan">
       <div className={b.container}>
         <span id="vas-plan" className={b.anchor} />
-        <div className={x.planHead}>
-          <span className={b.label}>Tri pitanja</span>
-          <h2>Odakle da krenete?</h2>
-          <p>
-            Odgovorite na tri pitanja i odmah vidite odakle bismo mi krenuli, i
-            koji je naš projekat najsličniji vašem.
-          </p>
+        <div className={x.planGrid}>
+          <div className={x.planHead}>
+            <span className={b.label}>Tri pitanja</span>
+            <h2>Odakle da krenete?</h2>
+            <p>
+              Odgovorite na tri kratka pitanja i dobićete preporuku: šta vam je
+              od marketinga sada najpotrebnije i od čega je najpametnije da
+              krenete.
+            </p>
+            <ul className={x.planGet}>
+              {[
+                "Usluge poređane po tome koliko vam trebaju",
+                "Naš projekat koji je najsličniji vašem",
+                "Plan koji jednim klikom šaljete nama",
+              ].map((t) => (
+                <li key={t}>
+                  <span>
+                    <Check size={12} strokeWidth={3} />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <small>Traje oko pola minuta.</small>
+          </div>
+          <Quiz clients={clients} />
         </div>
-        <Quiz clients={clients} />
       </div>
     </section>
   );

@@ -485,7 +485,7 @@ function Roll({ value, dy = 14 }) {
   );
 }
 
-export default function SocialCard() {
+export default function SocialCard({ footer = null }) {
   const reduce = useReducedMotion();
   const [w, setW] = useState(START);
   const [user, setUser] = useState(false);
@@ -1044,6 +1044,7 @@ export default function SocialCard() {
                 </ul>
               </div>
             </div>
+            {footer}
           </div>
         </div>
       </div>

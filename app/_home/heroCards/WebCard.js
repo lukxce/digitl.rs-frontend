@@ -460,7 +460,7 @@ const TILE_ICONS = [
 
 /* ── card ──────────────────────────────────────────────────────────── */
 
-export default function WebCard() {
+export default function WebCard({ footer = null }) {
   const reduce = useReducedMotion();
   const [typed, setTyped] = useState(NAME);
   const [name, setName] = useState(NAME);
@@ -1147,6 +1147,7 @@ export default function WebCard() {
               </div>
             </div>
           </div>
+          {footer}
         </div>
       </div>
     </div>

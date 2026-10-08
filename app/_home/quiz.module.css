@@ -1,3 +1,9 @@
+/* The quiz sizes itself to its column, not the screen: two panels side by
+   side when there is room, otherwise one card that turns over to the plan. */
+.wrap {
+  container: quiz / inline-size;
+  min-width: 0;
+}
 .card {
   position: relative;
   display: grid;
@@ -11,7 +17,7 @@
     var(--ring);
   scroll-margin-top: 110px;
 }
-@media (min-width: 900px) {
+@container quiz (min-width: 900px) {
   .card {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   }
@@ -345,7 +351,7 @@
 .mVerdict {
   display: none;
 }
-@media (max-width: 899px) {
+@container quiz (max-width: 899px) {
   .card {
     perspective: 1600px;
     background: transparent;

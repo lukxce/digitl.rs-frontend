@@ -363,7 +363,7 @@ function SocialMark() {
 
 const INIT = { bi: 0, day: 0, opts: [], run: 0 };
 
-export default function AdsCard() {
+export default function AdsCard({ footer = null }) {
   const reduce = useReducedMotion();
   // The server can't know the reader's motion setting, so the first render
   // always assumes motion; markup that depends on it switches after mount.
@@ -1003,6 +1003,7 @@ export default function AdsCard() {
               <span className={s.long}>/dan</span>
             </span>
           </div>
+          {footer}
         </div>
       </div>
     </div>

@@ -1,0 +1,90 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 14px;
+  padding: 14px 4px 2px;
+  border-top: 1px solid var(--line);
+}
+.label {
+  flex: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-4);
+}
+.chips {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.chips::-webkit-scrollbar {
+  display: none;
+}
+.chip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 5px;
+  height: 30px;
+  padding: 0 12px 0 7px;
+  border-radius: 999px;
+  background: var(--mist);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-3);
+  transition:
+    background 0.35s var(--ease),
+    color 0.35s var(--ease);
+}
+.chip:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.mark {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  color: transparent;
+  box-shadow: var(--ring);
+  transition:
+    background 0.35s var(--ease),
+    color 0.35s var(--ease);
+}
+.chip[data-on] {
+  background: var(--accent);
+  color: #fff;
+}
+.chip[data-on] .mark {
+  background: rgb(255 255 255 / 0.22);
+  color: #fff;
+  box-shadow: none;
+}
+@media (max-width: 560px) {
+  .row {
+    margin-top: 10px;
+    padding: 10px 0 0;
+  }
+  .label {
+    display: none;
+  }
+  .chips {
+    gap: 4px;
+  }
+  .chip {
+    height: 30px;
+    padding: 0 10px;
+    font-size: 12.5px;
+  }
+  /* on phones only the chosen one carries its check, so all five fit */
+  .chip:not([data-on]) .mark {
+    display: none;
+  }
+  .chip[data-on] {
+    padding-left: 6px;
+  }
+}

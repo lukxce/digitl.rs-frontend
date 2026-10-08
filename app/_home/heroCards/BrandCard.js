@@ -633,7 +633,7 @@ function Roll({ value }) {
   );
 }
 
-export default function BrandCard() {
+export default function BrandCard({ footer = null }) {
   const reduce = useReducedMotion();
   const first = EXAMPLES[0];
   const [typed, setTyped] = useState(first.name);
@@ -1090,6 +1090,7 @@ export default function BrandCard() {
               })}
             </div>
           </div>
+          {footer}
         </div>
       </div>
     </div>

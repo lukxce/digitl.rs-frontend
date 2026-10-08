@@ -93,43 +93,62 @@
 .logos {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 14px;
-  align-items: center;
+  justify-items: center;
+  gap: 18px;
   margin-top: clamp(36px, 4vw, 56px);
   padding: 26px 0 34px;
   border-top: 1px solid var(--line);
 }
-@media (min-width: 1000px) {
-  .logos {
-    grid-template-columns: 220px minmax(0, 1fr);
-  }
-}
 .logosLabel {
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--ink-4);
+  text-align: center;
 }
+.logosLabel b {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+/* an endless strip, faded at both ends */
 .rail {
-  min-width: 0;
+  width: calc(100% + 2 * clamp(16px, 3vw, 32px));
+  margin: 0 calc(-1 * clamp(16px, 3vw, 32px));
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
 }
 .track {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 22px 40px;
+  width: max-content;
+  animation: logoLoop 44s linear infinite;
+}
+.rail:hover .track {
+  animation-play-state: paused;
 }
 .track li {
   display: inline-flex;
+  flex: none;
   align-items: center;
   gap: 10px;
-}
-.track li[data-copy] {
-  display: none;
+  /* a margin, not a gap, so a quarter of the track is exactly one copy */
+  margin-right: clamp(44px, 5vw, 72px);
 }
 .logos img {
-  height: 32px;
+  height: 30px;
   width: auto;
   max-width: 140px;
   object-fit: contain;
@@ -149,57 +168,21 @@
   letter-spacing: -0.02em;
   color: var(--ink-4);
 }
-
-/* phones and tablets: the logos run past in an endless loop */
-@media (max-width: 999px) {
-  .logos {
-    justify-items: center;
-    gap: 16px;
-  }
-  .rail {
-    width: calc(100% + 2 * clamp(16px, 3vw, 32px));
-    margin: 0 calc(-1 * clamp(16px, 3vw, 32px));
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent,
-      #000 14%,
-      #000 86%,
-      transparent
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent,
-      #000 14%,
-      #000 86%,
-      transparent
-    );
-  }
+@media (max-width: 640px) {
   .track {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 0;
-    width: max-content;
-    animation: logoLoop 26s linear infinite;
-  }
-  .track li,
-  .track li[data-copy] {
-    display: inline-flex;
-    flex: none;
-    /* a margin, not a gap, so half the track is exactly one row */
-    margin-right: 44px;
+    animation-duration: 32s;
   }
   .logos img {
-    height: 28px;
-    max-width: 130px;
+    height: 26px;
+    max-width: 120px;
   }
   .track li span {
-    font-size: 15px;
+    font-size: 14.5px;
   }
 }
 @keyframes logoLoop {
   to {
-    transform: translateX(-50%);
+    transform: translateX(-25%);
   }
 }
 @media (prefers-reduced-motion: reduce) {
