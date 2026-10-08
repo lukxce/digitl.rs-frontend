@@ -6,7 +6,7 @@ import primaDental from "../assets/clients/prima-dental.webp";
 import startupsRs from "../assets/clients/startups-rs.webp";
 import thermiq from "../assets/clients/thermiq.webp";
 import b from "./base.module.css";
-import GrowthFlow from "./GrowthFlow";
+import SearchClimb from "./SearchClimb";
 import h from "./hero.module.css";
 import Quiz from "./Quiz";
 import { Btn, EASE, useApp } from "./ui";
@@ -74,46 +74,49 @@ export default function Hero({ clients }) {
 
   return (
     <section id="top" className={h.hero} data-section="Početak">
-      <div className={`${b.container} ${h.copy}`}>
-        <p
-          className={`${h.status} ${b.fadeUp}`}
-          style={{ animationDelay: "40ms" }}
-        >
-          <span className={b.liveDot} />
-          <span className={h.statusLong}>
-            Agencija za rast · Beograd / London ·
-          </span>{" "}
-          <b>2 slobodna mesta</b>
-        </p>
-        <h1 className={`${b.display} ${h.title}`}>
-          <Line delay={100}>Marketing koji se meri</Line>
-          <Line delay={190}>
-            <span className={h.accent}>profitom,</span> ne aktivnošću.
-          </Line>
-        </h1>
-        <div className={b.fadeUp} style={{ animationDelay: "520ms" }}>
-          <p className={h.lead}>
-            Oglasi, SEO, sajt, mreže i brend, vođeni kao jedan sistem i mereni
-            jednim brojem: koliko su vam doneli.
+      <div className={`${b.container} ${h.top}`}>
+        <div className={h.copy}>
+          <p
+            className={`${h.status} ${b.fadeUp}`}
+            style={{ animationDelay: "40ms" }}
+          >
+            <span className={b.liveDot} />
+            <span className={h.statusLong}>
+              Agencija za rast · Beograd / London ·
+            </span>{" "}
+            <b>2 slobodna mesta</b>
           </p>
-          <div className={h.ctas}>
-            <Btn variant="accent" onClick={() => book()}>
-              Zakažite razgovor
-            </Btn>
-            <Btn
-              variant="ghost"
-              arrow={false}
-              onClick={() => scrollTo("#plan", -100)}
-            >
-              Tri pitanja za vaš plan
-            </Btn>
+          <h1 className={`${b.display} ${h.title}`}>
+            <Line delay={100}>Marketing koji se</Line>
+            <Line delay={170}>
+              meri <span className={h.accent}>profitom,</span>
+            </Line>
+            <Line delay={240}>ne aktivnošću.</Line>
+          </h1>
+          <div className={b.fadeUp} style={{ animationDelay: "520ms" }}>
+            <p className={h.lead}>
+              Oglasi, SEO, sajt, mreže i brend, vođeni kao jedan sistem i mereni
+              jednim brojem: koliko su vam doneli.
+            </p>
+            <div className={h.ctas}>
+              <Btn variant="accent" onClick={() => book()}>
+                Zakažite razgovor
+              </Btn>
+              <Btn
+                variant="ghost"
+                arrow={false}
+                onClick={() => scrollTo("#plan", -100)}
+              >
+                Tri pitanja za vaš plan
+              </Btn>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* the growth line with traffic on it; it answers the pointer and the questions */}
-      <div className={h.land}>
-        <GrowthFlow className={h.field} />
+        {/* your site climbing a search to #1; type your own business and city */}
+        <div className={h.search}>
+          <SearchClimb />
+        </div>
       </div>
 
       <div className={`${b.container} ${h.quizWrap}`}>
