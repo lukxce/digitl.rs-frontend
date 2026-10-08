@@ -6,7 +6,7 @@ import primaDental from "../assets/clients/prima-dental.webp";
 import startupsRs from "../assets/clients/startups-rs.webp";
 import thermiq from "../assets/clients/thermiq.webp";
 import b from "./base.module.css";
-import SearchClimb from "./SearchClimb";
+import HeroShowcase from "./HeroShowcase";
 import h from "./hero.module.css";
 import { Btn, EASE, useApp } from "./ui";
 
@@ -112,8 +112,8 @@ export default function Hero({ clients, visual = null }) {
           </div>
         </div>
 
-        {/* your site climbing a search to #1; type your own business and city */}
-        <div className={h.search}>{visual ?? <SearchClimb />}</div>
+        {/* one of our services, shown working: a different one on each visit */}
+        <div className={h.search}>{visual ?? <HeroShowcase />}</div>
       </div>
 
       <div className={b.container}>

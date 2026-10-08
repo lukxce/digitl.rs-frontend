@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactCompiler: true,
+  // Design studies that have since become the homepage, or were retired.
+  async redirects() {
+    return [
+      { source: "/v2home", destination: "/v2", permanent: true },
+      { source: "/v4", destination: "/", permanent: true },
+      { source: "/v5", destination: "/", permanent: true },
+      { source: "/v6", destination: "/", permanent: true },
+    ];
+  },
   images: {
     remotePatterns: [
       {

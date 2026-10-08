@@ -1,4 +1,4 @@
-// Line icons for v5, drawn on a 24px grid with a 2px stroke.
+// Line icons for the homepage, drawn on a 24px grid with a 2px stroke.
 
 function I({ size = 16, children, fill = false, ...rest }) {
   return (

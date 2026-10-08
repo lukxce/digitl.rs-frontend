@@ -2,13 +2,13 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import HeroCopy from "../HeroCopy";
-import s from "./h01.module.css";
+import s from "./searchClimb.module.css";
 
-/* 01 · Prvo mesto. An illustrative search: a kind of business and a city,
-   generic rivals, and "vasafirma.rs" climbing from sixth place to first.
-   Nothing here is a real result, and the caption under the card says so.
-   The reader can type their own business and city and watch the same climb. */
+/* The hero's search card. An illustrative search: a kind of business and a
+   city, generic rivals, and "vasafirma.rs" climbing from sixth place to
+   first. Nothing here is a real result (all names are generic). The reader can type their own business and city and watch the same
+   climb. On phones the list shows four rows, so "vasafirma.rs" slides up
+   into view from below as it climbs. */
 
 const CITIES = [
   "sremska mitrovica",
@@ -322,7 +322,7 @@ function Pointer() {
   );
 }
 
-export default function H01Search() {
+export default function SearchClimb() {
   const reduce = useReducedMotion();
   const first = EXAMPLES[0];
   const [typed, setTyped] = useState(first.q);
@@ -524,181 +524,169 @@ export default function H01Search() {
   else if (user) hint = "Pritisnite Enter ili Pretraži";
 
   return (
-    <div className={s.hero} ref={root}>
-      <div className={s.grid}>
-        <HeroCopy align="left" />
+    <div className={s.stage} ref={root}>
+      <div className={s.deck}>
+        <div className={s.card}>
+          <form className={s.bar} onSubmit={submit} role="search">
+            <span className={s.lens}>
+              <SearchIcon />
+            </span>
+            <label className={s.field}>
+              <span className={s.sr}>Delatnost i grad</span>
+              <input
+                ref={inputRef}
+                className={s.input}
+                value={typed}
+                onChange={(e) => {
+                  takeOver();
+                  type(e.target.value);
+                }}
+                onFocus={onFocus}
+                placeholder={
+                  user ? "Delatnost i grad, npr. frizer novi sad" : ""
+                }
+                enterKeyHint="search"
+                autoComplete="off"
+                spellCheck={false}
+                maxLength={48}
+              />
+              <span className={s.ghost} aria-hidden>
+                {typed}
+                <i className={s.caret} data-on={phase === "typing"} />
+              </span>
+            </label>
+            <button type="submit" className={s.go}>
+              Pretraži
+            </button>
+            <span className={s.load} data-on={phase === "loading"} />
+          </form>
 
-        <div className={s.stage}>
-          <div className={s.deck}>
-            <div className={s.card}>
-              <form className={s.bar} onSubmit={submit} role="search">
-                <span className={s.lens}>
-                  <SearchIcon />
-                </span>
-                <label className={s.field}>
-                  <span className={s.sr}>Delatnost i grad</span>
-                  <input
-                    ref={inputRef}
-                    className={s.input}
-                    value={typed}
-                    onChange={(e) => {
-                      takeOver();
-                      type(e.target.value);
-                    }}
-                    onFocus={onFocus}
-                    placeholder={
-                      user ? "Delatnost i grad, npr. frizer novi sad" : ""
-                    }
-                    enterKeyHint="search"
-                    autoComplete="off"
-                    spellCheck={false}
-                    maxLength={48}
-                  />
-                  <span className={s.ghost} aria-hidden>
-                    {typed}
-                    <i className={s.caret} data-on={phase === "typing"} />
-                  </span>
-                </label>
-                <button type="submit" className={s.go}>
-                  Pretraži
-                </button>
-                <span className={s.load} data-on={phase === "loading"} />
-              </form>
+          <div className={s.meta}>
+            <span className={s.hint} data-user={user}>
+              {hint}
+            </span>
+            <span className={s.rank} data-top={top && live}>
+              Vaš sajt
+              <span className={s.rankNo}>
+                <AnimatePresence mode="popLayout" initial={false}>
+                  <motion.b
+                    key={live ? pos : "x"}
+                    initial={{ y: 14, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -14, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {live ? `#${pos + 1}` : "…"}
+                  </motion.b>
+                </AnimatePresence>
+              </span>
+            </span>
+          </div>
 
-              <div className={s.meta}>
-                <span className={s.hint} data-user={user}>
-                  {hint}
-                </span>
-                <span className={s.rank} data-top={top && live}>
-                  Vaš sajt
-                  <span className={s.rankNo}>
-                    <AnimatePresence mode="popLayout" initial={false}>
-                      <motion.b
-                        key={live ? pos : "x"}
-                        initial={{ y: 14, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -14, opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                      >
-                        {live ? `#${pos + 1}` : "…"}
-                      </motion.b>
-                    </AnimatePresence>
-                  </span>
-                </span>
-              </div>
+          <div className={s.list}>
+            <ol className={s.rail} aria-hidden>
+              {SLOTS.map((n) => (
+                <li
+                  key={n}
+                  data-on={live && n === pos + 1}
+                  data-top={live && top && n === 1}
+                >
+                  {n}
+                </li>
+              ))}
+            </ol>
 
-              <div className={s.list}>
-                <ol className={s.rail} aria-hidden>
-                  {SLOTS.map((n) => (
-                    <li
-                      key={n}
-                      data-on={live && n === pos + 1}
-                      data-top={live && top && n === 1}
+            <div className={s.stack}>
+              <ul className={s.skel} data-on={!live} aria-hidden>
+                {SLOTS.map((n) => (
+                  <li key={n} className={s.skelRow}>
+                    <span className={s.skelFav} />
+                    <span className={s.skelLines}>
+                      <i style={{ width: `${34 + ((n * 17) % 22)}%` }} />
+                      <i style={{ width: `${62 + ((n * 23) % 28)}%` }} />
+                      <i style={{ width: `${70 + ((n * 13) % 22)}%` }} />
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <ul className={s.rows} data-on={live} aria-live="polite">
+                {order.map((id) => {
+                  const it = items[id];
+                  return (
+                    <motion.li
+                      key={`${run}-${id}`}
+                      layout="position"
+                      className={s.row}
+                      data-mine={it.mine || undefined}
+                      data-top={(it.mine && top) || undefined}
+                      initial={run === 0 ? false : { opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        layout: reduce ? { duration: 0 } : SPRING,
+                        default: {
+                          duration: 0.5,
+                          ease: [0.16, 1, 0.3, 1],
+                          delay: START.indexOf(id) * 0.06,
+                        },
+                      }}
                     >
-                      {n}
-                    </li>
-                  ))}
-                </ol>
-
-                <div className={s.stack}>
-                  <ul className={s.skel} data-on={!live} aria-hidden>
-                    {SLOTS.map((n) => (
-                      <li key={n} className={s.skelRow}>
-                        <span className={s.skelFav} />
-                        <span className={s.skelLines}>
-                          <i style={{ width: `${34 + ((n * 17) % 22)}%` }} />
-                          <i style={{ width: `${62 + ((n * 23) % 28)}%` }} />
-                          <i style={{ width: `${70 + ((n * 13) % 22)}%` }} />
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <ul className={s.rows} data-on={live} aria-live="polite">
-                    {order.map((id) => {
-                      const it = items[id];
-                      return (
-                        <motion.li
-                          key={`${run}-${id}`}
-                          layout="position"
-                          className={s.row}
-                          data-mine={it.mine || undefined}
-                          data-top={(it.mine && top) || undefined}
-                          initial={run === 0 ? false : { opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            layout: reduce ? { duration: 0 } : SPRING,
-                            default: {
-                              duration: 0.5,
-                              ease: [0.16, 1, 0.3, 1],
-                              delay: START.indexOf(id) * 0.06,
-                            },
-                          }}
-                        >
-                          <span className={s.fav} data-tone={it.tone}>
-                            {it.letter}
-                          </span>
-                          <span className={s.body}>
-                            <span className={s.url}>
-                              <b>{it.host}</b>
-                              <span className={s.path}>› {it.path}</span>
-                              {it.mine
-                                ? <em className={s.tag}>Vaš sajt</em>
-                                : null}
-                            </span>
-                            <span className={s.title}>{it.title}</span>
-                            <span className={s.text}>{it.text}</span>
-                          </span>
-                          <AnimatePresence>
-                            {it.mine && top
-                              ? <motion.span
-                                  className={s.badge}
-                                  initial={{ scale: 0.4, opacity: 0 }}
-                                  animate={{ scale: 1, opacity: 1 }}
-                                  exit={{ scale: 0.6, opacity: 0 }}
-                                  transition={{
-                                    type: "spring",
-                                    stiffness: 420,
-                                    damping: 18,
-                                  }}
-                                >
-                                  #1
-                                </motion.span>
-                              : null}
-                          </AnimatePresence>
-                        </motion.li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              </div>
-
-              <div className={s.foot}>
-                <span className={s.footLabel}>Šta ga penje</span>
-                <span className={s.chips}>
-                  {STEPS.map((label, i) => {
-                    const n = i + 1;
-                    const moving = phase === "climb" || top;
-                    let state = "wait";
-                    if (moving && (n < step || (n === step && top)))
-                      state = "done";
-                    else if (moving && n === step) state = "now";
-                    return (
-                      <span key={label} className={s.chip} data-state={state}>
-                        <span className={s.chipMark}>
-                          <Check />
-                        </span>
-                        {label}
+                      <span className={s.fav} data-tone={it.tone}>
+                        {it.letter}
                       </span>
-                    );
-                  })}
-                </span>
-              </div>
+                      <span className={s.body}>
+                        <span className={s.url}>
+                          <b>{it.host}</b>
+                          <span className={s.path}>› {it.path}</span>
+                          {it.mine ? <em className={s.tag}>Vaš sajt</em> : null}
+                        </span>
+                        <span className={s.title}>{it.title}</span>
+                        <span className={s.text}>{it.text}</span>
+                      </span>
+                      <AnimatePresence>
+                        {it.mine && top
+                          ? <motion.span
+                              className={s.badge}
+                              initial={{ scale: 0.4, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              exit={{ scale: 0.6, opacity: 0 }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 420,
+                                damping: 18,
+                              }}
+                            >
+                              #1
+                            </motion.span>
+                          : null}
+                      </AnimatePresence>
+                    </motion.li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
-          <p className={s.caption}>
-            Ilustracija: tako izgleda kad SEO i oglasi rade zajedno.
-          </p>
+
+          <div className={s.foot}>
+            <span className={s.footLabel}>Šta ga penje</span>
+            <span className={s.chips}>
+              {STEPS.map((label, i) => {
+                const n = i + 1;
+                const moving = phase === "climb" || top;
+                let state = "wait";
+                if (moving && (n < step || (n === step && top))) state = "done";
+                else if (moving && n === step) state = "now";
+                return (
+                  <span key={label} className={s.chip} data-state={state}>
+                    <span className={s.chipMark}>
+                      <Check />
+                    </span>
+                    {label}
+                  </span>
+                );
+              })}
+            </span>
+          </div>
         </div>
       </div>
     </div>

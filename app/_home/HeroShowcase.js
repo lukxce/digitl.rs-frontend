@@ -12,7 +12,7 @@ import { EASE } from "./ui";
 
 /* The hero's right side: one of our services, shown working. A different
    one each visit, picked after the page loads (so the server and the
-   browser render the same thing first); `show` forces one, for the lab. */
+   browser render the same thing first); `show` forces one. */
 
 export const CARDS = [
   { id: "seo", name: "SEO", Card: SearchClimb },

@@ -57,7 +57,7 @@ export default function Contact() {
     setError("");
     setState("sending");
     const text = [
-      "Prvi razgovor (digitl.rs/v5)",
+      "Prvi razgovor (digitl.rs)",
       `Interesuje ih: ${topics.length ? topics.join(", ") : "nije izabrano"}`,
       site.trim() ? `Sajt: ${site.trim()}` : null,
       plan ? `Plan sa sajta: ${plan.answers.join(" | ")}` : null,

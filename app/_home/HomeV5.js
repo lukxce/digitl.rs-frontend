@@ -14,11 +14,12 @@ import { AppProvider } from "./ui";
 import Voices from "./Voices";
 import Work from "./Work";
 
-/** digitl.rs/v5 — one conversation, top to bottom: the promise, where you are
-    (three questions, a plan), what we do, how it looks from the inside, whether
-    it works, what clients say, your own site, the talk. The plan from the three
-    questions travels through every section. Brings its own chrome, so the
-    global SiteNav hides itself (data-own-chrome). */
+/** The digitl.rs homepage: one conversation, top to bottom. The promise
+    with one of our services shown working, what we do, how we work, three
+    questions for a plan, whether it works, what clients say, the blog, the
+    customer's path, the talk. The plan from the three questions travels
+    through the sections below it. Brings its own chrome, so the global
+    SiteNav hides itself (data-own-chrome). */
 export default function HomeV5({ clients, articles, fonts }) {
   return (
     <div className={`${b.root} ${fonts}`} data-own-chrome>
