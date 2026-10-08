@@ -1,0 +1,1011 @@
+/* The hero ads card: a campaign that learns. Same frame as the search card
+   (app/v5/searchClimb.module.css): a pill on top, a hint and a live pill,
+   rows, and a row of steps underneath. */
+
+.stage {
+  --row: 80px;
+  --gap: 4px;
+  --stats: 128px;
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  justify-self: end;
+}
+@media (max-width: 1040px) {
+  .stage {
+    justify-self: stretch;
+    max-width: none;
+  }
+}
+
+/* two quiet sheets behind the card */
+.deck {
+  position: relative;
+}
+.deck::before,
+.deck::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  border-radius: var(--r-card);
+  background: #fff;
+  box-shadow: var(--ring);
+  translate: -50% 0;
+}
+.deck::before {
+  bottom: -12px;
+  width: calc(100% - 36px);
+  height: 60%;
+  opacity: 0.8;
+}
+.deck::after {
+  bottom: -23px;
+  width: calc(100% - 76px);
+  height: 50%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  padding: 16px 16px 14px;
+  border-radius: var(--r-card);
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04),
+    0 44px 80px -44px rgb(26 25 120 / 0.42);
+}
+
+.short {
+  display: none;
+}
+@media (max-width: 560px) {
+  .long {
+    display: none;
+  }
+  .short {
+    display: inline;
+  }
+}
+
+/* ── campaign pill ────────────────────────────────────────────────── */
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 58px;
+  padding: 0 7px 0 8px;
+  border-radius: 999px;
+  background: var(--mist);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition:
+    background 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.bar:has(.field:hover) {
+  box-shadow: inset 0 0 0 1px var(--line-2);
+}
+.bar:has(.pick:focus-visible) {
+  background: #fff;
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px var(--accent-soft);
+}
+.icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  box-shadow: var(--ring);
+}
+.field {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  cursor: pointer;
+}
+.sub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink-4);
+  font-variant-numeric: tabular-nums;
+}
+.subText {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.dot {
+  position: relative;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink-5);
+  transition: background 0.4s var(--ease);
+}
+.dot[data-state="run"],
+.dot[data-state="end"] {
+  background: var(--success);
+}
+.dot[data-state="run"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--success);
+  animation: ping 1.6s var(--ease) infinite;
+}
+@keyframes ping {
+  from {
+    scale: 1;
+    opacity: 0.55;
+  }
+  to {
+    scale: 2.8;
+    opacity: 0;
+  }
+}
+.name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  font-size: 16.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.name svg {
+  flex: none;
+  color: var(--ink-4);
+  transition:
+    color 0.3s var(--ease),
+    translate 0.3s var(--ease);
+}
+.field:hover .name svg {
+  color: var(--accent);
+  translate: 0 1px;
+}
+.nameText {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* the real control: a native list over the name, invisible */
+.pick {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  appearance: none;
+  border: 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+.go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: none;
+  height: 44px;
+  min-width: 104px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: var(--glow);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease),
+    transform 0.2s var(--ease);
+}
+.go:hover:not(:disabled) {
+  background: var(--accent-deep);
+}
+.go:active:not(:disabled),
+.go[data-press] {
+  transform: scale(0.94);
+}
+.go:disabled {
+  cursor: default;
+}
+.go[data-done] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in oklab, var(--secondary) 55%, transparent);
+}
+.load {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 0;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.load::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.load[data-on="true"] {
+  opacity: 1;
+}
+.load[data-on="true"]::after {
+  animation: sweep 0.9s var(--ease) infinite;
+}
+@keyframes sweep {
+  from {
+    translate: -100% 0;
+  }
+  to {
+    translate: 260% 0;
+  }
+}
+
+/* ── hint + live cost per enquiry ─────────────────────────────────── */
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 6px 10px;
+}
+.hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-4);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.hint[data-user="false"] {
+  gap: 7px;
+  color: var(--accent);
+}
+.hint svg {
+  flex: none;
+}
+.hint b {
+  color: var(--ink);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.rank {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  height: 28px;
+  padding: 0 4px 0 11px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  transition:
+    background 0.4s var(--ease),
+    color 0.4s var(--ease);
+}
+.rank[data-top="true"] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+}
+/* where the cost started, struck through once it moves */
+.was {
+  display: block;
+  overflow: hidden;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: color-mix(in oklab, currentColor 70%, transparent);
+  text-decoration-thickness: 1.5px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.rankNo {
+  position: relative;
+  display: grid;
+  min-width: 62px;
+  height: 22px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.rankNo b {
+  display: grid;
+  place-items: center;
+  grid-area: 1 / 1;
+  padding: 0 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--ink);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.rank[data-top="true"] .rankNo {
+  background: var(--secondary);
+  box-shadow: none;
+}
+
+/* ── the ads ──────────────────────────────────────────────────────── */
+.list {
+  display: grid;
+}
+.list > * {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+.rows,
+.skel {
+  display: grid;
+  grid-auto-rows: var(--row);
+  gap: var(--gap);
+  transition: opacity 0.45s var(--ease);
+}
+.rows[data-on="false"],
+.skel[data-on="false"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) var(--stats);
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 0 14px 0 12px;
+  border-radius: 18px;
+  background: #fff;
+  transition:
+    background 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
+}
+.row:not([data-best]):hover {
+  background: var(--mist);
+}
+.row[data-best] {
+  z-index: 2;
+  background: var(--accent-soft);
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent-mid),
+    0 18px 36px -18px color-mix(in oklab, var(--accent) 65%, transparent);
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent-pale);
+  transition: filter 0.5s var(--ease);
+}
+.mark[data-ch="social"] {
+  border-radius: 11px;
+  background: var(--spark-soft);
+  color: var(--spark-ink);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--spark) 30%, transparent);
+}
+.row[data-best] .mark {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 14px -6px var(--accent);
+}
+
+.body {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  transition: opacity 0.5s var(--ease);
+}
+.url,
+.title,
+.text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.url {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--ink-4);
+}
+.url b {
+  flex: none;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.path {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.best,
+.off {
+  flex: none;
+  margin-left: 4px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.5;
+}
+.best {
+  position: relative;
+  background: var(--secondary);
+  color: var(--ink);
+}
+.best::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 color-mix(in oklab, var(--secondary) 80%, transparent);
+  animation: pulse 1.5s var(--ease) 0.15s 3;
+}
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--secondary) 85%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 10px color-mix(in oklab, var(--secondary) 0%, transparent);
+  }
+}
+.off {
+  background: var(--spark-soft);
+  color: var(--spark-ink);
+}
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: color-mix(in oklab, var(--accent) 82%, var(--ink));
+  transition: color 0.5s var(--ease);
+}
+.row[data-best] .title {
+  color: var(--accent);
+}
+.text {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+/* live numbers on the right */
+.stats {
+  position: relative;
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+  transition: opacity 0.5s var(--ease);
+}
+.enq {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink-4);
+  white-space: nowrap;
+}
+.enq b {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.row[data-best] .enq b {
+  color: var(--accent);
+}
+.clicks {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink-4);
+  white-space: nowrap;
+}
+.share {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 3px;
+}
+.track {
+  position: relative;
+  display: block;
+  width: 64px;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: var(--grey);
+}
+.track i {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--accent);
+  transform-origin: 0 50%;
+  transition: transform 0.9s var(--ease);
+}
+.row[data-best] .track {
+  background: #fff;
+}
+.row[data-best] .track i {
+  background: linear-gradient(90deg, var(--accent), #6a69ff);
+}
+.pct {
+  min-width: 30px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--ink-3);
+  text-align: right;
+}
+
+/* a paused ad: greyed, struck through, its share at zero */
+.row[data-off] .mark {
+  filter: grayscale(1) opacity(0.55);
+}
+.row[data-off] .title {
+  color: var(--ink-4);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--ink-5);
+}
+.row[data-off] .text,
+.row[data-off] .stats {
+  opacity: 0.5;
+}
+
+/* "Novi upit": pops in beside the count and floats off */
+.toast {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 8px);
+  margin-top: -11px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 9px 0 7px;
+  border-radius: 999px;
+  background: var(--secondary);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--ink);
+  white-space: nowrap;
+  box-shadow: 0 8px 18px -8px
+    color-mix(in oklab, var(--secondary-ink) 70%, transparent);
+  pointer-events: none;
+}
+.toastText {
+  display: inline-block;
+}
+.toast i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+/* placeholders while the next campaign loads */
+.skelRow {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) var(--stats);
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px 0 12px;
+}
+.skelFav {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--mist);
+}
+.skelLines,
+.skelStat {
+  display: grid;
+  gap: 7px;
+}
+.skelStat {
+  justify-items: end;
+}
+.skelLines i,
+.skelStat i {
+  display: block;
+  height: 9px;
+  border-radius: 6px;
+  background:
+    linear-gradient(90deg, var(--mist) 0%, #e9e9ef 40%, var(--mist) 80%) 0 0 /
+    300% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+.skelLines i:nth-child(2) {
+  height: 12px;
+  background-color: var(--accent-soft);
+}
+.skelStat i {
+  width: 56px;
+}
+.skelStat i:nth-child(2) {
+  width: 84px;
+  height: 5px;
+}
+@keyframes shimmer {
+  to {
+    background-position: -300% 0;
+  }
+}
+
+/* ── daily budget ─────────────────────────────────────────────────── */
+.ctrl {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 52px;
+  margin-top: 12px;
+  padding: 0 7px 0 18px;
+  border-radius: 999px;
+  background: var(--mist);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: box-shadow 0.3s var(--ease);
+}
+.ctrl:hover {
+  box-shadow: inset 0 0 0 1px var(--line-2);
+}
+.ctrlLabel {
+  flex: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.range {
+  --knob: 22px;
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  cursor: pointer;
+  /* horizontal drags move the budget, vertical swipes still scroll the page */
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.ctrl .range:focus-visible {
+  outline: none;
+}
+.rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 6px;
+  margin-top: -3px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--line-2);
+}
+.rail i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--knob) / 2 + var(--p) * (100% - var(--knob)));
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 0.18s var(--ease);
+}
+.knob {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--p) * (100% - var(--knob)));
+  width: var(--knob);
+  height: var(--knob);
+  margin-top: calc(var(--knob) / -2);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    inset 0 0 0 2px var(--accent),
+    0 4px 12px -3px color-mix(in oklab, var(--accent) 70%, transparent);
+  transition:
+    left 0.18s var(--ease),
+    scale 0.2s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.range:hover .knob,
+.range[data-drag] .knob {
+  scale: 1.1;
+}
+.range:focus-visible .knob {
+  box-shadow:
+    inset 0 0 0 2px var(--accent),
+    0 0 0 5px var(--accent-pale);
+}
+.val {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  flex: none;
+  min-width: 84px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--ring);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 38px;
+  color: var(--ink-4);
+  font-variant-numeric: tabular-nums;
+}
+.val b {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+/* ── what we do ───────────────────────────────────────────────────── */
+.foot {
+  display: flex;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 14px;
+  padding: 14px 4px 2px;
+  border-top: 1px solid var(--line);
+}
+.footLabel {
+  flex: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-4);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 11px 0 7px;
+  border-radius: 999px;
+  background: var(--mist);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-4);
+  transition:
+    background 0.45s var(--ease),
+    color 0.45s var(--ease),
+    transform 0.45s var(--ease);
+}
+.chipMark {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  color: transparent;
+  box-shadow: var(--ring);
+  transition:
+    background 0.45s var(--ease),
+    color 0.45s var(--ease);
+}
+.chip[data-state="now"] {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.chip[data-state="now"] .chipMark {
+  background: rgb(255 255 255 / 0.2);
+  color: #fff;
+  box-shadow: none;
+}
+.chip[data-state="done"] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+}
+.chip[data-state="done"] .chipMark {
+  background: var(--secondary);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+/* ── smaller screens ──────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .card {
+    padding: 10px 10px 12px;
+    border-radius: 24px;
+  }
+  .bar {
+    height: 54px;
+    gap: 9px;
+    padding: 0 5px 0 6px;
+  }
+  .icon {
+    width: 38px;
+    height: 38px;
+  }
+  .icon svg {
+    width: 17px;
+    height: 17px;
+  }
+  .name {
+    font-size: 15.5px;
+  }
+  .sub {
+    font-size: 11px;
+  }
+  .go {
+    height: 42px;
+    min-width: 0;
+    padding: 0 15px;
+    font-size: 14px;
+  }
+  .go[data-done] {
+    width: 42px;
+    padding: 0;
+  }
+  .meta {
+    padding: 12px 4px 8px;
+  }
+  .hint {
+    font-size: 12.5px;
+  }
+  .rankNo {
+    min-width: 58px;
+  }
+  .row,
+  .skelRow {
+    gap: 10px;
+    padding: 0 10px 0 8px;
+  }
+  .mark,
+  .skelFav {
+    width: 30px;
+    height: 30px;
+  }
+  .mark[data-ch="social"] {
+    border-radius: 10px;
+  }
+  .mark svg {
+    width: 14px;
+    height: 14px;
+  }
+  .title {
+    font-size: 15px;
+  }
+  .url {
+    font-size: 12px;
+  }
+  .ctrl {
+    gap: 10px;
+    height: 48px;
+    margin-top: 10px;
+    padding: 0 5px 0 14px;
+  }
+  .ctrlLabel {
+    font-size: 12.5px;
+  }
+  .val {
+    min-width: 0;
+    height: 36px;
+    padding: 0 12px;
+    line-height: 36px;
+  }
+  .val b {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .load[data-on="true"]::after,
+  .skelLines i,
+  .skelStat i,
+  .best::after,
+  .dot[data-state="run"]::after {
+    animation: none;
+  }
+  .track i,
+  .rail i,
+  .knob {
+    transition: none;
+  }
+}
+
+/* phones: a shorter card. Three ads show (the paused one drops out of view
+   below), no ad text, no click count, no steps row. */
+@media (max-width: 640px) {
+  .stage {
+    --row: 54px;
+    --stats: 74px;
+  }
+  .list {
+    max-height: calc(3 * var(--row) + 2 * var(--gap));
+    overflow: hidden;
+  }
+  .text,
+  .clicks,
+  .pct,
+  .foot,
+  .skelLines i:nth-child(3),
+  .deck::before,
+  .deck::after {
+    display: none;
+  }
+  /* the tag needs the room next to the count */
+  .row[data-best] .path,
+  .row[data-off] .path {
+    display: none;
+  }
+  .share {
+    margin-top: 4px;
+  }
+  .track {
+    width: 56px;
+  }
+  .stats {
+    gap: 0;
+  }
+  .toast {
+    right: calc(100% + 6px);
+    gap: 0;
+    height: 20px;
+    margin-top: -10px;
+    padding: 0 7px;
+  }
+  .toast i {
+    display: none;
+  }
+}

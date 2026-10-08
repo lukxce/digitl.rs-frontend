@@ -1,5 +1,6 @@
 import { Manrope } from "next/font/google";
-import V6 from "./V6";
+import { getClients } from "../v5/data";
+import Lab from "./Lab";
 
 const sans = Manrope({
   subsets: ["latin", "latin-ext"],
@@ -7,12 +8,14 @@ const sans = Manrope({
   display: "swap",
 });
 
+export const revalidate = 60;
+
 export const metadata = {
-  title: "Katalog elemenata",
-  // A working catalogue to pick from, not a page for search.
+  title: "Hero kartice · digitl",
   robots: { index: false, follow: false },
 };
 
-export default function Page() {
-  return <V6 fonts={sans.variable} />;
+export default async function Page() {
+  const clients = await getClients();
+  return <Lab clients={clients} fonts={sans.variable} />;
 }

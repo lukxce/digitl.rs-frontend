@@ -1,0 +1,993 @@
+/* The hero brand card: a name becomes a brand system, applied everywhere. */
+
+.stage {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: 640px;
+  justify-self: end;
+}
+@media (max-width: 1040px) {
+  .stage {
+    justify-self: stretch;
+    max-width: none;
+  }
+}
+
+/* two quiet sheets behind the card, like the pages of a brand book */
+.deck {
+  position: relative;
+}
+.deck::before,
+.deck::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  border-radius: var(--r-card);
+  background: #fff;
+  box-shadow: var(--ring);
+  translate: -50% 0;
+}
+.deck::before {
+  bottom: -12px;
+  width: calc(100% - 36px);
+  height: 60%;
+  opacity: 0.8;
+}
+.deck::after {
+  bottom: -23px;
+  width: calc(100% - 76px);
+  height: 50%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  padding: 16px 16px 14px;
+  border-radius: var(--r-card);
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04),
+    0 44px 80px -44px rgb(26 25 120 / 0.42);
+}
+
+/* ── name field ───────────────────────────────────────────────────── */
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 58px;
+  padding: 0 7px 0 18px;
+  border-radius: 999px;
+  background: var(--mist);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition:
+    background 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.bar:hover {
+  box-shadow: inset 0 0 0 1px var(--line-2);
+}
+.bar:focus-within {
+  background: #fff;
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px var(--accent-soft);
+}
+.pen {
+  display: grid;
+  place-items: center;
+  flex: none;
+  color: var(--ink-3);
+}
+.bar:focus-within .pen {
+  color: var(--accent);
+}
+.field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  cursor: text;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.input,
+.ghost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  font-size: 16.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.input {
+  border: 0;
+  outline: 0;
+  padding: 0;
+  background: transparent;
+  caret-color: var(--accent);
+}
+.input:focus-visible {
+  outline: none;
+}
+.input::placeholder {
+  color: var(--ink-4);
+  font-weight: 500;
+}
+/* when the field is not in use, the typed text is drawn by .ghost so it can
+   carry a blinking caret during the automatic typing */
+.input:not(:focus) {
+  color: transparent;
+}
+.ghost {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: pre;
+  pointer-events: none;
+}
+.input:focus + .ghost {
+  visibility: hidden;
+}
+.caret {
+  display: none;
+  width: 2px;
+  height: 1.15em;
+  margin-left: 1px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.caret[data-on="true"] {
+  display: inline-block;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.go {
+  flex: none;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: var(--glow);
+  transition:
+    background 0.3s var(--ease),
+    transform 0.2s var(--ease);
+}
+.go:hover,
+.go[data-press="true"] {
+  background: var(--accent-deep);
+}
+.go:active,
+.go[data-press="true"] {
+  transform: scale(0.96);
+}
+
+/* ── hint, palettes, live count ───────────────────────────────────── */
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px 6px 10px;
+}
+.hint {
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  contain: inline-size;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-4);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.hint[data-user="false"] {
+  color: var(--accent);
+}
+.hint svg {
+  flex: none;
+}
+.hint b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ink);
+  font-weight: 700;
+}
+.short {
+  display: none;
+}
+@media (max-width: 560px) {
+  .long {
+    display: none;
+  }
+  .short {
+    display: inline;
+  }
+}
+.side {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+.dots {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 28px;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.dot::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c1) 50%, var(--c2) 50%);
+  box-shadow: inset 0 0 0 1px rgb(11 11 22 / 0.08);
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.dot:hover::before {
+  transform: scale(1.12);
+}
+.dot[aria-pressed="true"]::before {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 3.5px var(--ink);
+}
+.dot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+}
+.count {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  height: 28px;
+  padding: 0 4px 0 11px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  transition:
+    background 0.4s var(--ease),
+    color 0.4s var(--ease);
+}
+.count[data-full="true"] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+}
+.countNo {
+  position: relative;
+  display: grid;
+  min-width: 38px;
+  height: 22px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--ring);
+  transition: background 0.4s var(--ease);
+}
+.count[data-full="true"] .countNo {
+  background: var(--secondary);
+  box-shadow: none;
+}
+.countNo > span {
+  display: grid;
+  grid-area: 1 / 1;
+}
+.countNo b {
+  display: grid;
+  place-items: center;
+  grid-area: 1 / 1;
+  padding: 0 7px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.narrow {
+  visibility: hidden;
+}
+
+/* ── the system and its applications ──────────────────────────────── */
+.main {
+  display: grid;
+  grid-template-columns: clamp(156px, 32%, 196px) minmax(0, 1fr);
+  gap: 8px;
+  height: 392px;
+}
+
+/* brand colours and type: grey and plain until the system reaches them */
+.sys,
+.app {
+  --p: #dcdce3;
+  --d: #a3a3ad;
+  --a: #e9e9ee;
+  --l: #fbfbfc;
+  --f: var(--font-v5-sans), var(--font-manrope), system-ui, sans-serif;
+  --w: 700;
+  --ls: 0em;
+}
+.sys[data-c="true"],
+.app[data-on="true"] {
+  --p: var(--P);
+  --d: var(--D);
+  --a: var(--A);
+  --l: var(--L);
+}
+.sys[data-t="true"],
+.app[data-on="true"] {
+  --f: var(--F);
+  --w: var(--W);
+  --ls: var(--LS);
+}
+.sys :is(rect, path, circle, ellipse, text),
+.app :is(rect, path, circle, ellipse, text) {
+  transition:
+    fill 0.6s var(--ease),
+    stroke 0.6s var(--ease);
+}
+
+.sys {
+  display: grid;
+  grid-template-rows: 150px 54px minmax(0, 1fr) 62px;
+  gap: 8px;
+  min-width: 0;
+}
+.sys > div {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 18px;
+  background: var(--mist);
+  overflow: hidden;
+}
+
+/* the mark, on an artboard that takes the main colour */
+.sys > .markTile {
+  display: grid;
+  place-items: center;
+  background-color: var(--mist);
+  background-image: radial-gradient(
+    circle,
+    rgb(11 11 22 / 0.07) 1px,
+    transparent 1.4px
+  );
+  background-size: 12px 12px;
+  background-position: center;
+  transition: background-color 0.7s var(--ease);
+}
+.sys[data-c="true"] > .markTile {
+  background-color: var(--P);
+  background-image: radial-gradient(
+    circle,
+    rgb(255 255 255 / 0.1) 1px,
+    transparent 1.4px
+  );
+}
+.markSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.sys .draw {
+  fill: var(--L);
+  fill-opacity: 0;
+  stroke: var(--ink-2);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  transition:
+    fill-opacity 0.6s var(--ease),
+    stroke 0.6s var(--ease),
+    stroke-opacity 0.6s var(--ease);
+}
+.sys[data-c="true"] .draw {
+  fill-opacity: 1;
+  stroke: var(--L);
+  stroke-opacity: 0;
+}
+.sys .sysLetter {
+  font-family: var(--f);
+  font-weight: var(--w);
+  font-size: 46px;
+  fill: var(--ink);
+}
+.sys[data-c="true"] .sysLetter {
+  fill: var(--P);
+}
+.guides {
+  --g: rgb(11 11 22 / 0.22);
+}
+.sys[data-c="true"] .guides {
+  --g: color-mix(in oklab, var(--L) 55%, transparent);
+}
+.sys .gLine {
+  fill: none;
+  stroke: var(--g);
+  stroke-width: 0.4;
+  stroke-dasharray: 1.2 1.6;
+}
+.sys .gBox {
+  fill: none;
+  stroke: var(--g);
+  stroke-width: 0.5;
+  stroke-dasharray: 2.2 1.6;
+}
+.sys .gX {
+  font-size: 5.5px;
+  font-weight: 700;
+  font-style: italic;
+  fill: var(--g);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* the logo: the mark and the name, set in the brand's type */
+.lockup {
+  display: grid;
+  align-items: center;
+  padding: 0 14px;
+}
+.lockIn,
+.lockSkel {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  grid-area: 1 / 1;
+}
+.lockMark {
+  flex: none;
+  width: 26px;
+  height: 26px;
+}
+.word {
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--f);
+  font-weight: var(--w);
+  font-size: 16px;
+  line-height: 1.02;
+  letter-spacing: var(--ls);
+  color: var(--D);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-wrap: balance;
+}
+.lockSkel i {
+  display: block;
+  height: 9px;
+  border-radius: 6px;
+  background: #e6e6eb;
+}
+.lockSkel i:first-child {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+.lockSkel i:last-child {
+  width: 58%;
+}
+
+/* four colours, with their codes */
+.colors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 6px;
+  padding: 8px;
+}
+.sw {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-width: 0;
+  padding: 0 8px 6px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition:
+    background-color 0.55s var(--ease),
+    box-shadow 0.55s var(--ease);
+}
+.sw i {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  transition:
+    opacity 0.4s var(--ease),
+    color 0.4s var(--ease);
+}
+.sys[data-c="true"] .sw {
+  box-shadow: inset 0 0 0 1px rgb(11 11 22 / 0.06);
+  transition-delay: calc(var(--i) * 0.13s);
+}
+.sys[data-c="true"] .sw i {
+  opacity: 1;
+  transition-delay: calc(var(--i) * 0.13s + 0.2s);
+}
+.sys[data-c="true"] .sw[data-k="P"] {
+  background-color: var(--P);
+}
+.sys[data-c="true"] .sw[data-k="D"] {
+  background-color: var(--D);
+}
+.sys[data-c="true"] .sw[data-k="A"] {
+  background-color: var(--A);
+}
+.sys[data-c="true"] .sw[data-k="L"] {
+  background-color: var(--L);
+}
+.sw[data-k="P"] i,
+.sw[data-k="D"] i {
+  color: var(--L);
+}
+.sw[data-k="A"] i,
+.sw[data-k="L"] i {
+  color: var(--D);
+}
+
+/* the typeface */
+.type {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+}
+.aa {
+  flex: none;
+  font-family: var(--f);
+  font-weight: var(--w);
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink-5);
+  transition: color 0.5s var(--ease);
+}
+.sys[data-t="true"] .aa {
+  color: var(--D);
+}
+.typeMeta {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+.typeMeta b,
+.typeMeta i {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.typeMeta b {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--ink-2);
+}
+.typeMeta i {
+  font-size: 11.5px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+
+/* ── applications ─────────────────────────────────────────────────── */
+.apps {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: 150px minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+  min-width: 0;
+}
+.app {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--mist);
+  grid-column: span 2;
+}
+.app:nth-child(1) {
+  grid-column: span 6;
+}
+.app:nth-child(2),
+.app:nth-child(3) {
+  grid-column: span 3;
+}
+.app > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 60%;
+}
+.app::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.app[data-on="false"] :is(rect, path, circle, ellipse, text) {
+  transition-delay: calc(var(--n) * 45ms);
+}
+.app[data-on="true"] > svg {
+  animation: pop 0.7s var(--ease);
+}
+.app[data-on="true"]::after {
+  animation: flash 1.2s var(--ease);
+}
+@keyframes pop {
+  from {
+    transform: scale(0.965);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes flash {
+  from {
+    box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--P) 70%, transparent);
+  }
+  to {
+    box-shadow: inset 0 0 0 2px transparent;
+  }
+}
+.appLabel {
+  position: absolute;
+  top: 9px;
+  left: 11px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink-4);
+}
+.appLabel i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--line-2);
+  transition: background 0.4s var(--ease);
+}
+.app[data-on="true"] .appLabel i {
+  background: var(--secondary);
+  box-shadow: 0 0 0 2px var(--secondary-soft);
+}
+
+/* svg paint, driven by the brand variables */
+.fP {
+  fill: var(--p);
+}
+.fD {
+  fill: var(--d);
+}
+.fA {
+  fill: var(--a);
+}
+.fL {
+  fill: var(--l);
+}
+.fW {
+  fill: #fff;
+}
+.fG {
+  fill: #e5e5ea;
+}
+.fM {
+  fill: var(--mist);
+}
+.paper {
+  fill: #fff;
+  stroke: rgb(11 11 22 / 0.08);
+  stroke-width: 1;
+}
+.paperL {
+  fill: var(--l);
+  stroke: rgb(11 11 22 / 0.07);
+  stroke-width: 1;
+}
+.glass {
+  fill: #e2e8ee;
+}
+.shadow {
+  fill: rgb(11 11 22 / 0.07);
+}
+.shade {
+  fill: rgb(11 11 22 / 0.1);
+}
+.handle {
+  fill: none;
+  stroke: var(--d);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+.mugHandle {
+  fill: none;
+  stroke: var(--p);
+  stroke-width: 5;
+}
+.mLetter {
+  font-family: var(--f);
+  font-weight: var(--w);
+  font-size: 46px;
+}
+.tone_p .mShape {
+  fill: var(--p);
+}
+.tone_p .mLetter {
+  fill: var(--l);
+}
+.tone_l .mShape {
+  fill: var(--l);
+}
+.tone_l .mLetter {
+  fill: var(--p);
+}
+.bt {
+  font-family: var(--f);
+  font-weight: var(--w);
+  letter-spacing: var(--ls);
+}
+.bh {
+  font-family: var(--f);
+  font-weight: var(--w);
+  letter-spacing: -0.015em;
+}
+.ui {
+  font-weight: 600;
+  fill: var(--ink-4);
+}
+.cta {
+  font-weight: 700;
+  fill: var(--l);
+}
+
+/* ── what you get ─────────────────────────────────────────────────── */
+.foot {
+  display: flex;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 14px;
+  padding: 14px 4px 2px;
+  border-top: 1px solid var(--line);
+}
+.footLabel {
+  flex: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-4);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 11px 0 7px;
+  border-radius: 999px;
+  background: var(--mist);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-4);
+  transition:
+    background 0.45s var(--ease),
+    color 0.45s var(--ease),
+    transform 0.45s var(--ease);
+}
+.chipMark {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  color: transparent;
+  box-shadow: var(--ring);
+  transition:
+    background 0.45s var(--ease),
+    color 0.45s var(--ease);
+}
+.chip[data-state="now"] {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.chip[data-state="now"] .chipMark {
+  background: rgb(255 255 255 / 0.2);
+  color: #fff;
+  box-shadow: none;
+}
+.chip[data-state="done"] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+}
+.chip[data-state="done"] .chipMark {
+  background: var(--secondary);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+/* ── phones ───────────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .card {
+    padding: 10px 10px 12px;
+    border-radius: 24px;
+  }
+  .bar {
+    height: 54px;
+    padding: 0 5px 0 14px;
+    gap: 8px;
+  }
+  .go {
+    height: 42px;
+    padding: 0 15px;
+    font-size: 14px;
+  }
+  .meta {
+    padding: 12px 2px 8px 4px;
+    gap: 8px;
+  }
+  .hint {
+    font-size: 12.5px;
+  }
+  .side {
+    gap: 6px;
+  }
+  .dot {
+    width: 24px;
+  }
+}
+
+/* phones: a shorter card. The system sits in one row on top (mark,
+   colours, type) and four applications below, two by two. */
+@media (max-width: 640px) {
+  .main {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+  }
+  .sys {
+    grid-template-columns: 62px minmax(0, 1fr) 62px;
+    grid-template-rows: 62px;
+  }
+  .sys > div {
+    border-radius: 14px;
+  }
+  .lockup,
+  .foot,
+  .deck::before,
+  .deck::after,
+  .typeMeta,
+  .sw i {
+    display: none;
+  }
+  .colors {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: 1fr;
+    padding: 6px;
+  }
+  .sw {
+    border-radius: 9px;
+  }
+  .type {
+    justify-content: center;
+    padding: 0;
+  }
+  .aa {
+    font-size: 26px;
+  }
+  /* a small tile: a bigger mark, no clear space guides */
+  .markSvg {
+    transform: scale(1.4);
+  }
+  .guides {
+    display: none;
+  }
+  .apps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 84px 84px;
+    gap: 6px;
+  }
+  .app,
+  .app:nth-child(n) {
+    grid-column: auto;
+    border-radius: 14px;
+  }
+  .app:nth-child(n + 5) {
+    display: none;
+  }
+  .appLabel {
+    display: none;
+  }
+  .wide {
+    visibility: hidden;
+  }
+  .narrow {
+    visibility: visible;
+  }
+  .count[data-full="true"] {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .count[data-full="true"] .countNo {
+    background: #fff;
+    box-shadow: var(--ring);
+  }
+  .count[data-full-phone="true"] {
+    background: var(--secondary-soft);
+    color: var(--secondary-ink);
+  }
+  .count[data-full-phone="true"] .countNo {
+    background: var(--secondary);
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret[data-on="true"],
+  .app[data-on="true"] > svg,
+  .app[data-on="true"]::after {
+    animation: none;
+  }
+  .sys :is(rect, path, circle, ellipse, text),
+  .app :is(rect, path, circle, ellipse, text),
+  .sw,
+  .sw i,
+  .sys > .markTile {
+    transition: none;
+  }
+}

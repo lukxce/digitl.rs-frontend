@@ -1,0 +1,1474 @@
+/* The hero's social card: a week of posts going out on plan, and the
+   messages they bring turning into enquiries. Built on the search card's
+   frame (searchClimb.module.css): same stage, deck, bar, meta and chips. */
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  justify-self: end;
+  container-type: inline-size;
+}
+@media (max-width: 1040px) {
+  .stage {
+    justify-self: stretch;
+    max-width: none;
+  }
+}
+
+/* two quiet sheets behind the card */
+.deck {
+  position: relative;
+}
+.deck::before,
+.deck::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  border-radius: var(--r-card);
+  background: #fff;
+  box-shadow: var(--ring);
+  translate: -50% 0;
+}
+.deck::before {
+  bottom: -12px;
+  width: calc(100% - 36px);
+  height: 60%;
+  opacity: 0.8;
+}
+.deck::after {
+  bottom: -23px;
+  width: calc(100% - 76px);
+  height: 50%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  padding: 16px 16px 14px;
+  border-radius: var(--r-card);
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04),
+    0 44px 80px -44px rgb(26 25 120 / 0.42);
+}
+
+/* the post pictures are drawn in CSS, sized in em from --art */
+.art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  font-size: var(--art, 8px);
+  pointer-events: none;
+}
+:where(.art) i,
+:where(.art) b,
+:where(.art) em {
+  display: block;
+  font-style: normal;
+}
+
+/* ── account + publish ────────────────────────────────────────────── */
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 58px;
+  padding: 0 7px 0 8px;
+  border-radius: 999px;
+  background: var(--mist);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: box-shadow 0.3s var(--ease);
+}
+.bar:hover {
+  box-shadow: inset 0 0 0 1px var(--line-2);
+}
+.avaRing {
+  position: relative;
+  flex: none;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  padding: 2.5px;
+  border-radius: 50%;
+  background: var(--accent-pale);
+}
+/* a story is live: the ring turns into the brand gradient */
+.avaRing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 200deg,
+    var(--accent),
+    var(--secondary),
+    var(--accent-mid),
+    var(--accent)
+  );
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+.avaRing[data-story="true"]::before {
+  opacity: 1;
+  animation: turn 2.4s linear infinite;
+}
+@keyframes turn {
+  to {
+    rotate: 1turn;
+  }
+}
+.ava {
+  position: relative;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px var(--mist);
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+}
+.who {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  gap: 1px;
+  line-height: 1.2;
+}
+.who > b {
+  overflow: hidden;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.fans {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-4);
+  white-space: nowrap;
+}
+.fansNo {
+  position: relative;
+  display: grid;
+  height: 16px;
+  overflow: hidden;
+}
+.fansNo b {
+  grid-area: 1 / 1;
+  font-weight: 700;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.next {
+  display: grid;
+  flex: none;
+  justify-items: end;
+  gap: 1px;
+  padding-right: 6px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.next span {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+.next b {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.go {
+  flex: none;
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  box-shadow: var(--glow);
+  transition:
+    background 0.3s var(--ease),
+    transform 0.2s var(--ease);
+}
+.go:hover {
+  background: var(--accent-deep);
+}
+.go:active {
+  transform: scale(0.97);
+}
+
+/* ── hint + enquiries ─────────────────────────────────────────────── */
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 6px 10px;
+}
+.hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-4);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.hint[data-user="false"] {
+  color: var(--accent);
+}
+.hint svg {
+  flex: none;
+}
+.hint b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ink);
+  font-weight: 700;
+}
+.said {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.short {
+  display: none;
+}
+@media (max-width: 560px) {
+  .long {
+    display: none;
+  }
+  .short {
+    display: inline;
+  }
+}
+.leads {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  height: 28px;
+  padding: 0 4px 0 11px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  transition:
+    background 0.4s var(--ease),
+    color 0.4s var(--ease);
+}
+.leads[data-done="true"] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+}
+.leadsNo {
+  position: relative;
+  display: grid;
+  min-width: 30px;
+  height: 22px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--ring);
+  transition:
+    background 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+}
+.leadsNo b {
+  display: grid;
+  place-items: center;
+  grid-area: 1 / 1;
+  padding: 0 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.leads[data-hot="true"] .leadsNo,
+.leads[data-done="true"] .leadsNo {
+  background: var(--secondary);
+  box-shadow: none;
+}
+
+/* ── the week ─────────────────────────────────────────────────────── */
+.week {
+  --gap: 8px;
+  --nameH: 16px;
+  --tileH: 66px;
+  --rowGap: 6px;
+  position: relative;
+}
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0 var(--gap);
+}
+.day {
+  display: grid;
+  grid-template-rows: var(--nameH) var(--tileH) auto;
+  row-gap: var(--rowGap);
+  min-width: 0;
+}
+.dayName {
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: var(--nameH);
+  color: var(--ink-4);
+  text-align: center;
+  transition: color 0.35s var(--ease);
+}
+.day[data-today="true"] .dayName {
+  color: var(--accent);
+}
+/* the "today" frame slides from day to day */
+.ring {
+  position: absolute;
+  top: calc(var(--nameH) + var(--rowGap) - 4px);
+  left: -4px;
+  z-index: 2;
+  width: calc((100% - 6 * var(--gap)) / 7 + 8px);
+  height: calc(var(--tileH) + 8px);
+  border-radius: 18px;
+  box-shadow:
+    inset 0 0 0 2px var(--accent),
+    0 10px 22px -12px color-mix(in oklab, var(--accent) 70%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(calc(var(--d) * (100% - 8px + var(--gap))));
+  transition:
+    transform 0.55s var(--ease),
+    opacity 0.35s var(--ease);
+}
+.ring[data-on="true"] {
+  opacity: 1;
+}
+.tile {
+  position: relative;
+  border-radius: 14px;
+  background: var(--mist);
+}
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1.5px dashed var(--line-2);
+  border-radius: inherit;
+}
+.tile[data-free]::before {
+  border-color: var(--line);
+}
+/* planned: a hatched slot with the format; shot: the picture wipes in */
+.tileIn {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--accent-soft) 0 6px,
+    #fff 6px 12px
+  );
+  box-shadow: inset 0 0 0 1.5px var(--accent-pale);
+}
+.tileArt {
+  --art: 7px;
+  position: absolute;
+  inset: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.6s var(--ease);
+}
+.tile[data-shot] .tileArt {
+  clip-path: inset(0 0 0 0);
+}
+/* the format waits in the hatched slot until the picture covers it */
+.tileType {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1.5px var(--accent-pale);
+}
+.tileType svg {
+  width: 13px;
+  height: 13px;
+}
+.tileCheck {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--secondary);
+  color: var(--ink);
+  box-shadow:
+    0 0 0 2px #fff,
+    0 4px 10px -4px rgb(11 11 22 / 0.4);
+}
+.dayTitle {
+  display: block;
+  overflow: hidden;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink-2);
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+.dayTitle[data-on] {
+  opacity: 1;
+}
+.dayTitle svg {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 3px 0 0;
+  vertical-align: -1px;
+  color: var(--ink-4);
+}
+.dayTitle[data-free] {
+  font-weight: 600;
+  color: var(--ink-5);
+}
+
+/* ── the post that just went out + the inbox ──────────────────────── */
+.main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr);
+  gap: 12px;
+  align-items: start;
+  margin-top: 14px;
+}
+.feed {
+  position: relative;
+  display: grid;
+  min-width: 0;
+}
+.post {
+  min-width: 0;
+  padding: 10px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 18px 36px -24px color-mix(in oklab, var(--accent) 45%, transparent);
+}
+.postHead {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 0 2px 8px;
+}
+.postAva {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+}
+.postWho {
+  display: grid;
+  min-width: 0;
+  line-height: 1.25;
+}
+.postWho b,
+.postWho span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.postWho b {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.postWho span {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+.postTitle {
+  display: none;
+}
+.state {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 8px 0 7px;
+  border-radius: 999px;
+  background: var(--secondary-soft);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--secondary-ink);
+  white-space: nowrap;
+}
+.state[data-live] {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.spin {
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--accent-pale);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: turn 0.7s linear infinite;
+}
+.shot {
+  --art: 12px;
+  position: relative;
+  height: 126px;
+  overflow: hidden;
+  border-radius: 14px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.shotType {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  padding: 0 7px 0 6px;
+  border-radius: 999px;
+  background: rgb(11 11 22 / 0.34);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+.burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 62px;
+  height: 62px;
+  margin: -31px 0 0 -31px;
+  color: #fff;
+  filter: drop-shadow(0 6px 14px rgb(11 11 22 / 0.35));
+  pointer-events: none;
+}
+.burst svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.acts {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 36px;
+  padding: 4px 0 0;
+  color: var(--ink-2);
+}
+.likeBtn {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin-left: -2px;
+  border-radius: 50%;
+  color: var(--ink-2);
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+.likeBtn > span {
+  display: grid;
+}
+.likeBtn:hover {
+  background: var(--mist);
+}
+.likeBtn[data-on="true"] {
+  color: var(--spark);
+}
+.likeBtn[data-on="true"] path {
+  fill: currentColor;
+}
+.count {
+  min-width: 2ch;
+  margin-right: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.act {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 4px;
+}
+.save {
+  display: grid;
+  margin-left: auto;
+  padding-right: 4px;
+}
+.caption,
+.comment {
+  margin: 0;
+  overflow: hidden;
+  padding: 0 3px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.caption b,
+.comment b {
+  font-weight: 700;
+  color: var(--ink);
+}
+.comment {
+  color: var(--ink-3);
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.35s var(--ease),
+    transform 0.35s var(--ease);
+}
+.comment[data-on] {
+  opacity: 1;
+  transform: none;
+}
+
+.inbox {
+  display: grid;
+  align-content: start;
+  align-self: stretch;
+  gap: 2px;
+  min-width: 0;
+  padding: 4px 6px 6px;
+  border-radius: 20px;
+  background: var(--mist);
+}
+.inHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 26px;
+  padding: 0 6px 0 10px;
+}
+.inTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-4);
+}
+.inTitle em {
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--accent);
+  font-size: 10.5px;
+  font-style: normal;
+  font-weight: 800;
+  color: #fff;
+}
+.speed {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-4);
+  white-space: nowrap;
+}
+.speed svg {
+  flex: none;
+}
+/* a conveyor: each row carries its own gap, so a new message slides in
+   from the top exactly as far as the others move down */
+.dms {
+  --dmH: 68px;
+  --dmGap: 5px;
+  display: grid;
+  max-height: calc(3 * (var(--dmH) + var(--dmGap)) - var(--dmGap));
+  overflow: hidden;
+}
+.dmSlot {
+  height: calc(var(--dmH) + var(--dmGap));
+  padding-bottom: var(--dmGap);
+}
+.dm {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  padding: 0 10px;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: var(--ring);
+  transition:
+    background 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
+}
+.dm[data-new] {
+  background: var(--accent-soft);
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent-pale),
+    0 10px 24px -16px color-mix(in oklab, var(--accent) 60%, transparent);
+}
+.dmAva {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--mist);
+  box-shadow: var(--ring);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink-2);
+}
+.dmAva[data-tone="ink"] {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: none;
+}
+.dmAva[data-tone="spark"] {
+  background: var(--spark-soft);
+  color: var(--spark-ink);
+}
+.dmAva[data-tone="lime"] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+}
+.dmAva[data-tone="pale"] {
+  background: #fff;
+  color: var(--ink-3);
+}
+.dmAva[data-tone="accent"] {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.dmBody {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.dmTop {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+.dmTop b {
+  overflow: hidden;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.dmMeta {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 3px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-4);
+  white-space: nowrap;
+}
+.dmMeta svg {
+  color: var(--secondary-ink);
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  margin-right: 1px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.dm[data-new] .dmMeta {
+  color: var(--accent);
+}
+.dmText {
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink-3);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.dm[data-new] .dmText {
+  color: var(--ink-2);
+}
+.dmTag {
+  display: grid;
+  justify-items: end;
+  min-width: 44px;
+}
+.dmTag em {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--secondary);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  color: var(--ink);
+}
+.dmTag em::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  animation: pulse 1.5s var(--ease) 0.15s 2;
+}
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--secondary) 85%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 12px color-mix(in oklab, var(--secondary) 0%, transparent);
+  }
+}
+
+/* ── the post pictures (sized in em, from --art) ──────────────────── */
+
+/* before / after: a tired grey half and a fresh half, with a slider */
+.art[data-art="pre"] {
+  background: #cfcfd8;
+}
+.preL,
+.preR {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.preL {
+  left: 0;
+  right: 50%;
+  background:
+    radial-gradient(
+      2.2em 1.6em at 28% 30%,
+      rgb(11 11 22 / 0.08),
+      transparent 70%
+    ),
+    radial-gradient(3em 2em at 70% 72%, rgb(11 11 22 / 0.09), transparent 70%),
+    radial-gradient(1.4em 1.4em at 18% 82%, rgb(11 11 22 / 0.07), transparent),
+    linear-gradient(165deg, #ececf0, #c2c2cc);
+}
+.preR {
+  left: 50%;
+  right: 0;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 38%,
+      rgb(255 255 255 / 0.2) 48%,
+      transparent 58%
+    ),
+    radial-gradient(7em 5em at 85% 10%, rgb(255 255 255 / 0.4), transparent 70%),
+    linear-gradient(160deg, var(--accent-mid), var(--accent));
+}
+.preBar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 0.26em;
+  translate: -50% 0;
+  background: #fff;
+}
+.preKnob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.6em;
+  height: 2.6em;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  box-shadow: 0 0.3em 0.9em rgb(11 11 22 / 0.25);
+}
+.preKnob svg {
+  width: 1.6em;
+  height: 1.6em;
+}
+.lbl {
+  position: absolute;
+  bottom: 0.7em;
+  padding: 0.2em 0.65em;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.88);
+  font-size: 0.85em;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+.lbl[data-side="l"] {
+  left: 0.8em;
+}
+.lbl[data-side="r"] {
+  right: 0.8em;
+}
+
+/* tips: a big number and a short list, carousel dots */
+.art[data-art="saveti"] {
+  background:
+    radial-gradient(9em 6em at 92% 0%, rgb(255 255 255 / 0.6), transparent 70%),
+    linear-gradient(
+      160deg,
+      color-mix(in oklab, var(--secondary) 45%, white),
+      var(--secondary)
+    );
+  color: var(--ink);
+}
+.num {
+  position: absolute;
+  top: 0.3em;
+  left: 0.75em;
+  font-size: 4.4em;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+.bars {
+  position: absolute;
+  left: 0.9em;
+  bottom: 1em;
+  display: grid;
+  gap: 0.4em;
+  width: 7em;
+}
+.bars i {
+  height: 0.5em;
+  border-radius: 0.3em;
+  background: rgb(11 11 22 / 0.82);
+}
+.bars i:nth-child(2) {
+  width: 78%;
+}
+.bars i:nth-child(3) {
+  width: 56%;
+}
+.dots {
+  position: absolute;
+  right: 0.9em;
+  bottom: 1em;
+  display: flex;
+  gap: 0.3em;
+}
+.dots i {
+  width: 0.45em;
+  height: 0.45em;
+  border-radius: 50%;
+  background: rgb(11 11 22 / 0.25);
+}
+.dots i:first-child {
+  background: var(--ink);
+}
+
+/* behind the scenes: a story, through a camera's viewfinder */
+.art[data-art="kulise"] {
+  background:
+    radial-gradient(
+      7em 6em at 80% 18%,
+      rgb(255 255 255 / 0.55),
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 62%,
+      color-mix(in oklab, var(--spark-ink) 16%, transparent) 62%
+    ),
+    linear-gradient(
+      165deg,
+      color-mix(in oklab, var(--spark) 28%, white),
+      color-mix(in oklab, var(--spark) 88%, white)
+    );
+}
+.story {
+  position: absolute;
+  top: 0.7em;
+  left: 0.8em;
+  right: 0.8em;
+  display: flex;
+  gap: 0.3em;
+}
+.story i {
+  flex: 1;
+  height: 0.28em;
+  border-radius: 0.2em;
+  background: rgb(255 255 255 / 0.5);
+}
+.story i:first-child {
+  background: #fff;
+}
+.corner {
+  position: absolute;
+  width: 1.4em;
+  height: 1.4em;
+  border: 0 solid #fff;
+}
+.corner[data-c="tl"] {
+  top: 1.7em;
+  left: 1.2em;
+  border-top-width: 0.26em;
+  border-left-width: 0.26em;
+  border-top-left-radius: 0.5em;
+}
+.corner[data-c="tr"] {
+  top: 1.7em;
+  right: 1.2em;
+  border-top-width: 0.26em;
+  border-right-width: 0.26em;
+  border-top-right-radius: 0.5em;
+}
+.corner[data-c="bl"] {
+  bottom: 1em;
+  left: 1.2em;
+  border-bottom-width: 0.26em;
+  border-left-width: 0.26em;
+  border-bottom-left-radius: 0.5em;
+}
+.corner[data-c="br"] {
+  bottom: 1em;
+  right: 1.2em;
+  border-bottom-width: 0.26em;
+  border-right-width: 0.26em;
+  border-bottom-right-radius: 0.5em;
+}
+.focus {
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  width: 1.7em;
+  height: 1.7em;
+  translate: -50% -50%;
+  border: 0.24em solid #fff;
+  border-radius: 50%;
+}
+
+/* a review: quote mark, five stars, two lines */
+.art[data-art="recenzija"] {
+  background:
+    radial-gradient(
+      9em 6em at 100% 0%,
+      color-mix(in oklab, var(--accent) 20%, transparent),
+      transparent 70%
+    ), linear-gradient(160deg, #fff, var(--accent-soft) 50%, var(--accent-pale));
+  color: var(--accent);
+}
+.quote {
+  position: absolute;
+  top: 0.05em;
+  left: 0.45em;
+  font-size: 4.6em;
+  font-weight: 800;
+  line-height: 1;
+}
+.stars {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  display: flex;
+  gap: 0.2em;
+  translate: -50% -50%;
+}
+.stars svg {
+  width: 1.5em;
+  height: 1.5em;
+}
+.lines {
+  position: absolute;
+  bottom: 1em;
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 0.35em;
+  width: 7em;
+  translate: -50% 0;
+}
+.lines i {
+  width: 100%;
+  height: 0.45em;
+  border-radius: 0.3em;
+  background: color-mix(in oklab, var(--accent) 28%, white);
+}
+.lines i:nth-child(2) {
+  width: 68%;
+}
+
+/* an offer: the one ink picture, with a lime price cut */
+.art[data-art="ponuda"] {
+  background:
+    radial-gradient(
+      9em 7em at 100% 0%,
+      color-mix(in oklab, var(--accent) 75%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      7em 5em at 0% 100%,
+      color-mix(in oklab, var(--accent) 35%, transparent),
+      transparent 70%
+    ), var(--panel-deep);
+}
+.off {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  translate: -50% -50%;
+  font-size: 3.4em;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--secondary);
+  white-space: nowrap;
+}
+.art[data-art="ponuda"] .lines {
+  width: 5em;
+}
+.art[data-art="ponuda"] .lines i {
+  background: rgb(255 255 255 / 0.3);
+}
+
+/* the small tiles only keep the shapes */
+.tile .lbl,
+.tile .dots,
+.tile .quote {
+  display: none;
+}
+
+/* ── what goes into it ────────────────────────────────────────────── */
+.foot {
+  display: flex;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 14px;
+  padding: 14px 4px 2px;
+  border-top: 1px solid var(--line);
+}
+.footLabel {
+  flex: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-4);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 11px 0 7px;
+  border-radius: 999px;
+  background: var(--mist);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-4);
+  transition:
+    background 0.45s var(--ease),
+    color 0.45s var(--ease),
+    transform 0.45s var(--ease);
+}
+.chipMark {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  color: transparent;
+  box-shadow: var(--ring);
+  transition:
+    background 0.45s var(--ease),
+    color 0.45s var(--ease);
+}
+.chip[data-state="now"] {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.chip[data-state="now"] .chipMark {
+  background: rgb(255 255 255 / 0.2);
+  color: #fff;
+  box-shadow: none;
+}
+.chip[data-state="done"] {
+  background: var(--secondary-soft);
+  color: var(--secondary-ink);
+}
+.chip[data-state="done"] .chipMark {
+  background: var(--secondary);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+/* ── a narrower card (the hero between 1040 and ~1200px) ──────────── */
+@media (min-width: 641px) {
+  @container (max-width: 590px) {
+    .next,
+    .speed,
+    .footLabel,
+    .word {
+      display: none;
+    }
+    .week {
+      --gap: 6px;
+    }
+    .state {
+      padding: 0 6px;
+    }
+  }
+}
+
+/* ── phones ───────────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .card {
+    padding: 10px 10px 12px;
+    border-radius: 24px;
+  }
+  .bar {
+    height: 54px;
+    padding: 0 5px 0 6px;
+    gap: 9px;
+  }
+  .avaRing {
+    width: 42px;
+    height: 42px;
+  }
+  .who > b {
+    font-size: 15px;
+  }
+  .fans {
+    font-size: 12px;
+  }
+  .go {
+    height: 42px;
+    padding: 0 17px;
+    font-size: 14px;
+  }
+  .meta {
+    padding: 12px 4px 8px;
+  }
+  .hint {
+    font-size: 12.5px;
+  }
+}
+
+/* phones: one column. The week shrinks to a strip of small squares, the
+   post to one row, and the inbox shows the two newest messages. */
+@media (max-width: 640px) {
+  .week {
+    --gap: 5px;
+    --nameH: 14px;
+    --tileH: 44px;
+    --rowGap: 4px;
+  }
+  .deck::before,
+  .deck::after,
+  .foot,
+  .next,
+  .inHead,
+  .dayTitle,
+  .caption,
+  .comment,
+  .postAva,
+  .postName,
+  .shotType,
+  .save,
+  .shot .lbl {
+    display: none;
+  }
+  .day {
+    grid-template-rows: var(--nameH) var(--tileH);
+  }
+  .dayName {
+    font-size: 10.5px;
+  }
+  .ring {
+    border-radius: 15px;
+  }
+  .tile {
+    border-radius: 11px;
+  }
+  .tileArt {
+    --art: 4.3px;
+  }
+  .tileType {
+    width: 20px;
+    height: 20px;
+  }
+  .tileType svg {
+    width: 11px;
+    height: 11px;
+  }
+  .tileCheck {
+    top: 3px;
+    right: 3px;
+    width: 15px;
+    height: 15px;
+    box-shadow: 0 0 0 1.5px #fff;
+  }
+  .tileCheck svg {
+    width: 9px;
+    height: 9px;
+  }
+  .main {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .post {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    grid-template-areas:
+      "shot head"
+      "shot acts";
+    column-gap: 11px;
+    padding: 7px;
+    border-radius: 18px;
+  }
+  .postHead {
+    grid-area: head;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 2px 2px 0 0;
+  }
+  .postTitle {
+    display: block;
+  }
+  .shot {
+    --art: 4.6px;
+    grid-area: shot;
+    height: 56px;
+    border-radius: 12px;
+  }
+  .burst {
+    width: 34px;
+    height: 34px;
+    margin: -17px 0 0 -17px;
+  }
+  .acts {
+    grid-area: acts;
+    height: 26px;
+    padding: 0;
+  }
+  .likeBtn {
+    width: 26px;
+    height: 26px;
+  }
+  .likeBtn svg {
+    width: 18px;
+    height: 18px;
+  }
+  .act svg {
+    width: 17px;
+    height: 17px;
+  }
+  .count {
+    margin-right: 6px;
+  }
+  .inbox {
+    padding: 0;
+    border-radius: 0;
+    background: none;
+  }
+  .dms {
+    --dmH: 46px;
+    --dmGap: 4px;
+    max-height: calc(2 * (var(--dmH) + var(--dmGap)) - var(--dmGap));
+  }
+  .dm {
+    grid-template-columns: 30px minmax(0, 1fr) auto;
+    gap: 9px;
+    padding: 0 8px;
+    border-radius: 14px;
+    box-shadow: none;
+  }
+  .dmAva {
+    width: 30px;
+    height: 30px;
+    font-size: 11px;
+  }
+  .dmBody {
+    gap: 0;
+  }
+  .dmTop b {
+    font-size: 13px;
+  }
+  .dmText {
+    font-size: 12.5px;
+  }
+  .dmTag {
+    min-width: 0;
+  }
+  .dmTag em {
+    height: 22px;
+    padding: 0 8px;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avaRing[data-story="true"]::before,
+  .spin,
+  .dmTag em::after {
+    animation: none;
+  }
+}

@@ -1,0 +1,17 @@
+.slot {
+  display: grid;
+  min-width: 0;
+}
+.card {
+  display: grid;
+  min-width: 0;
+}
+/* keeps the space while the pick is made, so nothing jumps */
+.wait {
+  min-height: 600px;
+}
+@media (max-width: 640px) {
+  .wait {
+    min-height: 340px;
+  }
+}
