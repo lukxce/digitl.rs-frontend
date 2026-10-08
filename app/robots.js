@@ -5,6 +5,6 @@ export default function robots() {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://www.digitl.me/sitemap.xml",
+    sitemap: "https://www.digitl.rs/sitemap.xml",
   };
 }

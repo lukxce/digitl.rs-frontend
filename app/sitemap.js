@@ -1,7 +1,7 @@
 import { tryGetArticlesForHome } from "../lib/cms.js";
 import { tryGetClientShowcases } from "../lib/cms.js";
 
-const SITE_URL = "https://www.digitl.me";
+const SITE_URL = "https://www.digitl.rs";
 
 export const revalidate = 3600; // refresh the sitemap every hour
 

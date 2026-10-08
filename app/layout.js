@@ -11,6 +11,8 @@ const manrope = Manrope({
 });
 
 export const metadata = {
+  // Relative canonical and og:url paths resolve against the live domain.
+  metadataBase: new URL("https://www.digitl.rs"),
   title: {
     default: "Digitl | Full-Service marketing agencija",
     template: "%s · Digitl",
