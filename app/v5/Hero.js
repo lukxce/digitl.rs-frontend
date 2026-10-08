@@ -68,7 +68,7 @@ function Logos({ clients }) {
   );
 }
 
-export default function Hero({ clients }) {
+export default function Hero({ clients, visual = null }) {
   const { scrollTo, book } = useApp();
 
   return (
@@ -113,9 +113,7 @@ export default function Hero({ clients }) {
         </div>
 
         {/* your site climbing a search to #1; type your own business and city */}
-        <div className={h.search}>
-          <SearchClimb />
-        </div>
+        <div className={h.search}>{visual ?? <SearchClimb />}</div>
       </div>
 
       <div className={b.container}>

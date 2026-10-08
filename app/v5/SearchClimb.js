@@ -6,8 +6,7 @@ import s from "./searchClimb.module.css";
 
 /* The hero's search card. An illustrative search: a kind of business and a
    city, generic rivals, and "vasafirma.rs" climbing from sixth place to
-   first. Nothing here is a real result, and the caption under the card says
-   so. The reader can type their own business and city and watch the same
+   first. Nothing here is a real result (all names are generic). The reader can type their own business and city and watch the same
    climb. On phones the list shows four rows, so "vasafirma.rs" slides up
    into view from below as it climbs. (Picked from the /v4 hero lab, idea 01.) */
 
@@ -690,9 +689,6 @@ export default function SearchClimb() {
           </div>
         </div>
       </div>
-      <p className={s.caption}>
-        Ilustracija: tako izgleda kad SEO i oglasi rade zajedno.
-      </p>
     </div>
   );
 }
