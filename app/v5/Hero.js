@@ -8,7 +8,6 @@ import thermiq from "../assets/clients/thermiq.webp";
 import b from "./base.module.css";
 import SearchClimb from "./SearchClimb";
 import h from "./hero.module.css";
-import Quiz from "./Quiz";
 import { Btn, EASE, useApp } from "./ui";
 
 function Line({ delay, children }) {
@@ -105,7 +104,7 @@ export default function Hero({ clients }) {
               <Btn
                 variant="ghost"
                 arrow={false}
-                onClick={() => scrollTo("#plan", -100)}
+                onClick={() => scrollTo("#vas-plan")}
               >
                 Tri pitanja za vaš plan
               </Btn>
@@ -117,10 +116,6 @@ export default function Hero({ clients }) {
         <div className={h.search}>
           <SearchClimb />
         </div>
-      </div>
-
-      <div className={`${b.container} ${h.quizWrap}`}>
-        <Quiz clients={clients} />
       </div>
 
       <div className={b.container}>

@@ -2,27 +2,28 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import Audit from "./Audit";
 import b from "./base.module.css";
 import { FAQ } from "./content";
 import { Plus } from "./icons";
+import Quiz from "./Quiz";
 import x from "./sections.module.css";
 import { EASE, Head } from "./ui";
 
-/* ── Provera sajta: the full console, right under the four steps ──────── */
-export function Check() {
+/* ── Vaš plan: the three questions, right under the four steps ──────── */
+export function PlanSection({ clients }) {
   return (
-    <section className={`${b.glow} ${x.check}`} data-section="Provera sajta">
+    <section className={`${b.glow} ${x.plan}`} data-section="Vaš plan">
       <div className={b.container}>
-        <div className={x.checkHead}>
-          <span className={b.label}>Besplatna provera</span>
-          <h2>Krenite od svog sajta.</h2>
+        <span id="vas-plan" className={b.anchor} />
+        <div className={x.planHead}>
+          <span className={b.label}>Tri pitanja</span>
+          <h2>Odakle da krenete?</h2>
           <p>
-            Isti test kojim Google ocenjuje sajtove na telefonu. Ocena i prve
-            popravke za dvadesetak sekundi, bez prijave.
+            Odgovorite na tri pitanja i odmah vidite odakle bismo mi krenuli, i
+            koji je naš projekat najsličniji vašem.
           </p>
         </div>
-        <Audit />
+        <Quiz clients={clients} />
       </div>
     </section>
   );

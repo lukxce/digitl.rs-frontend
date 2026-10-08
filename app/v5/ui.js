@@ -55,8 +55,6 @@ const App = createContext(null);
 export function AppProvider({ children }) {
   const lenis = useLenis();
   const [plan, setPlan] = useState(null);
-  const [audit, setAudit] = useState(null);
-  const [focusAudit, setFocusAudit] = useState(0);
   const [topic, setTopic] = useState(null);
 
   // Section anchors already sit 90px above their heading, so they need no
@@ -73,14 +71,7 @@ export function AppProvider({ children }) {
   const value = {
     plan,
     setPlan,
-    audit,
-    setAudit,
     scrollTo,
-    focusAudit,
-    openAudit: () => {
-      scrollTo("#provera", -110);
-      setFocusAudit((n) => n + 1);
-    },
     topic,
     book: (t = null) => {
       if (t) setTopic(t);

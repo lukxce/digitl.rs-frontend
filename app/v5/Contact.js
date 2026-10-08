@@ -26,7 +26,7 @@ const SOCIALS = [
 const TOPICS = [...SERVICES.map((s) => s.name), "Ceo marketing"];
 
 export default function Contact() {
-  const { plan, audit, topic } = useApp();
+  const { plan, topic } = useApp();
   const [topics, setTopics] = useState([]);
   const [email, setEmail] = useState("");
   const [site, setSite] = useState("");
@@ -42,9 +42,6 @@ export default function Contact() {
     if (plan)
       setTopics(plan.top.map((id) => SERVICES.find((s) => s.id === id).name));
   }, [plan]);
-  useEffect(() => {
-    if (audit?.host) setSite((v) => v || audit.host);
-  }, [audit?.host]);
 
   const toggle = (t) =>
     setTopics((arr) =>
@@ -59,15 +56,11 @@ export default function Contact() {
     }
     setError("");
     setState("sending");
-    const report = audit?.scores
-      ? `Provera sajta (${audit.host}): brzina ${audit.scores.performance}, SEO ${audit.scores.seo}, LCP ${audit.metrics?.lcp?.display ?? "?"}`
-      : null;
     const text = [
       "Prvi razgovor (digitl.rs/v5)",
       `Interesuje ih: ${topics.length ? topics.join(", ") : "nije izabrano"}`,
       site.trim() ? `Sajt: ${site.trim()}` : null,
       plan ? `Plan sa sajta: ${plan.answers.join(" | ")}` : null,
-      report,
       note.trim() ? `Poruka: ${note.trim()}` : null,
     ]
       .filter(Boolean)

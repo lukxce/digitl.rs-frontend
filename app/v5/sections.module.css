@@ -1,5 +1,5 @@
-/* site check */
-.check {
+/* the three questions */
+.plan {
   position: relative;
   padding: clamp(56px, 7vw, 96px) 0;
   --glow-1: 92% 28%;
@@ -7,7 +7,7 @@
   --dots-at: 50% 62%;
   --dots-size: 60% 45%;
 }
-.checkHead {
+.planHead {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 8px 32px;
@@ -15,25 +15,25 @@
   margin-bottom: clamp(18px, 2.4vw, 28px);
 }
 @media (min-width: 900px) {
-  .checkHead {
+  .planHead {
     grid-template-columns: auto minmax(0, 1fr);
   }
-  .checkHead .label,
-  .checkHead span {
+  .planHead .label,
+  .planHead span {
     grid-column: 1 / -1;
   }
-  .checkHead p {
+  .planHead p {
     justify-self: end;
     text-align: right;
   }
 }
-.checkHead h2 {
+.planHead h2 {
   font-size: clamp(26px, 2.6vw, 36px);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.05;
 }
-.checkHead p {
+.planHead p {
   font-size: 15px;
   line-height: 1.45;
   color: var(--ink-3);

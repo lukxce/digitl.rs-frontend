@@ -90,12 +90,6 @@
   margin-top: 28px;
 }
 
-.quizWrap {
-  position: relative;
-  z-index: 3;
-  max-width: 1040px;
-  margin-top: clamp(48px, 6vw, 88px);
-}
 .logos {
   position: relative;
   display: grid;

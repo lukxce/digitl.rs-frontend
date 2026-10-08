@@ -8,7 +8,7 @@ import Hero from "./Hero";
 import Journey from "./Journey";
 import Loop from "./Loop";
 import Nav from "./Nav";
-import { Check, Faq } from "./Sections";
+import { Faq, PlanSection } from "./Sections";
 import Services from "./Services";
 import { AppProvider } from "./ui";
 import Voices from "./Voices";
@@ -28,7 +28,7 @@ export default function HomeV5({ clients, articles, fonts }) {
           <Hero clients={clients} />
           <Services />
           <Journey />
-          <Check />
+          <PlanSection clients={clients} />
           <Work clients={clients} />
           <Voices />
           <Blog articles={articles} />
