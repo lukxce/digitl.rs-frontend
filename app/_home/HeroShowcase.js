@@ -10,9 +10,9 @@ import s from "./heroShowcase.module.css";
 import SearchClimb from "./SearchClimb";
 import { EASE } from "./ui";
 
-/* The hero's right side: one of our services, shown working. A different
-   one each visit, picked after the page loads (so the server and the
-   browser render the same thing first); `show` forces one. */
+/* The hero's right side: one of our services, shown working. A row of pills
+   above the card picks the service; on load a random one is picked (after
+   mount, so the server and the browser render the same thing first). */
 
 export const CARDS = [
   { id: "seo", name: "SEO", Card: SearchClimb },
@@ -22,37 +22,60 @@ export const CARDS = [
   { id: "brand", name: "Brend", Card: BrandCard },
 ];
 
-export default function HeroShowcase({ show = null, nonce = 0 }) {
+export default function HeroShowcase() {
   const [pick, setPick] = useState(null);
 
-  // nonce: a new value asks for a fresh random pick
-  // biome-ignore lint/correctness/useExhaustiveDependencies: nonce re-rolls the pick
   useEffect(() => {
-    if (show) {
-      setPick(show);
-      return;
-    }
-    const i = Math.floor(Math.random() * CARDS.length);
-    setPick(CARDS[i].id);
-  }, [show, nonce]);
+    setPick(CARDS[Math.floor(Math.random() * CARDS.length)].id);
+  }, []);
 
   const cur = CARDS.find((c) => c.id === pick);
   return (
     <div className={s.slot}>
-      <AnimatePresence mode="wait" initial={false}>
-        {cur
-          ? <motion.div
-              key={`${cur.id}-${nonce}`}
-              className={s.card}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5, ease: EASE }}
+      <div className={s.pills} role="tablist" aria-label="Usluga">
+        {CARDS.map((c) => {
+          const on = c.id === pick;
+          return (
+            <button
+              key={c.id}
+              type="button"
+              role="tab"
+              aria-selected={on}
+              className={s.pill}
+              data-on={on || undefined}
+              onClick={() => setPick(c.id)}
             >
-              <cur.Card />
-            </motion.div>
-          : <div key="wait" className={s.wait} aria-hidden="true" />}
-      </AnimatePresence>
+              {on
+                ? <motion.span
+                    layoutId="hero-service"
+                    className={s.pillOn}
+                    transition={{ duration: 0.45, ease: EASE }}
+                  />
+                : null}
+              <span className={s.pillText}>{c.name}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className={s.stage}>
+        <AnimatePresence mode="wait" initial={false}>
+          {cur
+            ? <motion.div
+                key={cur.id}
+                className={s.card}
+                role="tabpanel"
+                aria-label={cur.name}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4, ease: EASE }}
+              >
+                <cur.Card />
+              </motion.div>
+            : <div key="wait" className={s.wait} aria-hidden="true" />}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

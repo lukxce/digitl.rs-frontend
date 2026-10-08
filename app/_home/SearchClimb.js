@@ -283,26 +283,6 @@ function SearchIcon() {
   );
 }
 
-function Check() {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="m5 12.5 4.5 4.5L19 7.5"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 function Pointer() {
   return (
     <svg
@@ -330,7 +310,6 @@ export default function SearchClimb() {
   const [items, setItems] = useState(() => build(first.q, first));
   const [order, setOrder] = useState(START);
   const [phase, setPhase] = useState("shown");
-  const [step, setStep] = useState(0);
   const [run, setRun] = useState(0);
   const [user, setUser] = useState(false);
   const [asked, setAsked] = useState(false);
@@ -396,7 +375,6 @@ export default function SearchClimb() {
       setQuery(q);
       setItems(build(q, set));
       setOrder(START);
-      setStep(0);
       setRun((r) => r + 1);
       go("shown");
       await sleep(1250);
@@ -404,7 +382,6 @@ export default function SearchClimb() {
     go("climb");
     for (let k = 1; k <= STEPS.length; k += 1) {
       setOrder(up);
-      setStep(k);
       await sleep(k === STEPS.length ? 620 : 880);
     }
     go("top");
@@ -433,7 +410,6 @@ export default function SearchClimb() {
   useEffect(() => {
     if (reduce) {
       setOrder(FINAL);
-      setStep(STEPS.length);
       go("top");
       return;
     }
@@ -496,7 +472,6 @@ export default function SearchClimb() {
       setQuery(q);
       setItems(build(q, set));
       setOrder(FINAL);
-      setStep(STEPS.length);
       setRun((r) => r + 1);
       go("top");
       return;
@@ -665,27 +640,6 @@ export default function SearchClimb() {
                 })}
               </ul>
             </div>
-          </div>
-
-          <div className={s.foot}>
-            <span className={s.footLabel}>Šta ga penje</span>
-            <span className={s.chips}>
-              {STEPS.map((label, i) => {
-                const n = i + 1;
-                const moving = phase === "climb" || top;
-                let state = "wait";
-                if (moving && (n < step || (n === step && top))) state = "done";
-                else if (moving && n === step) state = "now";
-                return (
-                  <span key={label} className={s.chip} data-state={state}>
-                    <span className={s.chipMark}>
-                      <Check />
-                    </span>
-                    {label}
-                  </span>
-                );
-              })}
-            </span>
           </div>
         </div>
       </div>

@@ -706,7 +706,6 @@ export default function WebCard() {
     play(t, nm, st, { quick: true }).catch(() => {});
   };
 
-  const done = step > STEPS.length;
   let tone = "wait";
   if (score !== null) {
     if (score < 50) tone = "low";
@@ -1147,26 +1146,6 @@ export default function WebCard() {
                 </motion.span>
               </div>
             </div>
-          </div>
-
-          <div className={s.foot}>
-            <span className={s.footLabel}>Šta donosi upite</span>
-            <span className={s.chips}>
-              {STEPS.map((label, i) => {
-                const n = i + 1;
-                let state = "wait";
-                if (n < step || done) state = "done";
-                else if (n === step) state = "now";
-                return (
-                  <span key={label} className={s.chip} data-state={state}>
-                    <span className={s.chipMark}>
-                      <Check />
-                    </span>
-                    {label}
-                  </span>
-                );
-              })}
-            </span>
           </div>
         </div>
       </div>

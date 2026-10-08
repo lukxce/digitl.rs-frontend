@@ -160,13 +160,6 @@ const BIZ = [
 ];
 
 const IDS = ["a", "b", "c", "d"];
-const STEPS = [
-  "Ciljanje",
-  "Oglasi",
-  "Praćenje upita",
-  "Optimizacija",
-  "Izveštaj",
-];
 const SKEL = [1, 2, 3, 4];
 const STOP = Symbol("stop");
 const SPRING = { type: "spring", stiffness: 300, damping: 32, mass: 0.9 };
@@ -700,15 +693,6 @@ export default function AdsCard() {
   const weak = roleOf(biz, "weak");
   const p = (budget - MIN) / (MAX - MIN);
 
-  let step = -1;
-  if (phase === "ready") step = 0;
-  else if (phase === "run") {
-    if (sim.day < 2) step = 1;
-    else if (k === 0) step = 2;
-    else if (sim.day < DAYS) step = 3;
-    else step = 4;
-  } else if (end) step = STEPS.length;
-
   let label = "Pokreni";
   let done = false;
   if (still || (phase === "run" && k >= OPT_AT.length)) {
@@ -1017,25 +1001,6 @@ export default function AdsCard() {
             <span className={s.val}>
               <b>{budget} €</b>
               <span className={s.long}>/dan</span>
-            </span>
-          </div>
-
-          <div className={s.foot}>
-            <span className={s.footLabel}>Šta radimo</span>
-            <span className={s.chips}>
-              {STEPS.map((name, n) => {
-                let state = "wait";
-                if (n < step) state = "done";
-                else if (n === step) state = "now";
-                return (
-                  <span key={name} className={s.chip} data-state={state}>
-                    <span className={s.chipMark}>
-                      <Check />
-                    </span>
-                    {name}
-                  </span>
-                );
-              })}
             </span>
           </div>
         </div>

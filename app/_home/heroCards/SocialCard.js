@@ -107,7 +107,6 @@ const POSTS = [
   },
 ];
 const BY_DAY = DAYS.map((_, d) => POSTS.findIndex((p) => p.day === d));
-const STEPS = ["Plan objava", "Snimanje", "Objava", "Odgovori", "Upiti"];
 
 /* One post's life in ticks: it goes out, a comment, a message, the answer,
    the enquiry, the check in the plan. */
@@ -211,23 +210,6 @@ function derive(w) {
       ? { key: `${w.week}-${w.cur}`, i: w.cur, t: w.prog[w.cur] }
       : w.carryPost;
   return { upiti, followers, inbox, post };
-}
-
-function chipStates(w) {
-  if (w.phase === "plan") return ["now", "wait", "wait", "wait", "wait"];
-  if (w.phase === "shoot") return ["done", "now", "wait", "wait", "wait"];
-  if (w.phase === "done" || w.cur < 0) return STEPS.map(() => "done");
-  const t = w.prog[w.cur];
-  const up = POSTS[w.cur].dm.upit;
-  const before = w.prog.slice(0, w.cur);
-  const replied = before.some((x) => x >= T_REPLY);
-  const asked = before.some((x, i) => x >= T_UPIT && POSTS[i].dm.upit);
-  const pub = t < T_REPLY ? "now" : "done";
-  let ans = replied ? "done" : "wait";
-  if (t >= T_REPLY) ans = t < T_UPIT || !up ? "now" : "done";
-  let lead = asked ? "done" : "wait";
-  if (up && t >= T_UPIT) lead = "now";
-  return ["done", "done", pub, ans, lead];
 }
 
 /* ── icons ───────────────────────────────────────────────────────── */
@@ -698,7 +680,6 @@ export default function SocialCard() {
     } else lastTap.current = now;
   };
 
-  const chips = chipStates(w);
   const pub = w.phase === "pub" && w.cur >= 0;
   const curT = pub ? w.prog[w.cur] : -1;
   const hot = pub && POSTS[w.cur].dm.upit && curT >= T_UPIT && curT < N;
@@ -1062,21 +1043,6 @@ export default function SocialCard() {
                   </AnimatePresence>
                 </ul>
               </div>
-            </div>
-
-            {/* ── what goes into it ───────────────────────────────── */}
-            <div className={s.foot}>
-              <span className={s.footLabel}>Svake nedelje</span>
-              <span className={s.chips}>
-                {STEPS.map((label, k) => (
-                  <span key={label} className={s.chip} data-state={chips[k]}>
-                    <span className={s.chipMark}>
-                      <Check />
-                    </span>
-                    {label}
-                  </span>
-                ))}
-              </span>
             </div>
           </div>
         </div>

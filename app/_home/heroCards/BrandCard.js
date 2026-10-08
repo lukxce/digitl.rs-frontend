@@ -116,7 +116,6 @@ const LETTER_Y = { squircle: 52, drop: 52, leaf: 52, arch: 60, circle: 52 };
 
 const APPS = ["Sajt", "Vizitka", "Objave", "Tabla", "Kesa", "Šolja"];
 const PHONE_APPS = 4;
-const STEPS = ["Znak", "Boje", "Pismo", "Primene", "Pravila"];
 const SWATCHES = ["P", "D", "A", "L"];
 const STOP = Symbol("stop");
 const EASE = [0.16, 1, 0.3, 1];
@@ -594,26 +593,6 @@ function Pen() {
         stroke="currentColor"
         strokeWidth="1.9"
         strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function Check() {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="m5 12.5 4.5 4.5L19 7.5"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1110,26 +1089,6 @@ export default function BrandCard() {
                 );
               })}
             </div>
-          </div>
-
-          <div className={s.foot}>
-            <span className={s.footLabel}>Šta dobijate</span>
-            <span className={s.chips}>
-              {STEPS.map((label, i) => {
-                const n = i + 1;
-                let state = "wait";
-                if (lvl >= n) state = "done";
-                else if (now && lvl === n - 1) state = "now";
-                return (
-                  <span key={label} className={s.chip} data-state={state}>
-                    <span className={s.chipMark}>
-                      <Check />
-                    </span>
-                    {label}
-                  </span>
-                );
-              })}
-            </span>
           </div>
         </div>
       </div>

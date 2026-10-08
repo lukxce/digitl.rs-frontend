@@ -41,9 +41,11 @@
 .rail {
   position: absolute;
   top: 17px;
-  left: 18px;
-  /* from the first dot to the last one */
-  right: calc((100% - 36px) / 4 - 18px);
+  /* from the first dot to the last one: each sits over the middle of its
+     card, so the line starts and ends half a column in (4 columns, 3 gaps
+     of 12px) */
+  left: calc((100% - 36px) / 8);
+  right: calc((100% - 36px) / 8);
   height: 2px;
   border-radius: 2px;
   background: var(--line-2);
@@ -65,6 +67,9 @@
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 16px;
+}
+.step > .dot {
+  justify-self: center;
 }
 .dot {
   position: relative;
