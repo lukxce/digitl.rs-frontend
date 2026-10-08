@@ -1,10 +1,12 @@
-// Services and the three-question plan, worded as on the bento homepage.
+// Services (titles and descriptions as on the original homepage) and the
+// three-question plan.
 
 export const SERVICES = [
   {
     id: "ads",
     hear: "Plaćam oglase, a ne znam šta donose.",
     proof: "Praćenje od klika do upita, u istom izveštaju kao sajt i SEO.",
+    title: "Plaćeno oglašavanje (Search & Social)",
     name: "Plaćeno oglašavanje",
     role: "Saobraćaj danas.",
     body: "Kampanje na Google-u i mrežama, postavljene i skalirane da donose prodaju, ne samo klikove.",
@@ -19,6 +21,7 @@ export const SERVICES = [
     id: "seo",
     hear: "Na Google-u nas nema ni na drugoj strani.",
     proof: "ThermiQ: 3.157 indeksiranih stranica za tri meseca.",
+    title: "Search Engine Optimization (SEO)",
     name: "SEO",
     role: "Saobraćaj koji ne plaćate.",
     body: "Budite prvi tamo gde kupci traže rešenje, na Google-u i u AI pretrazi.",
@@ -33,6 +36,7 @@ export const SERVICES = [
     id: "web",
     hear: "Imamo posete, ali ne i prodaju.",
     proof: "Moler Niš i Servis Klime Niš: PageSpeed 100 na telefonu.",
+    title: "Web dizajn & razvoj",
     name: "Web",
     role: "Poseta postaje upit.",
     body: "Brzi sajtovi napravljeni da konvertuju, da plaćeni saobraćaj pretvore u kupce.",
@@ -47,6 +51,7 @@ export const SERVICES = [
     id: "social",
     hear: "Na mrežama objavljujemo kad se neko seti.",
     proof: "Mreže podržavaju ostale kanale, ne žive odvojeno od njih.",
+    title: "Upravljanje društvenim mrežama",
     name: "Društvene mreže",
     role: "Prisutnost između kupovina.",
     body: "Dosledan brend na mrežama koji podržava sve ostale kanale.",
@@ -61,6 +66,7 @@ export const SERVICES = [
     id: "brand",
     hear: "Izgledamo isto kao konkurencija.",
     proof: "ThermiQ: crvena prati grejanje, plava hlađenje, na svakom formatu.",
+    title: "Branding & identitet",
     name: "Brend",
     role: "Sve ostalo košta manje.",
     body: "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",
@@ -198,11 +204,7 @@ export const NEVER = [
 export const FAQ = [
   {
     q: "Koliko brzo možemo da krenemo?",
-    a: "Obično u roku od jedne do dve nedelje nakon dogovora, zavisno od obima i kapaciteta.",
-  },
-  {
-    q: "Za koliko se vide prvi rezultati?",
-    a: "Zavisi od kanala i konkurencije. Oglasi daju podatke od prvog dana, SEO traje duže. Kod ElektroMila su prvi upiti sa pretrage stigli već u prvom mesecu.",
+    a: "Obično u roku od 1 do 2 nedelje nakon dogovora, zavisno od obima i kapaciteta.",
   },
   {
     q: "Šta ako nismo sigurni šta nam tačno treba?",
@@ -215,6 +217,10 @@ export const FAQ = [
   {
     q: "Kako izgleda komunikacija tokom saradnje?",
     a: "Direktno i redovno. Radite sa ljudima koji donose odluke, ne sa account menadžerom.",
+  },
+  {
+    q: "Sa kakvim firmama najčešće radite?",
+    a: "Od lokalnih biznisa do etabliranih brendova, svuda gde se marketing meri rezultatom.",
   },
 ];
 

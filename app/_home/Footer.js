@@ -31,8 +31,8 @@ export default function Footer() {
                 <span>digitl</span>
               </a>
               <p>
-                Agencija za rast. Strategija, oglasi, SEO, sajt i brend kao
-                jedan sistem.
+                Full-Service marketing agencija. Sve što vaš biznis traži, na
+                jednom mestu.
               </p>
             </div>
             <nav className={f.links} aria-label="Na ovoj stranici">

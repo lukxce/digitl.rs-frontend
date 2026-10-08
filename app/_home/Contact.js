@@ -88,11 +88,11 @@ export default function Contact() {
         <div className={c.panel}>
           <span className={c.glyph} aria-hidden="true" />
           <div className={c.copy}>
-            <span className={c.label}>30 minuta, bez obaveze</span>
-            <h2 className={c.title}>Besplatan prvi razgovor.</h2>
+            <span className={c.label}>Besplatan prvi razgovor</span>
+            <h2 className={c.title}>Napravimo brend koji se izdvaja.</h2>
             <p className={c.text}>
-              Pogledamo vaše brojeve, sajt i konkurenciju, i kažemo šta je
-              prioritet, a šta može da čeka.
+              U vremenu kada se pažnja meri sekundama, razliku prave brendovi
+              koji grade iskustva, ne samo sadržaj.
             </p>
             <div className={c.tiles}>
               <a className={c.tile} href={`mailto:${CONTACT.email}`}>
@@ -230,7 +230,7 @@ export default function Contact() {
                       disabled={state === "sending"}
                     >
                       <span>
-                        {state === "sending" ? "Šaljemo…" : "Pošaljite"}
+                        {state === "sending" ? "Šaljemo…" : "Pošalji poruku"}
                       </span>
                       <span className={b.arrow}>
                         <ArrowRight size={16} />

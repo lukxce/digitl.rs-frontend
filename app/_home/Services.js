@@ -164,7 +164,7 @@ function Card({ x, i, rank, wide, onAsk }) {
             data-tone={x.id}
             onClick={() => setFlipped(true)}
             tabIndex={flipped ? -1 : 0}
-            aria-label={`${x.name}. Okrenite za detalje.`}
+            aria-label={`${x.title}. Okrenite za detalje.`}
           >
             <span className={s.frontTop}>
               <span className={s.no}>0{i + 1}</span>
@@ -176,7 +176,7 @@ function Card({ x, i, rank, wide, onAsk }) {
               <Art />
             </span>
             <span className={s.frontText}>
-              <b>{x.name}</b>
+              <b>{x.title}</b>
               <em>{x.body}</em>
             </span>
             <span className={s.hint}>
@@ -185,7 +185,7 @@ function Card({ x, i, rank, wide, onAsk }) {
           </button>
 
           <div className={s.back} aria-hidden={!flipped}>
-            <span className={s.backName}>{x.name}</span>
+            <span className={s.backName}>{x.title}</span>
             <p className={s.hear}>„{x.hear}“</p>
             <p className={s.body}>{x.feeds}</p>
             <ul className={s.includes}>
@@ -232,8 +232,8 @@ export default function Services() {
         <div className={s.top}>
           <Head
             id="usluge"
-            label="Šta radimo"
-            title="Sve što radimo."
+            label="Usluge"
+            title="Naše usluge."
             intro="Kompletan marketing kao jedan sistem, ne meni nepovezanih usluga. Okrenite karticu za detalje."
           />
           {plan

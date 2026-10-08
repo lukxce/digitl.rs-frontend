@@ -62,10 +62,10 @@ function Newsletter() {
     <div className={l.news}>
       <div className={l.newsCopy}>
         <span className={l.newsLabel}>Newsletter</span>
-        <h3>Trendovi i taktike, bez buke.</h3>
+        <h3>Budite u toku.</h3>
         <p>
-          Jednom do dvaput mesečno, bez spama. Samo ono što smo stvarno videli
-          da radi.
+          Trendovi, taktike i uvidi iz sveta marketinga koji vam pomažu da
+          rastete brže, jednom do dva puta mesečno, direktno u inbox.
         </p>
         <AnimatePresence mode="wait" initial={false}>
           {state === "done"
@@ -135,9 +135,9 @@ export default function Blog({ articles }) {
         <div className={l.top}>
           <Head
             id="blog"
-            label="Blog"
-            title="Pišemo o tome šta radi."
-            intro="Šta se menja u oglasima, pretrazi i prodaji u Srbiji, i šta to znači za vaš posao."
+            label="Najnoviji tekstovi"
+            title="Blog."
+            intro="Praktični uvidi o marketingu, rastu i izgradnji brendova koji se izdvajaju."
           />
           <a className={l.all} href="/journal">
             Svi tekstovi <ArrowUpRight size={15} />

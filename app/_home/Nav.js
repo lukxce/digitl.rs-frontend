@@ -124,7 +124,7 @@ function Menu({ onClose, onBook, onGo }) {
             onBook();
           }}
         >
-          Zakažite razgovor
+          Zakaži razgovor
         </Btn>
         <span className={n.city}>Beograd / London</span>
       </div>
@@ -207,7 +207,7 @@ export default function Nav() {
             onClick={() => book()}
             className={n.cta}
           >
-            Zakažite razgovor
+            Zakaži razgovor
           </Btn>
           {menuBtn(n.menuBtn)}
         </div>
@@ -250,7 +250,7 @@ export default function Nav() {
                 arrow={false}
                 onClick={() => book()}
               >
-                Zakažite
+                Zakaži
               </Btn>
               <AnimatePresence>
                 {open

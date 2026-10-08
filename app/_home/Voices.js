@@ -75,8 +75,8 @@ export default function Voices() {
         <Head
           id="utisci"
           label="Utisci"
-          title="Šta kažu ljudi sa kojima radimo."
-          intro="Bez posrednika: vlasnici i ljudi koji vode marketing, o tome kako izgleda raditi sa nama."
+          title="Kako izgleda raditi sa nama."
+          intro="Preporuke klijenata koji marketing shvataju ozbiljno."
         />
         <div className={v.grid}>
           <Reveal as="figure" className={v.main}>

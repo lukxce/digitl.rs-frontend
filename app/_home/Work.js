@@ -321,7 +321,7 @@ function AllCases({ clients }) {
         ))}
       </span>
       <span className={w.allBtn}>
-        Sve studije slučaja <ArrowUpRight size={16} />
+        Pogledajte sve projekte <ArrowUpRight size={16} />
       </span>
     </a>
   );
@@ -350,12 +350,12 @@ export default function Work({ clients }) {
       <div className={b.container}>
         <Head
           id="rezultati"
-          label="Da li radi?"
-          title="Firme koje već rastu sa nama."
+          label="Projekti"
+          title="Odabrani projekti."
           intro={
             match
-              ? "Svaki broj je iz objavljene studije slučaja. Prvi je projekat najsličniji vašem."
-              : "Svaki broj je iz objavljene studije slučaja. Sajtove možete da otvorite i izmerite sami."
+              ? "Primeri saradnji i rezultata koje smo ostvarili sa klijentima. Prvi je projekat najsličniji vašem."
+              : "Primeri saradnji i rezultata koje smo ostvarili sa klijentima."
           }
         />
         <div className={w.grid}>

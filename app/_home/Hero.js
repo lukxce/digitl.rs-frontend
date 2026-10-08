@@ -54,9 +54,7 @@ function Logos({ clients }) {
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: EASE }}
     >
-      <span className={h.logosLabel}>
-        <b>50+</b> saradnji, među njima
-      </span>
+      <span className={h.logosLabel}>Izabrali su Digitl</span>
       <div className={h.rail}>
         <ul className={h.track}>{[0, 1, 2, 3].map((copy) => row(copy))}</ul>
       </div>
@@ -77,32 +75,34 @@ export default function Hero({ clients, visual = null }) {
           >
             <span className={b.liveDot} />
             <span className={h.statusLong}>
-              Agencija za rast · Beograd / London ·
+              Full-Service marketing agencija · Beograd / London ·
             </span>{" "}
             <b>2 slobodna mesta</b>
           </p>
           <h1 className={`${b.display} ${h.title}`}>
-            <Line delay={100}>Marketing koji se</Line>
+            <Line delay={100}>Marketing koji</Line>
             <Line delay={170}>
-              meri <span className={h.accent}>profitom,</span>
+              donosi <span className={h.accent}>prave</span>
             </Line>
-            <Line delay={240}>ne aktivnošću.</Line>
+            <Line delay={240}>
+              <span className={h.accent}>rezultate.</span>
+            </Line>
           </h1>
           <div className={b.fadeUp} style={{ animationDelay: "520ms" }}>
             <p className={h.lead}>
-              Oglasi, SEO, sajt, mreže i brend, vođeni kao jedan sistem i mereni
-              jednim brojem: koliko su vam doneli.
+              Gradimo brendove koji se izdvajaju, konvertuju bolje i rastu brže.
+              Sve što vaš biznis traži, na jednom mestu.
             </p>
             <div className={h.ctas}>
               <Btn variant="accent" onClick={() => book()}>
-                Zakažite razgovor
+                Zakaži razgovor
               </Btn>
               <Btn
                 variant="ghost"
                 arrow={false}
-                onClick={() => scrollTo("#vas-plan")}
+                onClick={() => scrollTo("#rezultati")}
               >
-                Tri pitanja za vaš plan
+                Naši projekti
               </Btn>
             </div>
           </div>
