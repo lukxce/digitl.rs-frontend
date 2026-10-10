@@ -15,7 +15,7 @@ import { Rotate } from "./icons";
 import l from "./loop.module.css";
 import { Bridge, EASE, Head, useVisible } from "./ui";
 
-/* The customer's path drawn as a loop rather than a funnel: someone notices
+/* The customer's path drawn as a loop: someone notices
    you, searches, decides on the site, gets in touch, and comes back or sends
    someone else, which starts the loop again. Each stop names the services
    that work there and what we measure.
@@ -333,7 +333,7 @@ export default function Loop() {
             <Head
               id="put-kupca"
               label="Put kupca"
-              title="Kupac ne ide kroz levak. Ide u krug."
+              title="Kako kupac dolazi do vas i zašto se vraća."
               intro="Svaka usluga ima svoje mesto na tom putu. Mi vodimo ceo krug, pa svaki kupac dovodi sledećeg."
             />
           </div>

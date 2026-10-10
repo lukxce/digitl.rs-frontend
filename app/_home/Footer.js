@@ -71,6 +71,9 @@ export default function Footer() {
           <div className={f.base}>
             <span>© 2026 Digitl · Beograd / London</span>
             <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+            <a href={CONTACT.en} hrefLang="en" lang="en">
+              English
+            </a>
             <a className={f.login} href={CONTACT.hub}>
               <Lock size={13} />
               Prijava za klijente

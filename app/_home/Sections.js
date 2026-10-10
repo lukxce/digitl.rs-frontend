@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import b from "./base.module.css";
 import { FAQ } from "./content";
-import { Check, Plus } from "./icons";
+import { Plus } from "./icons";
 import Quiz from "./Quiz";
 import x from "./sections.module.css";
 import { EASE, Head } from "./ui";
@@ -24,20 +24,18 @@ export function PlanSection({ clients }) {
               od marketinga sada najpotrebnije i od čega je najpametnije da
               krenete.
             </p>
-            <ul className={x.planGet}>
+            <dl className={x.planGet}>
               {[
-                "Usluge poređane po tome koliko vam trebaju",
-                "Naš projekat koji je najsličniji vašem",
-                "Plan koji jednim klikom šaljete nama",
-              ].map((t) => (
-                <li key={t}>
-                  <span>
-                    <Check size={12} strokeWidth={3} />
-                  </span>
-                  {t}
-                </li>
+                ["Usluge", "poređane po tome koliko vam trebaju"],
+                ["Projekat", "naš rad koji je najsličniji vašem"],
+                ["Plan", "koji jednim klikom šaljete nama"],
+              ].map(([k, v]) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
               ))}
-            </ul>
+            </dl>
             <small>Traje oko pola minuta.</small>
           </div>
           <Quiz clients={clients} />

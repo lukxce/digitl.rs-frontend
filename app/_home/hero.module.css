@@ -38,23 +38,34 @@
   min-width: 0;
 }
 .status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.kind {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+/* how many clients we can still take on: its own pill, with a live dot */
+.slots {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 7px 14px;
+  padding: 6px 14px 6px 12px;
   border-radius: 999px;
   background: rgb(255 255 255 / 0.8);
   box-shadow: inset 0 0 0 1px var(--line);
   font-size: 13px;
-  font-weight: 600;
-  color: var(--ink-3);
+  font-weight: 700;
+  color: var(--ink);
   backdrop-filter: blur(8px);
 }
-.status b {
-  color: var(--ink);
-}
 @media (max-width: 560px) {
-  .statusLong {
+  .kind {
     display: none;
   }
 }

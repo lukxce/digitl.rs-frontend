@@ -1,81 +1,72 @@
-// Services (titles and descriptions as on the original homepage) and the
-// three-question plan.
+// Services and the three-question plan. `title` and `body` are the original
+// homepage's wording (the front of each card); `lead`, `includes` and `fact`
+// are the back: what we do, what is in it, and what we measure.
 
 export const SERVICES = [
   {
     id: "ads",
-    hear: "Plaćam oglase, a ne znam šta donose.",
-    proof: "Praćenje od klika do upita, u istom izveštaju kao sajt i SEO.",
     title: "Plaćeno oglašavanje (Search & Social)",
     name: "Plaćeno oglašavanje",
-    role: "Saobraćaj danas.",
     body: "Kampanje na Google-u i mrežama, postavljene i skalirane da donose prodaju, ne samo klikove.",
-    feeds: "Hrani sajt upitima, a SEO podacima o tome šta ljudi stvarno traže.",
+    lead: "Postavljamo kampanje, pratimo svaki upit i budžet pomeramo tamo gde donosi prodaju.",
     includes: [
-      "Google Search i Performance Max",
-      "Meta i Instagram",
-      "Praćenje od klika do upita",
+      "Google oglasi: pretraga i Performance Max",
+      "Meta oglasi: Facebook i Instagram",
+      "Tekstovi i vizuali oglasa",
     ],
+    fact: ["Merimo", "Cena po upitu, za svaku kampanju"],
   },
   {
     id: "seo",
-    hear: "Na Google-u nas nema ni na drugoj strani.",
-    proof: "ThermiQ: 3.157 indeksiranih stranica za tri meseca.",
     title: "Search Engine Optimization (SEO)",
     name: "SEO",
-    role: "Saobraćaj koji ne plaćate.",
     body: "Budite prvi tamo gde kupci traže rešenje, na Google-u i u AI pretrazi.",
-    feeds: "Snižava cenu plaćenog klika i drži upite kad se kampanja ugasi.",
+    lead: "Sređujemo sajt i sadržaj da vas kupci nađu baš kad traže ono što nudite.",
     includes: [
+      "Tehnički SEO i brzina sajta",
       "Stranica za svaku uslugu i grad",
-      "Tehnički SEO na nivou šablona",
-      "Sadržaj za prava pitanja",
+      "Tekstovi koji odgovaraju na pitanja kupaca",
     ],
+    fact: ["Merimo", "Pozicije, posete i upiti iz pretrage"],
   },
   {
     id: "web",
-    hear: "Imamo posete, ali ne i prodaju.",
-    proof: "Moler Niš i Servis Klime Niš: PageSpeed 100 na telefonu.",
     title: "Web dizajn & razvoj",
     name: "Web",
-    role: "Poseta postaje upit.",
     body: "Brzi sajtovi napravljeni da konvertuju, da plaćeni saobraćaj pretvore u kupce.",
-    feeds: "Bez njega svaki drugi kanal plaća posetu koja ne postane kupac.",
+    lead: "Dizajniramo i izrađujemo sajt koji se brzo učitava i posetioca vodi do upita ili kupovine.",
     includes: [
-      "Cena i kontakt pre poziva",
-      "Sadržaj uređujete sami",
-      "Pravljen za telefon",
+      "Dizajn i izrada sajta ili online prodavnice",
+      "Brzo učitavanje, prvo na telefonu",
+      "Sadržaj menjate sami, bez programera",
     ],
+    fact: ["Merimo", "Brzina sajta i stopa konverzije"],
   },
   {
     id: "social",
-    hear: "Na mrežama objavljujemo kad se neko seti.",
-    proof: "Mreže podržavaju ostale kanale, ne žive odvojeno od njih.",
     title: "Upravljanje društvenim mrežama",
     name: "Društvene mreže",
-    role: "Prisutnost između kupovina.",
     body: "Dosledan brend na mrežama koji podržava sve ostale kanale.",
-    feeds: "Čini da vas kupac prepozna kad vas nađe u pretrazi ili oglasu.",
+    lead: "Planiramo, pravimo i objavljujemo sadržaj, da brend na mrežama izgleda i zvuči kao svuda drugde.",
     includes: [
-      "Plan objava po nedeljama",
-      "Reels i Stories formati",
-      "Isti glas kao sajt i oglasi",
+      "Mesečni plan objava",
+      "Dizajn objava, Reels i Stories",
+      "Tekstovi i objavljivanje",
     ],
+    fact: ["Merimo", "Doseg, angažovanje i posete sajtu"],
   },
   {
     id: "brand",
-    hear: "Izgledamo isto kao konkurencija.",
-    proof: "ThermiQ: crvena prati grejanje, plava hlađenje, na svakom formatu.",
     title: "Branding & identitet",
     name: "Brend",
-    role: "Sve ostalo košta manje.",
     body: "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",
-    feeds: "Isti oglas, ista pozicija, veći procenat klikova. To je brend.",
+    lead: "Određujemo šta brend govori i kako izgleda, pa od toga pravimo sistem koji radi na svakom formatu.",
     includes: [
-      "Pozicioniranje i poruka",
+      "Pozicioniranje i glavna poruka",
       "Logo, boje i tipografija",
-      "Sistem za svaki format",
+      "Šabloni za objave i oglase",
     ],
+    fact: ["Rezultat", "Brend knjiga i svi fajlovi"],
   },
 ];
 
@@ -230,4 +221,6 @@ export const CONTACT = {
   tel: "+381641338383",
   // the client portal (digitl hub)
   hub: "https://hub.digitl.rs/login",
+  // the English site
+  en: "https://www.digitl.me",
 };

@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import b from "./base.module.css";
 import { SERVICES } from "./content";
-import { ArrowRight, Check, Rotate, Search } from "./icons";
+import { ArrowRight, Rotate, Search } from "./icons";
 import s from "./services.module.css";
 import { Bridge, EASE, Head, useApp } from "./ui";
 
@@ -184,27 +184,14 @@ function Card({ x, i, rank, wide, onAsk }) {
             </span>
           </button>
 
-          <div className={s.back} aria-hidden={!flipped}>
-            <span className={s.backName}>{x.title}</span>
-            <p className={s.hear}>„{x.hear}“</p>
-            <p className={s.body}>{x.feeds}</p>
-            <ul className={s.includes}>
-              {x.includes.map((t) => (
-                <li key={t}>
-                  <Check size={12} strokeWidth={3} /> {t}
-                </li>
-              ))}
-            </ul>
-            <p className={s.proof}>{x.proof}</p>
-            <div className={s.backFoot}>
-              <button
-                type="button"
-                className={s.ask}
-                onClick={() => onAsk(x.name)}
-                tabIndex={flipped ? 0 : -1}
-              >
-                Razgovarajmo <ArrowRight size={14} />
-              </button>
+          {/* The other side of the same card, in the same colour: what we
+              do, what is in it, what we measure. */}
+          <div className={s.back} data-tone={x.id} aria-hidden={!flipped}>
+            <div className={s.backTop}>
+              <span className={s.backName}>
+                <i>0{i + 1}</i>
+                {x.name}
+              </span>
               <button
                 type="button"
                 className={s.unflip}
@@ -212,6 +199,26 @@ function Card({ x, i, rank, wide, onAsk }) {
                 tabIndex={flipped ? 0 : -1}
               >
                 <Rotate size={13} /> Nazad
+              </button>
+            </div>
+            <div className={s.backBody}>
+              <p className={s.lead}>{x.lead}</p>
+              <ul className={s.rows}>
+                {x.includes.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
+              <p className={s.fact}>
+                <em>{x.fact[0]}</em>
+                <b>{x.fact[1]}</b>
+              </p>
+              <button
+                type="button"
+                className={s.ask}
+                onClick={() => onAsk(x.name)}
+                tabIndex={flipped ? 0 : -1}
+              >
+                Razgovarajmo <ArrowRight size={14} />
               </button>
             </div>
           </div>

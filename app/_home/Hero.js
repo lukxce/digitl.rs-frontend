@@ -73,11 +73,10 @@ export default function Hero({ clients, visual = null }) {
             className={`${h.status} ${b.fadeUp}`}
             style={{ animationDelay: "40ms" }}
           >
-            <span className={b.liveDot} />
-            <span className={h.statusLong}>
-              Full-Service marketing agencija · Beograd / London ·
-            </span>{" "}
-            <b>2 slobodna mesta</b>
+            <span className={h.kind}>Full-Service marketing agencija</span>
+            <span className={h.slots}>
+              <span className={b.liveDot} />2 slobodna mesta
+            </span>
           </p>
           <h1 className={`${b.display} ${h.title}`}>
             <Line delay={100}>Marketing koji</Line>

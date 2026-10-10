@@ -49,6 +49,25 @@
     margin-left: 0;
   }
 }
+/* the way to the English site (digitl.me) */
+.lang {
+  display: inline-flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+.lang:hover {
+  background: var(--mist);
+  color: var(--ink);
+}
 .menuBtn,
 .pillMenu {
   display: none;
@@ -420,9 +439,24 @@
   color: var(--ink);
 }
 .city {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   padding: 6px 8px 2px;
   font-size: 12px;
   color: rgb(255 255 255 / 0.5);
+}
+.city a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  color: rgb(255 255 255 / 0.85);
+  transition: color 0.25s var(--ease);
+}
+.city a:hover {
+  color: #fff;
 }
 
 .socials a svg {

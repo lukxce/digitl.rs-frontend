@@ -166,7 +166,12 @@ function Menu({ onClose, onBook, onGo, links }) {
         >
           Zakaži razgovor
         </Btn>
-        <span className={n.city}>Beograd / London</span>
+        <span className={n.city}>
+          Beograd / London
+          <a href={CONTACT.en} hrefLang="en" lang="en">
+            English <ArrowUpRight size={12} />
+          </a>
+        </span>
       </div>
     </motion.div>
   );
@@ -252,6 +257,15 @@ export default function Nav() {
           ))}
         </nav>
         <div className={n.actions}>
+          <a
+            className={n.lang}
+            href={CONTACT.en}
+            hrefLang="en"
+            lang="en"
+            aria-label="English site"
+          >
+            EN
+          </a>
           <Btn
             variant="accent"
             size="sm"
