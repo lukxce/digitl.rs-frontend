@@ -25,9 +25,12 @@ import { Bridge, EASE, Head, useVisible } from "./ui";
    by the ring or by a number (drag round, let go, and it coasts to the
    nearest stop), and on a phone also by swiping sideways across the middle.
    Only the ring itself takes the finger from the page: the middle and
-   everything around it still scroll up and down as usual. The blue arc is
-   the way travelled so far, in either direction, and stays closed once the
-   wheel has gone all the way round. */
+   everything around it still scroll up and down as usual.
+
+   The blue arc is where the customer is on the loop: it runs from the first
+   stop to the current one and follows the wheel both ways. Back at the
+   first stop the ring is closed; as the next lap starts the old line
+   unwinds from its tail, so each lap draws a fresh one. */
 
 const STAGES = [
   {
@@ -70,7 +73,7 @@ const CIRC = 2 * Math.PI * R;
 // and .hole in the stylesheet (insets of 9% and 21%).
 const BAND_OUT = 246;
 const BAND_IN = 174;
-const ALL = (1 << N) - 1;
+const LAP = 1 / N;
 const rad = (deg) => (deg * Math.PI) / 180;
 const mod = (v) => ((v % N) + N) % N;
 // two decimals, so the server and the browser print the same string
@@ -78,6 +81,20 @@ const r2 = (v) => Math.round(v * 100) / 100;
 const pct = (v) => `${r2((v / 600) * 100)}%`;
 const clamp = (v, a, z) => Math.max(a, Math.min(z, v));
 const SETTLE = { type: "spring", stiffness: 90, damping: 17 };
+const smooth = (t) => t * t * (3 - 2 * t);
+
+/** The blue arc for a wheel turned `p` laps, as [tail, head] in laps.
+    The head is always at the top. The tail is the first stop of the lap,
+    except over the first step of a lap, where it runs the whole way round:
+    forwards that unwinds the lap just closed, backwards it closes the ring
+    again. `fresh` is the wheel before it has reached a second stop, when
+    there is no earlier lap to show. */
+function arcOf(p, fresh) {
+  if (fresh) return p >= 0 ? [0, p] : [-smooth(Math.min(1, -p / LAP)), p];
+  const lap = Math.floor(p + 1e-6);
+  const into = p - lap;
+  return into < LAP ? [lap - 1 + smooth(Math.max(0, into) / LAP), p] : [lap, p];
+}
 
 /** A numbered stop. Its place follows the wheel; the number stays upright. */
 function Stop({ i, rot, on, done, name, onPick }) {
@@ -129,42 +146,39 @@ export default function Loop() {
   const visible = useVisible(ref, 0.35);
   const reduce = useReducedMotion();
   const [step, setStep] = useState(0);
-  const [seen, setSeen] = useState(1);
+  const [done, setDone] = useState(1);
   const [held, setHeld] = useState(false);
   const [grabbing, setGrabbing] = useState(false);
   const active = mod(step);
 
   // The wheel's turn in degrees; the stop at the top is step = -rot / STEP.
-  // lo and hi are the furthest it has been turned each way, in laps.
   const rot = useMotionValue(0);
-  const lo = useMotionValue(0);
-  const hi = useMotionValue(0);
   const stepRef = useRef(0);
-  const seenRef = useRef(1);
+  const doneRef = useRef(1);
+  const fresh = useRef(true);
   const spin = useRef(null);
   const drag = useRef(null);
   const handled = useRef(0);
 
   useMotionValueEvent(rot, "change", (v) => {
-    const laps = -v / 360;
-    if (laps > hi.get()) hi.set(laps);
-    if (laps < lo.get()) lo.set(laps);
+    const p = -v / 360;
+    if (Math.abs(p) >= LAP - 1e-6) fresh.current = false;
     const s = Math.round(-v / STEP);
     if (s !== stepRef.current) {
       stepRef.current = s;
       setStep(s);
     }
-    // a stop is behind us once it has been at the top
-    let got = seenRef.current;
-    if (got === ALL) return;
+    // the stops the blue line lies on are the ones already passed
+    const [tail, head] = arcOf(p, fresh.current);
+    let on = 0;
     for (let i = 0; i < N; i++) {
       const at = i / N;
-      const lap = Math.ceil(lo.get() - at - 1e-3);
-      if (at + lap <= hi.get() + 1e-3) got |= 1 << i;
+      const lap = Math.ceil(tail - at - 1e-3);
+      if (at + lap <= head + 1e-3) on |= 1 << i;
     }
-    if (got !== seenRef.current) {
-      seenRef.current = got;
-      setSeen(got);
+    if (on !== doneRef.current) {
+      doneRef.current = on;
+      setDone(on);
     }
   });
 
@@ -297,13 +311,16 @@ export default function Loop() {
   };
 
   const cur = STAGES[active];
-  // The arc is the way travelled so far: from the furthest turn one way to
-  // the furthest the other, a whole ring once that is a full lap.
-  const dashArray = useTransform([lo, hi], ([a, z]) => {
-    const len = Math.min(1, z - a) * CIRC;
+  // one dash from the arc's tail to its head; the path starts at stop one
+  const dashArray = useTransform(rot, (v) => {
+    const [tail, head] = arcOf(-v / 360, fresh.current);
+    const len = Math.min(1, Math.max(0, head - tail)) * CIRC;
     return `${r2(len)}px ${r2(CIRC - len)}px`;
   });
-  const dashOffset = useTransform(lo, (a) => `${r2(-a * CIRC)}px`);
+  const dashOffset = useTransform(rot, (v) => {
+    const [tail] = arcOf(-v / 360, fresh.current);
+    return `${r2((((-tail % 1) + 1) % 1) * CIRC)}px`;
+  });
 
   return (
     <section
@@ -363,7 +380,7 @@ export default function Loop() {
                 i={i}
                 rot={rot}
                 on={i === active}
-                done={(seen & (1 << i)) !== 0}
+                done={(done & (1 << i)) !== 0}
                 name={st.name}
                 onPick={onPick}
               />
