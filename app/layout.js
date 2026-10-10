@@ -23,7 +23,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="sr" className={manrope.variable}>
+    <html
+      lang="sr"
+      className={manrope.variable}
+      // globals.css sets smooth scrolling; this tells Next to switch it off
+      // while it moves to a new page, so navigation lands at the top at once
+      data-scroll-behavior="smooth"
+    >
       <body>
         <SmoothScroll>
           <SiteNav />

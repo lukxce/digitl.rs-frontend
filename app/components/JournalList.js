@@ -70,13 +70,13 @@ function ViewAllArrowIcon({ className }) {
   );
 }
 
-function JournalRow({ item }) {
+function JournalRow({ item, basePath }) {
   const hasRemoteImage =
     typeof item.imageUrl === "string" && item.imageUrl.length > 0;
 
   return (
     <Link
-      href={`/journal/${encodeURIComponent(item.slug)}`}
+      href={`${basePath}/${encodeURIComponent(item.slug)}`}
       className={styles.rowLink}
     >
       <span className={styles.thumb}>
@@ -117,6 +117,7 @@ export default function JournalList({
   items = [],
   limit = 3,
   hasLink = true,
+  basePath = "/journal",
   marginTop = 40,
 }) {
   const reduceMotion = useReducedMotion() === true;
@@ -128,14 +129,14 @@ export default function JournalList({
   const listContent = items.slice(0, limit).map((item) =>
     reduceMotion
       ? <li key={item.slug} className={styles.item}>
-          <JournalRow item={item} />
+          <JournalRow item={item} basePath={basePath} />
         </li>
       : <motion.li
           key={item.slug}
           className={styles.item}
           variants={itemVariants}
         >
-          <JournalRow item={item} />
+          <JournalRow item={item} basePath={basePath} />
         </motion.li>,
   );
 
@@ -166,7 +167,7 @@ export default function JournalList({
           </motion.ul>}
       {hasLink && (
         <div className={styles.viewAllFooter}>
-          <Link href="/journal" className={styles.viewAllLink}>
+          <Link href={basePath} className={styles.viewAllLink}>
             <span className={styles.viewAllLabel}>View all</span>
             <ViewAllArrowIcon className={styles.viewAllArrow} />
           </Link>

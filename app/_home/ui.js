@@ -52,16 +52,21 @@ function glide(to) {
 // the contact form all read it. The site check result travels the same way.
 const App = createContext(null);
 
-export function AppProvider({ children }) {
+export function AppProvider({ children, home = true }) {
   const lenis = useLenis();
   const [plan, setPlan] = useState(null);
   const [topic, setTopic] = useState(null);
 
   // Section anchors already sit 90px above their heading, so they need no
-  // extra offset; anything else is pulled up clear of the nav.
+  // extra offset; anything else is pulled up clear of the nav. On an inner
+  // page a section that lives on the homepage is a trip there instead.
   const scrollTo = (selector, offset) => {
     const el = document.querySelector(selector);
-    if (!el) return;
+    if (!el) {
+      if (!home && selector.startsWith("#"))
+        window.location.assign(`/${selector}`);
+      return;
+    }
     const off = offset ?? (el.classList.contains(b.anchor) ? 0 : -90);
     const top = el.getBoundingClientRect().top + window.scrollY + off;
     if (lenis) lenis.scrollTo(top, { duration: 1.2 });
@@ -69,6 +74,7 @@ export function AppProvider({ children }) {
   };
 
   const value = {
+    home,
     plan,
     setPlan,
     scrollTo,

@@ -688,6 +688,10 @@
   stroke-width: 2.5;
   vector-effect: non-scaling-stroke;
 }
+.sparkArea {
+  fill: rgb(91 155 255 / 0.16);
+  stroke: none;
+}
 .sparkVisits {
   fill: none;
   stroke: #5b9bff;

@@ -1,0 +1,643 @@
+/* A blog post. The top is the homepage hero's arrangement (words on the left,
+   one large rounded card on the right) with the article in it; under it the
+   key messages, then a reading column with a column that follows the reader. */
+
+/* reading progress, along the very top of the window */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 70;
+  height: 3px;
+  pointer-events: none;
+}
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  will-change: transform;
+}
+
+/* ── top ──────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  padding: clamp(104px, 12vh, 136px) 0 clamp(32px, 4vw, 56px);
+  --glow-1: 94% 42%;
+  --glow-1-size: 40% 56%;
+  --glow-2: 0% 88%;
+  --glow-2-size: 48% 56%;
+  --dots-at: 46% 4%;
+  --dots-size: 40% 46%;
+}
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .heroGrid {
+    grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+    gap: clamp(36px, 4.5vw, 72px);
+  }
+}
+.intro {
+  display: grid;
+  justify-items: start;
+  min-width: 0;
+}
+/* (links and buttons name their element, to outrank the shared reset) */
+a.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 40px;
+  padding: 0 16px 0 5px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.85);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink-2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: color 0.3s var(--ease);
+}
+.back span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--mist);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    translate 0.35s var(--ease);
+}
+.back:hover {
+  color: var(--ink);
+}
+.back:hover span {
+  background: var(--accent);
+  color: #fff;
+  translate: -2px 0;
+}
+/* (the element is named so these margins outrank the shared reset) */
+h1.title {
+  margin-top: 22px;
+  font-size: clamp(31px, 6.2vw, 54px);
+  font-weight: 800;
+  letter-spacing: -0.042em;
+  line-height: 1.05;
+}
+@media (min-width: 960px) {
+  h1.title {
+    font-size: clamp(32px, 3.4vw, 50px);
+  }
+}
+p.standfirst {
+  margin-top: 18px;
+  max-width: 34em;
+  font-size: clamp(17px, 1.35vw, 19.5px);
+  line-height: 1.5;
+  color: var(--ink-3);
+  text-wrap: pretty;
+}
+.byline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+/* the author's picture sits in a small white tile, like the client logos
+   on the homepage: a logo mark is not cropped, a portrait gets a frame */
+.byline img {
+  width: 46px;
+  height: 46px;
+  flex: none;
+  padding: 7px;
+  border-radius: 15px;
+  object-fit: contain;
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.byline p {
+  display: grid;
+  gap: 1px;
+  font-size: 13.5px;
+  color: var(--ink-4);
+}
+.byline b {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.byline p > span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 10px;
+}
+.byline em,
+.byline i {
+  font-style: normal;
+}
+.byline em {
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.byline em + time::before,
+.byline time + i::before,
+.byline em + i::before {
+  content: "·";
+  margin-right: 10px;
+  font-weight: 400;
+  color: var(--ink-4);
+}
+.cover {
+  overflow: hidden;
+  border-radius: var(--r-card);
+  background: var(--mist);
+  box-shadow:
+    0 44px 80px -52px rgb(11 11 22 / 0.5),
+    var(--ring);
+}
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 640px) {
+  .cover {
+    border-radius: 20px;
+  }
+}
+
+/* ── key messages: white cards on a soft blue panel ───────────────────── */
+.keys {
+  margin-top: clamp(4px, 1.4vw, 18px);
+  padding: clamp(12px, 1.6vw, 20px);
+  border-radius: 34px;
+  background: var(--accent-soft);
+}
+.keysLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.keysLabel::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--secondary);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--secondary) 35%, transparent);
+}
+.keysGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+@media (min-width: 900px) {
+  .keysGrid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+.key {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: clamp(18px, 2vw, 26px);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.keyNo {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+.key h3 {
+  font-size: clamp(17px, 1.45vw, 20px);
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 1.22;
+}
+.key p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-3);
+  text-wrap: pretty;
+}
+
+/* ── text and the column beside it ────────────────────────────────────── */
+/* The grid sits inside the page container, not on it, so its top padding
+   (the air under the key messages) cannot be cancelled by the container's
+   own padding rule. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding-top: clamp(40px, 5vw, 72px);
+}
+.main {
+  min-width: 0;
+}
+.side {
+  display: none;
+}
+@media (min-width: 1000px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 264px;
+    gap: 40px;
+    align-items: start;
+  }
+  /* follows the reader, always clear of the floating nav pill (12 + 54px) */
+  .side {
+    position: sticky;
+    top: 96px;
+    display: grid;
+    gap: 12px;
+  }
+  .side .share {
+    padding: 16px 16px 18px;
+  }
+  .side .shareRow {
+    flex-wrap: nowrap;
+  }
+  .side .copyBtn {
+    flex: 1;
+    min-width: 0;
+    padding: 0 12px;
+  }
+  /* the phone versions of the contents and the share row step aside */
+  .main > .fold,
+  .main > .shareEnd {
+    display: none;
+  }
+}
+@media (min-width: 1200px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: clamp(40px, 4.5vw, 64px);
+  }
+  .side .share {
+    padding: 18px 20px 20px;
+  }
+}
+.nothing {
+  font-size: 18px;
+  color: var(--ink-3);
+}
+
+.sideLabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+/* contents: the current section wears a white pill that slides */
+.toc {
+  padding: 20px 8px 8px;
+  border-radius: 24px;
+  background: var(--mist);
+}
+.toc .sideLabel {
+  padding: 0 14px 12px;
+}
+.toc ol {
+  display: grid;
+  gap: 2px;
+}
+.toc a {
+  position: relative;
+  display: block;
+  padding: 10px 14px 10px 18px;
+  border-radius: 14px;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink-3);
+  transition: color 0.3s var(--ease);
+}
+.toc a:hover,
+.toc a[aria-current] {
+  color: var(--ink);
+}
+.toc a > span:last-child {
+  position: relative;
+}
+.tocMark {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow:
+    0 10px 22px -16px rgb(11 11 22 / 0.4),
+    var(--ring);
+}
+.tocMark::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 11px;
+  bottom: 11px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+/* share */
+.share {
+  display: grid;
+  gap: 12px;
+  padding: 18px 20px 20px;
+  border-radius: 24px;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.shareRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+button.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 138px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+.copyBtn:hover {
+  background: var(--accent);
+}
+.copyBtn[data-done] {
+  background: var(--secondary);
+  color: var(--ink);
+}
+a.shareBtn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--mist);
+  color: var(--ink-2);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+.shareBtn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+/* the same actions under the text, where there is no side column */
+.shareEnd {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  max-width: 680px;
+  margin: clamp(32px, 5vw, 48px) auto 0;
+  padding: 20px 0 0;
+  border-radius: 0;
+  border-top: 1px solid var(--line);
+  box-shadow: none;
+}
+@media (min-width: 480px) {
+  .shareEnd {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+/* contents on a phone: one row that opens */
+.fold {
+  max-width: 680px;
+  margin: 0 auto clamp(26px, 5vw, 36px);
+  border-radius: 22px;
+  background: var(--mist);
+}
+.fold > button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 10px 10px 18px;
+  border-radius: 22px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
+.fold > button i {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--ring);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-3);
+}
+.foldIcon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--ring);
+  transition:
+    transform 0.35s var(--ease),
+    background 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+.foldIcon[data-open] {
+  transform: rotate(45deg);
+  background: var(--ink);
+  color: #fff;
+}
+.foldBody {
+  overflow: hidden;
+}
+.foldBody ol {
+  display: grid;
+  gap: 2px;
+  padding: 2px 8px 8px;
+}
+.foldBody a {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--ring);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink-2);
+}
+
+/* ── closing card: the author, and a way to ask ───────────────────────── */
+.ask {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  justify-items: start;
+  gap: 18px 26px;
+  max-width: 920px;
+  margin: clamp(36px, 5vw, 60px) auto 0;
+  padding: clamp(20px, 2.6vw, 30px);
+  border-radius: var(--r-card);
+  background: var(--secondary-soft);
+}
+.askWho {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.askWho img {
+  width: 54px;
+  height: 54px;
+  flex: none;
+  padding: 9px;
+  border-radius: 17px;
+  object-fit: contain;
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.askWho p {
+  display: grid;
+  gap: 2px;
+}
+.askWho span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--secondary-ink);
+}
+.askWho b {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.askCopy h2 {
+  font-size: clamp(21px, 2vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.036em;
+  line-height: 1.1;
+}
+.askCopy p {
+  margin-top: 5px;
+  font-size: 15px;
+  color: var(--ink-3);
+}
+@media (min-width: 760px) {
+  .ask {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  .askWho {
+    padding-right: 26px;
+    border-right: 1px solid
+      color-mix(in oklab, var(--secondary-ink) 20%, transparent);
+  }
+}
+
+/* ── more from the blog ───────────────────────────────────────────────── */
+.more {
+  position: relative;
+  padding: clamp(56px, 7vw, 104px) 0 clamp(8px, 2vw, 24px);
+  background: #fff;
+}
+.moreTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 32px;
+}
+.all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  background: var(--mist);
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+.all:hover {
+  background: var(--ink);
+  color: #fff;
+}
+ul.moreGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin-top: clamp(24px, 3.5vw, 44px);
+}
+@media (min-width: 640px) {
+  ul.moreGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 960px) {
+  ul.moreGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* keyboard focus keeps each control's own shape (the shared rule rounds to 10px) */
+a.back:focus-visible,
+a.all:focus-visible,
+button.copyBtn:focus-visible {
+  border-radius: 999px;
+}
+a.shareBtn:focus-visible {
+  border-radius: 50%;
+}
+.toc a:focus-visible,
+.foldBody a:focus-visible {
+  border-radius: 14px;
+}
+.fold > button:focus-visible {
+  border-radius: 22px;
+}

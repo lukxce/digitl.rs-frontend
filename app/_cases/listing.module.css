@@ -1,0 +1,86 @@
+/* /projects: the head of the page and the grid of studies. */
+
+.hero {
+  --glow-1: 86% 30%;
+  --glow-2: 6% 78%;
+  --dots-at: 78% 46%;
+  --dots-size: 40% 60%;
+  position: relative;
+  padding: clamp(118px, 15vh, 168px) 0 clamp(36px, 4.5vw, 60px);
+}
+.title {
+  margin-top: 14px !important;
+}
+.intro {
+  margin-top: 20px !important;
+  animation-delay: 0.12s;
+}
+
+/* who is in the selection: a quick way to a known name */
+.index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 26px !important;
+  animation-delay: 0.2s;
+}
+.index a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px 0 9px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.85);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink-2);
+  backdrop-filter: blur(8px);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.index a:hover {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: none;
+}
+.index img {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: #fff;
+  object-fit: contain;
+}
+
+.list {
+  position: relative;
+  padding: 0 0 clamp(8px, 2vw, 24px);
+}
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.span {
+  display: flex;
+  min-width: 0;
+}
+.span > * {
+  flex: 1;
+}
+@media (min-width: 760px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .span {
+    grid-column: 1 / -1;
+  }
+}
+.empty {
+  padding: 40px 0;
+  font-size: 17px;
+  color: var(--ink-3);
+}

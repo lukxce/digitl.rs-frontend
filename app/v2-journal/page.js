@@ -1,0 +1,68 @@
+import { tryGetArticlesForHome } from "../../lib/cms.js";
+import AvatarInfo from "../components/AvatarInfo";
+import ClientsLogosCarousel from "../components/ClientsLogosCarousel";
+import ContactForm from "../components/ContactForm";
+import JournalList from "../components/JournalList";
+import MotionTitleBlock from "../components/MotionTitleBlock";
+import ScrollReveal from "../components/ScrollReveal";
+import styles from "../innerPage.module.css";
+
+export const revalidate = 60;
+
+/* The previous blog listing, kept in case the new one at /journal is not
+   liked. Out of the index; its posts open in the previous post design. */
+export const metadata = {
+  title: "Blog (prethodni dizajn)",
+  robots: { index: false, follow: false },
+};
+
+export default async function JournalPage() {
+  const articles = await tryGetArticlesForHome(100);
+  return (
+    <main className={`${styles.page}`.trim()}>
+      <MotionTitleBlock
+        title="Digitl Blog"
+        subtitle="Članci o marketingu, rastu i izgradnji brendova koji se izdvajaju."
+        className={styles.titleContainer}
+        width={500}
+        subtitleWidth={300}
+        subtitleWidthMobile={280}
+        as="h1"
+      />
+      {articles.length > 0 && (
+        <JournalList
+          limit={700}
+          hasLink={false}
+          basePath="/v2-journal"
+          items={articles.map((a) => ({
+            slug: a.slug,
+            title: a.title,
+            publishedAt: a.publishedAt,
+            imageUrl: a.coverUrl,
+          }))}
+        />
+      )}
+
+      <MotionTitleBlock
+        title="Klijenti sa kojima gradimo rezultate"
+        subtitle="Pridružite se brendovima koji su marketing prepustili timu koji ga shvata ozbiljno."
+        className={styles.titleContainer}
+        width={440}
+        subtitleWidth={380}
+        subtitleWidthMobile={320}
+      />
+      <ScrollReveal>
+        <ClientsLogosCarousel />
+      </ScrollReveal>
+      {/* <ScrollReveal delay={0.08}>
+        <Subscribe />
+      </ScrollReveal> */}
+      <ScrollReveal delay={0.16}>
+        <AvatarInfo />
+      </ScrollReveal>
+      <ScrollReveal delay={0.24}>
+        <ContactForm />
+      </ScrollReveal>
+    </main>
+  );
+}

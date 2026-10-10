@@ -156,14 +156,13 @@ function Moler({ c, closest }) {
 }
 
 /* ThermiQ: from invisible in search to a steady stream of visits.
-   Numbers from the case study: 1.57K clicks from Google, 29.8K impressions,
-   3.157 indexed pages, average position 9.6, in three months. The case study
-   describes indexing rising in steps and traffic following a few weeks behind;
-   the little chart draws exactly that, as an illustration. */
-const STEPS_PATH =
-  "M0,92 L40,92 L40,74 L95,74 L95,52 L150,52 L150,30 L210,30 L210,12 L260,12";
+   Numbers from Search Console, 5 Jul to 3 Oct 2026 (the same window as the
+   case study at /projects/thermiq): 2.836 clicks, 51.773 impressions, average
+   position 7,1 in the last 28 days, 3.157 indexed pages. The little chart is
+   the real series: clicks per full week, 6 Jul to 21 Sep (80 → 341). */
 const VISITS_PATH =
-  "M0,96 C40,96 70,92 100,86 C140,76 170,62 200,44 C225,30 245,20 260,16";
+  "M0.0,76.4 L23.6,77.9 L47.3,63.5 L70.9,61.0 L94.5,45.4 L118.2,40.0 L141.8,35.9 L165.5,25.1 L189.1,37.3 L212.7,33.2 L236.4,12.2 L260.0,12.6";
+const VISITS_AREA = `${VISITS_PATH} L260,100 L0,100 Z`;
 const DID = [
   "Novi identitet",
   "Sajt za hiljade proizvoda",
@@ -174,11 +173,11 @@ const DID = [
 function Thermiq({ c, closest }) {
   const ref = useRef(null);
   const run = useVisible(ref, 0.3);
-  const visits = { num: 1570, decimals: 0, thousands: true, suffix: "" };
+  const visits = { num: 2836, decimals: 0, thousands: true, suffix: "" };
   const small = [
-    ["29.8K", "pojavljivanja u pretrazi"],
+    ["51.773", "prikaza u pretrazi"],
     ["3.157", "stranica u Google-u"],
-    ["9.6", "prosečna pozicija"],
+    ["7,1", "prosečna pozicija"],
   ];
   return (
     <a
@@ -208,27 +207,25 @@ function Thermiq({ c, closest }) {
           aria-hidden="true"
         >
           <motion.path
-            d={STEPS_PATH}
-            className={w.sparkSteps}
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: run ? 1 : 0 }}
-            transition={{ duration: 1.4, ease: EASE }}
+            d={VISITS_AREA}
+            className={w.sparkArea}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: run ? 1 : 0 }}
+            transition={{ duration: 1.2, ease: EASE, delay: 0.6 }}
           />
           <motion.path
             d={VISITS_PATH}
             className={w.sparkVisits}
             initial={{ pathLength: 0 }}
             animate={{ pathLength: run ? 1 : 0 }}
-            transition={{ duration: 1.6, ease: EASE, delay: 0.35 }}
+            transition={{ duration: 1.6, ease: EASE, delay: 0.2 }}
           />
         </svg>
       </span>
       <span className={w.sparkLegend}>
         <span>
-          <i data-k="steps" /> stranice u Google-u
-        </span>
-        <span>
-          <i data-k="visits" /> posete, nekoliko nedelja kasnije
+          <i data-k="visits" /> posete iz pretrage po nedeljama, jul do
+          septembar
         </span>
       </span>
 

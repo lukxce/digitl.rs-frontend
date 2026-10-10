@@ -1,0 +1,605 @@
+/* Figures of a case study. One ink for text, one blue for the data; grids
+   and tracks stay a step off the surface so the numbers are the loud part. */
+
+.card {
+  position: relative;
+  display: grid;
+  gap: clamp(16px, 1.8vw, 22px);
+  min-width: 0;
+  padding: clamp(18px, 2.2vw, 30px);
+  border-radius: 28px;
+  background: #fff;
+  box-shadow:
+    0 30px 60px -44px rgb(11 11 22 / 0.4),
+    var(--ring);
+}
+.head {
+  display: grid;
+  gap: 3px;
+}
+.head b {
+  font-size: clamp(16px, 1.3vw, 18.5px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.head span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+/* the source line: what makes the number checkable, so it never hides */
+.note {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink-4);
+}
+.note i {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  translate: 0 -1px;
+}
+
+/* ── stat ─────────────────────────────────────────────────────────────── */
+.card[data-kind="stat"] {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+.stat {
+  --size: clamp(40px, 4.5vw, 64px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.stat[data-n="1"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+.stat[data-n="2"],
+.stat[data-n="4"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+/* each tile is a container: the value is a display figure, sized down only
+   when the row's widest value would not fit the tile on one line */
+.stat li {
+  container-type: inline-size;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+  padding: clamp(20px, 2.2vw, 28px);
+  border-radius: 24px;
+  background: var(--mist);
+}
+.stat li:nth-child(3n + 1) {
+  background:
+    radial-gradient(
+      circle at 1.5px 1.5px,
+      rgb(42 41 255 / 0.1) 1.5px,
+      transparent 0
+    )
+    0 0 / 18px 18px,
+    var(--accent-soft);
+}
+.stat li:nth-child(3n) {
+  background: var(--secondary-soft);
+}
+.stat b {
+  font-size: var(--size);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+@supports (width: 1cqi) {
+  .stat b {
+    font-size: min(var(--size), calc(100cqi / var(--em, 2)));
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
+}
+.stat li > span {
+  max-width: 17em;
+  font-size: 15.5px;
+  line-height: 1.4;
+  color: var(--ink-3);
+}
+@media (max-width: 640px) {
+  .stat,
+  .stat[data-n="2"],
+  .stat[data-n="4"] {
+    --size: 40px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .stat li {
+    padding: 16px 18px;
+    border-radius: 20px;
+  }
+  /* short figures sit beside their label; longer values go above it */
+  .stat:not([data-long]) li {
+    grid-template-columns: minmax(76px, auto) minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+  }
+  .stat li > span {
+    font-size: 15px;
+  }
+}
+
+/* ── compare ──────────────────────────────────────────────────────────── */
+.compare {
+  display: grid;
+}
+.cLabel {
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink-3);
+}
+.cVals {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+}
+.from {
+  font-size: clamp(20px, 1.9vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--ink-4);
+}
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  align-self: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.to {
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--ink);
+}
+.change {
+  justify-self: start;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--secondary);
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.compare[data-words] .from {
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.compare[data-words] .to {
+  font-size: clamp(19px, 1.7vw, 23px);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+.compare[data-words] .cVals {
+  align-items: center;
+}
+
+/* in a column beside the text: one row per measure */
+.rows li {
+  display: grid;
+  gap: 10px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+.rows li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+.rows li:last-child {
+  padding-bottom: 0;
+}
+
+/* across the page, for results: one card per measure */
+.board {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+@media (min-width: 700px) {
+  .board {
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  }
+}
+.board li {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 18px;
+  padding: clamp(16px, 1.8vw, 24px);
+  border-radius: 20px;
+  background: var(--mist);
+}
+/* old value and arrow on one line, the new value under them */
+.board .cVals {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: center;
+  align-self: end;
+  gap: 6px 10px;
+}
+.board .to {
+  grid-column: 1 / -1;
+}
+.board .to {
+  font-size: clamp(38px, 4.2vw, 60px);
+}
+.board .from {
+  font-size: clamp(22px, 2.1vw, 30px);
+}
+.board[data-words] .cVals {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: 8px;
+}
+.board[data-words] .arrow {
+  rotate: 90deg;
+  align-self: auto;
+}
+.board[data-words] .to {
+  font-size: clamp(21px, 2vw, 27px);
+}
+.board[data-words] .from {
+  font-size: 16px;
+}
+
+@media (max-width: 699px) {
+  .board {
+    gap: 8px;
+  }
+  .board li {
+    gap: 12px;
+    padding: 16px 18px;
+    border-radius: 18px;
+  }
+  .board:not([data-words]) .cVals {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+  }
+  .board:not([data-words]) .to {
+    font-size: 36px;
+  }
+}
+
+/* the new value steps in after the old one */
+.compare[data-stage="armed"] .to,
+.compare[data-stage="armed"] .arrow,
+.compare[data-stage="armed"] .change {
+  opacity: 0;
+  translate: -8px 0;
+}
+.compare[data-stage="run"] .to,
+.compare[data-stage="run"] .arrow,
+.compare[data-stage="run"] .change {
+  transition:
+    opacity 0.6s var(--ease),
+    translate 0.6s var(--ease);
+  transition-delay: calc(0.15s + var(--i, 0) * 0.14s);
+}
+.compare[data-stage="run"] .to {
+  transition-delay: calc(0.25s + var(--i, 0) * 0.14s);
+}
+.compare[data-stage="run"] .change {
+  transition-delay: calc(0.4s + var(--i, 0) * 0.14s);
+}
+
+/* ── table ────────────────────────────────────────────────────────────── */
+.tableWrap {
+  min-width: 0;
+  overflow-x: auto;
+  margin: 0 -4px;
+  padding: 0 4px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+.table th,
+.table td {
+  padding: 13px 0 13px 16px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  vertical-align: baseline;
+}
+.table th:first-child,
+.table td:first-child {
+  padding-left: 0;
+  text-align: left;
+}
+.table thead th {
+  padding-top: 0;
+  padding-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  vertical-align: bottom;
+}
+.table tbody th {
+  font-weight: 700;
+  color: var(--ink);
+}
+.table tbody td {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
+  border-bottom: 0;
+  padding-bottom: 2px;
+}
+
+/* ── share ────────────────────────────────────────────────────────────── */
+.share {
+  display: grid;
+  gap: clamp(14px, 1.6vw, 20px);
+}
+.share li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 8px 14px;
+}
+.sLabel {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.sValue {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  white-space: nowrap;
+}
+.sValue em {
+  font-style: normal;
+  font-size: 13px;
+  color: var(--ink-4);
+}
+.sValue b {
+  min-width: 3.4em;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.track {
+  grid-column: 1 / -1;
+  display: block;
+  overflow: hidden;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--mist);
+}
+.track i {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.share[data-stage="armed"] .track i {
+  translate: -101% 0;
+}
+.share[data-stage="run"] .track i {
+  transition: translate 1.1s var(--ease);
+}
+@media (max-width: 420px) {
+  .sValue em {
+    display: none;
+  }
+}
+
+/* ── trend ────────────────────────────────────────────────────────────── */
+.trend {
+  position: relative;
+  min-width: 0;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  cursor: crosshair;
+}
+.trend svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.grid {
+  stroke: var(--line);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+.base {
+  stroke: var(--line-2);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+.tick,
+.xTick {
+  fill: var(--ink-4);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.tick {
+  text-anchor: end;
+}
+.xTick {
+  text-anchor: middle;
+}
+.washTop {
+  stop-color: var(--accent);
+  stop-opacity: 0.2;
+}
+.washEnd {
+  stop-color: var(--accent);
+  stop-opacity: 0.02;
+}
+.line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.dots circle {
+  fill: #fff;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.halo {
+  fill: var(--accent);
+  opacity: 0.14;
+}
+.endDot {
+  fill: var(--accent);
+  stroke: #fff;
+  stroke-width: 2.5;
+}
+.endLabel {
+  fill: var(--ink);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-anchor: end;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.cross {
+  stroke: var(--ink-5);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+.pick {
+  fill: var(--accent);
+  stroke: #fff;
+  stroke-width: 3;
+}
+
+/* the line draws itself in, the wash and the points follow */
+.trend[data-stage="armed"] .line {
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+.trend[data-stage="armed"] .area,
+.trend[data-stage="armed"] .dots,
+.trend[data-stage="armed"] .end {
+  opacity: 0;
+}
+.trend[data-stage="run"] .line {
+  animation: draw 1.9s var(--ease) both;
+}
+.trend[data-stage="run"] .area {
+  animation: show 1.1s 0.5s var(--ease) both;
+}
+.trend[data-stage="run"] .dots {
+  animation: show 0.6s 0.9s var(--ease) both;
+}
+.trend[data-stage="run"] .end {
+  animation: show 0.5s 1.25s var(--ease) both;
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.tip {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: baseline;
+  gap: 0 6px;
+  padding: 8px 12px 9px;
+  border-radius: 13px;
+  background: var(--ink);
+  color: #fff;
+  box-shadow: 0 14px 30px -14px rgb(11 11 22 / 0.6);
+  white-space: nowrap;
+  pointer-events: none;
+  translate: -50% calc(-100% - 16px);
+}
+.tip[data-side="start"] {
+  translate: -18px calc(-100% - 16px);
+}
+.tip[data-side="end"] {
+  translate: calc(-100% + 18px) calc(-100% - 16px);
+}
+.tip[data-below] {
+  translate: -50% 18px;
+}
+.tip[data-below][data-side="start"] {
+  translate: -18px 18px;
+}
+.tip[data-below][data-side="end"] {
+  translate: calc(-100% + 18px) 18px;
+}
+.tip b {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+.tip span {
+  font-size: 12px;
+  color: rgb(255 255 255 / 0.72);
+}
+.tip em {
+  grid-column: 1 / -1;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.6);
+}

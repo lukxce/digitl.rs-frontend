@@ -1,0 +1,203 @@
+/* A chapter's pictures, and the larger view they open. */
+
+.gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  min-width: 0;
+}
+.item {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-width: 0;
+}
+.frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 22px;
+  background: var(--mist);
+  box-shadow:
+    0 30px 60px -40px rgb(11 11 22 / 0.5),
+    var(--ring);
+  cursor: zoom-in;
+}
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.frame:hover img {
+  transform: scale(1.02);
+}
+.zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.92);
+  color: var(--ink);
+  box-shadow: 0 8px 20px -10px rgb(11 11 22 / 0.5);
+  backdrop-filter: blur(8px);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    transform 0.4s var(--ease);
+}
+.frame:hover .zoom,
+.frame:focus-visible .zoom {
+  background: var(--accent);
+  color: #fff;
+  transform: rotate(90deg);
+}
+.item figcaption {
+  padding: 0 4px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+@media (min-width: 700px) {
+  .gallery[data-layout="two"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .gallery[data-layout="lead"] {
+    grid-template-columns: repeat(var(--rest), minmax(0, 1fr));
+  }
+  .gallery[data-layout="lead"] .item[data-big] {
+    grid-column: 1 / -1;
+  }
+  .item:not([data-big]) .frame {
+    border-radius: 18px;
+  }
+}
+
+/* on a phone, more than one picture is a strip to swipe */
+@media (max-width: 699px) {
+  .gallery:not([data-layout="one"]) {
+    display: flex;
+    gap: 10px;
+    margin: 0 calc(-1 * var(--bleed, 16px));
+    padding: 4px var(--bleed, 16px) 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 var(--bleed, 16px);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gallery:not([data-layout="one"])::-webkit-scrollbar {
+    display: none;
+  }
+  .gallery:not([data-layout="one"]) .item {
+    flex: 0 0 84%;
+    scroll-snap-align: start;
+  }
+  .frame {
+    border-radius: 16px;
+  }
+  .zoom {
+    right: 8px;
+    bottom: 8px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ── the larger view ──────────────────────────────────────────────────── */
+.overlay {
+  --vh: 100vh;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  justify-items: center;
+  gap: 12px;
+  padding: clamp(12px, 2vw, 24px);
+  background: rgb(11 11 22 / 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #fff;
+  overscroll-behavior: contain;
+  cursor: zoom-out;
+}
+@supports (height: 100dvh) {
+  .overlay {
+    --vh: 100dvh;
+  }
+}
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  cursor: default;
+}
+.count {
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.1);
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.round {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.12);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.2);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+.round:hover {
+  background: #fff;
+  color: var(--ink);
+}
+.overlay .round:focus-visible {
+  outline-color: #fff;
+  border-radius: 50%;
+}
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 0;
+  width: 100%;
+}
+/* as wide as the screen allows, and never taller than the room between the
+   bar above and the caption and arrows below (--ar is width / height) */
+.stage img {
+  width: min(100%, 1500px, calc((var(--vh) - 200px) * var(--ar, 1.78)));
+  height: auto;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 40px 90px -40px rgb(0 0 0 / 0.8);
+  cursor: default;
+}
+.stage figcaption {
+  max-width: 46em;
+  font-size: 14.5px;
+  line-height: 1.45;
+  text-align: center;
+  color: rgb(255 255 255 / 0.82);
+  cursor: default;
+}
+.steps {
+  display: flex;
+  gap: 8px;
+  cursor: default;
+}

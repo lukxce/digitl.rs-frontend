@@ -1,0 +1,359 @@
+/* The article text. A measure of about 70 characters, centred in its track;
+   images and tables are allowed the whole track. */
+
+.prose {
+  --measure: 680px;
+  --wide: 920px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-2);
+  overflow-wrap: break-word;
+}
+@media (max-width: 640px) {
+  .prose {
+    font-size: 17px;
+    line-height: 1.68;
+  }
+}
+/* (div.prose, not .prose: these margins have to outrank the shared reset) */
+div.prose > * {
+  max-width: var(--measure);
+  margin-left: auto;
+  margin-right: auto;
+}
+div.prose > * + * {
+  margin-top: 1.25em;
+}
+
+/* the opening paragraph carries the reader in from the standfirst */
+.prose > p:first-child {
+  font-size: 1.17em;
+  line-height: 1.55;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+}
+div.prose > p:first-child + * {
+  margin-top: 1.5em;
+}
+.prose p {
+  text-wrap: pretty;
+}
+.prose strong {
+  font-weight: 800;
+  color: var(--ink);
+}
+.prose a {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--accent-pale);
+  transition: text-decoration-color 0.25s var(--ease);
+}
+.prose a:hover {
+  text-decoration-color: var(--accent);
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-weight: 800;
+  color: var(--ink);
+  scroll-margin-top: 104px;
+}
+.prose h2 {
+  font-size: clamp(25px, 2.4vw, 32px);
+  letter-spacing: -0.038em;
+  line-height: 1.12;
+}
+.prose h3 {
+  font-size: clamp(21px, 1.8vw, 24px);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+.prose h4 {
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.prose > * + h2 {
+  margin-top: 2em;
+}
+.prose > * + h3,
+.prose > * + h4 {
+  margin-top: 1.8em;
+}
+.prose > :is(h2, h3, h4) + * {
+  margin-top: 0.75em;
+}
+
+/* lists: blue dots, blue numerals */
+.prose ul,
+.prose ol {
+  display: grid;
+  gap: 0.6em;
+}
+.prose li {
+  display: grid;
+  grid-template-columns: 1.55em minmax(0, 1fr);
+}
+.prose ul > li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin: 0.7em 0 0 0.2em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.prose ol > li {
+  grid-template-columns: 2em minmax(0, 1fr);
+  counter-increment: step;
+}
+.prose ol > li::before {
+  content: counter(step) ".";
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+/* a quote: larger, on its own soft card */
+.prose blockquote {
+  position: relative;
+  padding: clamp(22px, 3vw, 30px) clamp(22px, 3vw, 32px);
+  border-radius: 24px;
+  background: var(--accent-soft);
+  font-size: 1.16em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.42;
+  color: var(--ink);
+}
+.prose blockquote::before {
+  content: "“";
+  display: block;
+  height: 0.5em;
+  font-size: 2.6em;
+  line-height: 1;
+  color: var(--accent);
+}
+.prose blockquote p + p {
+  margin-top: 0.6em;
+}
+.prose blockquote cite {
+  display: block;
+  margin-top: 14px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--ink-4);
+}
+.prose > blockquote,
+.prose > blockquote + * {
+  margin-top: 1.7em;
+}
+
+/* images */
+.prose > .figure {
+  max-width: var(--wide);
+}
+.prose > .figure,
+.prose > .figure + * {
+  margin-top: 2em;
+}
+.figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 22px;
+  background: var(--mist);
+  box-shadow: var(--ring);
+}
+.figure figcaption {
+  max-width: var(--measure);
+  margin: 12px auto 0;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-4);
+  text-align: center;
+}
+.prose p img {
+  display: inline-block;
+  border-radius: 12px;
+  vertical-align: middle;
+}
+@media (max-width: 640px) {
+  .figure img {
+    border-radius: 16px;
+  }
+}
+
+/* tables scroll sideways inside their own frame */
+.prose > .table {
+  max-width: var(--wide);
+}
+.table {
+  overflow-x: auto;
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 1px var(--line);
+  -webkit-overflow-scrolling: touch;
+}
+.table table {
+  width: 100%;
+  min-width: 540px;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.table th {
+  padding: 13px 16px;
+  background: var(--mist);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-align: left;
+  color: var(--ink-2);
+}
+.table td {
+  padding: 13px 16px;
+  border-top: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88em;
+}
+.prose :not(pre) > code {
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+  background: var(--mist);
+  color: var(--ink);
+}
+.prose > pre {
+  max-width: var(--wide);
+  padding: 18px 20px;
+  overflow-x: auto;
+  border-radius: 20px;
+  background: var(--panel-deep);
+  font-size: 14px;
+  line-height: 1.6;
+  color: #e9e9f2;
+}
+.prose hr {
+  height: 1px;
+  border: 0;
+  background: var(--line);
+}
+.prose > hr,
+.prose > hr + * {
+  margin-top: 2.2em;
+}
+
+/* ── content drawn by the site's older renderer (HTML, Portable Text,
+      Strapi block JSON): its own classes are outranked element by element,
+      so it reads like everything above ─────────────────────────────────── */
+.legacy :is(div, figure) {
+  max-width: none;
+}
+.legacy :is(p, h1, h2, h3, h4, h5, h6, ul, ol, blockquote, pre, hr, table) {
+  width: 100%;
+  max-width: var(--measure);
+  margin: 1.25em auto 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+.legacy :is(h1, h2) {
+  margin-top: 2em;
+  font-size: clamp(25px, 2.4vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.038em;
+  line-height: 1.12;
+  color: var(--ink);
+  scroll-margin-top: 104px;
+}
+.legacy :is(h3, h4, h5, h6) {
+  margin-top: 1.8em;
+  font-size: clamp(21px, 1.8vw, 24px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--ink);
+  scroll-margin-top: 104px;
+}
+.legacy :is(h1, h2, h3, h4, h5, h6) + :is(p, ul, ol) {
+  margin-top: 0.75em;
+}
+.legacy :is(ul, ol) {
+  display: block;
+  padding-left: 1.3em;
+}
+.legacy ul {
+  list-style: disc;
+}
+.legacy ol {
+  list-style: decimal;
+}
+.legacy li {
+  display: list-item;
+  margin: 0.5em 0 0;
+  font-size: inherit;
+}
+.legacy ul > li::before,
+.legacy ol > li::before {
+  content: none;
+}
+.legacy li::marker {
+  font-weight: 800;
+  color: var(--accent);
+}
+.legacy blockquote {
+  padding: clamp(22px, 3vw, 30px) clamp(22px, 3vw, 32px);
+  border: 0;
+  border-radius: 24px;
+  background: var(--accent-soft);
+  font-size: 1.16em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.42;
+  color: var(--ink);
+}
+.legacy blockquote :is(p, cite) {
+  margin: 0;
+  font-style: normal;
+}
+.legacy [class*="imageRowBreakout"] {
+  width: 100%;
+  max-width: var(--wide);
+  margin: 2em auto 0;
+  transform: none;
+}
+.legacy figure {
+  margin: 0;
+}
+.legacy img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 22px;
+  background: var(--mist);
+  box-shadow: var(--ring);
+}
+.legacy pre {
+  max-width: var(--wide);
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: var(--panel-deep);
+  color: #e9e9f2;
+}
+.legacy > :first-child,
+.legacy > :first-child > :first-child,
+.legacy > :first-child > :first-child > :first-child {
+  margin-top: 0;
+}

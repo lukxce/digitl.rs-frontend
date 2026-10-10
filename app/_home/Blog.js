@@ -7,7 +7,7 @@ import l from "./blog.module.css";
 import { ArrowRight, ArrowUpRight, Check } from "./icons";
 import { EASE, Head } from "./ui";
 
-const date = (iso) =>
+export const date = (iso) =>
   iso
     ? new Date(iso).toLocaleDateString("sr-Latn-RS", {
         day: "numeric",
@@ -30,7 +30,7 @@ function Meta({ a }) {
   );
 }
 
-function Newsletter() {
+export function Newsletter() {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [state, setState] = useState("idle");

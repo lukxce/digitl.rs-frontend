@@ -1,13 +1,6 @@
-import { Manrope } from "next/font/google";
 import { getArticles, getClients } from "./_home/data";
+import { sans } from "./_home/font";
 import HomeV5 from "./_home/HomeV5";
-
-// Serbian needs latin-ext (č, ć, đ, š, ž).
-const sans = Manrope({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-v5-sans",
-  display: "swap",
-});
 
 export const revalidate = 60;
 

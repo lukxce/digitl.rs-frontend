@@ -10,7 +10,7 @@ import {
   scrollRevealEase,
   scrollRevealStagger,
 } from "../../lib/scrollReveal";
-import styles from "../journal/[slug]/article.module.css";
+import styles from "../v2-journal/[slug]/article.module.css";
 import DetailPageOutlineMobileNav from "./DetailPageOutlineMobileNav";
 
 const sectionVariants = {

@@ -1,0 +1,447 @@
+/* Blog listing: the homepage's Blog section grown into a page. The head, the
+   newest article and the newsletter share one band of brand light; under it
+   every other article, as grey tiles on white, behind category chips. */
+
+.hero {
+  position: relative;
+  padding: clamp(112px, 13vh, 150px) 0 clamp(28px, 4vw, 56px);
+  --glow-1: 90% 30%;
+  --glow-1-size: 42% 46%;
+  --glow-2: 4% 70%;
+  --glow-2-size: 50% 50%;
+  --dots-at: 78% 22%;
+  --dots-size: 42% 38%;
+}
+.head {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+}
+/* the shared reset zeroes margins on headings, paragraphs and lists with the
+   weight of one class; rules that set them name the element to outrank it */
+h1.title {
+  margin-top: 2px;
+  /* the homepage hero's scale (44 to 68px), not the full display size */
+  font-size: clamp(44px, 4.8vw, 68px);
+}
+
+/* the newest article: a white card on the glow, cover beside the words */
+.lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: clamp(28px, 4vw, 52px);
+  padding: 10px;
+  border-radius: 34px;
+  background: #fff;
+  box-shadow:
+    0 40px 80px -52px rgb(11 11 22 / 0.4),
+    var(--ring);
+  transition:
+    translate 0.45s var(--ease),
+    box-shadow 0.45s var(--ease);
+}
+@media (hover: hover) {
+  .lead:hover {
+    translate: 0 -4px;
+    box-shadow:
+      0 44px 80px -44px rgb(11 11 22 / 0.45),
+      var(--ring);
+  }
+}
+/* keyboard focus keeps each control's own shape (the shared rule rounds to 10px) */
+a.lead:focus-visible {
+  border-radius: 34px;
+}
+button.chip:focus-visible,
+button.clear:focus-visible,
+.none button:focus-visible {
+  border-radius: 999px;
+}
+@media (min-width: 900px) {
+  .lead {
+    grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
+    align-items: center;
+  }
+}
+.leadCover {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
+  background: var(--mist);
+}
+.leadCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.7s var(--ease);
+}
+@media (hover: hover) {
+  .lead:hover .leadCover img {
+    scale: 1.03;
+  }
+}
+.leadBody {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 14px;
+  padding: clamp(18px, 3.2vw, 44px);
+}
+@media (max-width: 899px) {
+  .lead {
+    border-radius: 30px;
+  }
+  .leadCover {
+    border-radius: 20px;
+  }
+  .leadBody {
+    padding: 20px 12px 16px;
+    gap: 12px;
+  }
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.new,
+.tag {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  line-height: 1.3;
+}
+.new {
+  background: var(--secondary);
+  font-weight: 800;
+  color: var(--ink);
+}
+.tag {
+  background: var(--mist);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.leadTitle {
+  font-size: clamp(25px, 2.7vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  transition: color 0.3s var(--ease);
+}
+@media (hover: hover) {
+  .lead:hover .leadTitle {
+    color: var(--accent);
+  }
+}
+.excerpt {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  max-width: 36em;
+  font-size: clamp(16px, 1.2vw, 17px);
+  line-height: 1.55;
+  color: var(--ink-3);
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  font-size: 13.5px;
+  color: var(--ink-4);
+}
+/* the author's picture in a small white tile, as the client logos are */
+.meta img {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.meta b {
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.meta time::before,
+.meta span::before {
+  content: "·";
+  margin-right: 10px;
+}
+.meta > time:first-child::before {
+  content: none;
+}
+.read {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.read svg {
+  transition: translate 0.3s var(--ease);
+}
+.lead:hover .read svg {
+  translate: 4px 0;
+}
+p.empty {
+  margin-top: 28px;
+  font-size: 17px;
+  color: var(--ink-3);
+}
+
+/* ── every other article ──────────────────────────────────────────────── */
+.more {
+  --gutter: clamp(16px, 3vw, 32px);
+  position: relative;
+  padding: clamp(36px, 5vw, 72px) 0 clamp(8px, 2vw, 24px);
+  background: #fff;
+}
+.moreTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px 40px;
+}
+
+/* search: one pill, the ring turns blue while you type */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(100%, 340px);
+  height: 52px;
+  padding: 0 7px 0 18px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  transition: box-shadow 0.3s var(--ease);
+}
+@media (max-width: 720px) {
+  .search {
+    width: 100%;
+  }
+}
+.search:focus-within {
+  box-shadow:
+    inset 0 0 0 2px var(--accent),
+    0 14px 30px -18px color-mix(in oklab, var(--accent) 60%, transparent);
+}
+.search > svg {
+  flex: none;
+  color: var(--ink-4);
+  transition: color 0.3s var(--ease);
+}
+.search:focus-within > svg {
+  color: var(--accent);
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.search input:focus-visible {
+  outline: none;
+  border-radius: 0;
+}
+.search input::placeholder {
+  color: var(--ink-4);
+}
+.search input::-webkit-search-cancel-button,
+.search input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  display: none;
+}
+/* (buttons name their element, to outrank the shared reset) */
+button.clear {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--mist);
+  color: var(--ink-3);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+.clear:hover {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* category chips, and how many articles the choice leaves */
+.tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: clamp(18px, 2.4vw, 28px);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+button.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--mist);
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  color: var(--ink-2);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+.chip i {
+  font-style: normal;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-4);
+  transition: color 0.3s var(--ease);
+}
+@media (hover: hover) {
+  .chip:hover {
+    background: var(--grey);
+    color: var(--ink);
+  }
+}
+.chip[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: var(--glow);
+}
+.chip[aria-pressed="true"] i {
+  color: rgb(255 255 255 / 0.7);
+}
+.count {
+  flex: none;
+  margin-left: auto;
+  font-size: 13.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-4);
+}
+/* Phones: the chips are one row that scrolls sideways. The row runs to both
+   screen edges, with the page gutter as its padding so the first chip lines
+   up with everything else, and fades out on the right to say there is more.
+   The count stays for screen readers only. */
+@media (max-width: 640px) {
+  .tools {
+    position: relative;
+    display: block;
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+  }
+  .tools::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 12px;
+    width: 44px;
+    background: linear-gradient(90deg, rgb(255 255 255 / 0), #fff 85%);
+    pointer-events: none;
+  }
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* room below for the active chip's glow, taken back by the margin */
+    padding: 2px 44px 14px var(--gutter);
+    margin-bottom: -12px;
+    scroll-padding: 0 44px 0 var(--gutter);
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .chips::-webkit-scrollbar {
+    display: none;
+  }
+  button.chip {
+    height: 40px;
+    padding: 0 14px;
+    font-size: 14px;
+    scroll-snap-align: start;
+  }
+  .count {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}
+
+ul.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin-top: clamp(16px, 2vw, 22px);
+}
+@media (min-width: 640px) {
+  ul.grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1040px) {
+  ul.grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* nothing matched */
+.none {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  margin-top: clamp(16px, 2vw, 22px);
+  padding: clamp(24px, 4vw, 44px);
+  border-radius: var(--r-card);
+  background: var(--mist);
+}
+.none p {
+  font-size: clamp(19px, 2vw, 24px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.none button {
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  transition: background 0.3s var(--ease);
+}
+.none button:hover {
+  background: var(--accent);
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import logo from "../assets/digitl-logo.png";
 import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
@@ -9,13 +10,39 @@ import { ArrowRight, ArrowUpRight, Lock, Mail, Phone } from "./icons";
 import n from "./nav.module.css";
 import { Btn, EASE, useApp } from "./ui";
 
+// The same menu everywhere: Projekti and Blog are their own pages; the rest
+// are sections of the homepage (reached by gliding there, or by going home
+// first from an inner page). Every page ends with the contact form.
 export const LINKS = [
   { href: "#usluge", label: "Usluge" },
   { href: "#proces", label: "Kako radimo" },
-  { href: "#rezultati", label: "Rezultati" },
-  { href: "#blog", label: "Blog" },
+  { href: "/projects", label: "Projekti" },
+  { href: "/journal", label: "Blog" },
   { href: "#kontakt", label: "Kontakt" },
 ];
+
+export const INNER_LINKS = [
+  { href: "/#usluge", label: "Usluge" },
+  { href: "/#proces", label: "Kako radimo" },
+  { href: "/projects", label: "Projekti" },
+  { href: "/journal", label: "Blog" },
+  { href: "#kontakt", label: "Kontakt" },
+];
+
+/** A link that glides when it points into this page and navigates otherwise. */
+export function NavLink({ href, onGo, children, ...rest }) {
+  if (href.startsWith("#"))
+    return (
+      <a href={href} onClick={(e) => onGo(e, href)} {...rest}>
+        {children}
+      </a>
+    );
+  return (
+    <Link href={href} {...rest}>
+      {children}
+    </Link>
+  );
+}
 
 export const SOCIALS = [
   {
@@ -31,18 +58,30 @@ export const SOCIALS = [
   { label: "X", href: "https://x.com/digitl_rs", Icon: IconX },
 ];
 
-function Logo() {
-  return (
-    <a href="#top" className={n.logo} aria-label="Digitl, na vrh">
+function Logo({ home, onGo }) {
+  const inner = (
+    <>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={logo.src} alt="" />
       <span>digitl</span>
-    </a>
+    </>
   );
+  return home
+    ? <a
+        href="#top"
+        className={n.logo}
+        aria-label="Digitl, na vrh"
+        onClick={(e) => onGo(e, "#top")}
+      >
+        {inner}
+      </a>
+    : <Link href="/" className={n.logo} aria-label="Digitl, početna">
+        {inner}
+      </Link>;
 }
 
 /** The menu panel: pages on the left, how to reach us on the right. */
-function Menu({ onClose, onBook, onGo }) {
+function Menu({ onClose, onBook, onGo, links }) {
   return (
     <motion.div
       className={n.sheet}
@@ -55,13 +94,14 @@ function Menu({ onClose, onBook, onGo }) {
     >
       <div className={n.sheetMain}>
         <nav className={n.sheetLinks} aria-label="Stranica">
-          {LINKS.map((l, i) => (
+          {links.map((l, i) => (
             <motion.a
               key={l.href}
               href={l.href}
               onClick={(e) => {
                 onClose();
-                onGo(e, l.href);
+                // links into another page just navigate
+                if (l.href.startsWith("#")) onGo(e, l.href);
               }}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
@@ -134,7 +174,8 @@ function Menu({ onClose, onBook, onGo }) {
 
 /** A plain bar at the top that turns into a small pill and follows the page. */
 export default function Nav() {
-  const { book, scrollTo } = useApp();
+  const { book, scrollTo, home } = useApp();
+  const links = home ? LINKS : INNER_LINKS;
   // in-page links glide instead of jumping (Lenis is off on phones)
   const go = (e, href) => {
     e.preventDefault();
@@ -192,12 +233,12 @@ export default function Nav() {
   return (
     <>
       <header className={n.bar}>
-        <Logo />
+        <Logo home={home} onGo={go} />
         <nav className={n.links} aria-label="Glavna">
-          {LINKS.map((l) => (
-            <a key={l.href} href={l.href} onClick={(e) => go(e, l.href)}>
+          {links.map((l) => (
+            <NavLink key={l.href} href={l.href} onGo={go}>
               {l.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
         <div className={n.actions}>
@@ -213,7 +254,12 @@ export default function Nav() {
         </div>
         <AnimatePresence>
           {open && !floating
-            ? <Menu onClose={() => setOpen(false)} onBook={book} onGo={go} />
+            ? <Menu
+                onClose={() => setOpen(false)}
+                onBook={book}
+                onGo={go}
+                links={links}
+              />
             : null}
         </AnimatePresence>
       </header>
@@ -227,12 +273,12 @@ export default function Nav() {
               exit={{ opacity: 0, y: -20, scale: 0.96 }}
               transition={{ duration: 0.45, ease: EASE }}
             >
-              <Logo />
+              <Logo home={home} onGo={go} />
               <nav className={n.pillLinks} aria-label="Brze veze">
-                {LINKS.slice(0, 4).map((l) => (
-                  <a key={l.href} href={l.href} onClick={(e) => go(e, l.href)}>
+                {links.slice(0, 4).map((l) => (
+                  <NavLink key={l.href} href={l.href} onGo={go}>
                     {l.label}
-                  </a>
+                  </NavLink>
                 ))}
               </nav>
               <span className={n.pillIcons}>
@@ -258,6 +304,7 @@ export default function Nav() {
                       onClose={() => setOpen(false)}
                       onBook={book}
                       onGo={go}
+                      links={links}
                     />
                   : null}
               </AnimatePresence>

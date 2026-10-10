@@ -1,0 +1,416 @@
+/* Project cards: the homepage's case-card language (tinted ground, the real
+   site in a rounded frame, numbers at the bottom), made generic so any
+   project can wear it. */
+
+.cell {
+  display: flex;
+  min-width: 0;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+  min-width: 0;
+  padding: clamp(14px, 1.6vw, 22px);
+  border-radius: 32px;
+  transition:
+    transform 0.45s var(--ease),
+    box-shadow 0.45s var(--ease);
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--lift);
+}
+
+/* grounds */
+.mist {
+  background: var(--mist);
+}
+.blue {
+  background:
+    radial-gradient(
+      80% 55% at 100% 0%,
+      color-mix(in oklab, var(--accent) 18%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 1.5px 1.5px,
+      rgb(42 41 255 / 0.11) 1.5px,
+      transparent 0
+    )
+    0 0 / 18px 18px,
+    var(--accent-soft);
+}
+.lime {
+  background:
+    radial-gradient(
+      70% 55% at 0% 100%,
+      color-mix(in oklab, var(--secondary) 34%, transparent),
+      transparent 70%
+    ), var(--secondary-soft);
+}
+.dark {
+  color: #fff;
+  background:
+    radial-gradient(
+      62% 70% at 100% 0%,
+      color-mix(in oklab, var(--accent) 62%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      46% 60% at 0% 100%,
+      color-mix(in oklab, var(--secondary) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 1.5px 1.5px,
+      rgb(255 255 255 / 0.07) 1.5px,
+      transparent 0
+    )
+    0 0 / 18px 18px,
+    #0e0e1a;
+}
+
+/* the client's site, whole: covers are 16:9 and so is the frame */
+.shot {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 24px 50px -30px rgb(11 11 22 / 0.45);
+}
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.card:hover .shot img {
+  transform: scale(1.03);
+}
+.dark .shot {
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.8);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+  padding: 2px clamp(4px, 0.6vw, 8px) clamp(4px, 0.6vw, 8px);
+}
+
+/* logo, client, category, and the arrow that turns on hover */
+.top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  overflow: hidden;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.logo img {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+}
+.logo b {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.who {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  line-height: 1.25;
+}
+.who b {
+  font-size: 15.5px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.who span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+.dark .who span {
+  color: rgb(255 255 255 / 0.6);
+}
+.go {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-left: auto;
+  flex: none;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: var(--ring);
+  transition:
+    background 0.35s var(--ease),
+    color 0.35s var(--ease),
+    transform 0.45s var(--ease);
+}
+.card:hover .go {
+  background: var(--accent);
+  color: #fff;
+  transform: rotate(45deg);
+  box-shadow: none;
+}
+.dark .go {
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18);
+}
+.dark:hover .go {
+  background: var(--secondary);
+  color: var(--ink);
+}
+
+/* the study's headline; the whole card is its link */
+.title {
+  font-size: clamp(22px, 2.1vw, 30px);
+  font-weight: 800;
+  letter-spacing: -0.038em;
+  line-height: 1.08;
+}
+.title[data-name] {
+  font-size: clamp(28px, 2.6vw, 38px);
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+}
+.link:focus-visible {
+  outline: none;
+}
+.link:focus-visible::after {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.blurb {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  max-width: 36em;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--ink-3);
+}
+.dark .blurb {
+  color: rgb(255 255 255 / 0.72);
+}
+
+/* two or three numbers */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgb(11 11 22 / 0.08);
+}
+/* equal shares of the row; a value that needs more ("1. mesec") takes it,
+   and the last one drops to the next line rather than being squeezed */
+.stats li {
+  display: grid;
+  gap: 5px;
+  align-content: start;
+  flex: 1 1 0;
+}
+.stats b {
+  font-size: clamp(25px, 2.3vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.stats span {
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--ink-4);
+}
+.dark .stats {
+  border-top-color: rgb(255 255 255 / 0.12);
+}
+.dark .stats span {
+  color: rgb(255 255 255 / 0.6);
+}
+.dark .stats li:first-child b {
+  color: var(--secondary);
+}
+
+/* services, and where the card leads */
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chips li {
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--ring);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.dark .chips li {
+  background: rgb(255 255 255 / 0.08);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12);
+  color: #fff;
+}
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.more svg {
+  transition: translate 0.3s var(--ease);
+}
+.card:hover .more svg {
+  translate: 4px 0;
+}
+.dark .more {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  transition: background 0.3s var(--ease);
+}
+.dark:hover .more {
+  background: var(--secondary);
+}
+
+/* ── the wide cards: copy beside the site ─────────────────────────────── */
+.feature .title {
+  font-size: clamp(27px, 3.1vw, 46px);
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+.feature .stats b {
+  font-size: clamp(28px, 2.9vw, 44px);
+}
+@media (min-width: 960px) {
+  .feature,
+  .wide {
+    flex-direction: row;
+    align-items: stretch;
+    gap: clamp(20px, 2.6vw, 40px);
+    padding: clamp(18px, 2vw, 28px);
+  }
+  .feature .shot,
+  .wide .shot {
+    flex: 1.12 1 0;
+    align-self: center;
+    order: 2;
+    border-radius: 24px;
+  }
+  .feature .body,
+  .wide .body {
+    flex: 1 1 0;
+    gap: 18px;
+    padding: clamp(6px, 1vw, 14px) 0 clamp(6px, 1vw, 14px) clamp(6px, 1vw, 14px);
+  }
+  .wide.flip .shot {
+    order: 0;
+  }
+  .wide.flip .body {
+    padding: clamp(6px, 1vw, 14px) clamp(6px, 1vw, 14px) clamp(6px, 1vw, 14px) 0;
+  }
+  .wide .title {
+    font-size: clamp(26px, 2.6vw, 38px);
+  }
+}
+
+/* ── the small ones under a case study ────────────────────────────────── */
+.mini {
+  gap: 14px;
+  padding: 14px;
+  border-radius: 28px;
+}
+.mini .shot {
+  border-radius: 16px;
+}
+.mini .link::after {
+  border-radius: 28px;
+}
+.mini .body {
+  gap: 12px;
+}
+.mini .logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+}
+.mini .go {
+  width: 36px;
+  height: 36px;
+}
+.mini .title {
+  font-size: clamp(19px, 1.6vw, 22px);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+.mini .title[data-name] {
+  font-size: clamp(24px, 2vw, 28px);
+}
+.mini .stats {
+  gap: 12px 18px;
+  padding-top: 12px;
+}
+.mini .stats b {
+  font-size: 24px;
+}
+.mini .more {
+  margin-left: 0;
+  font-size: 14px;
+}
+
+@media (max-width: 560px) {
+  .card {
+    border-radius: 26px;
+    gap: 14px;
+  }
+  .link::after {
+    border-radius: 26px;
+  }
+  .shot {
+    border-radius: 16px;
+  }
+  .stats {
+    gap: 14px 18px;
+  }
+}
