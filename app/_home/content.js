@@ -47,7 +47,7 @@ export const SERVICES = [
     title: "Upravljanje društvenim mrežama",
     name: "Društvene mreže",
     body: "Dosledan brend na mrežama koji podržava sve ostale kanale.",
-    lead: "Planiramo, pravimo i objavljujemo sadržaj, da brend na mrežama izgleda i zvuči kao svuda drugde.",
+    lead: "Planiramo, dizajniramo i objavljujemo sadržaj, da vaš brend na mrežama izgleda isto kao na sajtu i u oglasima.",
     includes: [
       "Mesečni plan objava",
       "Dizajn objava, Reels i Stories",
@@ -60,7 +60,7 @@ export const SERVICES = [
     title: "Branding & identitet",
     name: "Brend",
     body: "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",
-    lead: "Određujemo šta brend govori i kako izgleda, pa od toga pravimo sistem koji radi na svakom formatu.",
+    lead: "Određujemo šta vaš brend govori i kako izgleda, pa to primenjujemo na sajt, mreže i oglase.",
     includes: [
       "Pozicioniranje i glavna poruka",
       "Logo, boje i tipografija",
