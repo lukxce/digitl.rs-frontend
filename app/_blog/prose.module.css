@@ -25,17 +25,6 @@ div.prose > * + * {
   margin-top: 1.25em;
 }
 
-/* the opening paragraph carries the reader in from the standfirst */
-.prose > p:first-child {
-  font-size: 1.17em;
-  line-height: 1.55;
-  font-weight: 500;
-  letter-spacing: -0.012em;
-  color: var(--ink);
-}
-div.prose > p:first-child + * {
-  margin-top: 1.5em;
-}
 .prose p {
   text-wrap: pretty;
 }

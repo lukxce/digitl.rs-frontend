@@ -130,6 +130,12 @@
   font-weight: 700;
   color: var(--ink-2);
 }
+/* phones: the facts row right below already says "Šta smo radili" */
+@media (max-width: 640px) {
+  .services {
+    display: none;
+  }
+}
 @media (min-width: 1000px) {
   .lead {
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);

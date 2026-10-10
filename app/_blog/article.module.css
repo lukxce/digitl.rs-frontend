@@ -107,6 +107,24 @@ p.standfirst {
   color: var(--ink-3);
   text-wrap: pretty;
 }
+/* the text's own first paragraph, which carries on from the standfirst */
+p.opening {
+  margin-top: 12px;
+  max-width: 36em;
+  font-size: clamp(16px, 1.2vw, 17.5px);
+  line-height: 1.6;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+p.opening strong {
+  font-weight: 800;
+  color: var(--ink);
+}
+p.opening a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .byline {
   display: flex;
   align-items: center;

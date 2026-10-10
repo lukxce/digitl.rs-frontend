@@ -11,7 +11,7 @@ import Card from "./Card";
 import { categoryOf } from "./categories";
 import { canParse, parseBlocks, withoutMissing } from "./markdown";
 import Progress from "./Progress";
-import Prose from "./Prose";
+import Prose, { inline } from "./Prose";
 import Share from "./Share";
 import Tie from "./Tie";
 import Toc, { TocFold } from "./Toc";
@@ -25,6 +25,8 @@ import {
 } from "./util";
 
 const text = (v) => (typeof v === "string" && v.trim() ? v.trim() : "");
+// the longest first paragraph that still reads as one line with the description
+const OPENING_MAX = 160;
 
 /** A blog post: the promise and the cover up top as on the homepage, the
     key messages, then the text in a reading column with its contents and
@@ -42,6 +44,22 @@ export default async function Article({ article, more }) {
     : typeof blocks === "string"
       ? blocks.trim().length > 0
       : Array.isArray(blocks) && blocks.length > 0;
+  // These texts open by carrying on from the description ("Taj rast se
+  // svodi na…", "Uvođenje traje kroz jul…"). Set after the key points, that
+  // line read as a sentence with nothing before it. So a short first
+  // paragraph sits in the header, right under the description it continues,
+  // and the body starts with the next one. A longer first paragraph stands
+  // on its own and stays where it was written.
+  let opening = null;
+  if (
+    parsed &&
+    parsed.nodes.length > 1 &&
+    parsed.nodes[0].type === "p" &&
+    parsed.nodes[0].text.length <= OPENING_MAX
+  ) {
+    opening = parsed.nodes[0].text;
+    parsed.nodes = parsed.nodes.slice(1);
+  }
   const toc = parsed ? parsed.toc : extractContentHeadings(blocks);
   const showToc = hasBody && toc.length > 1;
 
@@ -90,6 +108,14 @@ export default async function Article({ article, more }) {
                     style={{ animationDelay: "160ms" }}
                   >
                     <Tie>{standfirst}</Tie>
+                  </p>
+                : null}
+              {opening
+                ? <p
+                    className={`${s.opening} ${b.fadeUp}`}
+                    style={{ animationDelay: "200ms" }}
+                  >
+                    {inline(opening, "opening")}
                   </p>
                 : null}
               <div

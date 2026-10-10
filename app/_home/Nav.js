@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import logo from "../assets/digitl-logo.png";
 import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
@@ -100,8 +101,7 @@ function Menu({ onClose, onBook, onGo, links }) {
               href={l.href}
               onClick={(e) => {
                 onClose();
-                // links into another page just navigate
-                if (l.href.startsWith("#")) onGo(e, l.href);
+                onGo(e, l.href);
               }}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
@@ -175,11 +175,16 @@ function Menu({ onClose, onBook, onGo, links }) {
 /** A plain bar at the top that turns into a small pill and follows the page. */
 export default function Nav() {
   const { book, scrollTo, home } = useApp();
+  const router = useRouter();
   const links = home ? LINKS : INNER_LINKS;
-  // in-page links glide instead of jumping (Lenis is off on phones)
+  // In-page links glide instead of jumping (Lenis is off on phones). Links
+  // to another page, with or without a section ("/#usluge"), go through the
+  // router, so they never depend on the browser's own jump to a fragment;
+  // the homepage scrolls to the section itself when it arrives (ui.js).
   const go = (e, href) => {
     e.preventDefault();
-    scrollTo(href);
+    if (href.startsWith("#")) scrollTo(href);
+    else router.push(href);
   };
   const [floating, setFloating] = useState(false);
   const [open, setOpen] = useState(false);
@@ -206,9 +211,14 @@ export default function Nav() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === "Escape" && setOpen(false);
-    const onScroll = () => setOpen(false);
+    // Close once the page has really moved, not on the first stray scroll
+    // event (a settling flick, the toolbar hiding, a late layout shift).
+    const y0 = window.scrollY;
+    const onScroll = () => {
+      if (Math.abs(window.scrollY - y0) > 48) setOpen(false);
+    };
     window.addEventListener("keydown", onKey);
-    window.addEventListener("scroll", onScroll, { passive: true, once: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("scroll", onScroll);

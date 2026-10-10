@@ -30,7 +30,7 @@ function Meta({ a }) {
   );
 }
 
-export function Newsletter() {
+export function Newsletter({ id = "home-news" }) {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [state, setState] = useState("idle");
@@ -87,11 +87,11 @@ export function Newsletter() {
                 exit={{ opacity: 0 }}
                 noValidate
               >
-                <label className={b.srOnly} htmlFor="home-news">
+                <label className={b.srOnly} htmlFor={id}>
                   Mejl
                 </label>
                 <input
-                  id="home-news"
+                  id={id}
                   type="email"
                   autoComplete="email"
                   placeholder="vas@mejl.rs"

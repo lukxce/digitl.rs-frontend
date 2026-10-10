@@ -72,7 +72,8 @@ function spans(text, k) {
   return out;
 }
 
-const inline = (text, k) => spans(hide(text), k);
+/** Inline markdown (bold, italic, links, code) as React nodes. */
+export const inline = (text, k) => spans(hide(text), k);
 
 /* ── blocks ───────────────────────────────────────────────────────────── */
 function Node({ n, k }) {

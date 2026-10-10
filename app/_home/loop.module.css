@@ -62,6 +62,53 @@
   width: 100%;
   height: 100%;
   overflow: visible;
+  pointer-events: none;
+}
+/* The wheel is spun by hand. The band along the ring (and the numbers on
+   it) takes the finger from the page; the hole in the middle lets the page
+   scroll up and down and only reads a sideways swipe. */
+.diagram {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.grab,
+.hole {
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+}
+.grab {
+  inset: 9%;
+  cursor: grab;
+  touch-action: none;
+}
+.hole {
+  inset: 21%;
+  touch-action: pan-y;
+}
+.diagram[data-grabbing] .grab,
+.diagram[data-grabbing] .stop {
+  cursor: grabbing;
+}
+.hint {
+  position: absolute;
+  left: 50%;
+  top: 61.5%;
+  z-index: 3;
+  translate: -50% 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--ink-4);
+  pointer-events: none;
+}
+.hint svg {
+  color: var(--accent);
 }
 .ring {
   fill: none;
@@ -92,11 +139,13 @@
   font-size: 13.5px;
   font-weight: 800;
   color: var(--ink-3);
+  cursor: pointer;
+  touch-action: none;
   transition:
-    background 0.4s var(--ease),
-    color 0.4s var(--ease),
-    box-shadow 0.4s var(--ease),
-    scale 0.4s var(--ease);
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease),
+    scale 0.3s var(--ease);
 }
 @media (min-width: 640px) {
   .stop {
@@ -122,20 +171,12 @@
 
 .name {
   position: absolute;
+  pointer-events: none;
   font-size: 14px;
   font-weight: 700;
   white-space: nowrap;
   color: var(--ink-4);
   transition: color 0.4s var(--ease);
-}
-.name[data-side="t"] {
-  translate: -50% -115%;
-}
-.name[data-side="r"] {
-  translate: 0 -50%;
-}
-.name[data-side="l"] {
-  translate: -100% -50%;
 }
 .name[data-on] {
   color: var(--ink);
@@ -147,6 +188,8 @@
 }
 
 .center {
+  z-index: 3;
+  pointer-events: none;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -161,6 +204,20 @@
   display: grid;
   justify-items: center;
   gap: 6px;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .centerIn {
+    animation: rise 0.32s var(--ease) both;
+  }
+  .cardIn {
+    animation: rise 0.42s var(--ease) both;
+  }
 }
 .of {
   font-size: 12px;
@@ -178,12 +235,14 @@
 
 /* what happens at the current stop */
 .card {
-  display: grid;
-  gap: 18px;
   padding: clamp(20px, 2.6vw, 30px);
   border-radius: 28px;
   background: #fff;
   box-shadow: var(--ring);
+}
+.cardIn {
+  display: grid;
+  gap: 18px;
 }
 .card p {
   font-size: clamp(16px, 1.4vw, 19px);

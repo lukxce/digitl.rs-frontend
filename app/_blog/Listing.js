@@ -89,6 +89,7 @@ export default function Listing({ articles, categories }) {
     setQ("");
     setCat(null);
   };
+  const newsAfter = Math.min(2, shown.length) - 1;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -123,7 +124,11 @@ export default function Listing({ articles, categories }) {
                 Tekstovi trenutno nisu dostupni. Pokušajte ponovo za minut.
               </p>}
 
-          <Newsletter />
+          {/* wide screens: the newsletter right under the newest article;
+              phones get it further down, between the articles */}
+          <div className={l.newsTop}>
+            <Newsletter />
+          </div>
         </div>
       </section>
 
@@ -221,18 +226,30 @@ export default function Listing({ articles, categories }) {
                     transition={{ duration: 0.7, ease: EASE }}
                   >
                     <AnimatePresence mode="popLayout" initial={false}>
-                      {shown.map((a) => (
-                        <motion.li
-                          key={a.slug}
-                          layout="position"
-                          initial={{ opacity: 0, scale: 0.96 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.96 }}
-                          transition={{ duration: 0.45, ease: EASE }}
-                        >
-                          <Card a={a} />
-                        </motion.li>
-                      ))}
+                      {shown.flatMap((a, i) => {
+                        const card = (
+                          <motion.li
+                            key={a.slug}
+                            layout="position"
+                            initial={{ opacity: 0, scale: 0.96 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.96 }}
+                            transition={{ duration: 0.45, ease: EASE }}
+                          >
+                            <Card a={a} />
+                          </motion.li>
+                        );
+                        // phones: the newsletter after the second article
+                        // (or after the last one, when fewer are shown)
+                        return i === newsAfter
+                          ? [
+                              card,
+                              <li key="newsletter" className={l.newsInline}>
+                                <Newsletter id="blog-news" />
+                              </li>,
+                            ]
+                          : [card];
+                      })}
                     </AnimatePresence>
                   </motion.ul>
                 : <div className={l.none}>
@@ -244,6 +261,9 @@ export default function Listing({ articles, categories }) {
                     <button type="button" onClick={reset}>
                       Prikaži sve tekstove
                     </button>
+                    <div className={l.newsInline}>
+                      <Newsletter id="blog-news" />
+                    </div>
                   </div>}
             </div>
           </section>

@@ -73,6 +73,55 @@ export function AppProvider({ children, home = true }) {
     else glide(top);
   };
 
+  // Arriving on the homepage with a section in the address (a link like
+  // "/#usluge" from the blog or a case study, or a shared URL): go there
+  // ourselves instead of trusting the browser's jump, and correct once the
+  // fonts and images above have settled. Any touch, wheel or key stops it.
+  const lenisRef = useRef(lenis);
+  lenisRef.current = lenis;
+  useEffect(() => {
+    if (!home) return;
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2 || hash === "#top") return;
+    let el = null;
+    try {
+      el = document.querySelector(hash);
+    } catch {
+      return;
+    }
+    if (!el) return;
+    let alive = true;
+    const stop = () => {
+      alive = false;
+    };
+    const jump = () => {
+      if (!alive) return;
+      const off = el.classList.contains(b.anchor) ? 0 : -90;
+      const top = Math.max(
+        0,
+        Math.round(el.getBoundingClientRect().top + window.scrollY + off),
+      );
+      if (Math.abs(window.scrollY - top) < 2) return;
+      if (lenisRef.current)
+        lenisRef.current.scrollTo(top, { immediate: true, force: true });
+      else window.scrollTo(0, top);
+    };
+    const opts = { passive: true, once: true };
+    window.addEventListener("touchstart", stop, opts);
+    window.addEventListener("wheel", stop, opts);
+    window.addEventListener("keydown", stop, opts);
+    jump();
+    const timers = [80, 300, 700, 1300, 2000].map((ms) => setTimeout(jump, ms));
+    document.fonts?.ready?.then(jump).catch(() => {});
+    return () => {
+      alive = false;
+      for (const t of timers) clearTimeout(t);
+      window.removeEventListener("touchstart", stop);
+      window.removeEventListener("wheel", stop);
+      window.removeEventListener("keydown", stop);
+    };
+  }, [home]);
+
   const value = {
     home,
     plan,

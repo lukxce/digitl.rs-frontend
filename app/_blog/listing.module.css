@@ -445,3 +445,28 @@ ul.grid {
 .none button:hover {
   background: var(--accent);
 }
+
+/* The newsletter: under the newest article on wide screens; on phones it
+   waits until two articles from "Još sa bloga" have been seen. */
+.newsInline {
+  display: none;
+}
+@media (max-width: 640px) {
+  .newsTop {
+    display: none;
+  }
+  li.newsInline,
+  div.newsInline {
+    display: block;
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+  li.newsInline > div,
+  div.newsInline > div {
+    margin-top: 0;
+  }
+  div.newsInline {
+    margin-top: 24px;
+    text-align: left;
+  }
+}
