@@ -35,8 +35,8 @@ export const SERVICES = [
     lead: "Dizajniramo i izrađujemo sajt koji se brzo učitava i posetioca vodi do upita ili kupovine.",
     includes: [
       "Dizajn i izrada sajta ili online prodavnice",
-      "Redizajn postojećeg sajta",
-      "Landing stranice za kampanje",
+      "Kalkulatori i alati po meri",
+      "Održavanje i podrška",
     ],
     fact: ["Merimo", "Brzina sajta i stopa konverzije"],
   },
@@ -48,8 +48,8 @@ export const SERVICES = [
     lead: "Planiramo, dizajniramo i objavljujemo sadržaj, da vaš brend na mrežama izgleda isto kao na sajtu i u oglasima.",
     includes: [
       "Strategija i plan sadržaja",
-      "Izrada objava, Reels i Stories",
-      "Vođenje profila i objavljivanje",
+      "Izrada sadržaja i objavljivanje",
+      "Vođenje profila i izveštavanje",
     ],
     fact: ["Merimo", "Doseg, angažovanje i posete sajtu"],
   },
