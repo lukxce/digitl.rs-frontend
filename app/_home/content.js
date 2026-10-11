@@ -1,8 +1,9 @@
 // Services and the three-question plan. The front of a card: `body` is the
 // original homepage's wording, `title` its service names without the
 // English in brackets (SEO keeps its full name). The back: `lead` is what
-// we do, `includes` the three services inside it (each one a thing a client
-// can order, never a feature or a tactic), `fact` what we measure.
+// we do, `includes` the services inside it (three, four for SEO; each one a
+// thing a client can order, never a feature or a tactic), `fact` what we
+// measure.
 
 export const SERVICES = [
   {
@@ -24,7 +25,12 @@ export const SERVICES = [
     name: "SEO",
     body: "Budite prvi tamo gde kupci traže rešenje, na Google-u i u AI pretrazi.",
     lead: "Sređujemo sajt i sadržaj da vas kupci nađu baš kad traže ono što nudite.",
-    includes: ["Tehnički SEO", "SEO sadržaj i blog", "Lokalni SEO"],
+    includes: [
+      "Pisanje sadržaja",
+      "Tehnički SEO",
+      "Lokalni SEO",
+      "AEO, optimizacija za AI pretragu",
+    ],
     fact: ["Merimo", "Pozicije, posete i upiti iz pretrage"],
   },
   {
