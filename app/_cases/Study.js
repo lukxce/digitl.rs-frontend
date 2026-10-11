@@ -292,7 +292,9 @@ function Next({ next }) {
       <div className={b.container}>
         <Reveal className={s.next}>
           <div>
-            <span className={b.label}>Ograničenja i sledeći koraci</span>
+            <span className={b.label}>
+              {next.label ?? "Ograničenja i sledeći koraci"}
+            </span>
             {next.title ? <h2>{next.title}</h2> : null}
           </div>
           <div className={s.nextBody}>

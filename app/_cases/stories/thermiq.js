@@ -6,10 +6,19 @@
      "Pages" figures are Search Console's last 28 days in that window.
    - Visits by channel: Google Analytics 4, 8 Jul to 5 Oct 2026.
    - Indexed pages (3.157): Search Console page indexing, September 2026.
+     No longer a headline number here; the homepage card still shows it.
    - Metadata figures: our own check of 2.485 product pages, 6 Oct 2026.
-   Update the window and the numbers together, never one without the other. */
+   - Brand chapters ("Brend", "Ton", "Primena"): the wording, the rules and
+     the examples are taken from the brand document
+     (thermiq_brend_dokument.html, August 2026); the pictures under
+     /cases/thermiq/ are pages of that document, exported 11 Oct 2026.
+   Update the window and the numbers together, never one without the other.
+   The numbers are the measured ones and stay that way: a request to show
+   them ten times larger was declined on 11 Oct 2026. */
 
 const IMG = "https://cdn.sanity.io/images/203ybdbh/production";
+// pages of the brand document, kept with the site
+const BOOK = "/cases/thermiq";
 
 const story = {
   slug: "thermiq",
@@ -35,6 +44,11 @@ const story = {
       note: "za 91 dan",
     },
     {
+      value: "4,3×",
+      label: "više poseta iz pretrage nedeljno",
+      note: "sa 80 na 343, od jula do septembra",
+    },
+    {
       value: "51.773",
       label: "prikaza u rezultatima pretrage",
       note: "za 91 dan",
@@ -43,11 +57,6 @@ const story = {
       value: "7,1",
       label: "prosečna pozicija u poslednjih 28 dana",
       note: "na početku je bila 10,3",
-    },
-    {
-      value: "3.157",
-      label: "stranica u Google indeksu",
-      note: "septembar 2026.",
     },
   ],
 
@@ -74,12 +83,100 @@ const story = {
     {
       id: "brend",
       kicker: "Brend",
-      title: "Crvena prati grejanje, plava prati hlađenje.",
+      title: "„Ceo raspon“: jedna rečenica na tri nivoa.",
       body: [
-        "Vizuelni sistem nije bio vežba iz estetike nego pravilo koje se primenjuje bez razmišljanja. Crvena je dodeljena grejanju: kotlovima, podnom grejanju, akcijama. Plava hlađenju: toplotnim pumpama, klimatizaciji, tehničkom sadržaju. Na svakom formatu mora da se pojavi bar jedan element druge boje, jer sam znak spaja sunce i pahulju, a gradijent ide od crvene do plave.",
-        "Praktična korist je jednostavna. Kad neko otvori bilo koju stranicu ili bilo koju objavu, odmah zna da li gleda opremu za grejanje ili hlađenje, i da gleda ThermiQ, a ne nasumičnu prodavnicu opreme.",
+        "Ceo identitet polazi od jedne rečenice: ThermiQ ne prodaje uređaj, nego pokriva raspon. Ona važi na tri nivoa odjednom. Temperatura: od −25 do +55 °C, grejanje zimi, hlađenje leti, topla voda cele godine. Usluga: od procene i ponude do isporuke, montaže i servisa, sa jednim izvođačem za ceo lanac. Proizvod: gasni kotlovi, toplotne pumpe, podno grejanje i klima uređaji u jednom katalogu, na jednom računu, sa jednom garancijom.",
+        "Znak spaja sunce i pahulju, a gradijent ide od crvene do plave, pa je par boja doslovno ono čime se firma bavi. Zato boja u brend knjizi nije ukras nego pravilo. Crvena prati grejanje: kotlove, podno grejanje, akcije. Plava prati hlađenje: toplotne pumpe, klimatizaciju, tehnički sadržaj. Na svakom formatu mora da se pojavi bar jedan element druge boje, a svetlo i tamno polje moraju da se sretnu.",
+        "Vizuelni sistem ima petnaest elemenata u pet grupa i jedno pravilo sastavljanja: gradijent je obavezan, uz njega ide najviše jedna podela polja, najviše jedan merni prikaz i onoliko nosača sadržaja koliko sadržaj traži. Preko toga se, kako piše u knjizi, kompozicija bori sama sa sobom. Zbog tog pravila dvadeset različitih kompozicija deluje kao jedna porodica.",
       ],
       media: [
+        {
+          src: `${BOOK}/brend-ceo-raspon-1920x1080.webp`,
+          alt: "Strana brend knjige: Ceo raspon na tri nivoa, temperatura, usluga i proizvod",
+          caption: "Ideja brenda: ceo raspon, na tri nivoa.",
+        },
+        {
+          src: `${BOOK}/brend-boje-1920x1080.webp`,
+          alt: "Strana brend knjige: paleta boja sa namenom svake boje",
+          caption: "Paleta: crvena za grejanje, plava za hlađenje.",
+        },
+        {
+          src: `${BOOK}/brend-petnaest-elemenata-1920x1080.webp`,
+          alt: "Strana brend knjige: petnaest elemenata i pravilo sastavljanja",
+          caption: "Petnaest elemenata, jedno pravilo sastavljanja.",
+        },
+        {
+          src: `${BOOK}/brend-podele-i-merni-prikazi-1920x1080.webp`,
+          alt: "Strana brend knjige: podele polja i merni prikazi",
+          caption: "Podele polja i merni prikazi: klin, traka, merač, skala.",
+        },
+      ],
+    },
+    {
+      id: "ton",
+      kicker: "Ton",
+      title: "Kao dobar majstor, ne kao prodavac.",
+      body: [
+        "Drugi deo knjige je ton, i stroži je od vizuelnog. Pet pravila, svako sa primerom šta kategorija obično napiše, a šta umesto toga piše ThermiQ. Ista pravila važe za kupce, investitore i majstore, menja se samo nivo tehničkih detalja.",
+        "Pravila ponašanja idu dalje od teksta. Ne prodaje se najveći broj nego raspon: kupcu sa 140 kvadrata preporučuje se pumpa od 8 kW, ne od 12, iako je razlika u ceni 90.000 dinara. Račun ide stavku po stavku, oprema, materijal, rad i garancija, bez stavke „razno“. A kad nešto pukne u garanciji, prvo se reši grejanje, pa tek onda papir.",
+      ],
+      pull: "Baner ne gradi poverenje. Gradi ga poziv u utorak kad isporuka kasni.",
+      viz: {
+        kind: "versus",
+        title: "Pet pravila tona",
+        note: "Iz brend knjige ThermiQ-a.",
+        heads: ["Kategorija kaže", "ThermiQ kaže"],
+        rows: [
+          {
+            label: "Brojka pre prideva",
+            from: "Najbolje cene toplotnih pumpi u Srbiji!",
+            to: "Toplotna pumpa 8 kW, već od 324.708 RSD.",
+          },
+          {
+            label: "Jedna poruka po formatu",
+            from: "Kotlovi, pumpe, podno, klima, servis, garancija, montaža, povoljno!",
+            to: "Gasni kondenzacioni kotlovi, već od 101.678 RSD.",
+          },
+          {
+            label: "Rok kao činjenica, ne kao pritisak",
+            from: "POŽURITE! Akcija ističe!!!",
+            to: "Termini montaže se popunjavaju kako sezona odmiče.",
+          },
+          {
+            label: "Bez poziva na akciju",
+            from: "Kliknite ovde i zakažite odmah, pozovite 06X…",
+            to: "Ništa. Ko je zainteresovan, kliknuće.",
+          },
+          {
+            label: "Ograničenje se kaže naglas",
+            from: "Radi na svim temperaturama.",
+            to: "Radni opseg do −25 °C; proverite deklaraciju izabranog modela.",
+          },
+        ],
+      },
+      media: [
+        {
+          src: `${BOOK}/brend-isti-proizvod-drugi-okvir-1920x868.webp`,
+          alt: "Strana brend knjige: isti uređaj prikazan kako ga oglašava kategorija i kako ga prikazuje ThermiQ",
+          caption:
+            "Isti uređaj, ista cena, isti popust: levo kategorija, desno ThermiQ.",
+        },
+      ],
+    },
+    {
+      id: "primena",
+      kicker: "Primena",
+      title: "Isti sistem, različit posao.",
+      body: [
+        "Knjiga nije šablon koji se lepi na sve, nego rečnik koji se preslaže za svaki format. Naslovna strana sajta, baneri, objave, storiji i korice za highlight izgledaju kao ista firma, a nijedan nije uvećana ili isečena verzija drugog. Baner za zaglavlje sajta i baner za telefon nisu ista slika u dve veličine, nego dve kompozicije.",
+        "Svaki materijal je napravljen kodom, ne u programu za crtanje: tekst ostaje tekst, a font putuje u samom fajlu. Kad se promeni cena, menja se jedan red, bez novog kruga dizajna. Iz istog sistema nastali su storiji i objave, vodič kroz podno grejanje u sedam slika, korice za highlight i 35 banera za sajt, sedam poruka u pet veličina.",
+      ],
+      media: [
+        {
+          src: `${BOOK}/brend-primena-naslovna-i-baner-1920x1080.webp`,
+          alt: "Naslovna strana sajta i baner napravljeni po brend knjizi",
+          caption: "Naslovna strana i baner iz iste knjige.",
+        },
         {
           src: `${IMG}/da713ac6d6c4ab588f793586cfd5ea27e80f1ad6-1600x900.png`,
           alt: "Topla i hladna varijanta istog banera: crvena za grejanje, plava za hlađenje",
@@ -90,6 +187,11 @@ const story = {
           src: `${IMG}/6377522fe88196964f3fd4c73d935b6cb37c6438-1600x900.png`,
           alt: "Ista poruka prelomljena za tri različita formata",
           caption: "Ista poruka, tri formata, jedno pravilo.",
+        },
+        {
+          src: `${BOOK}/brend-primena-postovi-i-storiji-1920x1080.webp`,
+          alt: "Objave i storiji napravljeni po brend knjizi",
+          caption: "Objave i storiji: isti rečnik, drugi format.",
         },
       ],
     },
@@ -186,16 +288,16 @@ const story = {
       title: "Kalkulator kao ulazna tačka, ne kao igračka.",
       body: [
         "Kalkulator toplotne pumpe odgovara na pitanje koje kupci postavljaju mnogo pre nego što su spremni da kupe: koja mi snaga uopšte treba. Premala pumpa neće zagrejati prostor po najhladnijim danima, a prevelika nepotrebno poskupljuje kupovinu za desetine hiljada dinara.",
-        "To je edukativna tačka ulaska bez pritiska. Dovodi ljude koji tek istražuju opciju grejanja i usput pokriva upit koji konkurencija uglavnom ignoriše. Oba kalkulatora su danas među pet najposećenijih stranica sajta iz pretrage, odmah iza početne.",
+        "To je edukativna tačka ulaska bez pritiska. Dovodi ljude koji tek istražuju opciju grejanja i usput pokriva upit koji konkurencija uglavnom ignoriše. Oba kalkulatora su za svoje pretrage na prvoj strani Google-a, u proseku na četvrtom i petom mestu, i među pet su najposećenijih stranica sajta iz pretrage, odmah iza početne.",
       ],
       viz: {
         kind: "table",
         title: "Kalkulatori u pretrazi, poslednjih 28 dana",
         note: "Search Console, 28 dana zaključno sa 3. oktobrom 2026.",
-        columns: ["Stranica", "Prikazi", "Klikovi", "Prosečna pozicija"],
+        columns: ["Stranica", "Prosečna pozicija", "Prikazi", "Klikovi"],
         rows: [
-          ["Kalkulator radijatora", "523", "24", "4,3"],
-          ["Kalkulator toplotne pumpe", "373", "17", "5,0"],
+          ["Kalkulator radijatora", "4,3", "523", "24"],
+          ["Kalkulator toplotne pumpe", "5,0", "373", "17"],
         ],
       },
       media: [

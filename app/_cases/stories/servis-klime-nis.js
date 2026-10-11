@@ -1,11 +1,17 @@
 /* Servis Klime Niš: the story told on /projects/servis-klime-nis.
 
    What is measured and where it comes from:
-   - Page counts: the live sitemap of servisklimenis.rs, read 10 Oct 2026
-     (4 service pages, 12 blog posts, a price list and a calculator).
    - PageSpeed 100 (mobile): Google PageSpeed test, August 2026, shown in the
      screenshot in the "Brzina" chapter.
    - Search positions: Google Search Console, 15 Jul to 12 Aug 2026.
+   - Service pages, price list, calculator, 12 blog posts: the live sitemap
+     of servisklimenis.rs, read 10 Oct 2026.
+   - More than five calls a day in October, three months after launch, with
+     nothing done since the site was built and optimised and nothing spent
+     on ads; a fuller content plan next and ads being prepared for next
+     year: Luka's own account, 11 Oct 2026 (he sees the calls). Not checked
+     by us in a tool. "Three months" is counted from the July launch; confirm
+     with him before changing those lines.
    The earlier version of this study described a device catalogue; the site
    no longer has one (/shop is gone), so it is not mentioned here. */
 
@@ -15,25 +21,33 @@ const story = {
   slug: "servis-klime-nis",
   headline: "Sajt koji razdvaja kvar od kupovine.",
   standfirst:
-    "Neko kome je klima stala u avgustu i neko ko u martu bira novu nisu isti posetilac. Za Servis Klime Niš smo napravili sajt sa sopstvenom stranicom za svaku uslugu, cenom vidljivom pre poziva i sadržajem koji radi i van sezone.",
+    "Neko kome je klima stala u avgustu i neko ko u martu bira novu nisu isti posetilac. Za Servis Klime Niš smo napravili sajt sa sopstvenom stranicom za svaku uslugu, cenom vidljivom pre poziva i sadržajem koji radi i van sezone. Tri meseca kasnije sa sajta stiže više od pet poziva dnevno, bez ijednog oglasa.",
   meta: [
     { label: "Klijent", value: "Servis Klime Niš" },
     { label: "Delatnost", value: "Servis klima uređaja" },
     { label: "Šta smo radili", value: "Sajt, SEO, sadržaj" },
-    { label: "Podaci", value: "Stanje sajta, oktobar 2026." },
+    { label: "Podaci", value: "Od lansiranja do oktobra 2026." },
   ],
   services: ["Web", "SEO", "Sadržaj"],
   source:
-    "Izvor: Google PageSpeed test (avgust 2026), Google Search Console (15. jul do 12. avgust 2026) i mapa sajta, oktobar 2026.",
+    "Izvor: Google PageSpeed test (avgust 2026), Google Search Console (15. jul do 12. avgust 2026) i evidencija poziva za oktobar 2026.",
   numbers: [
-    { value: "100", label: "Google PageSpeed ocena", note: "na telefonu" },
-    { value: "4", label: "usluge, svaka sa svojom stranicom", note: "" },
-    { value: "12", label: "tekstova na blogu", note: "oktobar 2026." },
+    {
+      value: "5+",
+      label: "poziva dnevno",
+      note: "oktobar 2026, tri meseca posle lansiranja",
+    },
     {
       value: "3.",
       label: "prosečna pozicija za „klima uređaji niš“",
       note: "sredina avgusta 2026.",
     },
+    {
+      value: "0 din.",
+      label: "potrošeno na oglase",
+      note: "samo sajt i optimizacija",
+    },
+    { value: "100", label: "Google PageSpeed ocena", note: "na telefonu" },
   ],
 
   chapters: [
@@ -52,7 +66,7 @@ const story = {
       title: "Četiri razloga da neko traži klima servis.",
       body: [
         "Dijagnostika, montaža, popravka i servis su četiri različita razloga zbog kojih neko traži klima servis, svaki sa svojom hitnošću i svojom pretragom u Google-u. Svaka je dobila svoju stranicu umesto da bude podnaslov na jednoj opštoj strani usluga.",
-        "Struktura stranica je postavljena tako da svaka cilja svoj skup pretraga umesto da se sve tuku za isti opšti termin. Uz njih stoje cenovnik i kalkulator koji odgovara na pitanje koja snaga klime nekome uopšte treba.",
+        "Struktura stranica je postavljena tako da svaka cilja svoj skup pretraga umesto da se sve tuku za isti opšti termin. Uz njih stoji kalkulator koji odgovara na pitanje koje ljudi postave pre nego što išta kupe: koja snaga klime im uopšte treba. Ko ga otvori još bira, i sa sajta odlazi sa odgovorom, a ne sa još jednim pitanjem.",
       ],
       media: [
         {
@@ -66,14 +80,6 @@ const story = {
           caption: "Svaka usluga ima svoju stranicu.",
         },
       ],
-      viz: {
-        kind: "stat",
-        items: [
-          { value: "4", label: "stranice usluga" },
-          { value: "1", label: "cenovnik sa cenama" },
-          { value: "1", label: "kalkulator snage klime" },
-        ],
-      },
     },
     {
       id: "cena",
@@ -81,6 +87,8 @@ const story = {
       title: "Cena vidljiva pre poziva.",
       body: [
         "Kod većine konkurencije cena ostaje nepoznata dok se serviser ne pojavi na vratima. Ovde je vidljiva unapred, na stranici svake usluge i u cenovniku, kao stvarna razlika u pristupu, ne marketinška fraza.",
+        "Vidljiva cena radi dva posla. Prvo, dovodi ljude: mnogi uz uslugu odmah ukucaju i reč „cena“, pa se sajt pojavljuje baš na te pretrage. U Search Console-u se to vidi na upitu „čišćenje klime niš cena“.",
+        "Drugo, filtrira pozive. Ko je cenu već video na sajtu, ne zove da pita koliko košta, nego da zakaže. Manje je poziva koji se završe na jednom pitanju, a više onih koji se završe terminom.",
         "Pokrivenost je jednako jasna: sedam opština, Niš i okolina, uključujući Nišku Banju, Medijanu, Pantelej, Crveni Krst i Palilulu, navedeno na sajtu umesto podrazumevano.",
       ],
       media: [
@@ -132,10 +140,10 @@ const story = {
     {
       id: "pretraga",
       kicker: "Rezultati",
-      title: "Prvi signali iz pretrage.",
+      title: "Od prvih pozicija do pet poziva dnevno.",
       body: [
-        "Posle prvih meseci sajt se u Nišu pojavljuje na prvoj strani Google-a za pretrage koje nose posao. Ovo su prosečne pozicije iz Search Console-a, ne jednokratna provera.",
-        "Montaža je bila slabija tačka: te pretrage su tada bile daleko od prve strane.",
+        "Posle prvih meseci sajt se u Nišu pojavljuje na prvoj strani Google-a za pretrage koje nose posao. Ovo su prosečne pozicije iz Search Console-a, ne jednokratna provera. Montaža je tada bila slabija tačka: te pretrage su bile daleko od prve strane.",
+        "U oktobru, tri meseca posle lansiranja, dnevni broj poziva je prešao pet. Između te dve tačke nije rađeno ništa novo: sajt je izrađen i optimizovan na početku, i od tada radi sam, bez oglasa i bez dodatnih kampanja.",
       ],
       viz: {
         kind: "table",
@@ -152,10 +160,11 @@ const story = {
   ],
 
   next: {
-    title: "Šta još ne znamo, i šta sledi.",
+    label: "Rezultat i sledeći koraci",
+    title: "Sajt je odradio svoj deo. Sledi sadržaj, pa oglasi.",
     body: [
-      "Ova studija pokazuje temelj i prve pozicije, ne pozive. Konkretne brojke poziva i upita su nešto što tek treba da se izmeri.",
-      "Ono što je već na mestu je tehnički temelj koji nije ostavljen za kasnije i sadržaj koji pokriva zimsku upotrebu klime, deo tržišta koji konkurencija ostavlja potpuno praznim.",
+      "Više od pet poziva dnevno došlo je samo od sajta i optimizacije urađene na početku. Sada kreće ozbiljnija strategija sadržaja: više tekstova i stranica za pretrage na kojima sajt još nije na prvoj strani, pre svega za montažu.",
+      "Konkurencija je u ovoj delatnosti jača nego kod drugih lokalnih usluga, pa se za sledeću godinu pripremaju i oglasi. Vodiće na sajt koji već pretvara posetu u poziv, pa neće morati da nadoknađuju ono što sajt ne ume.",
     ],
   },
 

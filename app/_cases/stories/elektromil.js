@@ -6,7 +6,9 @@
      from; they are an order of sources, not a count of calls.
    - Second organic result for "električar niš": a check of Google results
      for Niš on 27 Sep 2026 (OpenSEO audit).
-   - Seven service pages: the live site, read 10 Oct 2026.
+   - Seven service pages: the live site, read 10 Oct 2026. They stay in the
+     text; as a headline number they said nothing to a reader (Luka, 11 Oct).
+   - "Urađeni poslovi i garancija": what the homepage shows, read 11 Oct 2026.
    We have no Search Console access for elektromilnis.rs, so there are no
    visit numbers here. Add them when there is access. */
 
@@ -41,7 +43,6 @@ const story = {
       label: "rezultat na Google-u za „električar niš“",
       note: "27. septembar 2026.",
     },
-    { value: "7", label: "usluga, svaka sa svojom stranicom", note: "" },
   ],
 
   chapters: [
@@ -51,7 +52,8 @@ const story = {
       title: "Bez prisustva na internetu, nema ni dolaznih upita.",
       body: [
         "ElektroMil ima više od decenije reputacije u Nišu, izgrađene isključivo na preporuci od usta do usta. Sa nultim digitalnim prisustvom, svaki novi posao je zavisio od preporuke ili starog klijenta koji se vraća.",
-        "Vrednost ovog sajta leži u rešavanju vrlo konkretnog problema: iskusan majstor sa decenijom stvarnog rada iza sebe, potpuno nevidljiv za svakoga ko na internetu traži baš njegovu uslugu. Cilj nije bio napraviti nešto upečatljivo. Cilj je bio napraviti nešto što se rangira, brzo se učitava i navodi nekoga da podigne telefon.",
+        "Vrednost ovog sajta leži u rešavanju vrlo konkretnog problema: iskusna firma sa decenijom stvarnog rada iza sebe, potpuno nevidljiva za svakoga ko na internetu traži baš njenu uslugu. Cilj nije bio napraviti nešto upečatljivo. Električara ljudi traže onda kad im zatreba, najčešće u žurbi i sa telefona, pa je sajt morao da se rangira za te pretrage i da se učita odmah.",
+        "Od tog prvog utiska zavisi sve ostalo: da posetilac za nekoliko sekundi vidi ozbiljnu firmu, sa urađenim poslovima i garancijom na rad, i da mu poziv bude na jedan dodir.",
       ],
       media: [
         {

@@ -1,49 +1,64 @@
 /* Moler Niš: the story told on /projects/moler-nis.
 
    What is measured and where it comes from:
-   - Page counts: the live sitemap of molernis.rs, read 10 Oct 2026
-     (12 pages under /usluge: six services, a decorative-techniques hub and
-     five technique pages; 15 blog posts; a price list; a paint calculator).
    - PageSpeed 100 (mobile): Google PageSpeed test, August 2026, shown in the
      screenshot in the "Brzina" chapter.
-   There are no search or call numbers here yet: we had no readable Search
-   Console data for this site when this was written. Add them when there is. */
+   - Service pages, price list, paint calculator, 15 blog posts: the live
+     sitemap of molernis.rs, read 11 Oct 2026.
+   - First in search, the price list first for price searches, more than
+     five calls a day three months after launch, clicks and impressions
+     still growing, nothing spent on ads: Luka's own account, 11 Oct 2026.
+     He runs the site and sees its calls and its Search Console. We could
+     NOT check these in a tool (Google blocked an automated results check,
+     and this site's Search Console is not readable from here), so confirm
+     the wording with him before changing any of those lines.
+   - Who the client is (a painting firm from Niš with no site and no name
+     people would search for; we proposed the molernis.rs domain): Luka,
+     11 Oct 2026. */
 
 const IMG = "https://cdn.sanity.io/images/203ybdbh/production";
 
 const story = {
   slug: "moler-nis",
-  headline: "Zanat koji se ne uklapa u jednu stranicu.",
+  headline: "Od firme bez sajta do prvog mesta na Google-u za tri meseca.",
   standfirst:
-    "Za Moler Niš smo napravili sajt i lokalnu SEO osnovu od nule, sa fokusom na jednu stvar: da telefon zazvoni pre nego što konkurencija stigne do istog klijenta. Svaka usluga ima svoju stranicu, cena je vidljiva pre poziva, a sanacija vlage je prvi put dobila ozbiljan odgovor.",
+    "Molerska firma iz Niša nije imala sajt, ni ime koje bi ljudi tražili. Predložili smo domen molernis.rs, ime koje je isto što i pretraga, i od nule napravili sajt sa jednim ciljem: da telefon zazvoni pre nego što konkurencija stigne do istog klijenta. Tri meseca kasnije sajt je prvi u pretrazi i donosi više od pet poziva dnevno, bez dinara za oglase.",
   meta: [
-    { label: "Klijent", value: "Moler Niš" },
+    { label: "Klijent", value: "Molerska firma iz Niša" },
     { label: "Delatnost", value: "Molerski radovi" },
-    { label: "Šta smo radili", value: "Sajt, SEO, sadržaj" },
-    { label: "Podaci", value: "Stanje sajta, oktobar 2026." },
+    { label: "Šta smo radili", value: "Domen, sajt, SEO, sadržaj" },
+    { label: "Podaci", value: "Prva tri meseca, stanje u oktobru 2026." },
   ],
   services: ["Web", "SEO", "Sadržaj"],
   source:
-    "Izvor: Google PageSpeed test (avgust 2026) i mapa sajta molernis.rs, oktobar 2026.",
+    "Izvor: Google PageSpeed test (avgust 2026), i pozicije u Google pretrazi i evidencija poziva za oktobar 2026.",
   numbers: [
-    { value: "100", label: "Google PageSpeed ocena", note: "na telefonu" },
     {
-      value: "12",
-      label: "stranica usluga i tehnika",
-      note: "šest usluga i dekorativne tehnike",
+      value: "1.",
+      label: "mesto na Google-u za molerske radove u Nišu",
+      note: "tri meseca posle lansiranja",
     },
-    { value: "15", label: "tekstova na blogu", note: "oktobar 2026." },
-    { value: "6", label: "usluga, svaka sa cenom", note: "" },
+    {
+      value: "5+",
+      label: "poziva dnevno",
+      note: "tri meseca posle lansiranja",
+    },
+    {
+      value: "0 din.",
+      label: "potrošeno na oglase",
+      note: "svi pozivi stižu iz pretrage",
+    },
+    { value: "100", label: "Google PageSpeed ocena", note: "na telefonu" },
   ],
 
   chapters: [
     {
       id: "polazna-tacka",
       kicker: "Polazna tačka",
-      title: "Reputacija bez traga na internetu.",
+      title: "Firma bez sajta i bez imena koje se traži.",
       body: [
-        "Vrednost ovog sajta leži u rešavanju vrlo konkretnog problema: majstor koji zna razliku između pet vrsta glet mase i tri proizvođača boje, potpuno nevidljiv za svakog ko tu razliku traži na internetu. Svaka odluka na sajtu, od redosleda usluga do izbora reči u naslovu, služila je tom jednom cilju.",
-        "Svaki novi klijent je stizao preko preporuke, a čim se krug poznanstava iscrpi, novih poziva više nema odakle da stignu. Za zanat koji zavisi od fizičkog prisustva na terenu, to je krug koji se sam zatvara, ne širi.",
+        "Klijent je firma koja se u Nišu bavi molerskim radovima. Pre saradnje nije imala sajt. Svaki novi klijent je stizao preko preporuke, a čim se krug poznanstava iscrpi, novih poziva više nema odakle da stignu. Za zanat koji zavisi od fizičkog prisustva na terenu, to je krug koji se sam zatvara, ne širi.",
+        "Firma nije imala ni ime koje bi ljudi prepoznali i ukucali u pretragu. Zato smo predložili domen molernis.rs: ime koje je isto što i ono što ljudi traže. Ko ukuca „moler niš“, u rezultatima vidi adresu koja mu ponavlja sopstveno pitanje, a nov sajt bez istorije od prvog dana jasno govori i ljudima i Google-u o čemu je. Tako se do prve strane stiže brže nego sa imenom koje tek treba da se nauči.",
       ],
       pull: "Nije bilo dovoljno da sajt izgleda lepo. Trebalo je da ga Google prepozna, a čovek sa mrljom na plafonu pronađe za deset sekundi.",
     },
@@ -68,14 +83,6 @@ const story = {
           caption: "Svaka usluga ima svoju stranicu.",
         },
       ],
-      viz: {
-        kind: "stat",
-        items: [
-          { value: "6", label: "glavnih usluga" },
-          { value: "5", label: "dekorativnih tehnika sa svojom stranicom" },
-          { value: "1", label: "kalkulator boje i gleta" },
-        ],
-      },
     },
     {
       id: "cena",
@@ -83,6 +90,7 @@ const story = {
       title: "Cena i obilazak kao deo dizajna.",
       body: [
         "Fiksna cena i besplatan obilazak su istaknuti na svakom koraku kroz sajt, ne samo u opisu usluge. Najveći strah kod ovakvih radova nije cena, nego neizvesnost oko nje, i sajt je građen da tu neizvesnost skloni pre poziva.",
+        "Zato je cenovnik posebna stranica, sa cenom po vrsti posla. Mnogi uz uslugu odmah ukucaju i reč „cena“, pa je baš ta stranica danas prvi rezultat kad neko u Nišu traži koliko košta krečenje ili gletovanje.",
         "Na sajtu je navedeno i sa kojim markama boja se radi, Jub, Zvezda Helios, Caparol i Beckers, jer neko ko traži konkretnu marku ne treba da nagađa da li je moler uopšte ima na raspolaganju.",
       ],
       media: [
@@ -101,10 +109,11 @@ const story = {
     {
       id: "brzina",
       kicker: "Brzina",
-      title: "Kad brzina učitavanja postane deo zanatske reputacije.",
+      title: "Sto od sto na telefonu, jer se moler traži s telefona.",
       body: [
-        "Sto od sto na mobilnom PageSpeed testu nije nešto što se očekuje od sajta lokalnog zanatlije, to je nivo koji obično vide veliki brendovi sa timovima developera. Ovde znači da se stranica pojavi na ekranu pre nego što neko uopšte stigne da odloži telefon.",
-        "Dugmad za poziv su krupna i dostupna palcem na prvi dodir, a redosled informacija na mobilnom je isti kao na desktopu, ne osiromašena verzija.",
+        "Molera retko ko traži sa računara. Traži ga čovek koji stoji u sobi sa mrljom na plafonu i telefonom u ruci, često na slabom signalu. Ako stranica čeka tri sekunde, on se vraća na rezultate i zove sledećeg. Zato je brzina ovde merena tamo gde se odlučuje: na telefonu.",
+        "Na Google PageSpeed testu za telefon sajt ima 100 od 100. Iza toga stoji nekoliko odluka donetih pre dizajna: stranice stižu gotove, umesto da se sklapaju u telefonu posetioca, slike se šalju u veličini ekrana koji ih traži, a font je deo sajta, pa tekst ne čeka drugi server i ne poskakuje kad se učita.",
+        "Brzina je i signal za pretragu, jer je Google meri na svakoj stranici i uzima u obzir pri rangiranju. Dugmad za poziv su krupna i pod palcem, a redosled informacija na telefonu je isti kao na računaru, ne osiromašena verzija.",
       ],
       media: [
         {
@@ -139,26 +148,29 @@ const story = {
     {
       id: "sadrzaj",
       kicker: "Sadržaj",
-      title: "Blog koji odgovara na pitanja pre poziva.",
+      title:
+        "Sadržaj za one koji traže majstora i za one koji se tek raspituju.",
       body: [
-        "Na blogu je petnaest tekstova o stvarima koje ljudi pitaju pre nego što pozovu majstora: koliko košta krečenje stana u Nišu, koliko gleta ide po kvadratu, jeftina ili skupa boja, zašto prvo krečenje u novogradnji pukne.",
-        "Uz njih stoji kalkulator koji računa koliko boje i gleta treba za prostor, pa posetilac dobije okvirnu cifru i pre nego što zatraži obilazak.",
+        "Vrednost ovog sajta je u vrlo konkretnom problemu koji rešava: firma koja zna razliku između pet vrsta glet mase i tri proizvođača boje bila je nevidljiva za svakog ko tu razliku traži na internetu. Na blogu je zato petnaest tekstova o onome što ljudi pitaju pre nego što pozovu majstora: koliko košta krečenje stana u Nišu, koliko gleta ide po kvadratu, jeftina ili skupa boja, zašto prvo krečenje u novogradnji pukne.",
+        "Tako sajt ne privlači samo one koji majstora traže danas, nego i one koji se tek informišu. Kad im za mesec dana zatreba moler, već znaju čiji su savet čitali, i to ime im je prvo u glavi.",
+        "Kalkulator boje i gleta radi isti posao drugim putem. Ko računa koliko mu materijala treba, već planira radove. Dobije okvirnu cifru i pre obilaska, a broj telefona mu je na istoj stranici, pa je od računice do poziva jedan dodir.",
       ],
     },
   ],
 
   next: {
-    title: "Šta još ne znamo, i šta sledi.",
+    label: "Rezultat i sledeći koraci",
+    title: "Prvo mesto u pretrazi, bez dinara za oglase.",
     body: [
-      "U ovoj studiji nema brojeva poziva ni poseta iz pretrage. Moler Niš pokriva Niš i okolinu, uključujući Nišku Banju, Medijanu, Pantelej i Crveni Krst, a šta mu sajt od toga donosi tek treba da se izmeri.",
-      "Osnova koja već stoji su stranice napravljene oko stvarnih pretraga umesto pretpostavki, tehnički deo koji ne mora da se popravlja naknadno, i sadržaj koji pokriva posao koji ostatak lokalne konkurencije jednostavno preskače.",
+      "Tri meseca posle lansiranja sajt je prvi u pretrazi za molerske radove u Nišu, a broj klikova i prikaza u Google-u raste iz meseca u mesec. Sa sajta stiže više od pet poziva dnevno.",
+      "Zato je sledeći korak sadržaj, ne oglasi. Dok pretraga sama dovodi dovoljno posla, klijent nema potrebe da plaća reklame. Novi tekstovi i stranice idu tamo gde ljudi već pitaju, a dobrog odgovora u Nišu još nema.",
     ],
   },
 
   takeaways: [
     {
-      title: "Reputacija bez traga na internetu",
-      text: "Svaki novi klijent je stizao preko preporuke, a čim se krug poznanstava iscrpi, novih poziva više nema odakle da stignu. Za zanat koji zavisi od fizičkog prisustva na terenu, to je krug koji se sam zatvara, ne širi.",
+      title: "Ime koje je isto što i pretraga",
+      text: "Firma bez prepoznatljivog imena dobila je domen molernis.rs. Nov sajt bez istorije tako od prvog dana govori i ljudima i Google-u o čemu je.",
     },
     {
       title: "Šest usluga, šest stranica",

@@ -521,6 +521,37 @@ function Trend({ viz }) {
   );
 }
 
+/* ── versus: the same thing said two ways, one rule per row ───────────── */
+function Versus({ viz }) {
+  const rows = (viz.rows ?? []).filter((r) => r?.label && r.to != null);
+  if (!rows.length) return null;
+  const [was, is] = viz.heads ?? ["Pre", "Posle"];
+  return (
+    <Frame viz={viz} kind="versus">
+      <ul className={v.versus}>
+        <li className={v.vsHead} aria-hidden="true">
+          <span />
+          <span>{was}</span>
+          <span>{is}</span>
+        </li>
+        {rows.map((r) => (
+          <li key={r.label}>
+            <b className={v.vsRule}>{r.label}</b>
+            <span className={v.vsFrom}>
+              <em>{was}</em>
+              <s>{r.from}</s>
+            </span>
+            <span className={v.vsTo}>
+              <em>{is}</em>
+              {r.to}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </Frame>
+  );
+}
+
 /** One figure of a chapter. A kind this page does not know draws nothing. */
 export default function Viz({ viz, board = false }) {
   if (!viz || typeof viz !== "object") return null;
@@ -535,6 +566,8 @@ export default function Viz({ viz, board = false }) {
       return <Share viz={viz} />;
     case "trend":
       return <Trend viz={viz} />;
+    case "versus":
+      return <Versus viz={viz} />;
     default:
       return null;
   }
