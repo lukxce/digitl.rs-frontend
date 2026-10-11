@@ -103,7 +103,23 @@
   gap: 14px;
   transition:
     box-shadow 0.4s var(--ease),
-    transform 0.4s var(--ease);
+    transform 0.4s var(--ease),
+    visibility 0s linear 0.09s;
+}
+/* Safari paints a face's animated children (the small scene on the front)
+   even when that face is turned away, so the blue swatch showed through the
+   text on the back. Each face is therefore also hidden outright while it
+   faces away. The switch comes 0.09s into the turn, which is when this
+   easing has the card edge-on, in both directions. */
+.back {
+  visibility: hidden;
+  transition: visibility 0s linear 0.09s;
+}
+.flip[data-flipped="true"] .front {
+  visibility: hidden;
+}
+.flip[data-flipped="true"] .back {
+  visibility: visible;
 }
 .front:hover {
   box-shadow: var(--lift);
