@@ -92,6 +92,7 @@
   font-size: clamp(16.5px, 1.4vw, 20px);
   line-height: 1.5;
   color: var(--ink-3);
+  text-wrap: pretty;
 }
 .ctas {
   display: flex;

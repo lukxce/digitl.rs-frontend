@@ -94,8 +94,13 @@ export default function Journey() {
           <div className={j.headText}>
             <span className={b.label}>Kako radimo</span>
             <p>
-              <b>Jedan proces</b> od prvog razgovora do mesečnog izveštaja.
-              U&nbsp;svakom koraku <b>znate šta radimo i šta je sledeće.</b>
+              <b>Jedan proces</b>
+              {/* a string, not JSX text: with an entity in it the server and
+                  the browser trimmed the leading space differently */}
+              {
+                " od prvog razgovora do mesečnog izveštaja. U\u00a0svakom koraku "
+              }
+              <b>znate šta radimo i šta je sledeće.</b>
             </p>
           </div>
         </div>

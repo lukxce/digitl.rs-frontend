@@ -89,8 +89,11 @@ export default function Hero({ clients, visual = null }) {
           </h1>
           <div className={b.fadeUp} style={{ animationDelay: "520ms" }}>
             <p className={h.lead}>
-              Gradimo brendove koji se izdvajaju, konvertuju bolje i rastu brže.
-              Sve što vaš biznis traži, na jednom mestu.
+              {/* the last two words stay together, so "mestu." never sits
+                  alone on a line */}
+              {
+                "Gradimo brendove koji se izdvajaju, sajtove koji prodaju i kampanje koje dovode kupce. Od pretrage i oglasa do društvenih mreža, sve što vaš biznis traži, na jednom\u00a0mestu."
+              }
             </p>
             <div className={h.ctas}>
               <Btn variant="accent" onClick={() => book()}>
