@@ -1,7 +1,8 @@
 // Services and the three-question plan. The front of a card: `body` is the
 // original homepage's wording, `title` its service names without the
-// English in brackets (SEO keeps its full name). The back: `lead`,
-// `includes` and `fact`, what we do, what is in it and what we measure.
+// English in brackets (SEO keeps its full name). The back: `lead` is what
+// we do, `includes` the three services inside it (each one a thing a client
+// can order, never a feature or a tactic), `fact` what we measure.
 
 export const SERVICES = [
   {
@@ -11,9 +12,9 @@ export const SERVICES = [
     body: "Kampanje na Google-u i mrežama, postavljene i skalirane da donose prodaju, ne samo klikove.",
     lead: "Postavljamo kampanje, pratimo svaki upit i budžet pomeramo tamo gde donosi prodaju.",
     includes: [
-      "Google oglasi: pretraga i Performance Max",
-      "Meta oglasi: Facebook i Instagram",
-      "Tekstovi i vizuali oglasa",
+      "Google Ads kampanje",
+      "Meta oglasi na Facebook-u i Instagram-u",
+      "Analitika i praćenje konverzija",
     ],
     fact: ["Merimo", "Cena po upitu, za svaku kampanju"],
   },
@@ -23,11 +24,7 @@ export const SERVICES = [
     name: "SEO",
     body: "Budite prvi tamo gde kupci traže rešenje, na Google-u i u AI pretrazi.",
     lead: "Sređujemo sajt i sadržaj da vas kupci nađu baš kad traže ono što nudite.",
-    includes: [
-      "Tehnički SEO i brzina sajta",
-      "Stranica za svaku uslugu i grad",
-      "Tekstovi koji odgovaraju na pitanja kupaca",
-    ],
+    includes: ["Tehnički SEO", "SEO sadržaj i blog", "Lokalni SEO"],
     fact: ["Merimo", "Pozicije, posete i upiti iz pretrage"],
   },
   {
@@ -38,8 +35,8 @@ export const SERVICES = [
     lead: "Dizajniramo i izrađujemo sajt koji se brzo učitava i posetioca vodi do upita ili kupovine.",
     includes: [
       "Dizajn i izrada sajta ili online prodavnice",
-      "Brzo učitavanje, prvo na telefonu",
-      "Sadržaj menjate sami, bez programera",
+      "Redizajn postojećeg sajta",
+      "Landing stranice za kampanje",
     ],
     fact: ["Merimo", "Brzina sajta i stopa konverzije"],
   },
@@ -50,9 +47,9 @@ export const SERVICES = [
     body: "Dosledan brend na mrežama koji podržava sve ostale kanale.",
     lead: "Planiramo, dizajniramo i objavljujemo sadržaj, da vaš brend na mrežama izgleda isto kao na sajtu i u oglasima.",
     includes: [
-      "Mesečni plan objava",
-      "Dizajn objava, Reels i Stories",
-      "Tekstovi i objavljivanje",
+      "Strategija i plan sadržaja",
+      "Izrada objava, Reels i Stories",
+      "Vođenje profila i objavljivanje",
     ],
     fact: ["Merimo", "Doseg, angažovanje i posete sajtu"],
   },
@@ -63,11 +60,11 @@ export const SERVICES = [
     body: "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",
     lead: "Određujemo šta vaš brend govori i kako izgleda, pa to primenjujemo na sajt, mreže i oglase.",
     includes: [
-      "Pozicioniranje i glavna poruka",
-      "Logo, boje i tipografija",
-      "Šabloni za objave i oglase",
+      "Strategija i pozicioniranje",
+      "Logo i vizuelni identitet",
+      "Brend knjiga i šabloni za objave",
     ],
-    fact: ["Rezultat", "Brend knjiga i svi fajlovi"],
+    fact: ["Rezultat", "Isti izgled na svakom mestu"],
   },
 ];
 

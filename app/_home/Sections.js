@@ -24,18 +24,6 @@ export function PlanSection({ clients }) {
               od marketinga sada najpotrebnije i od čega je najpametnije da
               krenete.
             </p>
-            <dl className={x.planGet}>
-              {[
-                ["Usluge", "poređane po tome koliko vam trebaju"],
-                ["Projekat", "naš rad koji je najsličniji vašem"],
-                ["Plan", "koji jednim klikom šaljete nama"],
-              ].map(([k, v]) => (
-                <div key={k}>
-                  <dt>{k}</dt>
-                  <dd>{v}</dd>
-                </div>
-              ))}
-            </dl>
             <small>Traje oko pola minuta.</small>
           </div>
           <Quiz clients={clients} />
