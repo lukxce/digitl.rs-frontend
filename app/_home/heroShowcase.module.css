@@ -10,6 +10,10 @@
   display: grid;
   min-width: 0;
 }
+/* a long typed search must not widen the card past a phone's screen */
+.card > * {
+  min-width: 0;
+}
 .wait {
   min-height: 560px;
 }
