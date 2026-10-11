@@ -94,8 +94,8 @@ export default function Journey() {
           <div className={j.headText}>
             <span className={b.label}>Kako radimo</span>
             <p>
-              <b>Jedan povezan proces</b> koji drži strategiju, egzekuciju i
-              rezultate u istom pravcu, <b>od početka do kraja.</b>
+              <b>Jedan proces</b> od prvog razgovora do mesečnog izveštaja.
+              U&nbsp;svakom koraku <b>znate šta radimo i šta je sledeće.</b>
             </p>
           </div>
         </div>

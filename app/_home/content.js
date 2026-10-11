@@ -1,11 +1,12 @@
-// Services and the three-question plan. `title` and `body` are the original
-// homepage's wording (the front of each card); `lead`, `includes` and `fact`
-// are the back: what we do, what is in it, and what we measure.
+// Services and the three-question plan. The front of a card: `body` is the
+// original homepage's wording, `title` its service names without the
+// English in brackets (SEO keeps its full name). The back: `lead`,
+// `includes` and `fact`, what we do, what is in it and what we measure.
 
 export const SERVICES = [
   {
     id: "ads",
-    title: "Plaćeno oglašavanje (Search & Social)",
+    title: "Plaćeno oglašavanje",
     name: "Plaćeno oglašavanje",
     body: "Kampanje na Google-u i mrežama, postavljene i skalirane da donose prodaju, ne samo klikove.",
     lead: "Postavljamo kampanje, pratimo svaki upit i budžet pomeramo tamo gde donosi prodaju.",
@@ -31,7 +32,7 @@ export const SERVICES = [
   },
   {
     id: "web",
-    title: "Web dizajn & razvoj",
+    title: "Web dizajn i razvoj",
     name: "Web",
     body: "Brzi sajtovi napravljeni da konvertuju, da plaćeni saobraćaj pretvore u kupce.",
     lead: "Dizajniramo i izrađujemo sajt koji se brzo učitava i posetioca vodi do upita ili kupovine.",
@@ -44,7 +45,7 @@ export const SERVICES = [
   },
   {
     id: "social",
-    title: "Upravljanje društvenim mrežama",
+    title: "Društvene mreže",
     name: "Društvene mreže",
     body: "Dosledan brend na mrežama koji podržava sve ostale kanale.",
     lead: "Planiramo, dizajniramo i objavljujemo sadržaj, da vaš brend na mrežama izgleda isto kao na sajtu i u oglasima.",
@@ -57,7 +58,7 @@ export const SERVICES = [
   },
   {
     id: "brand",
-    title: "Branding & identitet",
+    title: "Brend i identitet",
     name: "Brend",
     body: "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",
     lead: "Određujemo šta vaš brend govori i kako izgleda, pa to primenjujemo na sajt, mreže i oglase.",

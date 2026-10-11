@@ -55,7 +55,7 @@ export function Faq() {
           id="pitanja"
           label="Pitanja"
           title="Imate još pitanja pre nego što krenemo?"
-          intro="Imate dodatna pitanja? Javite se na hello@digitl.rs."
+          intro="Ako vašeg pitanja nema ovde, pišite na hello@digitl.rs."
         />
         <ul className={x.faqList}>
           {FAQ.map((f, i) => {
