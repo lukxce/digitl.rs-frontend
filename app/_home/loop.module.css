@@ -115,13 +115,41 @@
 }
 .ring {
   fill: none;
-  stroke: color-mix(in oklab, var(--accent) 12%, #fff);
-  stroke-width: 14;
+  stroke: color-mix(in oklab, var(--accent) 16%, #fff);
+  stroke-width: 16;
+}
+/* the dial's scale, turning with the wheel */
+.ticks line {
+  stroke: color-mix(in oklab, var(--accent) 34%, #fff);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.ticks line[data-major] {
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+/* the dial's face */
+.disc {
+  position: absolute;
+  inset: 26%;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 28%,
+    #fff 0%,
+    #fff 55%,
+    color-mix(in oklab, var(--accent) 4%, #fff) 100%
+  );
+  box-shadow:
+    0 30px 60px -34px color-mix(in oklab, var(--accent) 55%, transparent),
+    0 0 0 1px rgb(11 11 22 / 0.05),
+    inset 0 -10px 24px -18px color-mix(in oklab, var(--accent) 40%, transparent);
 }
 .ringOn {
   fill: none;
   stroke: var(--accent);
-  stroke-width: 14;
+  stroke-width: 16;
   stroke-linecap: round;
 }
 
@@ -132,12 +160,12 @@
   translate: -50% -50%;
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #fff;
   box-shadow:
-    0 6px 16px -8px rgb(11 11 22 / 0.3),
+    0 8px 18px -8px rgb(11 11 22 / 0.35),
     inset 0 0 0 2px var(--line-2);
   font-size: 13.5px;
   font-weight: 800;
@@ -152,9 +180,19 @@
 }
 @media (min-width: 640px) {
   .stop {
-    width: 42px;
-    height: 42px;
+    width: 50px;
+    height: 50px;
     font-size: 15px;
+  }
+}
+.stop svg {
+  width: 17px;
+  height: 17px;
+}
+@media (min-width: 640px) {
+  .stop svg {
+    width: 20px;
+    height: 20px;
   }
 }
 .stop:hover {
@@ -200,7 +238,7 @@
   display: grid;
   justify-items: center;
   gap: 6px;
-  width: 62%;
+  width: 50%;
   text-align: center;
 }
 .centerIn {
@@ -230,7 +268,7 @@
   color: var(--accent);
 }
 .center b {
-  font-size: clamp(26px, 3vw, 42px);
+  font-size: clamp(24px, 2.6vw, 36px);
   font-weight: 800;
   letter-spacing: -0.045em;
   line-height: 1;

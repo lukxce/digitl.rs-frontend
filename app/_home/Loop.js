@@ -11,7 +11,7 @@ import {
 } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import b from "./base.module.css";
-import { Rotate } from "./icons";
+import { Globe, Megaphone, Phone, Rotate, Search } from "./icons";
 import l from "./loop.module.css";
 import { Bridge, EASE, Head, useVisible } from "./ui";
 
@@ -65,6 +65,10 @@ const STAGES = [
   },
 ];
 const N = STAGES.length;
+// what happens at each stop, as an icon on the wheel
+const ICONS = [Megaphone, Search, Globe, Phone, Rotate];
+// the dial's scale: a fine tick every 6 degrees, a long one at each stop
+const TICKS = Array.from({ length: 60 }, (_, t) => t);
 const STEP = 360 / N;
 const C = 300;
 const R = 210;
@@ -98,6 +102,7 @@ function arcOf(p, fresh) {
 
 /** A numbered stop. Its place follows the wheel; the number stays upright. */
 function Stop({ i, rot, on, done, name, onPick }) {
+  const Icon = ICONS[i];
   const left = useTransform(rot, (r) =>
     pct(C + R * Math.sin(rad(i * STEP + r))),
   );
@@ -116,7 +121,7 @@ function Stop({ i, rot, on, done, name, onPick }) {
       aria-label={`${i + 1}. ${name}`}
       aria-pressed={on}
     >
-      {i + 1}
+      <Icon size={18} />
     </motion.button>
   );
 }
@@ -351,6 +356,19 @@ export default function Loop() {
               aria-hidden="true"
               style={{ rotate: rot }}
             >
+              <g className={l.ticks}>
+                {TICKS.map((t) => (
+                  <line
+                    key={t}
+                    x1={C}
+                    x2={C}
+                    y1={C - R + 20}
+                    y2={C - R + (t % 12 === 0 ? 38 : 30)}
+                    data-major={t % 12 === 0 ? "true" : undefined}
+                    transform={`rotate(${t * 6} ${C} ${C})`}
+                  />
+                ))}
+              </g>
               <circle cx={C} cy={C} r={R} className={l.ring} />
               <motion.circle
                 cx={C}
@@ -385,6 +403,9 @@ export default function Loop() {
                 onPick={onPick}
               />
             ))}
+
+            {/* the dial's face: a white disc the step's name sits on */}
+            <span className={l.disc} aria-hidden="true" />
 
             {/* A spin runs through several stops in a moment, so the text
                 swaps by remounting (a CSS rise), with no exit to wait for. */}

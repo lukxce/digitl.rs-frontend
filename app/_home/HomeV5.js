@@ -12,7 +12,9 @@ import Nav from "./Nav";
 import { Faq, PlanSection } from "./Sections";
 import Services from "./Services";
 import { AppProvider } from "./ui";
-import Value from "./Value";
+// The "Šta dobijate" section is parked (Luka, 21 Oct 2026); its four little
+// interfaces now live in the steps of Kako radimo (Minis.js).
+// import Value from "./Value";
 import Voices from "./Voices";
 import Work from "./Work";
 
@@ -34,7 +36,7 @@ export default function HomeV5({ clients, articles, fonts }) {
           <PlanSection clients={clients} />
           <Work clients={clients} />
           <Voices />
-          <Value />
+          {/* <Value /> */}
           <Blog articles={articles} />
           <Loop />
           <Contact />

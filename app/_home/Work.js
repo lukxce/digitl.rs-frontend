@@ -315,11 +315,19 @@ function Klima({ c, closest, front }) {
   );
 }
 
-function AllCases({ clients, front }) {
+/** Beside the deck: how many there are in all, and the way to them. */
+function AllCases({ clients }) {
   const ref = useRef(null);
-  const run = useRun(ref, front, 0.4);
+  const run = useVisible(ref, 0.4);
   return (
     <a ref={ref} href="/projects" className={`${w.card} ${w.ink}`}>
+      <span className={w.allNum}>
+        <Roll value={run ? 50 : 0} ms={1600} suffix="+" />
+      </span>
+      <span className={w.allText}>
+        uspešnih saradnji, od majstora iz Niša do distributera sa hiljadama
+        proizvoda.
+      </span>
       <span className={w.allSites}>
         {clients.slice(0, 4).map((c) => (
           <span key={c.slug} className={w.allSite}>
@@ -329,17 +337,8 @@ function AllCases({ clients, front }) {
           </span>
         ))}
       </span>
-      <span className={w.body}>
-        <span className={w.allNum}>
-          <Roll value={run ? 50 : 0} ms={1600} suffix="+" />
-        </span>
-        <span className={w.allText}>
-          uspešnih saradnji, od majstora iz Niša do distributera sa hiljadama
-          proizvoda.
-        </span>
-        <span className={w.allBtn}>
-          Pogledajte sve projekte <ArrowUpRight size={16} />
-        </span>
+      <span className={w.allBtn}>
+        Pogledajte sve projekte <ArrowUpRight size={16} />
       </span>
     </a>
   );
@@ -438,20 +437,13 @@ export default function Work({ clients }) {
   const ordered = match
     ? [match, ...available.filter((x) => x !== match)]
     : available;
-  const slides = [
-    ...ordered.map(({ C, c }) => ({
-      key: c.slug,
-      name: c.name,
-      render: (front) => (
-        <C c={c} closest={plan?.match === c.slug} front={front} />
-      ),
-    })),
-    {
-      key: "sve",
-      name: "Svi projekti",
-      render: (front) => <AllCases clients={clients} front={front} />,
-    },
-  ];
+  const slides = ordered.map(({ C, c }) => ({
+    key: c.slug,
+    name: c.name,
+    render: (front) => (
+      <C c={c} closest={plan?.match === c.slug} front={front} />
+    ),
+  }));
   const n = slides.length;
   // where the deck is, and where it was before the last move
   const [pos, setPos] = useState({ active: 0, prev: 0 });
@@ -493,53 +485,59 @@ export default function Work({ clients }) {
                 : "Primeri saradnji i rezultata koje smo ostvarili sa klijentima."
             }
           />
-          <div className={w.controls}>
-            <a className={w.allLink} href="/projects">
-              Svi projekti <ArrowUpRight size={15} />
-            </a>
-            <span className={w.count} aria-live="polite">
-              {pad(active + 1)} <i>/ {pad(n)}</i>
-            </span>
-            <button
-              type="button"
-              className={w.arrow}
-              onClick={() => go(-1)}
-              aria-label="Prethodni projekat"
-            >
-              <ChevronUp size={18} />
-            </button>
-            <button
-              type="button"
-              className={w.arrow}
-              onClick={() => go(1)}
-              aria-label="Sledeći projekat"
-            >
-              <ChevronDown size={18} />
-            </button>
-          </div>
+          {n > 1
+            ? <div className={w.controls}>
+                <span className={w.count} aria-live="polite">
+                  {pad(active + 1)} <i>/ {pad(n)}</i>
+                </span>
+                <button
+                  type="button"
+                  className={w.arrow}
+                  onClick={() => go(-1)}
+                  aria-label="Prethodni projekat"
+                >
+                  <ChevronUp size={18} />
+                </button>
+                <button
+                  type="button"
+                  className={w.arrow}
+                  onClick={() => go(1)}
+                  aria-label="Sledeći projekat"
+                >
+                  <ChevronDown size={18} />
+                </button>
+              </div>
+            : null}
         </div>
 
-        <div
-          className={w.deck}
-          onPointerDown={down}
-          onPointerUp={up}
-          onPointerCancel={() => {
-            touch.current = null;
-          }}
-        >
-          {slides.map((s, i) => (
-            <Slot
-              key={s.key}
-              k={(i - active + n) % n}
-              was={(i - prev + n) % n}
-              n={n}
-              peek={peek}
-              name={s.name}
-              onShow={() => show(i)}
-            >
-              {s.render(i === active)}
-            </Slot>
-          ))}
+        {/* the cases change on the left; all of them are a click away on
+            the right */}
+        <div className={w.stage}>
+          <div
+            className={w.deck}
+            onPointerDown={down}
+            onPointerUp={up}
+            onPointerCancel={() => {
+              touch.current = null;
+            }}
+          >
+            {slides.map((s, i) => (
+              <Slot
+                key={s.key}
+                k={(i - active + n) % n}
+                was={(i - prev + n) % n}
+                n={n}
+                peek={peek}
+                name={s.name}
+                onShow={() => show(i)}
+              >
+                {s.render(i === active)}
+              </Slot>
+            ))}
+          </div>
+          <div className={w.side}>
+            <AllCases clients={clients} />
+          </div>
         </div>
       </div>
       <div className={b.container}>

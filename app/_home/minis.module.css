@@ -1,0 +1,325 @@
+/* The small interfaces in the steps of "Kako radimo". Each one fills its
+   box (position: absolute; inset: 0); [data-dark] is the dark card. */
+.chat,
+.wait,
+.hub,
+.report {
+  position: absolute;
+  inset: 0;
+}
+
+/* 1 · chat */
+.chat {
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+}
+.them,
+.us {
+  display: grid;
+  gap: 2px;
+  max-width: 90%;
+  padding: 7px 10px 8px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+.them p,
+.us p {
+  font-weight: 600;
+}
+.them {
+  justify-self: start;
+  border-radius: 14px 14px 14px 5px;
+  background: var(--mist);
+  color: var(--ink);
+}
+.reply {
+  display: grid;
+  justify-items: end;
+}
+.reply > * {
+  grid-area: 1 / 1;
+}
+.typing {
+  align-self: start;
+  display: inline-flex;
+  gap: 3px;
+  padding: 9px 11px;
+  border-radius: 14px 14px 5px 14px;
+  background: var(--accent-soft);
+}
+.typing i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 1s infinite;
+}
+.typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.us {
+  border-radius: 14px 14px 5px 14px;
+  background: var(--accent);
+  color: #fff;
+}
+.who {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink-4);
+}
+.us .who {
+  color: rgb(255 255 255 / 0.75);
+}
+.mark {
+  width: 8px;
+  height: 10px;
+  background: currentColor;
+  -webkit-mask: url("/digitl-logo.png") center / contain no-repeat;
+  mask: url("/digitl-logo.png") center / contain no-repeat;
+}
+.chat[data-dark] .them {
+  background: #fff;
+}
+
+/* 2 · the plan in time */
+.wait {
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+}
+.waitRow {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+.waitName {
+  font-size: 12px;
+  font-weight: 800;
+}
+.track {
+  position: relative;
+  height: 26px;
+  border-radius: 9px;
+  background: var(--mist);
+}
+.track i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 9px;
+  transform-origin: left center;
+}
+.track i[data-k="0"] {
+  width: 16%;
+  background: var(--secondary);
+}
+.track i[data-k="1"] {
+  width: 100%;
+  background: var(--accent);
+}
+.waitTime {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.waitTime[data-k="0"] {
+  left: calc(16% + 7px);
+  color: var(--ink);
+}
+.waitTime[data-k="1"] {
+  right: 9px;
+  color: #fff;
+}
+.scale {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 54px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+.wait[data-dark] .waitName {
+  color: #fff;
+}
+.wait[data-dark] .track {
+  background: rgb(255 255 255 / 0.1);
+}
+.wait[data-dark] .waitTime[data-k="0"] {
+  color: #fff;
+}
+.wait[data-dark] .scale {
+  color: rgb(255 255 255 / 0.5);
+}
+
+/* 3 · hub */
+.hubLines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hubLines line {
+  stroke: var(--line-2);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 3;
+  vector-effect: non-scaling-stroke;
+}
+.hub[data-dark] .hubLines line {
+  stroke: rgb(255 255 255 / 0.22);
+}
+.pulse {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.hub[data-dark] .pulse {
+  background: var(--secondary);
+}
+.core {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 7px color-mix(in oklab, var(--accent) 14%, transparent);
+}
+.core i {
+  width: 15px;
+  height: 18px;
+  background: #fff;
+  -webkit-mask: url("/digitl-logo.png") center / contain no-repeat;
+  mask: url("/digitl-logo.png") center / contain no-repeat;
+}
+.node {
+  position: absolute;
+  translate: -50% -50%;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 6px 14px -10px rgb(11 11 22 / 0.4);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* 4 · report */
+.report {
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+}
+.reportHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.reportHead > span:first-child {
+  display: grid;
+}
+.reportHead b {
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.reportHead em {
+  font-style: normal;
+  font-size: 10.5px;
+  color: var(--ink-4);
+}
+.up {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--secondary);
+  color: var(--ink);
+}
+.chart {
+  display: block;
+  width: 100%;
+  height: 46px;
+  overflow: visible;
+}
+.grid {
+  stroke: var(--line);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.area {
+  fill: color-mix(in oklab, var(--accent) 12%, transparent);
+}
+.line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+.source {
+  justify-self: start;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--mist);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink-3);
+}
+.report[data-dark] .reportHead em {
+  color: rgb(255 255 255 / 0.55);
+}
+.report[data-dark] .grid {
+  stroke: rgb(255 255 255 / 0.1);
+}
+.report[data-dark] .area {
+  fill: rgb(158 243 74 / 0.12);
+}
+.report[data-dark] .line {
+  stroke: var(--secondary);
+}
+.report[data-dark] .source {
+  background: rgb(255 255 255 / 0.1);
+  color: rgb(255 255 255 / 0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse,
+  .typing i {
+    display: none;
+    animation: none;
+  }
+}
