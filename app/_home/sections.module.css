@@ -437,6 +437,12 @@
     align-items: start;
   }
 }
+.faqSide {
+  display: grid;
+  gap: 24px;
+  align-content: start;
+  justify-items: start;
+}
 .faqList {
   display: grid;
   gap: 8px;

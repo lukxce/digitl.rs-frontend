@@ -1,7 +1,8 @@
 "use client";
 
-import b from "./base.module.css";
 import Blog from "./Blog";
+import Booking from "./Booking";
+import b from "./base.module.css";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import Hero from "./Hero";
@@ -11,6 +12,7 @@ import Nav from "./Nav";
 import { Faq, PlanSection } from "./Sections";
 import Services from "./Services";
 import { AppProvider } from "./ui";
+import Value from "./Value";
 import Voices from "./Voices";
 import Work from "./Work";
 
@@ -32,12 +34,14 @@ export default function HomeV5({ clients, articles, fonts }) {
           <PlanSection clients={clients} />
           <Work clients={clients} />
           <Voices />
+          <Value />
           <Blog articles={articles} />
           <Loop />
           <Contact />
           <Faq />
         </main>
         <Footer />
+        <Booking />
       </AppProvider>
     </div>
   );

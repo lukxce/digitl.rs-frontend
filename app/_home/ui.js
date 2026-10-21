@@ -56,6 +56,8 @@ export function AppProvider({ children, home = true }) {
   const lenis = useLenis();
   const [plan, setPlan] = useState(null);
   const [topic, setTopic] = useState(null);
+  // the booking dialog: null when closed, { topic } when open
+  const [booking, setBooking] = useState(null);
 
   // Section anchors already sit 90px above their heading, so they need no
   // extra offset; anything else is pulled up clear of the nav. On an inner
@@ -132,6 +134,9 @@ export function AppProvider({ children, home = true }) {
       if (t) setTopic(t);
       scrollTo("#kontakt");
     },
+    booking,
+    openBooking: (t = null) => setBooking({ topic: t }),
+    closeBooking: () => setBooking(null),
   };
   return <App.Provider value={value}>{children}</App.Provider>;
 }

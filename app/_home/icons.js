@@ -29,6 +29,22 @@ export const ArrowLeft = (p) => (
     <path d="M19 12H5M11 6l-6 6 6 6" />
   </I>
 );
+export const ChevronUp = (p) => (
+  <I {...p}>
+    <path d="m6 15 6-6 6 6" />
+  </I>
+);
+export const ChevronDown = (p) => (
+  <I {...p}>
+    <path d="m6 9 6 6 6-6" />
+  </I>
+);
+export const Video = (p) => (
+  <I {...p}>
+    <rect x="3" y="6" width="13" height="12" rx="2.5" />
+    <path d="m16 10.5 5-3v9l-5-3" />
+  </I>
+);
 export const ArrowUpRight = (p) => (
   <I {...p}>
     <path d="M7 17 17 7M8 7h9v9" />

@@ -37,7 +37,7 @@
   .layout {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
     gap: clamp(32px, 4vw, 56px);
-    align-items: start;
+    align-items: stretch;
   }
 }
 
@@ -348,4 +348,43 @@
   font-size: 13.5px;
   font-weight: 700;
   color: var(--secondary);
+}
+
+/* On a wide screen the featured post and the reading list are one block
+   that fits on the screen: the list is set a little tighter, and the
+   featured post is exactly as tall as the list, its cover taking whatever
+   height is left and shown whole. Placed last so it wins over the rules
+   above it. */
+@media (min-width: 960px) {
+  .lead {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .leadCover {
+    flex: 1 1 0;
+    min-height: 220px;
+    aspect-ratio: auto;
+  }
+  /* the covers are drawn on near-white, so the frame around one is too */
+  .leadCover {
+    background: #fbfaf9;
+    box-shadow: inset 0 0 0 1px rgb(11 11 22 / 0.04);
+  }
+  .leadCover .leadImg {
+    object-fit: contain;
+  }
+  .excerpt {
+    -webkit-line-clamp: 2;
+  }
+  .item {
+    grid-template-columns: minmax(0, 1fr) 112px;
+    padding: 16px 0;
+  }
+  .itemTitle {
+    font-size: 17px;
+  }
+  .itemExcerpt {
+    font-size: 13.5px;
+  }
 }

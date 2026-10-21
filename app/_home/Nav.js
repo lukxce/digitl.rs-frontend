@@ -179,7 +179,7 @@ function Menu({ onClose, onBook, onGo, links }) {
 
 /** A plain bar at the top that turns into a small pill and follows the page. */
 export default function Nav() {
-  const { book, scrollTo, home } = useApp();
+  const { openBooking, scrollTo, home } = useApp();
   const router = useRouter();
   const links = home ? LINKS : INNER_LINKS;
   // In-page links glide instead of jumping (Lenis is off on phones). Links
@@ -269,7 +269,7 @@ export default function Nav() {
           <Btn
             variant="accent"
             size="sm"
-            onClick={() => book()}
+            onClick={() => openBooking()}
             className={n.cta}
           >
             Zakaži razgovor
@@ -280,7 +280,7 @@ export default function Nav() {
           {open && !floating
             ? <Menu
                 onClose={() => setOpen(false)}
-                onBook={book}
+                onBook={() => openBooking()}
                 onGo={go}
                 links={links}
               />
@@ -318,7 +318,7 @@ export default function Nav() {
                 variant="accent"
                 size="sm"
                 arrow={false}
-                onClick={() => book()}
+                onClick={() => openBooking()}
               >
                 Zakaži
               </Btn>
@@ -326,7 +326,7 @@ export default function Nav() {
                 {open
                   ? <Menu
                       onClose={() => setOpen(false)}
-                      onBook={book}
+                      onBook={() => openBooking()}
                       onGo={go}
                       links={links}
                     />

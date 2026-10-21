@@ -1,5 +1,6 @@
 "use client";
 
+import Booking from "./Booking";
 import b from "./base.module.css";
 import Contact from "./Contact";
 import Footer from "./Footer";
@@ -19,6 +20,7 @@ export default function Shell({ children, fonts, contact = true }) {
           {contact ? <Contact /> : null}
         </main>
         <Footer />
+        <Booking />
       </AppProvider>
     </div>
   );

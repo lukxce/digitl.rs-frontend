@@ -63,7 +63,7 @@ function Logos({ clients }) {
 }
 
 export default function Hero({ clients, visual = null }) {
-  const { scrollTo, book } = useApp();
+  const { scrollTo, openBooking } = useApp();
 
   return (
     <section id="top" className={h.hero} data-section="Početak">
@@ -96,7 +96,7 @@ export default function Hero({ clients, visual = null }) {
               }
             </p>
             <div className={h.ctas}>
-              <Btn variant="accent" onClick={() => book()}>
+              <Btn variant="accent" onClick={() => openBooking()}>
                 Zakaži razgovor
               </Btn>
               <Btn

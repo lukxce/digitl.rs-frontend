@@ -157,7 +157,12 @@ export default function Blog({ articles }) {
             <span className={l.leadCover}>
               {lead.cover
                 ? // eslint-disable-next-line @next/next/no-img-element
-                  <img src={lead.cover} alt="" loading="lazy" />
+                  <img
+                    className={l.leadImg}
+                    src={lead.cover}
+                    alt=""
+                    loading="lazy"
+                  />
                 : null}
               <span className={l.new}>Najnovije</span>
             </span>
