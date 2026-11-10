@@ -24,7 +24,7 @@ export default function SiteNav() {
             <Link href="/projects">Projekti</Link>
           </li>
           <li>
-            <Link href="/journal">Blog</Link>
+            <Link href="/usluge">Usluge</Link>
           </li>
           <li className={styles.contactLink}>
             <Link href="/#contact">Kontakt</Link>

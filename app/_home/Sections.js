@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { useState } from "react";
 import b from "./base.module.css";
 import { FAQ } from "./content";
@@ -67,20 +67,22 @@ export function Faq() {
                     <Plus size={16} strokeWidth={2.4} />
                   </i>
                 </button>
-                <AnimatePresence initial={false}>
-                  {on
-                    ? <motion.div
-                        id={`faq-${i}`}
-                        className={x.answer}
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4, ease: EASE }}
-                      >
-                        <p>{f.a}</p>
-                      </motion.div>
-                    : null}
-                </AnimatePresence>
+                {/* Every answer is in the page (search engines and AI
+                    answers read them); a closed one is only folded. */}
+                <motion.div
+                  id={`faq-${i}`}
+                  className={x.answer}
+                  initial={false}
+                  animate={
+                    on
+                      ? { height: "auto", opacity: 1 }
+                      : { height: 0, opacity: 0 }
+                  }
+                  transition={{ duration: 0.4, ease: EASE }}
+                  aria-hidden={!on}
+                >
+                  <p>{f.a}</p>
+                </motion.div>
               </li>
             );
           })}

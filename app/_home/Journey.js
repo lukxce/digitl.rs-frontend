@@ -98,7 +98,7 @@ export default function Journey() {
         <span id="proces" className={b.anchor} />
         <div className={j.head}>
           <span className={j.four} aria-hidden="true">
-            <Roll value={visible ? 4 : 0} ms={1400} />
+            <Roll value={4} run={visible} ms={1400} />
           </span>
           <div className={j.headText}>
             <span className={b.label}>Kako radimo</span>

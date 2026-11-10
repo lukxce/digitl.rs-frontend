@@ -7,6 +7,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -158,19 +159,30 @@ export function useVisible(ref, amount = 0.35) {
   return v;
 }
 
-/** Rolls from the previous value to `target` instead of jumping. */
+const useIsoLayout = typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+/** Rolls from the previous value to `target` instead of jumping. The server
+    and the first paint show the real number, so a crawler or a link preview
+    never reads "0"; in the browser it parks at 0 (before paint) and rolls
+    up once `run` turns on. */
 export function useTween(target, ms = 1100, run = true) {
-  const [v, setV] = useState(0);
-  const from = useRef(0);
+  const [v, setV] = useState(target);
+  const from = useRef(null);
+  useIsoLayout(() => {
+    if (from.current !== null) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    from.current = 0;
+    setV(0);
+  }, []);
   useEffect(() => {
-    if (!run) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       from.current = target;
       setV(target);
       return;
     }
+    if (!run) return;
     let raf = 0;
-    const a = from.current;
+    const a = from.current ?? 0;
     const t0 = performance.now();
     const step = (t) => {
       const p = Math.min(1, (t - t0) / ms);

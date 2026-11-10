@@ -322,7 +322,7 @@ function AllCases({ clients }) {
   return (
     <a ref={ref} href="/projects" className={`${w.card} ${w.ink}`}>
       <span className={w.allNum}>
-        <Roll value={run ? 50 : 0} ms={1600} suffix="+" />
+        <Roll value={50} run={run} ms={1600} suffix="+" />
       </span>
       <span className={w.allText}>
         uspešnih saradnji, od majstora iz Niša do distributera sa hiljadama

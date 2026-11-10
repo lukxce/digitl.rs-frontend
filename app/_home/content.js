@@ -3,11 +3,13 @@
 // English in brackets (SEO keeps its full name). The back: `lead` is what
 // we do, `includes` the services inside it (three, four for SEO; each one a
 // thing a client can order, never a feature or a tactic), `fact` what we
-// measure.
+// measure. `page` is the service's own page under /usluge.
 
 export const SERVICES = [
   {
     id: "ads",
+    footer: "Google i Meta oglasi",
+    page: "/usluge/placeno-oglasavanje",
     title: "Plaćeno oglašavanje",
     name: "Plaćeno oglašavanje",
     body: "Kampanje na Google-u i mrežama, postavljene i skalirane da donose prodaju, ne samo klikove.",
@@ -21,6 +23,8 @@ export const SERVICES = [
   },
   {
     id: "seo",
+    footer: "SEO optimizacija",
+    page: "/usluge/seo-optimizacija",
     title: "Search Engine Optimization (SEO)",
     name: "SEO",
     body: "Budite prvi tamo gde kupci traže rešenje, na Google-u i u AI pretrazi.",
@@ -35,6 +39,8 @@ export const SERVICES = [
   },
   {
     id: "web",
+    footer: "Izrada sajta",
+    page: "/usluge/izrada-sajta",
     title: "Web dizajn i razvoj",
     name: "Web",
     body: "Brzi sajtovi napravljeni da konvertuju, da plaćeni saobraćaj pretvore u kupce.",
@@ -48,6 +54,8 @@ export const SERVICES = [
   },
   {
     id: "social",
+    footer: "Vođenje društvenih mreža",
+    page: "/usluge/vodjenje-drustvenih-mreza",
     title: "Društvene mreže",
     name: "Društvene mreže",
     body: "Dosledan brend na mrežama koji podržava sve ostale kanale.",
@@ -61,6 +69,8 @@ export const SERVICES = [
   },
   {
     id: "brand",
+    footer: "Dizajn logotipa",
+    page: "/usluge/dizajn-logotipa",
     title: "Brend i identitet",
     name: "Brend",
     body: "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",

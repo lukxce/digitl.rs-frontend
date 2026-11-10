@@ -19,7 +19,7 @@ import {
   SocialSticker,
   TargetSticker,
   WebSticker,
-} from "./Stickers";
+} from "../_usluge/Stickers";
 
 /* ── hero ─────────────────────────────────────────────────────────────── */
 

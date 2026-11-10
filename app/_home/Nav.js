@@ -18,15 +18,13 @@ export const LINKS = [
   { href: "#usluge", label: "Usluge" },
   { href: "#proces", label: "Kako radimo" },
   { href: "/projects", label: "Projekti" },
-  { href: "/journal", label: "Blog" },
   { href: "#kontakt", label: "Kontakt" },
 ];
 
 export const INNER_LINKS = [
-  { href: "/#usluge", label: "Usluge" },
+  { href: "/usluge", label: "Usluge" },
   { href: "/#proces", label: "Kako radimo" },
   { href: "/projects", label: "Projekti" },
-  { href: "/journal", label: "Blog" },
   { href: "#kontakt", label: "Kontakt" },
 ];
 

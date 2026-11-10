@@ -10,12 +10,14 @@ import HeroShowcase from "./HeroShowcase";
 import h from "./hero.module.css";
 import { Btn, EASE, useApp } from "./ui";
 
+/* A headline line. It is readable from the first paint and only settles
+   into place (it used to rise from under a mask, which held back the
+   page's main paint by seconds on slow phones). The trailing space keeps
+   the words apart in the page text: "koji donosi", not "kojidonosi". */
 function Line({ delay, children }) {
   return (
-    <span className={b.lineMask}>
-      <span className={b.lineUp} style={{ animationDelay: `${delay}ms` }}>
-        {children}
-      </span>
+    <span className={h.line} style={{ animationDelay: `${delay}ms` }}>
+      {children}{" "}
     </span>
   );
 }

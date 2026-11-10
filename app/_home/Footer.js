@@ -2,7 +2,7 @@
 
 import logo from "../assets/digitl-logo.png";
 import b from "./base.module.css";
-import { CONTACT } from "./content";
+import { CONTACT, SERVICES } from "./content";
 import f from "./footer.module.css";
 import { Lock } from "./icons";
 import Link from "next/link";
@@ -68,6 +68,14 @@ export default function Footer() {
               ))}
             </div>
           </div>
+          <nav className={f.services} aria-label="Usluge">
+            <Link href="/usluge">Usluge</Link>
+            {SERVICES.map((x) => (
+              <Link key={x.id} href={x.page}>
+                {x.footer}
+              </Link>
+            ))}
+          </nav>
           <div className={f.base}>
             <span>© 2026 Digitl · Beograd / London</span>
             <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>

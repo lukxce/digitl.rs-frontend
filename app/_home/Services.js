@@ -212,14 +212,23 @@ function Card({ x, i, rank, wide, onAsk }) {
                 <em>{x.fact[0]}</em>
                 <b>{x.fact[1]}</b>
               </p>
-              <button
-                type="button"
-                className={s.ask}
-                onClick={() => onAsk(x.name)}
-                tabIndex={flipped ? 0 : -1}
-              >
-                Razgovarajmo <ArrowRight size={14} />
-              </button>
+              <div className={s.actions}>
+                <button
+                  type="button"
+                  className={s.ask}
+                  onClick={() => onAsk(x.name)}
+                  tabIndex={flipped ? 0 : -1}
+                >
+                  Razgovarajmo <ArrowRight size={14} />
+                </button>
+                <a
+                  className={s.more}
+                  href={x.page}
+                  tabIndex={flipped ? 0 : -1}
+                >
+                  Više o usluzi
+                </a>
+              </div>
             </div>
           </div>
         </div>

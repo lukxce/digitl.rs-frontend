@@ -12,7 +12,7 @@ import { ArrowUpRight } from "../_home/icons";
 import { EASE } from "../_home/ui";
 import s from "./novi.module.css";
 import { Faq, Lines, Reviews, Rise, Shell } from "./Parts";
-import { TargetSticker } from "./Stickers";
+import { TargetSticker } from "../_usluge/Stickers";
 
 /* ── the dashboard under the title ───────────────────────────────────────
    A sample report, labelled as one: what a client sees each month. It tilts

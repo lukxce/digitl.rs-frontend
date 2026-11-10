@@ -73,6 +73,21 @@
   margin-top: 24px !important;
   font-size: clamp(42px, 4.3vw, 68px);
 }
+/* headline lines: readable on the first paint, then they settle a little */
+.line {
+  display: block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .line {
+    animation: settle 0.9s var(--ease) both;
+  }
+}
+@keyframes settle {
+  from {
+    transform: translateY(0.24em);
+    opacity: 0.55;
+  }
+}
 @media (max-width: 1040px) {
   .title {
     font-size: clamp(40px, 7vw, 64px);

@@ -1,4 +1,5 @@
-/* Sticker illustrations for the /novi pages: flat brand shapes with an ink
+/* Sticker illustrations (first drawn for the /novi test, now used by the
+   service pages too): flat brand shapes with an ink
    outline and a white sticker edge, drawn on a 120 px grid. */
 
 const INK = "#0b0b16";
@@ -219,3 +220,12 @@ export function BrandSticker({ size = 120, className }) {
     </Svg>
   );
 }
+
+/** One sticker per service, by the homepage's service id. */
+export const STICKERS = {
+  ads: TargetSticker,
+  seo: SearchSticker,
+  web: WebSticker,
+  social: SocialSticker,
+  brand: BrandSticker,
+};

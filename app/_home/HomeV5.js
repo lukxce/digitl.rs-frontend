@@ -1,6 +1,5 @@
 "use client";
 
-import Blog from "./Blog";
 import Booking from "./Booking";
 import b from "./base.module.css";
 import Contact from "./Contact";
@@ -24,7 +23,7 @@ import Work from "./Work";
     customer's path, the talk. The plan from the three questions travels
     through the sections below it. Brings its own chrome, so the global
     SiteNav hides itself (data-own-chrome). */
-export default function HomeV5({ clients, articles, fonts }) {
+export default function HomeV5({ clients, fonts }) {
   return (
     <div className={`${b.root} ${fonts}`} data-own-chrome>
       <AppProvider>
@@ -37,7 +36,8 @@ export default function HomeV5({ clients, articles, fonts }) {
           <Work clients={clients} />
           <Voices />
           {/* <Value /> */}
-          <Blog articles={articles} />
+          {/* The blog is off the site for now (Luka, 10 Nov 2026: the old
+              posts were industry news). Blog.js stays for when it returns. */}
           <Loop />
           <Contact />
           <Faq />

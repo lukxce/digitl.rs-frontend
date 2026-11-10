@@ -326,10 +326,32 @@
 .fact b {
   font-weight: 800;
 }
-.ask {
+.actions {
   grid-area: ask;
   align-self: end;
-  justify-self: start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+/* the link to the service's own page: an outline pill beside "Razgovarajmo" */
+.more {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1.5px color-mix(in oklab, currentColor 38%, transparent);
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    box-shadow 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+.more:hover {
+  transform: translateY(-1px);
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+.ask {
   display: inline-flex;
   align-items: center;
   gap: 6px;

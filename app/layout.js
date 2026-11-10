@@ -14,11 +14,11 @@ export const metadata = {
   // Relative canonical and og:url paths resolve against the live domain.
   metadataBase: new URL("https://www.digitl.rs"),
   title: {
-    default: "Digitl | Full-Service marketing agencija",
+    default: "Digitl | Marketing agencija za oglase, SEO i izradu sajtova",
     template: "%s · Digitl",
   },
   description:
-    "Digitl je full-service marketing agencija koja vodi ceo vaš marketing kao jedan sistem: plaćeno oglašavanje, web, SEO, društvene mreže i brend. Marketing koji se meri profitom, ne aktivnošću.",
+    "Digitl vodi Google i Meta oglase, SEO, izradu sajtova, društvene mreže i brend kao jedan sistem, za firme širom Srbije. Zakažite razgovor.",
 };
 
 export default function RootLayout({ children }) {
