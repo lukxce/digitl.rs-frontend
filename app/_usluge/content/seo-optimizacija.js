@@ -4,13 +4,14 @@
    - "Za lokalnu uslugu u gradu sa malo konkurencije pretraga obično počne ozbiljno da donosi upite za oko tri meseca" (opšte pravilo izvedeno iz Moler Niš i ElektroMil)
    - "U prvom mesecu gledamo da li je Google pročitao sve stranice", pozicije poredimo od drugog i trećeg meseca
    - Posle prvog pregleda klijent dobija spisak stranica i popravki za prva tri meseca
-   - Cenu (iznos) za SEO dajemo posle pregleda sajta i pretraga u delatnosti klijenta
-   - Na Google profilu firme sređujemo delatnost i fotografije urađenih poslova
+   - Tačan iznos (od 250 € naviše) dajemo posle pregleda sajta i pretraga u delatnosti klijenta
+   - Na Google profilu firme upisujemo tačnu delatnost i dodajemo fotografije urađenih radova
    - Proveravamo da podešavanja sajta ne blokiraju robote kojima AI alati čitaju stranice
    - SEO radimo i na postojećem sajtu koji nismo mi pravili, ako je brz i može da se menja
-   - Mesečni izveštaj pokazuje posete iz pretrage po stranici, upite koji su stigli iz pretrage i spisak posla za sledeći mesec
+   - Mesečni izveštaj pokazuje posete iz pretrage po stranici, upite koji su stigli iz pretrage i plan stranica i izmena za sledeći mesec
    - U klijentskom portalu se vidi spisak urađenih stranica i popravki
-   - Ako klijent nema Google Search Console, podešavamo ga na početku saradnje */
+   - Ako klijent nema Google Search Console, podešavamo ga na početku saradnje
+   - Blog članci su deo SEO usluge i njihov broj ulazi u cenu (iz Lukine napomene o ceni, proveriti formulaciju) */
 
 const page = {
   slug: "seo-optimizacija",
@@ -22,7 +23,7 @@ const page = {
   },
   label: "Search Engine Optimization (SEO)",
   h1: "SEO optimizacija sajta",
-  lead: "Pišemo stranice za usluge koje prodajete i sređujemo sajt i Google profil firme, da vas na Google-u i u AI pretrazi nađu ljudi koji već traže takvu uslugu. Radimo za firme iz cele Srbije, od zanatskih radnji i ordinacija do online prodavnica. Svakog meseca vidite pozicije, posete i upite iz pretrage.",
+  lead: "Pišemo stranice za usluge koje prodajete i optimizujemo sajt i Google profil firme, da vas na Google-u i u AI pretrazi pronađu ljudi koji traže vašu uslugu. Radimo za firme iz cele Srbije, od lokalnih servisa i ordinacija do online prodavnica. Svakog meseca vidite pozicije, posete i upite iz pretrage.",
   proof: [
     { value: "2.836", label: "poseta iz pretrage", href: "/projects/thermiq" },
     {
@@ -39,30 +40,30 @@ const page = {
   intro: {
     title: "Šta je SEO optimizacija i šta od nje dobijate",
     body: [
-      "SEO optimizacija je posao na sajtu i oko njega koji pomaže da vas Google prikaže ljudima koji traže baš ono što prodajete, bez plaćanja po kliku. Naziv je skraćenica od Search Engine Optimization, optimizacija za pretraživače. Iste stranice i iste podatke o firmi danas čitaju i AI asistenti poput ChatGPT-a kad nekome preporučuju majstora ili prodavnicu.",
-      "Pozicija na Google-u je za nas međukorak. Pratimo za koje pretrage se sajt pojavljuje i koliko ljudi iz njih dođe na sajt, a na kraju i koliko njih pozove ili pošalje poruku. Posao vam donosi taj poslednji broj, pa po njemu biramo koju stranicu pišemo ili popravljamo sledeću.",
-      "Od SEO-a nemojte očekivati upite već sledeće nedelje. Ako vam posao treba odmah, brže će ga doneti [plaćeno oglašavanje](/usluge/placeno-oglasavanje), a SEO gradite paralelno da biste za nekoliko meseci manje zavisili od oglasa. Kad niste sigurni šta vam je prvi korak, [plan od tri pitanja](/#vas-plan) za pola minuta preporučuje da li da počnete od SEO-a ili od nečeg drugog.",
+      "SEO optimizacija je pisanje stranica i tehničko podešavanje sajta tako da vas Google prikaže ljudima koji traže ono što prodajete, bez plaćanja po kliku. Naziv je skraćenica od Search Engine Optimization, optimizacija za pretraživače. Iste stranice i iste podatke o firmi danas čitaju i AI asistenti poput ChatGPT-a kad nekome preporučuju servis ili prodavnicu.",
+      "Pozicija na Google-u je za nas međukorak. Pratimo za koje pretrage se sajt pojavljuje i koliko ljudi iz njih dođe na sajt, a na kraju i koliko njih pozove ili pošalje poruku. Za vašu firmu je važan taj poslednji broj, pa po njemu biramo koju stranicu pišemo ili popravljamo sledeću.",
+      "Od SEO-a nemojte očekivati upite već sledeće nedelje. Ako vam upiti trebaju odmah, brže će ih doneti [plaćeno oglašavanje](/usluge/placeno-oglasavanje), a SEO gradite paralelno da biste za nekoliko meseci manje zavisili od oglasa. Kad niste sigurni šta vam je prvi korak, [plan od tri pitanja](/#vas-plan) za pola minuta preporučuje da li da počnete od SEO-a ili od nečeg drugog.",
     ],
   },
   included: {
     title: "Šta je uključeno",
     intro:
-      "SEO usluge možete da naručite sve četiri zajedno ili samo onu koja vašem sajtu nedostaje.",
+      "SEO optimizacija ima četiri dela. Možete da naručite sva četiri ili samo onaj koji vašem sajtu nedostaje, a od toga zavisi i cena.",
     items: [
       {
         title: "Pisanje sadržaja",
-        sub: "stranice usluga i tekstovi",
-        text: "Za svaku uslugu pišemo posebnu stranicu sa vašim cenama i rokovima, a uz nju tekstove koji odgovaraju na ono što ljudi pitaju pre nego što pozovu.",
+        sub: "stranice usluga i blog članci",
+        text: "Za svaku uslugu pišemo posebnu stranicu sa vašim cenama i rokovima. U blog člancima odgovaramo na pitanja koja ljudi kucaju u Google pre nego što pozovu, na primer koliko nešto košta ili koliko traje.",
       },
       {
         title: "Tehnički SEO",
         sub: "brzina i indeksiranje",
-        text: "Proveravamo da li Google vidi svaku stranicu i da li ju je uvrstio u pretragu, što se zove indeksiranje. Zatim sređujemo naslove, opise i brzinu sajta na telefonu.",
+        text: "Proveravamo da li Google vidi svaku stranicu i da li ju je uvrstio u pretragu, što se zove indeksiranje. Zatim optimizujemo naslove i opise stranica i brzinu sajta na telefonu.",
       },
       {
         title: "Lokalni SEO",
         sub: "Google profil i mape",
-        text: "Sređujemo Google profil firme i pazimo da ime, telefon i adresa budu isti na sajtu i u poslovnim imenicima. Tako vas lakše nađu ljudi iz vašeg grada, i u pretrazi i na mapi.",
+        text: "Optimizujemo Google profil firme i pazimo da ime, telefon i adresa budu isti na sajtu i u poslovnim imenicima. Tako vas ljudi iz vašeg grada lakše nađu u pretrazi i na Google mapama.",
       },
       {
         title: "AEO, optimizacija za AI pretragu",
@@ -74,7 +75,7 @@ const page = {
   steps: {
     title: "Kako radimo",
     intro:
-      "Redosled je isti za mali sajt usluga i za katalog sa hiljadama proizvoda, razlikuje se samo obim posla.",
+      "Redosled je isti za mali sajt usluga i za webshop sa hiljadama proizvoda. Razlikuje se samo broj stranica.",
     items: [
       {
         title: "Pregled pretraga",
@@ -82,15 +83,15 @@ const page = {
       },
       {
         title: "Tehnička provera",
-        text: "Merimo brzinu na telefonu i čitamo greške koje Google prijavljuje u Search Console-u, pa ono što koči ceo sajt popravljamo pre bilo kog novog teksta.",
+        text: "Merimo brzinu sajta na telefonu i čitamo greške koje Google prijavljuje u Search Console-u. Ono što usporava ceo sajt popravljamo pre bilo kog novog teksta.",
       },
       {
         title: "Stranica po pretrazi",
-        text: "Svaku uslugu i svako veće pitanje kupaca vezujemo za jednu stranicu. Pišemo stranice koje nedostaju i dopunjujemo one koje postoje.",
+        text: "Svaku uslugu i svako veće pitanje kupaca vezujemo za jednu stranicu. Pišemo stranice koje nedostaju i dopunjujemo one koje već postoje.",
       },
       {
         title: "Izveštaj i plan",
-        text: "U mesečnom izveštaju vidite šta se pomerilo u pretrazi i odakle stižu upiti, zajedno sa spiskom posla za sledeći mesec.",
+        text: "U mesečnom izveštaju vidite šta se pomerilo u pretrazi i odakle stižu upiti, uz plan stranica i izmena za sledeći mesec.",
       },
     ],
   },
@@ -98,12 +99,12 @@ const page = {
     {
       slug: "moler-nis",
       title: "Moler Niš",
-      text: "Za molersku firmu iz Niša, bez sajta i bez poznatog imena, rezultat je bio prvo mesto na Google-u za tri meseca.",
+      text: "Molerska firma iz Niša počela je bez sajta i bez imena koje ljudi traže, a za tri meseca stigla je do prvog mesta na Google-u.",
     },
     {
       slug: "elektromil",
       title: "ElektroMil",
-      text: "Električaru iz Niša Google pretraga je postala najveći izvor upita za tri meseca, ispred preporuka koje su ranije donosile sav posao.",
+      text: "Električarskoj firmi iz Niša Google pretraga je za tri meseca postala najveći izvor upita, ispred preporuka na koje se firma do tada oslanjala.",
     },
   ],
   guide: [
@@ -111,15 +112,16 @@ const page = {
       title: "Za koliko vremena SEO optimizacija daje rezultate",
       body: [
         "Za lokalnu uslugu u gradu sa malo konkurencije pretraga obično počne ozbiljno da donosi upite za oko tri meseca. U Beogradu i u traženim delatnostima računajte na duži rok.",
-        "Toliko je trajalo kod molera i električara iz Niša, a kod električara je pomoglo i to što većina lokalnih firmi nije imala sajt sređen za pretragu.",
+        "Toliko je trajalo kod Moler Niša i ElektroMila, a ElektroMilu je pomoglo i to što većina konkurenata u Nišu nije imala sajt optimizovan za pretragu.",
         "Rok najviše pomeraju tri stvari:",
         {
           list: [
-            "koliko firmi u vašem gradu ima sređen sajt za iste usluge",
-            "u kakvom je stanju sajt (stari sajt sa greškama prvo traži popravke)",
-            "koliko usluga treba pokriti i koliko stranica za njih već postoji",
+            "koliko firmi u vašem gradu već radi SEO za iste usluge",
+            "u kakvom je stanju sajt na početku (stari sajt sa greškama prvo traži popravke)",
+            "koliko stranica za vaše usluge već postoji",
           ],
         },
+        "Od njih zavisi koliko dugo čekate na rezultat, dok cenu određuje broj stranica i izmena koje radimo.",
         "U prvom mesecu gledamo da li je Google pročitao sve stranice i za koje pretrage se sajt uopšte pojavljuje. Pozicije za glavne pretrage poredimo od drugog i trećeg meseca, kad ima šta da se poredi.",
         "Oglas nestane iz pretrage onog dana kad prestanete da plaćate, a stranica koja je stigla na prvu stranu tu obično ostaje dok je sadržaj tačan i dok neko ne napiše bolji odgovor.",
       ],
@@ -127,35 +129,35 @@ const page = {
     {
       title: "Od čega zavisi cena SEO optimizacije",
       body: [
-        "Cenu određuje obim posla, a njega najviše menjaju broj usluga koje sajt treba da pokrije i broj firmi koje se bore za iste pretrage.",
-        "Isti paket ne može da pokrije i molera iz Niša i webshop sa hiljadama proizvoda, pa obim procenjujemo tek kad pogledamo sajt i pretrage u vašoj delatnosti.",
+        "Cena SEO optimizacije počinje od 250 €. Konačan iznos zavisi od toga koje od ovih stavki naručite i koliko ih ima:",
         {
           table: {
-            head: ["Šta gledamo", "Kako to menja posao"],
+            head: ["Šta ulazi u cenu", "Šta to znači"],
             rows: [
               [
-                "Broj usluga",
-                "Svaka usluga dobija svoju stranicu sa opisom posla, cenom i odgovorima na pitanja kupaca. Više usluga znači više pisanja.",
+                "Stranice usluga",
+                "Za svaku uslugu pišemo stranicu sa opisom, cenom i odgovorima na pitanja kupaca. Više usluga znači više stranica.",
               ],
               [
-                "Stanje sajta",
-                "Spor sajt ili stranice koje Google ne vidi traže tehničke popravke pre novog sadržaja.",
+                "Blog članci",
+                "Članci odgovaraju na pitanja koja ljudi kucaju u Google pre kupovine. Cena prati broj članaka koje pišemo.",
               ],
               [
-                "Konkurencija",
-                "U gradu gde malo firmi ima sređen sajt dovoljno je manje stranica. Za tražene usluge u Beogradu treba više stranica i više meseci.",
+                "Tehnička optimizacija",
+                "Šta na sajtu optimizujemo i popravljamo: brzinu na telefonu, stranice koje Google ne vidi, naslove i opise u rezultatima pretrage.",
               ],
               [
-                "Veličina kataloga",
-                "Webshop sa hiljadama proizvoda sređujemo kroz šablone za naslove i opise, što je drugi posao od pisanja stranica usluga.",
+                "Katalog proizvoda",
+                "Za webshop pišemo šablone za naslove i opise proizvoda, koji važe za ceo katalog odjednom.",
               ],
               [
                 "Google profil i imenici",
-                "Ako profil firme ne postoji ili se podaci po imenicima razlikuju, prvo ih sređujemo i usklađujemo.",
+                "Da li u cenu ulazi i lokalni SEO, odnosno Google profil firme i isti podaci o firmi u poslovnim imenicima.",
               ],
             ],
           },
         },
+        "Isti paket ne može da pokrije i molersku firmu iz Niša i webshop sa hiljadama proizvoda, pa obim određujemo tek kad pogledamo sajt i pretrage u vašoj delatnosti.",
         "Pre nego što bilo kome platite SEO, tražite spisak stranica i popravki za prva tri meseca. Bez njega posle tri meseca nemate po čemu da proverite šta ste dobili za svoj novac. Kod nas taj spisak stiže posle prvog pregleda, zajedno sa cenom.",
       ],
     },
@@ -163,27 +165,27 @@ const page = {
       title: "Kako radi lokalna SEO optimizacija za firmu iz jednog grada",
       body: [
         "Ljudi iz vašeg grada vas traže u Google pretrazi i na Google mapama, a na oba mesta Google bira između firmi za koje zna šta tačno rade i gde.",
-        "Zato kod lokalnih firmi prvo sređujemo ovo:",
+        "Zato kod lokalnih firmi prvo pripremamo tri stvari:",
         {
           list: [
-            "Google profil firme sa tačnom delatnošću i fotografijama urađenih poslova",
+            "Google profil firme sa tačnom delatnošću i fotografijama urađenih radova",
             "isto ime firme, telefon i adresu, napisane istim redom i istim rečima na sajtu, profilu i u svakom imeniku",
-            "posebnu stranicu za svaku uslugu, sa opisom posla i cenom",
+            "posebnu stranicu za svaku uslugu, sa opisom usluge i cenom",
           ],
         },
         "Cena napisana na sajtu dovodi ljude koji uz uslugu u Google ukucaju i reč „cena“. Na [sajtu Moler Niš](/projects/moler-nis) stranica sa cenama donosi najviše klikova iz pretrage, više od početne strane.",
         "Ako radite u nekoliko gradova, nemojte praviti kopije iste stranice u kojima se menja samo naziv grada. Google takve stranice u svojim [pravilima o spamu](https://developers.google.com/search/docs/essentials/spam-policies) navodi kao doorway stranice, a sajt sa njima može da padne u rezultatima ili sasvim nestane iz njih.",
-        "Stranica za drugi grad ima smisla kad ima nešto svoje, na primer poslove urađene baš tamo ili drugačije rokove dolaska.",
+        "Stranica za drugi grad ima smisla kad ima nešto svoje, na primer radove urađene baš tamo ili drugačije rokove dolaska.",
       ],
     },
     {
       title: "Šta pomaže da vas nađu ChatGPT i AI pretraga",
       body: [
         "AI asistenti poput ChatGPT-a sastavljaju odgovor iz stranica koje pronađu, pa im pomaže sajt sa jasnim odgovorima i firma opisana istim rečima svuda gde se pominje.",
-        "AEO (Answer Engine Optimization) je zato najvećim delom urednički posao, a kod nas se svodi na četiri stvari:",
+        "Zato je AEO (Answer Engine Optimization) najvećim delom pisanje i uređivanje teksta. Kod nas se svodi na četiri stvari:",
         {
           list: [
-            "na stranici usluge, odmah ispod naslova, rečenica koja odgovara na pitanje kupca, na primer koliko posao košta ili traje",
+            "na stranici usluge, odmah ispod naslova, rečenica koja odgovara na pitanje kupca, na primer koliko usluga košta ili koliko traje",
             "isti opis firme i usluga na sajtu, Google profilu, društvenim mrežama i u imenicima",
             "cene i radno vreme napisani kao tekst na stranici, nikad samo na slici",
             "podešavanja sajta koja ne blokiraju robote kojima AI alati čitaju stranice",
@@ -195,21 +197,21 @@ const page = {
     },
   ],
   price: {
-    from: null,
-    note: "Cenu računamo za konkretan spisak stranica i popravki, pa pre početka znate i iznos i šta za njega dobijate.",
+    from: 250,
+    note: "Cena zavisi od toga koliko stranica i blog članaka pišemo i šta na sajtu i Google profilu optimizujemo. Pre početka dobijate spisak stranica i popravki, pa tačno znate šta plaćate.",
   },
   faq: [
     {
       q: "Možete li da garantujete prvo mesto na Google-u?",
-      a: "Ne možemo, jer redosled rezultata određuje Google, a on u svom [vodiču za izbor SEO stručnjaka](https://developers.google.com/search/docs/fundamentals/do-i-need-seo) piše da prvo mesto niko ne može da garantuje. Obećavamo ono što zavisi od nas: spisak posla za svaki mesec i izveštaj koji pokazuje šta se od toga pomerilo. Ako vam neko garantuje prvo mesto, pitajte ga za koju pretragu i do kada.",
+      a: "Ne možemo, jer redosled rezultata određuje Google, a on u svom [vodiču za izbor SEO stručnjaka](https://developers.google.com/search/docs/fundamentals/do-i-need-seo) piše da prvo mesto niko ne može da garantuje. Obećavamo ono što zavisi od nas: plan stranica i izmena za svaki mesec i izveštaj koji pokazuje šta se od toga pomerilo. Ako vam neko garantuje prvo mesto, pitajte ga za koju pretragu i do kada.",
     },
     {
       q: "Da li radite SEO za firme iz Niša i drugih gradova?",
-      a: "Da, radimo sa firmama iz cele Srbije, na daljinu iz Beograda. Za lokalni SEO ne moramo da budemo u vašem gradu, jer pretrage i Google profil firme sređujemo na isti način za Niš, Novi Sad ili Kragujevac. Moler Niš i ElektroMil su firme iz Niša, a ThermiQ je distributer iz Beograda.",
+      a: "Da, radimo sa firmama iz cele Srbije, na daljinu iz Beograda. Za lokalni SEO ne moramo da budemo u vašem gradu, jer sajt i Google profil optimizujemo na isti način za firmu iz Niša, Novog Sada ili Kragujevca. Moler Niš i ElektroMil su firme iz Niša, a ThermiQ je distributer iz Beograda.",
     },
     {
       q: "Radite li SEO optimizaciju za webshop?",
-      a: "Radimo, i tu je posao drugačiji nego kod sajta sa nekoliko usluga. Kad prodavnica ima stotine ili hiljade proizvoda, naslove i opise podešavamo u šablonu, pa važe za ceo katalog odjednom. Tako je rađen ThermiQ, katalog sa hiljadama proizvoda koji je od jula do oktobra 2026. imao 2.836 poseta iz pretrage.",
+      a: "Radimo, i tu se SEO radi drugačije nego na sajtu sa nekoliko usluga. Kad prodavnica ima stotine ili hiljade proizvoda, naslove i opise podešavamo u šablonu, pa važe za ceo katalog odjednom. Tako smo radili ThermiQ, katalog sa hiljadama proizvoda koji je od jula do oktobra 2026. imao 2.836 poseta iz pretrage.",
     },
     {
       q: "Treba li za SEO nov sajt?",
@@ -217,7 +219,7 @@ const page = {
     },
     {
       q: "Kako se vidi da SEO donosi upite?",
-      a: "Po brojevima u mesečnom izveštaju. U njemu su pozicije za pretrage od kojih zavisi vaš posao, posete iz Google pretrage po stranici i upiti koji su stigli iz pretrage. Posao koji tog meseca radimo vidite i u klijentskom portalu, sa spiskom urađenih stranica i popravki.",
+      a: "Po brojevima u mesečnom izveštaju. U njemu su pozicije za pretrage koje vam donose kupce, posete iz Google pretrage po stranici i upiti koji su stigli iz pretrage. Šta smo tog meseca uradili vidite i u klijentskom portalu, sa spiskom napisanih stranica i popravki.",
     },
     {
       q: "Šta vam treba od nas da bismo počeli?",
@@ -230,7 +232,7 @@ const page = {
   ],
   cta: {
     title: "Saznajte za koje pretrage vas kupci još ne nalaze",
-    text: "Zakažite razgovor, pa ćemo pogledati za koje pretrage se vaš sajt pojavljuje i koje stranice mu nedostaju. Ako vam treba samo smer, odgovorite na tri pitanja i dobićete preporuku od čega da krenete.",
+    text: "Zakažite razgovor, pa ćemo pogledati za koje pretrage se vaš sajt već pojavljuje i koje stranice mu nedostaju. Ako vam treba samo smer, odgovorite na tri pitanja i dobićete preporuku od čega da krenete.",
   },
 };
 

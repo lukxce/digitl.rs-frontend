@@ -35,6 +35,12 @@ const nextConfig = {
         permanent: true,
       },
       { source: "/kontakt", destination: "/#kontakt", permanent: true },
+      // the brand page was renamed before it went live (11 Nov 2026)
+      {
+        source: "/usluge/dizajn-logotipa",
+        destination: "/usluge/brending-i-vizuelni-identitet",
+        permanent: true,
+      },
     ];
   },
   images: {

@@ -2,7 +2,7 @@
 
 import logo from "../assets/digitl-logo.png";
 import b from "./base.module.css";
-import { CONTACT, SERVICES } from "./content";
+import { CONTACT, SERVICE_PAGES } from "./content";
 import f from "./footer.module.css";
 import { Lock } from "./icons";
 import Link from "next/link";
@@ -70,7 +70,7 @@ export default function Footer() {
           </div>
           <nav className={f.services} aria-label="Usluge">
             <Link href="/usluge">Usluge</Link>
-            {SERVICES.map((x) => (
+            {SERVICE_PAGES.map((x) => (
               <Link key={x.id} href={x.page}>
                 {x.footer}
               </Link>

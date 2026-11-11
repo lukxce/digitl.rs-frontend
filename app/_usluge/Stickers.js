@@ -221,11 +221,48 @@ export function BrandSticker({ size = 120, className }) {
   );
 }
 
-/** One sticker per service, by the homepage's service id. */
+/** A quote that writes itself: a document, a gear and a spark. AI and
+    automation. */
+export function AiSticker({ size = 120, className }) {
+  return (
+    <Svg size={size} className={className}>
+      <Edge
+        d="M99.7 77.3 L104.6 78.2 L104.6 85.8 L99.7 86.7 L99.0 88.4 L101.8 92.5 L96.5 97.8 L92.4 95.0 L90.7 95.7 L89.8 100.6 L82.2 100.6 L81.3 95.7 L79.6 95.0 L75.5 97.8 L70.2 92.5 L73.0 88.4 L72.3 86.7 L67.4 85.8 L67.4 78.2 L72.3 77.3 L73.0 75.6 L70.2 71.5 L75.5 66.2 L79.6 69.0 L81.3 68.3 L82.2 63.4 L89.8 63.4 L90.7 68.3 L92.4 69.0 L96.5 66.2 L101.8 71.5 L99.0 75.6z"
+        fill={LIME}
+      />
+      <circle
+        cx="86"
+        cy="82"
+        r="5.5"
+        fill="#fff"
+        stroke={INK}
+        strokeWidth="3"
+      />
+      <Edge
+        d="M20 20h44a8 8 0 0 1 8 8v66a8 8 0 0 1-8 8H20a8 8 0 0 1-8-8V28a8 8 0 0 1 8-8z"
+        fill="#fff"
+      />
+      <rect x="22" y="32" width="30" height="7" rx="3.5" fill={INK} />
+      <rect x="22" y="47" width="40" height="5" rx="2.5" fill="#d6d6de" />
+      <rect x="22" y="57" width="34" height="5" rx="2.5" fill="#d6d6de" />
+      <rect x="22" y="67" width="38" height="5" rx="2.5" fill="#d6d6de" />
+      <rect x="22" y="80" width="26" height="11" rx="5.5" fill={BLUE} />
+      <Edge
+        d="M90 10C92 22 95 25 107 27C95 29 92 32 90 44C88 32 85 29 73 27C85 25 88 22 90 10z"
+        fill={BLUE}
+        sw={2.5}
+      />
+    </Svg>
+  );
+}
+
+/** One sticker per service, by the homepage's service id (ai: the AI and
+    automation page, which has no homepage card). */
 export const STICKERS = {
   ads: TargetSticker,
   seo: SearchSticker,
   web: WebSticker,
   social: SocialSticker,
   brand: BrandSticker,
+  ai: AiSticker,
 };

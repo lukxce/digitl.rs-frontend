@@ -1,5 +1,6 @@
 /* Za potvrdu (Luka):
    "Vodimo Instagram i Facebook" stoji kao sigurno; TikTok i LinkedIn stranica pominje u tabeli mreža i kao stavku cene, potvrditi da li ih vodimo
+   "Cena od 200 € je mesečna": tekst o ceni, beleška u kartici cene i odgovor o ceni Instagram profila kažu „od 200 € mesečno“ / „cena je mesečna“
    "Na komentare i poruke odgovaramo ako se tako dogovorimo; pitanja o ceni i terminu prosleđujemo klijentu"
    "Za pitanja koja se ponavljaju zajedno sastavimo spisak gotovih odgovora"
    "Snimanje fotografija i videa na terenu dogovaramo posebno" (i da li uopšte snimamo i montiramo Reels)
@@ -22,20 +23,20 @@ const page = {
   },
   label: "Društvene mreže",
   h1: "Vođenje društvenih mreža za firme",
-  lead: "Vodimo Instagram i Facebook profile malih i srednjih firmi koje nemaju vremena da same objavljuju svake nedelje. Pravimo plan za svaki mesec, dizajniramo objave i storije po pravilima vašeg brenda i objavljujemo ih. Na kraju meseca dobijate izveštaj o dosegu, angažovanju i posetama sajtu, sa predlogom šta menjamo u sledećem planu.",
+  lead: "Vodimo Instagram i Facebook profile malih i srednjih firmi koje nemaju vremena da same objavljuju svake nedelje. Planiramo objave za svaki mesec, dizajniramo ih po pravilima vašeg brenda i objavljujemo po rasporedu. Posle svakog meseca dobijate izveštaj o tome koliko je ljudi videlo objave i koliko ih je sa mreža stiglo na vaš sajt.",
   proof: [],
   intro: {
-    title: "Šta preuzimamo kad vodimo vaše mreže",
+    title: "Šta dobijate kad vodimo vaše mreže",
     body: [
-      "Vođenje društvenih mreža je mesečna usluga koja obuhvata ceo posao oko profila vaše firme, od plana objava do izveštaja o tome šta su donele. Vi nam javite šta je novo kod vas, a mi od toga pravimo objave koje izlaze po rasporedu. Kupcu koji se javi sa pitanjem o ceni ili terminu i dalje odgovarate vi.",
-      "Profil male firme obično nastaje usput: jedne nedelje fotografija sa terena, sledeće šablon koji je poslao dobavljač. Takav je bio i Instagram profil [ThermiQ-a](/projects/thermiq), firme koja u Beogradu prodaje opremu za grejanje i hlađenje, pre nego što smo ga preradili po njihovoj brend knjizi. Sada svaka objava prati isto pravilo boja, crvenu za grejanje i plavu za hlađenje, a highlight kategorije idu po tipu opreme.",
-      "Ko vidi vaš oglas na Instagram-u i otvori profil, treba da prepozna istu firmu koju će posle naći na sajtu. Mreže zato vodimo iz istog plana kao sajt i oglase, jer radimo kompletan marketing kao jedan sistem, ne meni nepovezanih usluga.",
+      "Vođenje društvenih mreža je mesečna usluga u kojoj agencija umesto vas planira objave i storije, pravi ih i objavljuje na profilima firme. Vi dobijate profil koji svake nedelje ima novu objavu u istim bojama i šablonima, a plan za ceo mesec vidite i odobravate unapred.",
+      "Kupac koji vidi vaš oglas ili negde čuje vaše ime obično prvo otvori profil. Po poslednjih nekoliko objava procenjuje da li firma radi i kako izgleda ono što prodaje. Profil koji izlazi po planu i u jednom stilu mu olakšava tu procenu, dok profil na kom svaka objava ima drugi stil ostavlja utisak da se niko ne bavi njime.",
+      "Mreže vodimo iz istog plana kao sajt i oglase, pa vas kupac prepozna kao istu firmu u oglasu, na profilu i na sajtu.",
     ],
   },
   included: {
     title: "Šta je uključeno",
     intro:
-      "Svaku od tri stavke možete da naručite posebno, a najbolje rade kad plan, objave i izveštaj nastaju na istom mestu.",
+      "Sva tri dela radimo mi svakog meseca, a vi odobravate plan i šaljete nam fotografije iz firme.",
     items: [
       {
         title: "Strategija i plan sadržaja",
@@ -45,19 +46,19 @@ const page = {
       {
         title: "Izrada sadržaja i objavljivanje",
         sub: "objave, storiji i karuseli",
-        text: "Dizajniramo objave po šablonima vašeg brenda, pišemo tekst ispod svake i objavljujemo ih po planu. Fotografije koje nam pošaljete sa posla uklapamo u isti stil.",
+        text: "Dizajniramo objave po šablonima vašeg brenda, pišemo tekst ispod svake i objavljujemo ih po planu. Fotografije koje snimite telefonom uklapamo u isti stil.",
       },
       {
         title: "Vođenje profila i izveštavanje",
         sub: "profil, highlight, izveštaj",
-        text: "Sređujemo opis profila, link i highlight kategorije, pa pratimo kako objave prolaze. Uz svaki mesečni izveštaj dobijate i odluku šta u sledećem planu radimo drugačije.",
+        text: "Pišemo opis profila i postavljamo link i highlight kategorije, pa pratimo kako objave prolaze. Uz svaki mesečni izveštaj dobijate i odluku šta u sledećem planu radimo drugačije.",
       },
     ],
   },
   steps: {
     title: "Kako radimo",
     intro:
-      "Prvi mesec postavlja pravila, a svaki sledeći ih doteruje prema onome što pokažu brojevi.",
+      "U prvom mesecu postavljamo pravila izgleda i ritam objava, a svaki sledeći plan menjamo prema brojevima iz izveštaja.",
     items: [
       {
         title: "Pregled profila",
@@ -103,39 +104,59 @@ const page = {
           ],
         },
         "Samo objavljivanje traje najkraće. Ako ste ikad sami vodili profil firme, znate da jedna objava ume da pojede celo veče dok smislite tekst i nađete fotografiju koja izgleda pristojno.",
-        "Brend knjigu i kompletne šablone radimo kroz uslugu [brend i identitet](/usluge/dizajn-logotipa). Za mreže je dovoljno i manje, pa kad brend knjigu nemate, u prvom mesecu postavljamo osnovne boje i šablone objava.",
-        "Od vas nedeljno tražimo fotografije sa posla koji ste završili i vest kad uvedete novu uslugu ili akciju. Fotografija koju snimite telefonom na poslu vredi nam više od bilo koje stock fotografije, jer na njoj kupac vidi vaš rad i vaše ljude.",
+        "Objave pravimo po šablonima koje postavimo u prvom mesecu, od vaše brend knjige ili od osnovnih boja kad brend knjigu nemate. Celu brend knjigu i kompletne šablone radimo kroz uslugu [brend i identitet](/usluge/brending-i-vizuelni-identitet).",
+        "Od vas nedeljno tražimo fotografije završenih radova i vest kad uvedete novu uslugu ili akciju. Fotografija iz vaše firme, snimljena telefonom, vredi nam više od bilo koje stock fotografije, jer na njoj kupac vidi vaš rad i vaše ljude.",
       ],
     },
     {
       title: "Od čega zavisi cena vođenja društvenih mreža?",
       body: [
-        "Cenu najviše pomeraju broj objava mesečno i količina videa, a manje broj mreža. Snimanje kod vas i budžet za oglase su posebne stavke.",
+        "Vođenje društvenih mreža kod nas počinje od 200 € mesečno. Iznos najviše zavisi od broja objava i od toga koliko videa pravimo, a broj mreža ga pomera manje. Snimanje kod vas i budžet za oglase su posebne stavke.",
         "Video diže cenu brže od broja objava. Reels, kratki vertikalni video na Instagram-u i Facebook-u, traži snimanje i montažu pored dizajna i teksta, pa u ceni nosi više od objave sa fotografijom. Dolazak fotografa ili snimatelja u vaš lokal ili na gradilište dogovaramo posebno, kad plan to traži.",
-        "Druga mreža ne duplira posao. Instagram i Facebook mogu da dele veći deo materijala uz drugačiji tekst i format, dok TikTok i LinkedIn traže sadržaj koji se pravi baš za njih.",
+        "Druga mreža ne duplira cenu. Instagram i Facebook mogu da dele veći deo materijala uz drugačiji tekst i format, dok TikTok i LinkedIn traže sadržaj koji se pravi baš za njih.",
         "Budžet za oglase na Instagram-u i Facebook-u držimo odvojeno od cene vođenja profila. Kad je budžet „uključen“ u mesečni paket, nemate način da proverite koliki deo tog novca je stvarno otišao na oglase koje su ljudi videli. Kampanje vodimo kroz uslugu [plaćenog oglašavanja](/usluge/placeno-oglasavanje), sa posebnim izveštajem o ceni po upitu.",
-        "Ako poredite cenovnike i pakete za profesionalno vođenje društvenih mreža, pitajte šta tačno ulazi u jednu objavu. Da li je to samo dizajn, ili i tekst, storiji i odgovori na komentare? Paketi sa istim brojem objava često znače sasvim različit posao.",
+        "Ako poredite cenovnike i pakete za profesionalno vođenje društvenih mreža, pitajte šta tačno ulazi u jednu objavu. Da li je to samo dizajn, ili i tekst, storiji i odgovori na komentare? Paketi sa istim brojem objava često ne pokrivaju iste stvari.",
       ],
     },
     {
-      title: "Koja društvena mreža odgovara vašem biznisu?",
+      title: "Na kojoj društvenoj mreži da počnete?",
       body: [
-        "Za većinu lokalnih firmi to su Instagram i Facebook. TikTok ima smisla kad redovno možete da snimate video, a LinkedIn kad prodajete drugim firmama.",
+        "Počnite sa jednom ili dve mreže na kojima vaši kupci već gledaju firme kao što je vaša i koje možete da punite novim objavama svake nedelje. Za većinu lokalnih firmi to su Instagram i Facebook.",
         {
           table: {
-            head: ["Vrsta biznisa", "Mreža za početak", "Šta tamo objavljujemo"],
+            head: ["Vrsta firme", "Počnite sa", "Zašto"],
             rows: [
-              ["Majstori i servisi", "Facebook i Instagram", "Radove pre i posle, ekipu na terenu"],
-              ["Saloni i studiji lepote", "Instagram", "Rezultate rada i slobodne termine"],
-              ["Ordinacije i klinike", "Instagram i Facebook", "Odgovore na česta pitanja pacijenata i ljude iz tima"],
-              ["Prodavnice i online prodavnice", "Instagram i Facebook", "Proizvode u upotrebi i akcije"],
-              ["Ugostiteljstvo", "Instagram, uz TikTok kad ima ko da snima", "Kratke snimke iz lokala i dnevnu ponudu"],
-              ["Firme koje prodaju drugim firmama", "LinkedIn", "Završene projekte i stručne odgovore"],
+              [
+                "Servisi i firme koje rade na terenu",
+                "Facebook i Instagram",
+                "Kad vas neko preporuči, ljudi otvore profil da vide skorašnje radove.",
+              ],
+              [
+                "Saloni, studiji i ugostiteljstvo",
+                "Instagram",
+                "Kupac bira po izgledu rada i prostora, a Instagram je napravljen za fotografiju i kratak video.",
+              ],
+              [
+                "Ordinacije i klinike",
+                "Instagram i Facebook",
+                "Pre prvog pregleda pacijent proverava ko će ga primiti i kako izgleda ordinacija.",
+              ],
+              [
+                "Prodavnice i online prodavnice",
+                "Instagram i Facebook",
+                "Kupac pre kupovine traži proizvod u upotrebi, a iste fotografije kasnije koristite i u oglasima.",
+              ],
+              [
+                "Firme koje prodaju drugim firmama",
+                "LinkedIn",
+                "Tu se vidi ko u kojoj firmi radi i na kom mestu, pa objava stiže do ljudi koji odlučuju o nabavci.",
+              ],
             ],
           },
         },
-        "Profil sa poslednjom objavom od pre godinu dana kupcu deluje kao da firma više ne radi, pa takav profil šteti više nego da ga uopšte nema. Zato novu mrežu otvaramo tek kad znamo da za nju ima materijala svake nedelje.",
-        "Kupac kome električar treba danas kuca u Google, pa za majstore i servise taj posao više radi [SEO optimizacija](/usluge/seo-optimizacija) i Google profil firme nego bilo koja objava. Na mrežama vas proveravaju ljudi kojima vas je neko preporučio, pa im profil treba da pokaže skorašnje radove.",
+        "Instagram i Facebook su dobar početni par jer oba pripadaju Meti i vode se iz istog naloga. Kad kasnije krenete sa oglasima, ista kampanja može da se prikazuje na obe mreže. TikTok ima smisla tek kad u firmi neko može svake nedelje da snimi kratak video.",
+        "Bolja je jedna mreža koja svake nedelje dobije objavu nego tri na kojima posle prvog meseca nema ničeg novog. Profil čija je poslednja objava od pre godinu dana kupcu deluje kao da firma više ne radi, pa novu mrežu otvaramo tek kad znamo da za nju ima materijala svake nedelje.",
+        "Nekim firmama mreže nisu prvi korak. Kupac kome hitno treba električar kuca u Google, pa takvu firmu brže nađe preko [SEO optimizacije](/usluge/seo-optimizacija) i Google profila firme nego preko bilo koje objave.",
         "Ako niste sigurni da vam mreže trebaju pre sajta ili oglasa, [odgovorite na tri pitanja](/#vas-plan) i dobićete preporuku od čega da krenete.",
       ],
     },
@@ -157,13 +178,13 @@ const page = {
     },
   ],
   price: {
-    from: null,
-    note: "Cenu računamo prema broju mreža, broju objava i storija mesečno i količini videa. Budžet za oglase i snimanje na terenu nisu deo te cene i dogovaramo ih posebno.",
+    from: 200,
+    note: "Cena je mesečna i raste sa brojem objava i storija i sa količinom videa. Budžet za oglase i snimanje na terenu plaćaju se posebno.",
   },
   faq: [
     {
       q: "Koliko košta vođenje Instagram profila?",
-      a: "Za sam Instagram cena zavisi od toga koliko objava i storija mesečno pravimo i da li uz njih ide Reels. Ako vodimo Instagram i Facebook zajedno, veći deo materijala pravimo jednom i prilagođavamo ga za obe mreže. Tačnu cenu dobijate posle kratkog razgovora, kad pogledamo vaš profil i dogovorimo obim posla.",
+      a: "Cena počinje od 200 € mesečno, a za sam Instagram zavisi od toga koliko objava i storija pravimo i da li uz njih ide Reels. Tačnu cenu dobijate posle kratkog razgovora, kad pogledamo vaš profil i dogovorimo broj objava.",
     },
     {
       q: "Da li odgovarate na komentare i poruke?",
@@ -171,7 +192,7 @@ const page = {
     },
     {
       q: "Da li dolazite da snimite fotografije i video?",
-      a: "Dolazimo, ali kao posebna stavka van mesečne cene. Za većinu objava dovoljne su fotografije koje napravite telefonom na poslu, a mi ih uređujemo i uklapamo u stil vašeg brenda zajedno sa materijalom proizvođača. Dolazak na teren ima smisla za Reels i za seriju fotografija koju ćete koristiti mesecima, na primer ekipu ili lokal.",
+      a: "Dolazimo, ali kao posebna stavka van mesečne cene. Za većinu objava dovoljne su fotografije koje napravite telefonom, a mi ih uređujemo i uklapamo u stil vašeg brenda zajedno sa materijalom proizvođača. Dolazak na teren ima smisla za Reels i za seriju fotografija koju ćete koristiti mesecima, na primer ekipu ili lokal.",
     },
     {
       q: "Koliko objava mesečno treba jednoj firmi?",
@@ -183,11 +204,11 @@ const page = {
     },
     {
       q: "Možete li da preuzmete profil koji već imamo?",
-      a: "Možemo, a pratioci i ime profila ostaju isti. Od prve sledeće objave profil dobija nov izgled i nove korice za highlight. Tako smo preradili i Instagram profil ThermiQ-a, koji je pre toga mešao montažne fotografije sa terena i šablone dobavljača bez ijedne oznake da je reč o njima.",
+      a: "Možemo, a pratioci i ime profila ostaju isti. Od prve objave koju mi napravimo profil dobija nov izgled i nove korice za highlight. Tako smo preradili i Instagram profil [ThermiQ-a](/projects/thermiq), koji je pre toga mešao fotografije sa terena i šablone dobavljača.",
     },
     {
       q: "Da li je bolje da zaposlimo nekoga ili da angažujemo agenciju?",
-      a: "Zavisi od količine posla. Zaposleni je stalno u firmi i lako uhvati fotografiju sa posla, ali retko stigne da uz svoj glavni posao još i dizajnira objave i meri šta su donele. Agencija donosi taj deo, a zavisi od materijala koji joj pošaljete. Dobro radi kombinacija u kojoj neko iz firme fotografiše telefonom, a mi od tih fotografija pravimo objave po planu.",
+      a: "Zavisi od toga koliko objava vam treba i ko u firmi ima vremena za njih. Zaposleni je stalno u firmi i lako uhvati dobru fotografiju, ali retko stigne da uz redovna zaduženja još dizajnira objave i meri šta su donele. Agencija pokriva dizajn i merenje, a zavisi od materijala koji joj pošaljete. Dobro radi kombinacija u kojoj neko iz firme fotografiše telefonom, a mi od tih fotografija pravimo objave po planu.",
     },
     {
       q: "Kada izlaze prve objave posle dogovora?",
@@ -196,7 +217,7 @@ const page = {
   ],
   cta: {
     title: "Profil koji izgleda kao vaša firma",
-    text: "Pošaljite nam link do vašeg Instagram ili Facebook profila i zakažite razgovor. Kažemo vam šta bismo prvo promenili i koliko objava mesečno ima smisla za vaš posao, pre nego što se na bilo šta obavežete.",
+    text: "Zakažite razgovor i pošaljite nam link do vašeg Instagram ili Facebook profila. Kažemo vam šta bismo prvo promenili i koliko objava mesečno ima smisla za vašu firmu, pre nego što se na bilo šta obavežete.",
   },
 };
 

@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import b from "../_home/base.module.css";
-import { SERVICES, STEPS } from "../_home/content";
+import { SERVICE_PAGES, SERVICES, STEPS } from "../_home/content";
 import { ArrowRight } from "../_home/icons";
 import { Btn, Reveal, useApp } from "../_home/ui";
 import { STICKERS } from "./Stickers";
@@ -95,7 +95,7 @@ export default function Hub() {
       <section className={b.section}>
         <div className={b.container}>
           <ul className={u.hubList}>
-            {SERVICES.map((s, i) => {
+            {SERVICE_PAGES.map((s, i) => {
               const Sticker = STICKERS[s.id];
               return (
                 <Reveal as="li" key={s.id} i={i}>

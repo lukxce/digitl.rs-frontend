@@ -4,11 +4,12 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
 import b from "../_home/base.module.css";
-import { SERVICES } from "../_home/content";
+import { SERVICE_PAGES } from "../_home/content";
 import { CARDS } from "../_home/HeroShowcase";
 import { ArrowRight, ArrowUpRight, Plus } from "../_home/icons";
 import x from "../_home/sections.module.css";
 import { Btn, EASE, Reveal, useApp } from "../_home/ui";
+import AiCard from "./AiCard";
 import ReportSample from "./ReportSample";
 import Rich from "./Rich";
 import { STICKERS } from "./Stickers";
@@ -51,7 +52,9 @@ export function Price({ price, className = "" }) {
 function Hero({ page }) {
   const { openBooking } = useApp();
   const Sticker = STICKERS[page.service];
-  const Card = CARDS.find((c) => c.id === page.service)?.Card;
+  const Card =
+    CARDS.find((c) => c.id === page.service)?.Card ??
+    (page.service === "ai" ? AiCard : undefined);
   const firstCase = page.cases?.[0];
   return (
     <section className={u.hero}>
@@ -204,9 +207,7 @@ function Steps({ data }) {
       <ol className={u.stepRow} data-n={data.items.length}>
         {data.items.map((s, i) => (
           <Reveal as="li" key={s.title} i={i} className={u.step}>
-            <span className={u.stepNum}>
-              {String(i + 1).padStart(2, "0")}/
-            </span>
+            <span className={u.stepNum}>{String(i + 1).padStart(2, "0")}/</span>
             <h3>{s.title}</h3>
             <p>{s.text}</p>
           </Reveal>
@@ -222,32 +223,36 @@ function Cases({ cases }) {
   return (
     <section className={b.section}>
       <div className={b.container}>
-        <div className={b.head}>
-          <span className={b.label}>Projekti</span>
-          <h2 className={b.h2}>Odabrani projekti</h2>
-        </div>
-        <div className={u.cases} data-n={cases.length}>
-          {cases.map((c, i) => (
-            <Reveal key={c.slug} i={i}>
-              <Link href={`/projects/${c.slug}`} className={u.case}>
-                <span className={u.caseImg}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`/novi/${c.slug}-1.webp`}
-                    alt={`Sajt ${c.title}`}
-                    loading="lazy"
-                  />
-                </span>
-                <span className={u.caseText}>
-                  <b>{c.title}</b>
-                  <em>{c.text}</em>
-                </span>
-                <i className={u.caseGo} aria-hidden="true">
-                  <ArrowUpRight size={18} />
-                </i>
-              </Link>
-            </Reveal>
-          ))}
+        <div className={u.casesWrap} data-n={cases.length}>
+          <div className={`${b.head} ${u.casesHead}`}>
+            <span className={b.label}>Projekti</span>
+            <h2 className={b.h2}>
+              {cases.length === 1 ? "Odabrani projekat" : "Odabrani projekti"}
+            </h2>
+          </div>
+          <div className={u.cases}>
+            {cases.map((c, i) => (
+              <Reveal key={c.slug} i={i}>
+                <Link href={`/projects/${c.slug}`} className={u.case}>
+                  <span className={u.caseImg}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`/novi/${c.slug}-1.webp`}
+                      alt={`Sajt ${c.title}`}
+                      loading="lazy"
+                    />
+                  </span>
+                  <span className={u.caseText}>
+                    <b>{c.title}</b>
+                    <em>{c.text}</em>
+                  </span>
+                  <i className={u.caseGo} aria-hidden="true">
+                    <ArrowUpRight size={16} />
+                  </i>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -315,7 +320,9 @@ function Guide({ guide, price }) {
         {guide.map((g, i) => (
           <article key={g.title} className={u.guideItem}>
             <div className={u.guideHead}>
-              <span className={u.guideNo}>{String(i + 1).padStart(2, "0")}</span>
+              <span className={u.guideNo}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
               <h2>{g.title}</h2>
             </div>
             <div className={u.prose}>
@@ -434,9 +441,9 @@ function Faq({ items }) {
   );
 }
 
-/* ── the other four services ──────────────────────────────────────────── */
+/* ── the other services ──────────────────────────────────────────── */
 export function OtherServices({ current, title = "Ostale usluge" }) {
-  const list = SERVICES.filter((s) => s.id !== current);
+  const list = SERVICE_PAGES.filter((s) => s.id !== current);
   return (
     <section className={b.section}>
       <div className={b.container}>
@@ -447,7 +454,7 @@ export function OtherServices({ current, title = "Ostale usluge" }) {
             Kompletan marketing kao jedan sistem, ne meni nepovezanih usluga.
           </p>
         </div>
-        <ul className={u.others}>
+        <ul className={u.others} style={{ "--n": list.length }}>
           {list.map((s, i) => {
             const Sticker = STICKERS[s.id];
             return (

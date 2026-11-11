@@ -7,7 +7,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { STICKERS } from "../_usluge/Stickers";
 import logo from "../assets/digitl-logo.png";
 import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
-import { CONTACT, SERVICES } from "./content";
+import { CONTACT, SERVICE_PAGES } from "./content";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -126,7 +126,7 @@ function ServicesDrop({ href, label }) {
               transition={{ duration: 0.3, ease: EASE }}
             >
               <ul className={n.panelList}>
-                {SERVICES.map((sv, i) => {
+                {SERVICE_PAGES.map((sv, i) => {
                   const Sticker = STICKERS[sv.id];
                   return (
                     <motion.li
@@ -149,7 +149,7 @@ function ServicesDrop({ href, label }) {
                         </span>
                         <span className={n.panelText}>
                           <b>{sv.footer}</b>
-                          <small>{sv.title}</small>
+                          <small>{sv.sub ?? sv.title}</small>
                         </span>
                       </Link>
                     </motion.li>
@@ -264,7 +264,7 @@ function Menu({ onClose, onBook, onGo, links }) {
                     ease: EASE,
                   }}
                 >
-                  {SERVICES.map((sv) => {
+                  {SERVICE_PAGES.map((sv) => {
                     const Sticker = STICKERS[sv.id];
                     return (
                       <Link key={sv.id} href={sv.page} onClick={onClose}>

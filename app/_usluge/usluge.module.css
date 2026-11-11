@@ -96,6 +96,9 @@
 }
 .title {
   font-size: clamp(42px, 5.4vw, 84px);
+  /* a touch looser than the homepage's display: these titles run to three
+     lines, and "oglašavanje" hung its descenders into the line below */
+  line-height: 1.02;
 }
 @media (min-width: 1041px) {
   .title {
@@ -486,88 +489,113 @@
 }
 
 /* ── projects ─────────────────────────────────────────────────────────── */
+/* Quiet white cards the size of a screenshot, not a billboard: the
+   picture rests in a mist frame, the name and one line sit below it.
+   One project sits in the middle under its heading; two sit beside the
+   heading on a wide screen (Luka, 11 Nov 2026). */
+.casesWrap {
+  display: grid;
+  gap: clamp(24px, 3vw, 40px);
+}
 .cases {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 16px;
-  margin-top: clamp(24px, 3vw, 40px);
+  gap: 20px;
+}
+.casesWrap[data-n="1"] .casesHead {
+  justify-items: center;
+  margin-inline: auto;
+  text-align: center;
+}
+.casesWrap[data-n="1"] .cases {
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
 }
 @media (min-width: 760px) {
-  .cases[data-n="2"],
-  .cases[data-n="3"] {
+  .casesWrap:not([data-n="1"]) .cases {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .casesWrap:not([data-n="1"]) {
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    align-items: start;
+    gap: 56px;
   }
 }
 .case {
   position: relative;
   display: grid;
-  gap: 18px;
-  padding: 14px 14px 26px;
-  border-radius: 34px;
-  background: var(--mist);
+  gap: 14px;
+  padding: 8px 8px 20px;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04),
+    0 24px 44px -30px rgb(26 25 120 / 0.35);
   transition:
     transform 0.45s var(--ease),
     box-shadow 0.45s var(--ease);
 }
-.cases[data-n="1"] .case {
-  max-width: 760px;
-}
 .case:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--lift);
+  transform: translateY(-4px);
+  box-shadow:
+    var(--ring),
+    0 30px 54px -28px rgb(26 25 120 / 0.45);
 }
 .caseImg {
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  border-radius: 24px;
-  background: #fff;
+  padding: 8px 8px 0;
+  border-radius: 20px;
+  background: var(--mist);
 }
 .caseImg img {
   width: 100%;
   height: 100%;
+  border-radius: 12px 12px 0 0;
   object-fit: cover;
   object-position: top center;
+  box-shadow: var(--ring);
   transition: transform 0.8s var(--ease);
 }
 .case:hover .caseImg img {
-  transform: scale(1.04);
+  transform: translateY(-4px);
 }
 .caseText {
   display: grid;
-  gap: 6px;
-  padding: 0 70px 0 12px;
+  gap: 4px;
+  padding: 0 64px 0 12px;
 }
 .caseText b {
-  font-size: clamp(22px, 2vw, 30px);
+  font-size: clamp(19px, 1.6vw, 22px);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 .caseText em {
   font-style: normal;
-  font-size: 15px;
+  font-size: 14.5px;
   line-height: 1.5;
   color: var(--ink-3);
 }
 .caseGo {
   position: absolute;
-  right: 28px;
-  bottom: 28px;
+  right: 18px;
+  bottom: 20px;
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: #fff;
-  box-shadow: var(--ring);
-  transition:
-    background 0.3s,
-    color 0.3s,
-    transform 0.4s var(--ease);
-}
-.case:hover .caseGo {
   background: var(--accent);
   color: #fff;
+  box-shadow: var(--glow);
+  transition: transform 0.4s var(--ease);
+}
+.case:hover .caseGo {
   transform: rotate(45deg);
 }
 
@@ -776,7 +804,7 @@
 }
 @media (min-width: 1100px) {
   .others {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
   }
 }
 .others[data-all] {
@@ -816,6 +844,21 @@
 .other[data-tone="social"] {
   background: var(--spark);
   color: var(--ink);
+}
+/* AI and automation: a white card on a fine blue grid */
+.other[data-tone="ai"],
+.hubItem[data-tone="ai"] {
+  background:
+    radial-gradient(
+        color-mix(in oklab, var(--accent) 22%, transparent) 1px,
+        transparent 1.4px
+      )
+      0 0 / 12px 12px,
+    #fff;
+  color: var(--ink);
+  box-shadow:
+    var(--ring),
+    0 24px 44px -30px rgb(26 25 120 / 0.35);
 }
 .other[data-tone="brand"] {
   background: var(--accent-soft);

@@ -69,8 +69,10 @@ export const SERVICES = [
   },
   {
     id: "brand",
-    footer: "Dizajn logotipa",
-    page: "/usluge/dizajn-logotipa",
+    footer: "Brending i identitet",
+    // the menu's second line, where the title would only repeat the name
+    sub: "Logo, vizuelni identitet, brend knjiga",
+    page: "/usluge/brending-i-vizuelni-identitet",
     title: "Brend i identitet",
     name: "Brend",
     body: "Pozicioniranje i vizuelni sistem ispod svega, da izgledate kao jedan brend.",
@@ -81,6 +83,27 @@ export const SERVICES = [
       "Brend knjiga i šabloni za objave",
     ],
     fact: ["Rezultat", "Isti izgled na svakom mestu"],
+  },
+];
+
+/* Every service page under /usluge: the five above, then AI and
+   automation, which has a page (and a place in the menu, the footer and
+   the hub) but no card among the homepage's five. */
+export const SERVICE_PAGES = [
+  ...SERVICES,
+  {
+    id: "ai",
+    footer: "AI i automatizacija",
+    sub: "Ponude, cene, pretraga, CRM",
+    page: "/usluge/ai-automatizacija",
+    title: "AI i automatizacija",
+    name: "AI",
+    body: "Automatizacije i AI alati koji umesto vas rade zadatke koji se ponavljaju: ponude, cene, podatke o proizvodima i upite.",
+    includes: [
+      "Automatske ponude i cene",
+      "Pretraga i podaci o proizvodima",
+      "CRM i povezivanje sistema",
+    ],
   },
 ];
 
