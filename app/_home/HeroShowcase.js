@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { STICKERS } from "../_usluge/Stickers";
 import AdsCard from "./heroCards/AdsCard";
 import BrandCard from "./heroCards/BrandCard";
 import SocialCard from "./heroCards/SocialCard";
@@ -33,7 +32,6 @@ export default function HeroShowcase() {
   }, []);
 
   const cur = CARDS.find((c) => c.id === pick);
-  const Sticker = cur ? STICKERS[cur.id] : null;
   const footer = (
     <ServicePicker items={CARDS} current={pick} onPick={(id) => setPick(id)} />
   );
@@ -50,25 +48,6 @@ export default function HeroShowcase() {
               transition={{ duration: 0.4, ease: EASE }}
             >
               <cur.Card footer={footer} />
-              {/* the service's sticker on the card's corner; shown only
-                  under any skin (the /v7 and /v8 tests) */}
-              {Sticker
-                ? <motion.span
-                    className={s.sticker}
-                    aria-hidden="true"
-                    initial={{ scale: 0, rotate: -40 }}
-                    animate={{ scale: 1, rotate: -10 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 240,
-                      damping: 13,
-                      delay: 0.3,
-                    }}
-                    whileHover={{ rotate: -22, scale: 1.08 }}
-                  >
-                    <Sticker size="100%" />
-                  </motion.span>
-                : null}
             </motion.div>
           : <div key="wait" className={s.wait} aria-hidden="true" />}
       </AnimatePresence>

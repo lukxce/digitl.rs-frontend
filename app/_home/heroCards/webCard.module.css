@@ -1623,19 +1623,18 @@
   }
 }
 
-/* ── the hero tests' shared accents (any skin: /v7, /v8) ───────────
+/* ── the hero cards' accents (any skin) ─────────────────────────────
    The card as it is, with the new design's accents and no outlines on
    the interface: the enquiry that lands on the finished site is the
    steps' blue card with its dot grain, the speed score sits on lime
    (flat coral while the site is slow), the load time likewise, the
    window dots wear the brand colours and the chosen view is flat blue.
    The demo site inside the browser keeps its own design. */
-
 /* the enquiry: the blue moment */
 :global([data-skin]) .toast {
   background:
     radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 / 12px
-      12px,
+    12px,
     var(--accent);
   color: #fff;
   box-shadow: 0 18px 34px -16px
@@ -1648,7 +1647,6 @@
 :global([data-skin]) .toastBody small {
   color: rgb(255 255 255 / 0.78);
 }
-
 /* window dots: flat coral, lime and blue */
 :global([data-skin]) .dots i {
   background: var(--spark);
@@ -1659,7 +1657,6 @@
 :global([data-skin]) .dots i:nth-child(3) {
   background: var(--accent);
 }
-
 /* desktop / phone: the chosen view is flat blue */
 :global([data-skin]) .views button[aria-pressed="true"],
 :global([data-skin]) .views button[aria-pressed="true"]:hover {
@@ -1668,7 +1665,6 @@
   box-shadow: 0 4px 10px -4px
     color-mix(in oklab, var(--accent) 70%, transparent);
 }
-
 /* "Brzina": a mist chip, the score on lime, flat coral while slow */
 :global([data-skin]) .speed,
 :global([data-skin]) .speed[data-tone="low"],
@@ -1680,9 +1676,6 @@
   background: var(--secondary-soft);
   color: var(--ink-2);
 }
-:global([data-skin]) .speedNo {
-  rotate: -4deg;
-}
 :global([data-skin]) .speed[data-tone="low"] .speedNo {
   background: var(--spark);
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--spark) 35%, transparent);
@@ -1690,10 +1683,8 @@
 :global([data-skin]) .speed[data-tone="mid"] .speedNo,
 :global([data-skin]) .speed[data-tone="high"] .speedNo {
   background: var(--secondary);
-  box-shadow: 0 0 0 3px
-    color-mix(in oklab, var(--secondary) 35%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--secondary) 35%, transparent);
 }
-
 /* the load time: flat coral while slow, lime once fast */
 :global([data-skin]) .time[data-s="run"],
 :global([data-skin]) .time[data-s="slow"] {
@@ -1706,8 +1697,7 @@
   background: var(--secondary);
   color: var(--ink);
 }
-
-/* ── direction D, "fine" (the /v8 test) ───────────────────────────────
+/* ── skin "fine" ────────────────────────────────────────────────────
    The white card stays; the pieces inside are drawn the way the steps
    draw their little screens. A white name field that sits up off the
    card, the site's key with its arrow in a circle, the view toggle and
@@ -1739,14 +1729,13 @@
   border-radius: 50%;
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")
-      center / 15px no-repeat,
+    center / 15px no-repeat,
     rgb(255 255 255 / 0.2);
   transition: translate 0.3s var(--ease);
 }
 :global([data-skin~="fine"]) .go:hover::after {
   translate: 2px 0;
 }
-
 /* the view toggle and the speed chip: quiet white pills */
 :global([data-skin~="fine"]) .views,
 :global([data-skin~="fine"]) .speed[data-tone] {
@@ -1759,7 +1748,6 @@
   background: var(--mist);
   box-shadow: none;
 }
-
 /* the browser: a white card in a mist tray */
 :global([data-skin~="fine"]) .main {
   padding: 6px;
@@ -1780,7 +1768,6 @@
   background: var(--mist);
   box-shadow: none;
 }
-
 @media (max-width: 640px) {
   :global([data-skin~="fine"]) .main {
     padding: 4px;
@@ -1803,17 +1790,13 @@
     height: 30px;
   }
 }
-
-/* ── direction C, "lift" (the /v7 test) ───────────────────────────────
+/* ── skin "lift", without tilts ───────────────────────────────
    The white card leans like the steps' cards, and the pieces that tell
    the story come off it as stickers: the name bar, the speed chip and the
    blue enquiry, which lands half off the browser and the card. The
    browser stops clipping at its top and sides so the enquiry can hang
    out; the site itself is still clipped by its layer, and the visitor's
    cursor by the browser's bottom edge. */
-:global([data-skin~="lift"]) .deck {
-  rotate: -1.4deg;
-}
 :global([data-skin~="lift"]) .bar {
   margin: 0 -22px 0 -18px;
   background: #fff;
@@ -1821,7 +1804,6 @@
     0 0 0 5px #fff,
     0 18px 34px -16px rgb(11 11 22 / 0.4),
     0 0 0 6px rgb(11 11 22 / 0.06);
-  rotate: 1.6deg;
 }
 :global([data-skin~="lift"]) .bar:focus-within {
   box-shadow:
@@ -1838,7 +1820,6 @@
     0 0 0 4px #fff,
     0 12px 22px -12px rgb(11 11 22 / 0.4);
   font-size: 13px;
-  rotate: 3deg;
 }
 :global([data-skin~="lift"]) .speed[data-tone] {
   background: #fff;
@@ -1846,7 +1827,6 @@
 :global([data-skin~="lift"]) .speed[data-tone="high"] {
   background: var(--secondary-soft);
 }
-
 /* the browser: the page clips its site, not the enquiry */
 :global([data-skin~="lift"]) .view {
   overflow: visible;
@@ -1868,14 +1848,12 @@
 :global([data-skin~="lift"]) .view[data-mode="phone"] .layer {
   border-radius: 0 0 26px 26px;
 }
-
 /* the enquiry lands off the browser's edge, as a sticker */
 :global([data-skin~="lift"]) .toast {
   right: -34px;
   box-shadow:
     0 0 0 5px #fff,
     0 26px 40px -16px color-mix(in oklab, var(--accent) 70%, transparent);
-  rotate: 2.4deg;
 }
 :global([data-skin~="lift"]) .toast::after {
   inset: -5px;
@@ -1890,7 +1868,6 @@
     border-radius: 19px;
   }
 }
-
 @media (max-width: 640px) {
   :global([data-skin~="lift"]) .chrome,
   :global([data-skin~="lift"]) .view[data-mode] .chrome {
@@ -1903,30 +1880,13 @@
   :global([data-skin~="lift"]) .view[data-mode] .toast {
     left: 4px;
     right: -12px;
-    rotate: 1deg;
   }
 }
 @media (max-width: 560px) {
-  :global([data-skin~="lift"]) .deck {
-    rotate: -1deg;
-  }
   :global([data-skin~="lift"]) .bar {
     margin: 0 -8px 0 -6px;
-    rotate: 1deg;
   }
   :global([data-skin~="lift"]) .speed {
     margin-right: -8px;
   }
-}
-
-/* ── "flat" (the /v9 test, Luka 11 Nov 2026: mostly D, the same pieces
-   as C come off the card, nothing leans). Listed after everything
-   above, so it wins: every tilt the accents and C give is taken back. */
-:global([data-skin~="flat"]) .speedNo,
-:global([data-skin~="flat"]) .deck,
-:global([data-skin~="flat"]) .bar,
-:global([data-skin~="flat"]) .speed,
-:global([data-skin~="flat"]) .toast,
-:global([data-skin~="flat"]) .view[data-mode] .toast {
-  rotate: none;
 }

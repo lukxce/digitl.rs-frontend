@@ -4,7 +4,7 @@
    - "Za lokalnu uslugu u gradu sa malo konkurencije pretraga obično počne ozbiljno da donosi upite za oko tri meseca" (opšte pravilo izvedeno iz Moler Niš i ElektroMil)
    - "U prvom mesecu gledamo da li je Google pročitao sve stranice", pozicije poredimo od drugog i trećeg meseca
    - Posle prvog pregleda klijent dobija spisak stranica i popravki za prva tri meseca
-   - Tačan iznos (od 250 € naviše) dajemo posle pregleda sajta i pretraga u delatnosti klijenta
+   - Tačan mesečni iznos (od 250 € naviše) dajemo posle pregleda sajta i pretraga u delatnosti klijenta
    - Na Google profilu firme upisujemo tačnu delatnost i dodajemo fotografije urađenih radova
    - Proveravamo da podešavanja sajta ne blokiraju robote kojima AI alati čitaju stranice
    - SEO radimo i na postojećem sajtu koji nismo mi pravili, ako je brz i može da se menja
@@ -129,7 +129,7 @@ const page = {
     {
       title: "Od čega zavisi cena SEO optimizacije",
       body: [
-        "Cena SEO optimizacije počinje od 250 €. Konačan iznos zavisi od toga koje od ovih stavki naručite i koliko ih ima:",
+        "Cena SEO optimizacije počinje od 250 € mesečno. Konačan iznos zavisi od toga koje od ovih stavki naručite i koliko ih ima:",
         {
           table: {
             head: ["Šta ulazi u cenu", "Šta to znači"],
@@ -198,6 +198,7 @@ const page = {
   ],
   price: {
     from: 250,
+    per: "mesečno",
     note: "Cena zavisi od toga koliko stranica i blog članaka pišemo i šta na sajtu i Google profilu optimizujemo. Pre početka dobijate spisak stranica i popravki, pa tačno znate šta plaćate.",
   },
   faq: [

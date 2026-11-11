@@ -707,7 +707,7 @@
   }
 }
 
-/* ── the hero tests' shared accents (any skin: /v7, /v8) ───────────
+/* ── the hero cards' accents (any skin) ─────────────────────────────
    The card as it is, with the new design's accents and no outlines on
    the interface (Luka found ink outlines on every row retro): your result
    is the steps' blue card with its dot grain, numbers sit on lime, the
@@ -716,7 +716,7 @@
 :global([data-skin]) .row[data-mine] {
   background:
     radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 / 12px
-      12px,
+    12px,
     var(--accent);
   box-shadow: 0 18px 34px -16px
     color-mix(in oklab, var(--accent) 70%, transparent);
@@ -742,7 +742,6 @@
 :global([data-skin]) .tag {
   background: var(--secondary);
   color: var(--ink);
-  rotate: -3deg;
 }
 :global([data-skin]) .fav[data-tone="mine"] {
   background: #fff;
@@ -758,7 +757,6 @@
   color: var(--ink);
 }
 :global([data-skin]) .badge {
-  rotate: -4deg;
   box-shadow: 0 6px 14px -8px rgb(11 11 22 / 0.6);
 }
 :global([data-skin]) .rank {
@@ -767,15 +765,12 @@
 }
 :global([data-skin]) .rankNo {
   background: var(--secondary);
-  box-shadow: 0 0 0 3px
-    color-mix(in oklab, var(--secondary) 35%, transparent);
-  rotate: -4deg;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--secondary) 35%, transparent);
 }
 :global([data-skin]) .rank[data-top="true"] {
   background: var(--secondary-soft);
 }
-
-/* "fine" (the /v8 test): the white card stays; the pieces inside are
+/* "fine": the white card stays; the pieces inside are
    drawn the way the steps draw their little screens. A white search field
    that sits up off the card, the site's key with its arrow in a circle,
    and the results as white cards in a mist tray. */
@@ -807,7 +802,7 @@
   border-radius: 50%;
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")
-      center / 15px no-repeat,
+    center / 15px no-repeat,
     rgb(255 255 255 / 0.2);
   transition: translate 0.3s var(--ease);
 }
@@ -855,15 +850,10 @@
     height: 30px;
   }
 }
-
-/* ── direction C, "lift" (the /v7 test, Luka picked it 11 Nov 2026) ── */
-
-/* "lift": the white card leans like the steps' cards, and the pieces that
-   tell the story come off it as stickers: the search bar, your result and
-   the rank */
-:global([data-skin~="lift"]) .deck {
-  rotate: -1.4deg;
-}
+/* ── skin "lift": the story's pieces come off the card (no tilts since
+   Luka's pick on 11 Nov 2026) ── */
+/* the pieces that tell the story come off the card as stickers: the
+   search bar, your result and the rank */
 :global([data-skin~="lift"]) .bar {
   margin: 0 -22px 0 -18px;
   background: #fff;
@@ -871,14 +861,12 @@
     0 0 0 5px #fff,
     0 18px 34px -16px rgb(11 11 22 / 0.4),
     0 0 0 6px rgb(11 11 22 / 0.06);
-  rotate: 1.6deg;
 }
 :global([data-skin~="lift"]) .row[data-mine] {
   margin: 0 -30px 0 -6px;
   box-shadow:
     0 0 0 5px #fff,
     0 26px 40px -16px color-mix(in oklab, var(--accent) 70%, transparent);
-  rotate: -2.2deg;
 }
 :global([data-skin~="lift"]) .rank {
   margin-right: -26px;
@@ -886,38 +874,18 @@
     0 0 0 4px #fff,
     0 12px 22px -12px rgb(11 11 22 / 0.4);
   background: #fff;
-  rotate: 3deg;
   height: 34px;
   padding: 0 5px 0 13px;
   font-size: 13px;
 }
-
 @media (max-width: 560px) {
-  :global([data-skin~="lift"]) .deck {
-    rotate: -1deg;
-  }
   :global([data-skin~="lift"]) .bar {
     margin: 0 -8px 0 -6px;
-    rotate: 1deg;
   }
   :global([data-skin~="lift"]) .row[data-mine] {
     margin: 0 -10px 0 -2px;
-    rotate: -1.2deg;
   }
   :global([data-skin~="lift"]) .rank {
     margin-right: -8px;
   }
-}
-
-/* ── "flat" (the /v9 test, Luka 11 Nov 2026: mostly D, the same pieces
-   as C come off the card, nothing leans). Listed after everything
-   above, so it wins: every tilt the accents and C give is taken back. */
-:global([data-skin~="flat"]) .tag,
-:global([data-skin~="flat"]) .badge,
-:global([data-skin~="flat"]) .rankNo,
-:global([data-skin~="flat"]) .deck,
-:global([data-skin~="flat"]) .bar,
-:global([data-skin~="flat"]) .row[data-mine],
-:global([data-skin~="flat"]) .rank {
-  rotate: none;
 }

@@ -1,18 +1,21 @@
 /* Za potvrdu (Luka): claims about how Digitl works that this page makes and
    that no approved source states, one per line, so Luka can confirm or cut
    them before the page goes live.
+   - Oglašavanje na Google-u i oglašavanje na društvenim mrežama su dve posebne usluge; klijent naručuje jednu ili obe.
+   - Vodimo i oglase na TikTok-u (poseban nalog za oglase, najčešće uspravan kratak video).
    - Merenje poziva, formi i poruka podešavamo pre pokretanja kampanja.
    - Kampanje pregledamo i podešavamo svake nedelje: pregledamo pretrage i publike, isključujemo one bez upita, pomeramo budžet.
-   - Radimo u nalozima za oglase koji su na ime klijenta; nalozi, istorija i podaci ostaju klijentu posle saradnje.
-   - Na Meti stranica firme i Instagram profil ostaju klijentu, a mi dobijamo ulogu sa pravom da vodimo oglase.
+   - Radimo u nalozima za oglase (Google, Meta, TikTok) koji su na ime klijenta; nalozi, istorija i podaci ostaju klijentu posle saradnje.
+   - Profili firme na Facebook-u, Instagram-u i TikTok-u ostaju klijentu, a mi dobijamo ulogu sa pravom da vodimo oglase.
    - Nalog koji je druga agencija otvorila na svoje ime prvo tražimo da se preda klijentu, ili otvaramo nov.
-   - Budžet za oglase klijent plaća direktno Google-u i Meti, sa svoje kartice u svom nalogu.
+   - Budžet za oglase klijent plaća direktno platformi (Google, Meta, TikTok), sa svoje kartice u svom nalogu.
    - Tekstove oglasa pišemo mi i pravimo vizuale (slika ili kratak video) u istom izgledu kao sajt i profil; koristimo klijentove fotografije kad ih ima.
    - Posebne stranice za kampanje (landing) radimo u okviru izrade sajta.
    - Nijedna kampanja ne kreće dok je klijent ne pogleda i odobri.
    - Ljudima koji su već bili na sajtu prikazujemo podsetnik (remarketing).
-   - Iz kampanja isključujemo pretrage koje troše novac bez upita.
+   - Iz kampanja isključujemo pretrage koje troše novac bez upita (na primer pretrage za uputstvo, zaposlenje ili besplatan savet).
    - Posle pregleda dajemo predlog kanala i mesečnog budžeta za oglase.
+   - TikTok predlažemo kad klijent može redovno da snima ono što radi.
    - Postojeće kampanje prvo pregledamo i dajemo spisak šta gasimo, zadržavamo i dodajemo; kampanje koje donose upite ne diramo dok nove ne pokažu bolje.
    - Mesečni izveštaj ima potrošnju po kampanji i kanalu, upite po vrsti, cenu po upitu i promenu od prošlog meseca, isključene pretrage i publike i predlog za sledeći mesec.
    - Za online prodavnice umesto upita pratimo kupovine i njihovu vrednost.
@@ -26,39 +29,40 @@ const page = {
   slug: "placeno-oglasavanje",
   service: "ads",
   seo: {
-    title: "Plaćeno oglašavanje: Google Ads i Meta oglasi | Digitl",
+    title: "Plaćeno oglašavanje na Google-u i društvenim mrežama",
     description:
-      "Plaćeno oglašavanje za firme: Google Ads i oglasi na Facebook-u i Instagram-u, sa cenom po upitu za svaku kampanju. Pogledajte od čega zavisi cena.",
+      "Vodimo plaćeno oglašavanje na Google-u i oglašavanje na društvenim mrežama, Facebook-u, Instagram-u i TikTok-u, i za svaku kampanju merimo cenu po upitu.",
   },
   label: "Oglašavanje na internetu",
-  h1: "Plaćeno oglašavanje",
-  lead: "Vodimo plaćeno oglašavanje za firme koje od oglasa očekuju pozive, poruke i prodaju, na Google-u i na Facebook-u i Instagram-u. Pre prvog oglasa podešavamo merenje upita, pa za svaku kampanju znate koliko vas košta jedan upit. Taj broj dobijate u mesečnom izveštaju, uz predlog kako da rasporedimo budžet sledećeg meseca.",
+  h1: "Plaćeno oglašavanje na Google-u i mrežama",
+  lead: "Vodimo plaćeno oglašavanje za firme koje od oglasa očekuju pozive, poruke i prodaju. Oglašavanje na Google-u i oglašavanje na društvenim mrežama su dve posebne usluge, i možete da naručite jednu ili obe. Uz svaku pre prvog oglasa podešavamo merenje upita, pa u mesečnom izveštaju vidite koliko vas je jedan upit koštao u svakoj kampanji.",
   proof: [],
   intro: {
     title: "Kako plaćeni oglasi dovode upite",
     body: [
-      "Kod plaćenog oglašavanja platformi plaćate da vaš oglas vidi tačno onaj ko vam treba, a za firme u Srbiji to su najčešće dva kanala. Google oglašavanje je plaćeno mesto u rezultatima pretrage koje dobijate kad neko ukuca ono što prodajete, a uglavnom ga plaćate tek kad neko klikne na oglas. Takav oglas stoji iznad ili ispod običnih rezultata, označen kao sponzorisan. Meta oglasi se pojavljuju na Facebook-u i Instagram-u ljudima koji vas nisu tražili, ali po mestu i interesovanjima liče na vaše kupce.",
-      "Od te razlike zavisi kako pravimo oglas za svaki kanal. Na Google-u oglas vidi čovek kome je usluga već potrebna i koji sad bira koga da pozove, pa tekst treba tačno da odgovori na ono što je ukucao. Na Facebook-u i Instagram-u oglas mora da privuče pažnju nekoga ko lista objave i ne misli na vas, zato tamo slika i prva rečenica odlučuju više od same ponude.",
-      "Oba kanala vodimo kao jedan budžet i merimo ih istim brojem, cenom po upitu. Kad Google donosi pozive jeftinije od Instagram-a, novac prebacujemo na Google, i obrnuto. Isto radimo između dve kampanje u istom kanalu, a razlog za svaku takvu odluku piše u mesečnom izveštaju.",
+      "Plaćeno oglašavanje je prikazivanje oglasa za koje platformi, Google-u ili društvenoj mreži, plaćate po kliku ili po prikazu. Oglas na Google-u i oglas na društvenim mrežama vide različiti ljudi u različitom trenutku, pa se i prave i vode drugačije.",
+      "Oglašavanje na Google-u je plaćeno mesto u rezultatima pretrage koje dobijate kad neko ukuca ono što prodajete, a uglavnom ga plaćate tek kad neko klikne na oglas. Takav oglas stoji iznad ili ispod običnih rezultata, označen kao sponzorisan. Vidi ga čovek kome je usluga već potrebna i koji sad bira koga da pozove, pa tekst treba tačno da odgovori na ono što je ukucao.",
+      "Oglašavanje na društvenim mrežama prikazuje vaš oglas na Facebook-u, Instagram-u ili TikTok-u ljudima koji vas nisu tražili, ali po mestu i interesovanjima liče na vaše kupce. Tamo oglas mora da privuče pažnju nekoga ko lista objave i ne misli na vas, zato slika ili video i prva rečenica odlučuju više od same ponude.",
+      "Obe usluge merimo istim brojem, cenom po upitu. Kad vodimo obe, novac prebacujemo na kanal koji upite donosi jeftinije, a isto radimo između dve kampanje u istom kanalu. Razlog za svaku takvu odluku piše u mesečnom izveštaju.",
     ],
   },
   included: {
     title: "Šta je uključeno",
     intro:
-      "Možete da naručite jedan kanal ili oba, a merenje upita podešavamo uz svaki.",
+      "Prve dve stavke su posebne usluge, a treća, merenje upita, ide uz svaku od njih.",
     items: [
       {
-        title: "Google Ads kampanje",
-        sub: "Oglasi u Google pretrazi",
+        title: "Oglašavanje na Google-u",
+        sub: "Google Ads, oglasi u pretrazi",
         text: "Biramo pretrage za koje vredi platiti klik i pišemo tekstove oglasa. Pretrage ljudi koji traže zaposlenje ili besplatan savet troše novac bez upita, pa ih isključujemo iz kampanje.",
       },
       {
-        title: "Meta oglasi na Facebook-u i Instagram-u",
-        sub: "Publika, vizual i tekst",
+        title: "Oglašavanje na društvenim mrežama",
+        sub: "Facebook, Instagram i TikTok",
         text: "Pravimo vizual, sliku ili kratak video, i pišemo tekst oglasa. Publiku biramo po mestu, uzrastu i interesovanjima, a ljudima koji su već bili na vašem sajtu prikazujemo podsetnik.",
       },
       {
-        title: "Analitika i praćenje konverzija",
+        title: "Merenje upita i analitika",
         sub: "Pozivi, forme i poruke",
         text: "Podešavamo merenje tako da se svaki poziv, poslata forma i poruka upišu uz kampanju iz koje su stigli. Tek tada cena po upitu postaje broj na koji možete da se oslonite.",
       },
@@ -67,11 +71,11 @@ const page = {
   steps: {
     title: "Kako radimo",
     intro:
-      "Koraci su isti za Google i za Metu. Prva tri radimo jednom, pre nego što se pojavi prvi oglas. Poslednja dva ponavljamo svake nedelje i svakog meseca dok kampanje traju.",
+      "Koraci su isti za oglase na Google-u i na društvenim mrežama. Prva tri radimo jednom, pre nego što se pojavi prvi oglas. Poslednja dva ponavljamo svake nedelje i svakog meseca dok kampanje traju.",
     items: [
       {
         title: "Pregled i budžet",
-        text: "Pregledamo vaše dosadašnje kampanje, ako ih imate, i šta ljudi kucaju u Google kad traže ono što prodajete. Na osnovu toga dobijate predlog kanala i mesečnog budžeta za oglase.",
+        text: "Pregledamo vaše dosadašnje kampanje, ako ih imate, i šta ljudi kucaju u Google kad traže ono što prodajete. Od vas saznajemo ko su vaši kupci, pa dobijate predlog kanala i mesečnog budžeta za oglase.",
       },
       {
         title: "Merenje pre oglasa",
@@ -94,31 +98,48 @@ const page = {
   cases: [],
   guide: [
     {
+      title: "Kako funkcioniše oglašavanje na Google-u",
+      body: [
+        "Oglas na Google-u se prikazuje kad neko ukuca pretragu koju ste izabrali, na području koje ste odredili, od jednog grada do cele Srbije. Plaćate ga uglavnom tek kad neko klikne, a dnevni budžet određujete unapred.",
+        "Google za svaku pretragu održi aukciju u kojoj ne pobeđuje uvek najviša ponuda, jer [u računicu ulazi i kvalitet oglasa i stranice na koju vodi](https://support.google.com/google-ads/answer/1704431?hl=sr). Oglas koji tačno odgovara pretrazi zato može da dobije bolje mesto i po nižoj ceni klika.",
+        "Pretrage biramo po tome da li iza njih stoji kupac. Neko ko ukuca „servis klime cena“ verovatno zove još danas, a neko ko ukuca „kako očistiti klimu“ traži uputstvo, pa takve pretrage isključujemo iz kampanje.",
+        "Oglas donosi upite onoliko dugo koliko ga plaćate. Posete iz pretrage za koje ne plaćate klik dolaze od [SEO optimizacije](/usluge/seo-optimizacija), i firmi koja planira dalje od ove sezone treba oboje.",
+      ],
+    },
+    {
+      title: "Kako funkcioniše oglašavanje na društvenim mrežama",
+      body: [
+        "Oglas na društvenim mrežama vide ljudi koji vas nisu tražili, a birate ih po mestu, uzrastu i interesovanjima. Plaća se uglavnom po prikazu, pa oglas odmah, slikom ili prvom rečenicom, treba da pokaže šta nudite.",
+        "Facebook i Instagram pripadaju istoj firmi, Meti, pa se oglasi za obe mreže vode iz istog naloga. Za svaku kampanju biramo da li se oglas prikazuje na jednoj mreži ili na obe, a dovoljna mu je i jedna dobra fotografija.",
+        "TikTok ima svoj nalog za oglase, a oglas je tamo najčešće uspravan kratak video koji izgleda kao ostali snimci u aplikaciji. Zato ga predlažemo kad možete redovno da snimate ono što radite, na primer radove pre i posle ili proizvod u upotrebi.",
+        "Oglašavanje na društvenim mrežama i redovne objave na profilu su dve odvojene usluge. Oglas dovodi ljude do ponude, a profil sa urednim objavama ih uverava kad posle klika dođu da vide ko ste i da li još radite. Za objave na profilu imamo posebnu uslugu, [vođenje društvenih mreža](/usluge/vodjenje-drustvenih-mreza).",
+      ],
+    },
+    {
       title: "Koliko košta plaćeno oglašavanje i od čega zavisi cena",
       body: [
-        "Cenu čine dva odvojena iznosa: budžet koji ide direktno Google-u ili Meti za klikove i prikaze, i naknada koju plaćate nama za vođenje kampanja.",
-        "Budžet za oglase raste i pada sa konkurencijom. Google za svaku pretragu održi aukciju u kojoj ne pobeđuje uvek najviša ponuda, jer [u računicu ulazi i kvalitet oglasa i stranice na koju vodi](https://support.google.com/google-ads/answer/1704431?hl=sr). Oglas koji tačno odgovara pretrazi zato može da dobije bolje mesto i po nižoj ceni klika.",
+        "Cenu čine dva odvojena iznosa. Budžet za oglase plaćate direktno platformi na kojoj se oglašavate, Google-u, Meti ili TikTok-u, za klikove i prikaze. Naknadu za vođenje kampanja plaćate nama.",
+        "Budžet za oglase raste i pada sa konkurencijom, pošto se za istu pretragu ili istu publiku nadmećete sa drugim oglašivačima.",
         "Visinu budžeta najviše pomeraju:",
         {
           list: [
-            "broj firmi koje plaćaju iste pretrage u vašoj delatnosti",
+            "broj firmi koje plaćaju iste pretrage ili istu publiku u vašoj delatnosti",
             "područje na kome se oglas prikazuje, od jednog grada do cele Srbije",
             "sezona u kojoj vaši kupci traže najviše",
             "broj upita koji želite mesečno",
           ],
         },
-        "Naknada za vođenje zavisi od broja kampanja i kanala. Jedna kampanja u pretrazi traži manje rada od više kampanja na oba kanala, sa vizualima koje svakog meseca pravimo iznova.",
-        "Sa skromnim budžetom savetujemo jedan kanal. Novac podeljen na Google i Metu odjednom retko skupi dovoljno upita na bilo kojoj strani da bi se videlo šta radi, pa posle nekoliko meseci znate jedva više nego na početku.",
-        "Oglasi donose upite onoliko dugo koliko ih plaćate. Posete iz pretrage za koje ne plaćate klik dolaze od [SEO optimizacije](/usluge/seo-optimizacija), i firmi koja planira dalje od ove sezone treba oboje.",
+        "Naknada za vođenje zavisi od broja kampanja i kanala. Jedna kampanja u pretrazi traži manje rada od kampanja na Google-u i na mrežama zajedno, sa vizualima koje svakog meseca pravimo iznova.",
+        "Sa skromnim budžetom savetujemo jedan kanal. Novac podeljen odjednom na Google i društvene mreže retko skupi dovoljno upita na bilo kojoj strani da bi se videlo šta radi, pa posle nekoliko meseci znate jedva više nego na početku.",
       ],
     },
     {
-      title: "Google ili Facebook i Instagram, odakle da krenete",
+      title: "Google ili društvene mreže, odakle da krenete",
       body: [
-        "Ako ljudi vašu uslugu traže kad im zatreba, krenite od Google pretrage. Proizvod koji kupac mora prvo da vidi da bi ga poželeo bolje prolazi na Facebook-u i Instagram-u.",
+        "Ako ljudi vašu uslugu traže kad im zatreba, krenite od Google pretrage. Proizvod koji kupac mora prvo da vidi da bi ga poželeo bolje prolazi na društvenim mrežama.",
         {
           table: {
-            head: ["Šta poredite", "Google pretraga", "Facebook i Instagram"],
+            head: ["Šta poredite", "Google pretraga", "Društvene mreže"],
             rows: [
               [
                 "Ko vidi oglas",
@@ -144,8 +165,7 @@ const page = {
             ],
           },
         },
-        "Za vodoinstalatera ili servis bele tehnike prvo bismo postavili kampanju u pretrazi, pošto njih ljudi traže tek onog dana kad nešto procuri ili stane. Kuhinje po meri ili nov restoran prolaze bolje kad ih ljudi vide pre nego što su počeli da traže, i tu Meta oglasi obično dolaze prvi.",
-        "Oglašavanje na društvenim mrežama i redovne objave na profilu su dve odvojene usluge. Oglas dovodi ljude do ponude, a profil sa urednim objavama ih uverava kad posle klika dođu da vide ko ste i da li još radite. Za objave na profilu imamo posebnu uslugu, [vođenje društvenih mreža](/usluge/vodjenje-drustvenih-mreza).",
+        "Za vodoinstalatera ili servis bele tehnike prvo bismo postavili kampanju u pretrazi, pošto njih ljudi traže tek onog dana kad nešto procuri ili stane. Kuhinje po meri ili nov restoran prolaze bolje kad ih ljudi vide pre nego što su počeli da traže, i tu oglasi na društvenim mrežama obično dolaze prvi.",
         "Ako ste i dalje između dva kanala, [tri pitanja na početnoj strani](/#vas-plan) za oko pola minuta daju predlog odakle da počnete.",
       ],
     },
@@ -173,9 +193,9 @@ const page = {
     {
       title: "Čiji su nalozi za oglase i podaci o kampanjama",
       body: [
-        "Vaši. Nalog za oglase na Google-u i nalog na Meti otvaraju se na vašu firmu, a mi u njima radimo sa pristupom koji nam date.",
-        "Stranica firme na Facebook-u i Instagram profil ostaju vaši, a mi dobijamo ulogu koja nam dozvoljava da vodimo oglase. Budžet se naplaćuje sa vaše kartice u vašem nalogu, pa svaki dinar koji je otišao Google-u ili Meti vidite na računu koji vam oni šalju.",
-        "Istorija naloga čuva sve što ste već platili da naučite. U njoj piše koje pretrage donose upit, koliko je koji upit koštao i koje publike ne kupuju. Google i Meta iz tih podataka uče kome da prikazuju oglase, pa nalog sa istorijom posle promene agencije ne kreće od nule.",
+        "Vaši. Nalozi za oglase na Google-u, Meti i TikTok-u otvaraju se na vašu firmu, a mi u njima radimo sa pristupom koji nam date.",
+        "Profili firme na Facebook-u, Instagram-u i TikTok-u ostaju vaši, a mi dobijamo ulogu koja nam dozvoljava da vodimo oglase. Budžet se naplaćuje sa vaše kartice u vašem nalogu, pa svaki dinar koji je otišao platformi vidite na računu koji vam ona šalje.",
+        "Istorija naloga čuva sve što ste već platili da naučite. U njoj piše koje pretrage donose upit, koliko je koji upit koštao i koje publike ne kupuju. Platforme iz tih podataka uče kome da prikazuju oglase, pa nalog sa istorijom posle promene agencije ne kreće od nule.",
         "Kad agencija vodi kampanje iz svog naloga, ta istorija posle raskida ostaje kod nje i vi sledeću kampanju plaćate kao da je prva. Ako saradnja sa nama prestane, naš pristup ukidate u podešavanjima naloga, a kampanje i podaci ostaju gde su bili.",
         "Ako je vaš sadašnji nalog otvorila druga agencija na svoje ime, prvo tražimo da vam preda vlasništvo. Kad to ne ide, otvaramo nov nalog na vašu firmu. Pre nego što bilo kome predate oglase, pitajte na čije ime se otvara nalog.",
       ],
@@ -183,7 +203,7 @@ const page = {
   ],
   price: {
     from: null,
-    note: "Naknadu za vođenje određujemo prema broju kampanja i kanala i prema tome da li pravimo i vizuale za oglase. Budžet za oglase je poseban iznos i ide direktno Google-u i Meti.",
+    note: "Naknadu za vođenje određujemo prema broju kampanja i kanala i prema tome da li pravimo i vizuale za oglase. Budžet za oglase je poseban iznos i ide direktno platformi na kojoj se oglašavate.",
   },
   faq: [
     {
@@ -192,7 +212,7 @@ const page = {
     },
     {
       q: "Koliko brzo stižu prvi upiti iz oglasa?",
-      a: "Oglas počinje da se prikazuje čim ga Google ili Meta pregledaju i odobre, pa prvi klikovi stižu već prvih dana. Za cenu po upitu na koju možete da računate treba nekoliko nedelja podataka, dok ne vidimo koje pretrage i publike donose pozive a koje samo troše budžet.",
+      a: "Oglas počinje da se prikazuje čim ga platforma pregleda i odobri, pa prvi klikovi stižu već prvih dana. Za cenu po upitu na koju možete da računate treba nekoliko nedelja podataka, dok ne vidimo koje pretrage i publike donose pozive a koje samo troše budžet.",
     },
     {
       q: "Da li radite Google oglašavanje za firme van Beograda?",
@@ -200,7 +220,7 @@ const page = {
     },
     {
       q: "Da li vi pravite slike i tekstove za oglase?",
-      a: "Pravimo. Tekstove oglasa pišemo mi, a vizuale za Facebook i Instagram radimo u istom izgledu kao vaš sajt i profil, pa kupac koji klikne odmah prepozna firmu. Ako imate fotografije sa terena ili iz radnje, koristimo njih, i to je obično bolje od fotografija sa interneta.",
+      a: "Pravimo. Tekstove oglasa pišemo mi, a vizuale za društvene mreže radimo u istom izgledu kao vaš sajt i profil, pa kupac koji klikne odmah prepozna firmu. Ako imate fotografije sa terena ili iz radnje, koristimo njih, i to je obično bolje od fotografija sa interneta.",
     },
     {
       q: "Može li oglašavanje samo na Instagram-u, bez Facebook-a?",

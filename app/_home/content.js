@@ -262,3 +262,8 @@ export const CONTACT = {
   // the English site
   en: "https://www.digitl.me",
 };
+
+/* How the hero's service cards are drawn (Luka's pick, 11 Nov 2026): the
+   "fine" and "lift" rules at the end of each card's stylesheet. Set on the
+   page root by HomeV5 and Shell. */
+export const CARD_SKIN = "fine lift";

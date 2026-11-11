@@ -1473,7 +1473,7 @@
   }
 }
 
-/* ── the hero tests' shared accents (any skin: /v7, /v8) ───────────
+/* ── the hero cards' accents (any skin) ─────────────────────────────
    The card as it is, with no outlines on the interface (Luka found ink
    outlines retro). The newest enquiry in the inbox is the steps' blue
    card with its dot grain and a lime "Upit" (an older enquiry goes back
@@ -1481,7 +1481,6 @@
    day going out wears a small blue label, "Objavljeno" is flat lime
    (blue while it publishes), monograms wear flat brand colours. The post
    pictures are untouched. The sticker is HeroShowcase's. */
-
 /* the enquiry count on lime */
 :global([data-skin]) .leads {
   background: var(--mist);
@@ -1493,11 +1492,8 @@
 }
 :global([data-skin]) .leads .leadsNo {
   background: var(--secondary);
-  box-shadow: 0 0 0 3px
-    color-mix(in oklab, var(--secondary) 35%, transparent);
-  rotate: -4deg;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--secondary) 35%, transparent);
 }
-
 /* the day going out: a small flat blue label over its frame */
 :global([data-skin]) .dayName {
   justify-self: center;
@@ -1512,14 +1508,11 @@
 :global([data-skin]) .day[data-today="true"] .dayName {
   background: var(--accent);
   color: #fff;
-  rotate: -3deg;
 }
-
 /* "Objavljeno" flat lime, "Objavljuje se" flat blue */
 :global([data-skin]) .state {
   background: var(--secondary);
   color: var(--ink);
-  rotate: -3deg;
 }
 :global([data-skin]) .state[data-live] {
   background: var(--accent);
@@ -1529,7 +1522,6 @@
   border-color: rgb(255 255 255 / 0.35);
   border-top-color: #fff;
 }
-
 /* monograms in flat brand fills */
 :global([data-skin]) .dmAva[data-tone="spark"] {
   background: var(--spark);
@@ -1546,16 +1538,12 @@
   color: #fff;
   box-shadow: none;
 }
-:global([data-skin]) .dmTag em {
-  rotate: -3deg;
-}
 :global([data-skin]) .dmTop b,
 :global([data-skin]) .dmText,
 :global([data-skin]) .dmMeta,
 :global([data-skin]) .dmMeta svg {
   transition: color 0.4s var(--ease);
 }
-
 /* the newest enquiry: the steps' blue card (only the first row with an
    "Upit", so the inbox never holds two blue cards) */
 :global([data-skin])
@@ -1610,8 +1598,7 @@
     translate: 0 -2px;
   }
 }
-
-/* ── skin "fine" (/v8): the white card stays; the pieces inside are
+/* ── skin "fine": the white card stays; the pieces inside are
    drawn the way the steps draw their little screens. A white profile
    bar that sits up off the card, the site's key with its arrow in a
    circle, and the messages as white cards in a mist tray (the trays
@@ -1638,7 +1625,7 @@
   border-radius: 50%;
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")
-      center / 15px no-repeat,
+    center / 15px no-repeat,
     rgb(255 255 255 / 0.2);
   transition: translate 0.3s var(--ease);
 }
@@ -1688,15 +1675,12 @@
     height: 30px;
   }
 }
-
-/* ── skin "lift" (/v7): the white card leans like the steps' cards, and
+/* ── skin "lift" (tilts taken out 11 Nov 2026): earlier the white card
+   leaned like the steps' cards, and
    three pieces come off it as stickers: the profile bar, the post that
    just went out (a polaroid off the left edge) and the enquiry count
    (off the right edge). The inbox is a conveyor that clips its rows, so
    the blue enquiry row stays in place. ─────────────────────────────── */
-:global([data-skin~="lift"]) .deck {
-  rotate: -1.4deg;
-}
 :global([data-skin~="lift"]) .bar {
   margin: 0 -22px 0 -18px;
   background: #fff;
@@ -1704,7 +1688,6 @@
     0 0 0 5px #fff,
     0 18px 34px -16px rgb(11 11 22 / 0.4),
     0 0 0 6px rgb(11 11 22 / 0.06);
-  rotate: 1.6deg;
 }
 :global([data-skin~="lift"]) .ava {
   box-shadow: 0 0 0 2px #fff;
@@ -1715,7 +1698,6 @@
     0 0 0 5px #fff,
     0 0 0 6px rgb(11 11 22 / 0.06),
     0 26px 40px -18px rgb(11 11 22 / 0.42);
-  rotate: -2.2deg;
 }
 /* a post on its way out is absolutely placed by AnimatePresence, at a
    left that already counts the margin */
@@ -1731,40 +1713,19 @@
   box-shadow:
     0 0 0 4px #fff,
     0 12px 22px -12px rgb(11 11 22 / 0.4);
-  rotate: 3deg;
 }
 @media (max-width: 560px) {
   /* phones: the card is full width, so small overhangs and tilts */
-  :global([data-skin~="lift"]) .deck {
-    rotate: -1deg;
-  }
   :global([data-skin~="lift"]) .bar {
     margin: 0 -8px;
-    rotate: 1deg;
   }
   :global([data-skin~="lift"]) .post {
     margin-left: -8px;
-    rotate: -1deg;
   }
   :global([data-skin~="lift"]) .leads {
     margin-right: -8px;
     height: 28px;
     padding: 0 4px 0 11px;
     font-size: 12px;
-    rotate: 1deg;
   }
-}
-
-/* ── "flat" (the /v9 test, Luka 11 Nov 2026: mostly D, the same pieces
-   as C come off the card, nothing leans). Listed after everything
-   above, so it wins: every tilt the accents and C give is taken back. */
-:global([data-skin~="flat"]) .leads .leadsNo,
-:global([data-skin~="flat"]) .day[data-today="true"] .dayName,
-:global([data-skin~="flat"]) .state,
-:global([data-skin~="flat"]) .dmTag em,
-:global([data-skin~="flat"]) .deck,
-:global([data-skin~="flat"]) .bar,
-:global([data-skin~="flat"]) .post,
-:global([data-skin~="flat"]) .leads {
-  rotate: none;
 }

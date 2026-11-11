@@ -1,6 +1,5 @@
 /* Za potvrdu (Luka):
    "Vodimo Instagram i Facebook" stoji kao sigurno; TikTok i LinkedIn stranica pominje u tabeli mreža i kao stavku cene, potvrditi da li ih vodimo
-   "Cena od 200 € je mesečna": tekst o ceni, beleška u kartici cene i odgovor o ceni Instagram profila kažu „od 200 € mesečno“ / „cena je mesečna“
    "Na komentare i poruke odgovaramo ako se tako dogovorimo; pitanja o ceni i terminu prosleđujemo klijentu"
    "Za pitanja koja se ponavljaju zajedno sastavimo spisak gotovih odgovora"
    "Snimanje fotografija i videa na terenu dogovaramo posebno" (i da li uopšte snimamo i montiramo Reels)
@@ -179,6 +178,7 @@ const page = {
   ],
   price: {
     from: 200,
+    per: "mesečno",
     note: "Cena je mesečna i raste sa brojem objava i storija i sa količinom videa. Budžet za oglase i snimanje na terenu plaćaju se posebno.",
   },
   faq: [

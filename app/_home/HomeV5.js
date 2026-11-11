@@ -3,6 +3,7 @@
 import Booking from "./Booking";
 import b from "./base.module.css";
 import Contact from "./Contact";
+import { CARD_SKIN } from "./content";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import Journey from "./Journey";
@@ -25,11 +26,18 @@ import Work from "./Work";
     chrome, so the global SiteNav hides itself (data-own-chrome).
 
     look "v2" (the default since 11 Nov 2026) draws the service cards and
-    the steps in the service pages' sticker language. skin restyles the
-    hero's cards for the tests: "lift" on /v7, "fine" on /v8, and
-    "fine lift flat" on /v9 (the rules sit at the end of each card's
-    stylesheet). */
-export default function HomeV5({ clients, fonts, look = "v2", skin }) {
+    the steps in the service pages' sticker language. skin draws the
+    hero's cards the way Luka picked on 11 Nov 2026 (the /v9 test): white
+    fields, the arrow-in-a-circle key, items as white cards in a mist tray
+    ("fine"), and the pieces that tell each story coming off the card
+    ("lift"), nothing tilted. The rules sit at the end of each card's
+    stylesheet. */
+export default function HomeV5({
+  clients,
+  fonts,
+  look = "v2",
+  skin = CARD_SKIN,
+}) {
   return (
     <div
       className={`${b.root} ${fonts}`}

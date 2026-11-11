@@ -36,7 +36,9 @@ export function Price({ price, className = "" }) {
     return (
       <p className={`${u.price} ${className}`}>
         <span>Cena</span>
-        <b>od {price.from} €</b>
+        <b>
+          od {price.from} €{price.per ? ` ${price.per}` : ""}
+        </b>
       </p>
     );
   if (process.env.NODE_ENV !== "production")

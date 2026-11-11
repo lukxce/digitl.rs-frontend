@@ -8,6 +8,10 @@ const nextConfig = {
       // the /v2 test became the homepage (11 Nov 2026); not permanent, so
       // the address can hold the next test
       { source: "/v2", destination: "/", permanent: false },
+      // the hero card tests; /v9 became the homepage's cards (11 Nov 2026)
+      { source: "/v7", destination: "/", permanent: false },
+      { source: "/v8", destination: "/", permanent: false },
+      { source: "/v9", destination: "/", permanent: false },
       { source: "/v4", destination: "/", permanent: true },
       { source: "/v5", destination: "/", permanent: true },
       { source: "/v6", destination: "/", permanent: true },

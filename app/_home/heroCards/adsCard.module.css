@@ -1010,7 +1010,7 @@
   }
 }
 
-/* ── the hero tests' shared accents (any skin: /v7, /v8) ───────────
+/* ── the hero cards' accents (any skin) ─────────────────────────────
    The card as it is, with the new design's accents and no outlines on
    the interface: the best ad (the one that wins the budget) becomes the
    steps' blue card with its dot grain and a lime share bar, the cost per
@@ -1019,7 +1019,7 @@
 :global([data-skin]) .row[data-best] {
   background:
     radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 / 12px
-      12px,
+    12px,
     var(--accent);
   box-shadow: 0 18px 34px -16px
     color-mix(in oklab, var(--accent) 70%, transparent);
@@ -1046,7 +1046,6 @@
 :global([data-skin]) .row[data-best] .track i {
   background: var(--secondary);
 }
-
 /* channel marks: flat lime for search, flat coral for social */
 :global([data-skin]) .mark {
   background: var(--secondary);
@@ -1063,20 +1062,11 @@
   color: var(--accent);
   box-shadow: 0 6px 14px -6px rgb(11 11 22 / 0.5);
 }
-
 /* labels: flat, tilted */
-:global([data-skin]) .best {
-  rotate: -3deg;
-}
 :global([data-skin]) .off {
   background: var(--spark);
   color: var(--ink);
-  rotate: -3deg;
 }
-:global([data-skin]) .toast {
-  rotate: -3deg;
-}
-
 /* cost per enquiry: the number on lime */
 :global([data-skin]) .rank {
   background: var(--mist);
@@ -1087,12 +1077,9 @@
 }
 :global([data-skin]) .rankNo {
   background: var(--secondary);
-  box-shadow: 0 0 0 3px
-    color-mix(in oklab, var(--secondary) 35%, transparent);
-  rotate: -4deg;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--secondary) 35%, transparent);
 }
-
-/* ── skin "fine" (variant D, /v8) ─────────────────────────────────────
+/* ── skin "fine" ─────────────────────────────────────────────────────
    The white card stays; the pieces inside are drawn the way the steps
    draw their little screens: a white campaign bar that sits up off the
    card, the site's key with its arrow in a circle, the ads as white cards
@@ -1130,7 +1117,7 @@
   border-radius: 50%;
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")
-      center / 15px no-repeat,
+    center / 15px no-repeat,
     rgb(255 255 255 / 0.2);
   transition: translate 0.3s var(--ease);
 }
@@ -1204,15 +1191,11 @@
     border-radius: 14px;
   }
 }
-
-/* ── skin "lift" (variant C, /v7) ─────────────────────────────────────
+/* ── skin "lift", without tilts ─────────────────────────────────────
    The white card leans like the steps' cards and the pieces that tell the
    story come off it as stickers: the campaign bar (out to the left), the
    best ad once it wins the budget (out to the left, tilted the other way
    so it clears the chip) and the cost per enquiry (out to the right). */
-:global([data-skin~="lift"]) .deck {
-  rotate: -1.4deg;
-}
 :global([data-skin~="lift"]) .bar,
 :global([data-skin~="lift"]) .bar:has(.field:hover) {
   margin: 0 -22px 0 -18px;
@@ -1221,7 +1204,6 @@
     0 0 0 5px #fff,
     0 18px 34px -16px rgb(11 11 22 / 0.4),
     0 0 0 6px rgb(11 11 22 / 0.06);
-  rotate: 1.6deg;
 }
 :global([data-skin~="lift"]) .bar:has(.pick:focus-visible) {
   box-shadow:
@@ -1243,7 +1225,6 @@
   box-shadow:
     0 0 0 4px #fff,
     0 12px 22px -12px rgb(11 11 22 / 0.4);
-  rotate: 3deg;
 }
 :global([data-skin~="lift"]) .row {
   transition:
@@ -1257,7 +1238,6 @@
   box-shadow:
     0 0 0 5px #fff,
     0 26px 40px -16px color-mix(in oklab, var(--accent) 70%, transparent);
-  rotate: 2deg;
 }
 @media (max-width: 640px) {
   /* the list clips the fourth ad on phones: keep that cut, but let the
@@ -1273,32 +1253,14 @@
   :global([data-skin~="lift"]) .bar,
   :global([data-skin~="lift"]) .bar:has(.field:hover) {
     margin: 0 -14px;
-    rotate: 0.8deg;
   }
   :global([data-skin~="lift"]) .rank {
     margin-right: -14px;
     height: 30px;
     padding: 0 4px 0 11px;
     font-size: 12px;
-    rotate: 1deg;
   }
   :global([data-skin~="lift"]) .row[data-best] {
     margin: 0 -10px 0 -16px;
-    rotate: 1deg;
   }
-}
-
-/* ── "flat" (the /v9 test, Luka 11 Nov 2026: mostly D, the same pieces
-   as C come off the card, nothing leans). Listed after everything
-   above, so it wins: every tilt the accents and C give is taken back. */
-:global([data-skin~="flat"]) .best,
-:global([data-skin~="flat"]) .off,
-:global([data-skin~="flat"]) .toast,
-:global([data-skin~="flat"]) .rankNo,
-:global([data-skin~="flat"]) .deck,
-:global([data-skin~="flat"]) .bar,
-:global([data-skin~="flat"]) .bar:has(.field:hover),
-:global([data-skin~="flat"]) .rank,
-:global([data-skin~="flat"]) .row[data-best] {
-  rotate: none;
 }

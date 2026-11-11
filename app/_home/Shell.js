@@ -3,6 +3,7 @@
 import Booking from "./Booking";
 import b from "./base.module.css";
 import Contact from "./Contact";
+import { CARD_SKIN } from "./content";
 import Footer from "./Footer";
 import Nav from "./Nav";
 import { AppProvider } from "./ui";
@@ -12,7 +13,7 @@ import { AppProvider } from "./ui";
     and the footer. Brings its own chrome, so the global SiteNav hides. */
 export default function Shell({ children, fonts, contact = true }) {
   return (
-    <div className={`${b.root} ${fonts}`} data-own-chrome>
+    <div className={`${b.root} ${fonts}`} data-own-chrome data-skin={CARD_SKIN}>
       <AppProvider home={false}>
         <Nav />
         <main>

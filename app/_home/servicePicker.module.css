@@ -89,7 +89,7 @@
   }
 }
 
-/* the hero tests (/v7, /v8): the chosen service's check sits on lime */
+/* with the hero cards' skin: the chosen service's check sits on lime */
 :global([data-skin]) .chip[data-on] .mark {
   background: var(--secondary);
   color: var(--ink);
