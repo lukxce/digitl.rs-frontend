@@ -1472,3 +1472,289 @@
     animation: none;
   }
 }
+
+/* skin "sticker" (the /v7 test): the card drawn in the service pages'
+   sticker language. White pieces with an ink outline and a white sticker
+   edge; lime and blue labels with a small tilt. Borders sit inside the
+   old outer sizes (padding gives way), so nothing grows or moves. The
+   post pictures keep their own artwork: the skin is only their frame. */
+
+/* the shell, and the two sheets peeking out below it */
+:global([data-skin="sticker"]) .deck::before,
+:global([data-skin="sticker"]) .deck::after {
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: none;
+  opacity: 1;
+}
+:global([data-skin="sticker"]) .card {
+  padding: 13.5px 13.5px 11.5px;
+  background: #fff;
+  border: 2.5px solid var(--ink);
+  box-shadow:
+    0 0 0 6px #fff,
+    0 30px 50px -26px rgb(11 11 22 / 0.45);
+}
+
+/* the profile bar */
+:global([data-skin="sticker"]) .bar,
+:global([data-skin="sticker"]) .bar:hover {
+  padding: 0 5px 0 6px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  box-shadow: none;
+}
+/* the avatar is an outlined blue disc; a live story still rings it */
+:global([data-skin="sticker"]) .avaRing {
+  background: none;
+}
+:global([data-skin="sticker"]) .ava,
+:global([data-skin="sticker"]) .postAva {
+  border: 2px solid var(--ink);
+}
+:global([data-skin="sticker"]) .ava {
+  box-shadow: none;
+}
+:global([data-skin="sticker"]) .go {
+  padding: 0 20px;
+  border: 2px solid var(--ink);
+  background: var(--accent);
+  box-shadow: 0 3px 0 var(--ink);
+  transition:
+    background 0.3s var(--ease),
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+:global([data-skin="sticker"]) .go:hover {
+  background: var(--accent);
+  box-shadow: 0 4px 0 var(--ink);
+  transform: translateY(-1px);
+}
+:global([data-skin="sticker"]) .go:active {
+  box-shadow: 0 1px 0 var(--ink);
+  transform: translateY(2px);
+}
+
+/* "Upiti iz poruka": a white chip, the count a tilted lime sticker. The
+   chip warms up when an enquiry lands and when the week is done. */
+:global([data-skin="sticker"]) .leads {
+  padding: 0 3px 0 9px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+}
+:global([data-skin="sticker"]) .leads[data-hot="true"],
+:global([data-skin="sticker"]) .leads[data-done="true"] {
+  background: color-mix(in oklab, var(--secondary) 28%, white);
+  color: var(--ink);
+}
+:global([data-skin="sticker"]) .leadsNo,
+:global([data-skin="sticker"]) .leads[data-hot="true"] .leadsNo,
+:global([data-skin="sticker"]) .leads[data-done="true"] .leadsNo {
+  background: var(--secondary);
+  border: 2px solid var(--ink);
+  box-shadow: none;
+  rotate: -3deg;
+}
+:global([data-skin="sticker"]) .leadsNo b {
+  padding: 0 6px;
+}
+
+/* the week: empty slots are dashed, a planned post drops in as an
+   outlined sticker, and today's day name turns into a blue label */
+:global([data-skin="sticker"]) .tile {
+  background: #fff;
+}
+:global([data-skin="sticker"]) .tile::before {
+  border: 1.5px dashed rgb(11 11 22 / 0.3);
+}
+:global([data-skin="sticker"]) .tile[data-free]::before {
+  border-color: rgb(11 11 22 / 0.16);
+}
+:global([data-skin="sticker"]) .tileIn {
+  border: 2px solid var(--ink);
+  box-shadow: none;
+}
+:global([data-skin="sticker"]) .tileType {
+  border: 1.5px solid var(--ink);
+  box-shadow: none;
+}
+:global([data-skin="sticker"]) .tileCheck {
+  border: 2px solid var(--ink);
+  box-shadow: 0 0 0 2px #fff;
+}
+:global([data-skin="sticker"]) .ring {
+  box-shadow:
+    inset 0 0 0 2.5px var(--accent),
+    0 14px 22px -14px rgb(11 11 22 / 0.45);
+}
+/* the label grows up out of its row (negative margin), so the row and the
+   ring below keep their places and a "Č" keeps its caron */
+:global([data-skin="sticker"]) .dayName {
+  justify-self: center;
+  margin-top: -3px;
+  padding: 0 6px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  transition:
+    color 0.35s var(--ease),
+    background-color 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+}
+:global([data-skin="sticker"]) .day[data-today="true"] .dayName {
+  background: var(--accent);
+  border-color: var(--ink);
+  color: #fff;
+  rotate: -3deg;
+}
+
+/* the post: an outlined sticker with the white edge, the picture framed
+   inside it, the state a tilted label */
+:global([data-skin="sticker"]) .post {
+  padding: 7.5px;
+  border: 2.5px solid var(--ink);
+  box-shadow:
+    0 0 0 4px #fff,
+    0 16px 24px -14px rgb(11 11 22 / 0.5);
+}
+:global([data-skin="sticker"]) .shot {
+  border: 2px solid var(--ink);
+}
+:global([data-skin="sticker"]) .shotType {
+  padding: 0 6px 0 5px;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  backdrop-filter: none;
+}
+:global([data-skin="sticker"]) .state {
+  padding: 0 6.5px 0 5.5px;
+  background: var(--secondary);
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  rotate: -3deg;
+}
+:global([data-skin="sticker"]) .state[data-live] {
+  background: var(--accent);
+  color: #fff;
+}
+:global([data-skin="sticker"]) .state[data-live] .spin {
+  border-color: rgb(255 255 255 / 0.35);
+  border-top-color: #fff;
+}
+:global([data-skin="sticker"]) .likeBtn[data-on="true"] path {
+  fill: var(--spark);
+  stroke: var(--ink);
+}
+:global([data-skin="sticker"]) .burst path {
+  stroke: var(--ink);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* the inbox: a mist panel of outlined message rows */
+:global([data-skin="sticker"]) .inbox {
+  padding: 2px 6px 6px;
+  border: 2px solid var(--ink);
+}
+:global([data-skin="sticker"]) .inTitle em {
+  border: 1.5px solid var(--ink);
+}
+:global([data-skin="sticker"]) .dm {
+  padding: 0 8px;
+  border: 2px solid var(--ink);
+  box-shadow: none;
+}
+:global([data-skin="sticker"]) .dm[data-new] {
+  padding: 0 7.5px;
+  background: color-mix(in oklab, var(--accent) 10%, white);
+  border-width: 2.5px;
+  box-shadow: 0 12px 20px -14px rgb(11 11 22 / 0.5);
+}
+:global([data-skin="sticker"]) .dmAva {
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: none;
+  color: var(--ink);
+}
+:global([data-skin="sticker"]) .dmAva[data-tone="ink"] {
+  background: var(--ink);
+  color: #fff;
+}
+:global([data-skin="sticker"]) .dmAva[data-tone="spark"] {
+  background: var(--spark);
+  color: var(--ink);
+}
+:global([data-skin="sticker"]) .dmAva[data-tone="lime"] {
+  background: var(--secondary);
+  color: var(--ink);
+}
+:global([data-skin="sticker"]) .dmAva[data-tone="accent"] {
+  background: var(--accent);
+  color: #fff;
+}
+:global([data-skin="sticker"]) .dmTag em {
+  padding: 0 8.5px;
+  border: 1.5px solid var(--ink);
+  rotate: -3deg;
+}
+
+/* the narrower card keeps its tighter label */
+@media (min-width: 641px) {
+  @container (max-width: 590px) {
+    :global([data-skin="sticker"]) .state {
+      padding: 0 4.5px;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  :global([data-skin="sticker"]) .card {
+    padding: 7.5px 7.5px 9.5px;
+  }
+  :global([data-skin="sticker"]) .bar,
+  :global([data-skin="sticker"]) .bar:hover {
+    padding: 0 3px 0 4px;
+  }
+  :global([data-skin="sticker"]) .go {
+    padding: 0 15px;
+  }
+}
+
+/* phones: thinner lines on the small squares, no inbox panel */
+@media (max-width: 640px) {
+  :global([data-skin="sticker"]) .tileIn,
+  :global([data-skin="sticker"]) .tileCheck {
+    border-width: 1.5px;
+  }
+  :global([data-skin="sticker"]) .tileCheck {
+    box-shadow: 0 0 0 1.5px #fff;
+  }
+  :global([data-skin="sticker"]) .dayName {
+    padding: 0 5px;
+  }
+  :global([data-skin="sticker"]) .post {
+    padding: 5px;
+    border-width: 2px;
+  }
+  :global([data-skin="sticker"]) .shot {
+    border-width: 1.5px;
+  }
+  :global([data-skin="sticker"]) .inbox {
+    padding: 0;
+    border: 0;
+  }
+  :global([data-skin="sticker"]) .dm {
+    padding: 0 6px;
+  }
+  :global([data-skin="sticker"]) .dm[data-new] {
+    padding: 0 5.5px;
+  }
+  :global([data-skin="sticker"]) .dmTag em {
+    padding: 0 6.5px;
+  }
+  :global([data-skin="sticker"]) .burst path {
+    stroke-width: 2px;
+  }
+}

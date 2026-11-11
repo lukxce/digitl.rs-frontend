@@ -1622,3 +1622,215 @@
     transition: none;
   }
 }
+
+/* skin "sticker" (the /v7 test): the card drawn in the service pages'
+   sticker language. The frame, the controls and the chips become white
+   pieces with an ink outline; the demo site inside the browser keeps its
+   own design. Borders are paid for out of the padding, so nothing moves. */
+
+/* shell: ink outline, white sticker edge, soft drop */
+:global([data-skin="sticker"]) .card {
+  padding: 13.5px 13.5px 11.5px;
+  border: 2.5px solid var(--ink);
+  background: #fff;
+  box-shadow:
+    0 0 0 6px #fff,
+    0 30px 50px -26px rgb(11 11 22 / 0.45);
+}
+/* the two sheets behind it: a stack of stickers */
+:global([data-skin="sticker"]) .deck::before,
+:global([data-skin="sticker"]) .deck::after {
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: none;
+  opacity: 1;
+}
+
+/* name field; the button rides 1.5px high so it and its ink shadow sit
+   centred in the field */
+:global([data-skin="sticker"]) .bar,
+:global([data-skin="sticker"]) .bar:hover {
+  padding: 0 4px 0 16px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: none;
+}
+:global([data-skin="sticker"]) .bar:focus-within {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+:global([data-skin="sticker"]) .go {
+  border: 2px solid var(--ink);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 3px 0 var(--ink);
+  margin-top: -3px;
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+:global([data-skin="sticker"]) .go:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 var(--ink);
+}
+:global([data-skin="sticker"]) .go:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+/* desktop / phone toggle: a white pill, the chosen view in blue */
+:global([data-skin="sticker"]) .views {
+  gap: 0;
+  padding: 1px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: none;
+}
+:global([data-skin="sticker"]) .views button {
+  border: 1.5px solid transparent;
+}
+:global([data-skin="sticker"]) .views button[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: none;
+}
+
+/* "Brzina": a white chip, the score a tilted pill in the tone's colour */
+:global([data-skin="sticker"]) .speed,
+:global([data-skin="sticker"]) .speed[data-tone] {
+  padding: 0 3px 0 5px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+}
+:global([data-skin="sticker"]) .ringBg {
+  stroke: rgb(11 11 22 / 0.12);
+}
+:global([data-skin="sticker"]) .speedNo,
+:global([data-skin="sticker"]) .speed[data-tone] .speedNo {
+  border: 2px solid var(--ink);
+  background: #fff;
+  height: 20px;
+  box-shadow: none;
+  rotate: -3deg;
+}
+:global([data-skin="sticker"]) .speed[data-tone="low"] .speedNo {
+  background: var(--spark);
+}
+:global([data-skin="sticker"]) .speed[data-tone="mid"] .speedNo {
+  background: color-mix(in oklab, var(--warn) 55%, white);
+}
+:global([data-skin="sticker"]) .speed[data-tone="high"] .speedNo {
+  background: var(--secondary);
+}
+
+/* the browser: an ink frame; in the phone view it gets the white edge */
+:global([data-skin="sticker"]) .view {
+  border: 2.5px solid var(--ink);
+  box-shadow: none;
+}
+:global([data-skin="sticker"]) .view[data-mode="phone"] {
+  box-shadow:
+    0 0 0 5px #fff,
+    0 30px 50px -30px rgb(11 11 22 / 0.45);
+}
+:global([data-skin="sticker"]) .chrome {
+  border-bottom: 2px solid var(--ink);
+  background: #fff;
+}
+:global([data-skin="sticker"]) .dots i {
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--ink);
+  background: var(--spark);
+}
+:global([data-skin="sticker"]) .dots i:nth-child(2) {
+  background: var(--secondary);
+}
+:global([data-skin="sticker"]) .dots i:nth-child(3) {
+  background: var(--accent);
+}
+:global([data-skin="sticker"]) .addr {
+  border: 1.5px solid var(--ink);
+  box-shadow: none;
+}
+/* the load time: coral while slow, lime once fast, white while building */
+:global([data-skin="sticker"]) .time,
+:global([data-skin="sticker"]) .time[data-s] {
+  border: 1.5px solid var(--ink);
+  background: #fff;
+  box-shadow: none;
+  color: var(--ink);
+}
+:global([data-skin="sticker"]) .time[data-s="run"],
+:global([data-skin="sticker"]) .time[data-s="slow"] {
+  --mini-ring: rgb(11 11 22 / 0.22);
+  --mini-ink: var(--ink);
+  background: var(--spark);
+}
+:global([data-skin="sticker"]) .time[data-s="fast"] {
+  background: var(--secondary);
+}
+:global([data-skin="sticker"]) .time[data-s="build"] {
+  color: var(--accent);
+}
+/* the load bar runs along the chrome's ink line */
+:global([data-skin="sticker"]) .line {
+  bottom: 0;
+  height: 3px;
+}
+
+/* the old site's spinner */
+:global([data-skin="sticker"]) .spin {
+  border: 2px solid var(--ink);
+  box-shadow:
+    0 0 0 4px #fff,
+    0 12px 22px -12px rgb(11 11 22 / 0.5);
+}
+:global([data-skin="sticker"]) .spin::after {
+  inset: 9px;
+  border-top-color: var(--ink);
+}
+
+/* the enquiry: a lime sticker slapped on the page */
+:global([data-skin="sticker"]) .toast {
+  padding: 5px 12px 5px 5px;
+  border: 2px solid var(--ink);
+  box-shadow:
+    0 0 0 4px #fff,
+    0 16px 24px -14px rgb(11 11 22 / 0.5);
+  rotate: -2deg;
+}
+:global([data-skin="sticker"]) .toastIcon {
+  border: 2px solid var(--ink);
+}
+@container page (max-width: 419px) or (max-height: 240px) {
+  /* the toast runs nearly the page's width here, so it tilts less */
+  :global([data-skin="sticker"]) .toast {
+    padding: 4px 10px 4px 4px;
+    rotate: -1deg;
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-skin="sticker"]) .view[data-mode] {
+    box-shadow: none;
+  }
+  :global([data-skin="sticker"]) .dots i {
+    width: 9px;
+    height: 9px;
+  }
+}
+@media (max-width: 560px) {
+  :global([data-skin="sticker"]) .card {
+    padding: 7.5px 7.5px 9.5px;
+  }
+  :global([data-skin="sticker"]) .bar,
+  :global([data-skin="sticker"]) .bar:hover {
+    padding: 0 3px 0 12px;
+  }
+  :global([data-skin="sticker"]) .go {
+    height: 40px;
+  }
+}

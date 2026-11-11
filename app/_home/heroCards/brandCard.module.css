@@ -991,3 +991,208 @@
     transition: none;
   }
 }
+
+/* skin "sticker" (the /v7 test): the card drawn in the service pages'
+   sticker language. White pieces with an ink outline and a white sticker
+   edge; the brand artwork inside the tiles (the mark, the mockups, the
+   chosen palette) stays as it is. Borders are taken out of the padding, so
+   nothing moves or grows. */
+
+/* the shell, and the brand book sheets behind it as a stack of stickers */
+:global([data-skin="sticker"]) .card {
+  padding: 13.5px 13.5px 11.5px;
+  border: 2.5px solid var(--ink);
+  background: #fff;
+  box-shadow:
+    0 0 0 6px #fff,
+    0 30px 50px -26px rgb(11 11 22 / 0.45);
+}
+:global([data-skin="sticker"]) .deck::before,
+:global([data-skin="sticker"]) .deck::after {
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: 0 0 0 4px #fff;
+  opacity: 1;
+}
+
+/* the name field: a white bar with an ink outline */
+:global([data-skin="sticker"]) .bar,
+:global([data-skin="sticker"]) .bar:hover {
+  padding: 0 5px 0 16px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: none;
+}
+:global([data-skin="sticker"]) .bar:focus-within {
+  background: #fff;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 20%, white);
+}
+:global([data-skin="sticker"]) .pen {
+  color: var(--ink-2);
+}
+
+/* Primeni: a blue key with an ink edge that presses down. The margin lifts
+   it by half its ledge, so the key and the ledge sit centred in the bar. */
+:global([data-skin="sticker"]) .go {
+  height: 42px;
+  margin-top: -3px;
+  padding: 0 18px;
+  border: 2px solid var(--ink);
+  background: var(--accent);
+  box-shadow: 0 3px 0 var(--ink);
+  transition:
+    background 0.3s var(--ease),
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+:global([data-skin="sticker"]) .go:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 var(--ink);
+}
+:global([data-skin="sticker"]) .go:active,
+:global([data-skin="sticker"]) .go[data-press="true"] {
+  background: var(--accent);
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+/* palette dots: little ink-outlined swatches; the chosen one gets a ring */
+:global([data-skin="sticker"]) .dot::before {
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+:global([data-skin="sticker"]) .dot[aria-pressed="true"]::before {
+  box-shadow:
+    inset 0 0 0 1.5px var(--ink),
+    0 0 0 2px #fff,
+    0 0 0 3.5px var(--ink);
+}
+
+/* Primene: a white chip; the count is a tilted pill that turns lime once
+   every application is done */
+:global([data-skin="sticker"]) .count,
+:global([data-skin="sticker"]) .count[data-full="true"] {
+  padding: 0 2px 0 9px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+}
+:global([data-skin="sticker"]) .countNo {
+  height: 20px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: none;
+  rotate: -3deg;
+}
+:global([data-skin="sticker"]) .count[data-full="true"] .countNo {
+  background: var(--secondary);
+  box-shadow: none;
+}
+
+/* the system: each part a tile with an ink outline. The mark keeps its
+   artboard (grey, then the brand colour), the logo and the type sit on
+   white, the colours on a mist panel. */
+:global([data-skin="sticker"]) .sys > div {
+  border: 2px solid var(--ink);
+}
+:global([data-skin="sticker"]) .lockup,
+:global([data-skin="sticker"]) .type {
+  background: #fff;
+}
+:global([data-skin="sticker"]) .sw,
+:global([data-skin="sticker"]) .sys[data-c="true"] .sw {
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+/* the applications: mist tiles with an ink outline, so the white paper in
+   the mockups still reads; the label is a small sticker that turns lime
+   when its application is done */
+:global([data-skin="sticker"]) .app {
+  border: 2px solid var(--ink);
+}
+:global([data-skin="sticker"]) .appLabel {
+  top: 6px;
+  left: 7px;
+  height: 18px;
+  padding: 0 7px 0 5px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 0 0 2px #fff;
+  color: var(--ink-3);
+  rotate: -3deg;
+  transition:
+    background 0.4s var(--ease),
+    color 0.4s var(--ease);
+}
+:global([data-skin="sticker"]) .app[data-on="true"] .appLabel {
+  background: var(--secondary);
+  color: var(--ink);
+}
+:global([data-skin="sticker"]) .app[data-on="true"] .appLabel i {
+  background: var(--ink);
+  box-shadow: none;
+}
+
+/* the website mockup is a device: an ink frame, coloured window dots and
+   an outlined address pill */
+:global([data-skin="sticker"]) .app:nth-child(1) .paper {
+  stroke: var(--ink);
+  stroke-width: 2.5px;
+  vector-effect: non-scaling-stroke;
+}
+:global([data-skin="sticker"]) .app:nth-child(1) svg > circle.fG {
+  stroke: var(--ink);
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+}
+:global([data-skin="sticker"]) .app:nth-child(1) svg > circle.fG:nth-of-type(1) {
+  fill: var(--spark);
+}
+:global([data-skin="sticker"]) .app:nth-child(1) svg > circle.fG:nth-of-type(2) {
+  fill: var(--secondary);
+}
+:global([data-skin="sticker"]) .app:nth-child(1) svg > circle.fG:nth-of-type(3) {
+  fill: var(--accent);
+}
+:global([data-skin="sticker"]) .app:nth-child(1) svg > rect.fM[rx="8"] {
+  fill: #fff;
+  stroke: var(--ink);
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+}
+:global([data-skin="sticker"]) .app:nth-child(1) svg > rect.fM[height="1"] {
+  fill: var(--ink);
+}
+
+@media (max-width: 560px) {
+  :global([data-skin="sticker"]) .card {
+    padding: 7.5px 7.5px 9.5px;
+  }
+  :global([data-skin="sticker"]) .bar,
+  :global([data-skin="sticker"]) .bar:hover {
+    padding: 0 3px 0 12px;
+  }
+  :global([data-skin="sticker"]) .go {
+    height: 38px;
+    padding: 0 13px;
+  }
+}
+@media (max-width: 640px) {
+  /* the website is tiny here: a lighter frame, plain window dots */
+  :global([data-skin="sticker"]) .app:nth-child(1) .paper {
+    stroke-width: 1.5px;
+  }
+  :global([data-skin="sticker"]) .app:nth-child(1) svg > rect.fM[rx="8"] {
+    stroke-width: 1px;
+  }
+  :global([data-skin="sticker"]) .app:nth-child(1) svg > circle.fG {
+    stroke: none;
+  }
+  :global([data-skin="sticker"]) .count[data-full="true"] .countNo {
+    background: #fff;
+  }
+  :global([data-skin="sticker"]) .count[data-full-phone="true"] .countNo {
+    background: var(--secondary);
+  }
+}

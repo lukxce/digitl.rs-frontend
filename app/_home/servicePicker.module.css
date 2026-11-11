@@ -88,3 +88,42 @@
     padding-left: 6px;
   }
 }
+
+/* skin "sticker" (the /v7 test): the picker drawn in the service pages'
+   sticker language. White pills with an ink outline, the chosen one blue
+   with a lime check; borders come out of the padding, so widths hold. */
+:global([data-skin="sticker"]) .row {
+  border-top-color: rgb(11 11 22 / 0.14);
+}
+:global([data-skin="sticker"]) .chip {
+  padding: 0 10px 0 5px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+}
+:global([data-skin="sticker"]) .chip:hover {
+  background: color-mix(in oklab, var(--accent) 10%, white);
+  color: var(--accent);
+}
+:global([data-skin="sticker"]) .mark {
+  border: 1.5px solid var(--ink);
+  background: #fff;
+  box-shadow: none;
+}
+:global([data-skin="sticker"]) .chip[data-on] {
+  background: var(--accent);
+  color: #fff;
+}
+:global([data-skin="sticker"]) .chip[data-on] .mark {
+  background: var(--secondary);
+  color: var(--ink);
+  box-shadow: none;
+}
+@media (max-width: 560px) {
+  :global([data-skin="sticker"]) .chip {
+    padding: 0 8px;
+  }
+  :global([data-skin="sticker"]) .chip[data-on] {
+    padding-left: 4px;
+  }
+}
