@@ -306,3 +306,52 @@
     display: none;
   }
 }
+
+/* ── /v2: the steps as the service pages' cards ──────────────────────────
+   White cards on a ring, each a little tilted; the step that is on lies
+   straight, lifts and turns digitl blue with the dot grain (the service
+   pages' even step cards), instead of black. */
+:global([data-look="v2"]) .card {
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 26px 50px -38px rgb(11 11 22 / 0.35);
+  rotate: -1.4deg;
+  transition:
+    background-color 0.5s var(--ease),
+    color 0.5s var(--ease),
+    transform 0.5s var(--ease),
+    rotate 0.5s var(--ease),
+    box-shadow 0.5s var(--ease);
+}
+:global([data-look="v2"]) .step:nth-child(even) .card {
+  rotate: 1.2deg;
+}
+:global([data-look="v2"]) .step[data-on] .card {
+  rotate: 0deg;
+  background-color: var(--accent);
+  background-image: radial-gradient(
+    rgb(255 255 255 / 0.12) 1.5px,
+    transparent 1.6px
+  );
+  background-size: 18px 18px;
+  box-shadow: 0 30px 60px -28px
+    color-mix(in oklab, var(--accent) 75%, transparent);
+}
+:global([data-look="v2"]) .art {
+  background: var(--mist);
+  box-shadow: none;
+}
+:global([data-look="v2"]) .step[data-on] .art {
+  background-color: rgb(255 255 255 / 0.1);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16);
+}
+:global([data-look="v2"]) .step[data-on] .card > p {
+  color: rgb(255 255 255 / 0.8);
+}
+@media (prefers-reduced-motion: reduce) {
+  :global([data-look="v2"]) .card,
+  :global([data-look="v2"]) .step:nth-child(even) .card {
+    rotate: 0deg;
+  }
+}

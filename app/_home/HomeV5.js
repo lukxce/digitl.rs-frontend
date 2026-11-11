@@ -23,14 +23,18 @@ import Work from "./Work";
     customer's path, the talk. The plan from the three questions travels
     through the sections below it. Brings its own chrome, so the global
     SiteNav hides itself (data-own-chrome). */
-export default function HomeV5({ clients, fonts }) {
+export default function HomeV5({ clients, fonts, look }) {
   return (
-    <div className={`${b.root} ${fonts}`} data-own-chrome>
+    <div
+      className={`${b.root} ${fonts}`}
+      data-own-chrome
+      data-look={look}
+    >
       <AppProvider>
         <Nav />
         <main>
           <Hero clients={clients} />
-          <Services />
+          <Services look={look} />
           <Journey />
           <PlanSection clients={clients} />
           <Work clients={clients} />

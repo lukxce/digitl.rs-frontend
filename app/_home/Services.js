@@ -6,6 +6,7 @@ import b from "./base.module.css";
 import { SERVICES } from "./content";
 import { ArrowRight, Rotate, Search } from "./icons";
 import s from "./services.module.css";
+import { STICKERS } from "../_usluge/Stickers";
 import { Bridge, EASE, Head, useApp } from "./ui";
 
 /* ── one small looping scene per service, drawn in CSS ─────────────────── */
@@ -144,7 +145,24 @@ const ART = {
   brand: ArtBrand,
 };
 
-function Card({ x, i, rank, wide, onAsk }) {
+/* The /v2 look: the service pages' sticker in place of the scene, so the
+   homepage cards and the service pages speak the same picture language. */
+function StickerArt({ id }) {
+  const Sticker = STICKERS[id];
+  return (
+    <motion.span
+      className={s.stickerArt}
+      initial={{ scale: 0.6, rotate: -22, opacity: 0 }}
+      whileInView={{ scale: 1, rotate: -6, opacity: 1 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ type: "spring", stiffness: 190, damping: 14 }}
+    >
+      <Sticker size="100%" />
+    </motion.span>
+  );
+}
+
+function Card({ x, i, rank, wide, onAsk, look }) {
   const [flipped, setFlipped] = useState(false);
   const Art = ART[x.id];
   return (
@@ -173,7 +191,7 @@ function Card({ x, i, rank, wide, onAsk }) {
                 : null}
             </span>
             <span className={s.art}>
-              <Art />
+              {look === "v2" ? <StickerArt id={x.id} /> : <Art />}
             </span>
             <span className={s.frontText}>
               <b>{x.title}</b>
@@ -237,7 +255,7 @@ function Card({ x, i, rank, wide, onAsk }) {
   );
 }
 
-export default function Services() {
+export default function Services({ look }) {
   const { plan, book } = useApp();
   const order = plan ? plan.ranked : SERVICES.map((x) => x.id);
   const list = order.map((id) => SERVICES.find((x) => x.id === id));
@@ -268,6 +286,7 @@ export default function Services() {
               rank={plan ? plan.top.indexOf(x.id) : -1}
               wide={i < 2}
               onAsk={book}
+              look={look}
             />
           ))}
         </ul>
