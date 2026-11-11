@@ -1,37 +1,29 @@
 /* Za potvrdu (Luka): claims about how Digitl works that this page makes and
    that no approved source states, one per line, so Luka can confirm or cut
-   them before the page goes live.
-   Urađeni projekti (iz tvoje poruke i beleški, proveri formulaciju):
-   - ThermiQ: ponude se prave automatski, sa važećim cenama iz kataloga.
-   - ThermiQ: program svake nedelje prati cene konkurencije i cenu prodavnice postavlja prema najnižoj; promena veća od 15% ne ide na sajt dok je čovek ne potvrdi.
-   - ThermiQ: cene se svakog dana menjaju preko API-ja, bez ručnog unosa.
-   - ThermiQ: prodaja iz upita vraća se u Google Ads kao konverzija, pa se vidi koja je kampanja donela kupca.
-   - ThermiQ: na upite kupaca odgovara se iz administracije prodavnice.
-   - ThermiQ: roba koja se prodaje na metar ima cenu po metru, pa program poredi iste jedinice.
-   - Ideal Keramika: ponude se prave automatski.
-   - Ideal Keramika: cenovnici i podaci o proizvodima od više proizvođača ulaze u katalog sami, raspoređeni po kategorijama i osobinama prodavnice.
-   - Ideal Keramika: svaki proizvod i svaka kategorija imaju automatski napisan naslov i opis za Google.
-   - Ideal Keramika: kupac i prodavnica dobiju poruku e-poštom čim stigne porudžbina ili upit.
-   - TonerPro: kupac upiše model štampača i dobije tonere koji mu odgovaraju.
-   - TonerPro: cene se drže najnižim na tržištu, uz donju granicu marže.
-   - Praxis: CRM napravljen za njih, program u kome se vodi evidencija klijenata (bez drugih detalja).
+   them before the page goes live. Klijenti su na stranici bez imena; ime u
+   zagradi je samo za tebe.
+   Primeri iz rada (anonimno):
+   - Online prodavnica opreme za grejanje i hlađenje sa hiljadama proizvoda (ThermiQ): svako jutro alat proveri cene dobavljača i konkurencije i postavi cenu 4% ispod najniže cene konkurencije; promena veća od 15% čeka da je neko iz prodavnice pogleda i potvrdi.
+   - Ista prodavnica: preko API-ja svako jutro dobija nove cene; roba koja se prodaje na metar ima cenu po metru, pa alat poredi iste jedinice.
+   - Prodavnica keramike i sanitarija (Ideal Keramika): cenovnici mnogo proizvođača, svaki u drugačijoj tabeli, ulaze u katalog sami, raspoređeni po kategorijama i osobinama; svaki proizvod dobije naslov i opis za Google.
+   - Ponude za kupce prave se iz kataloga sa važećim cenama, a prodavac ih samo proveri i pošalje (u tekstu uz keramiku; isto važi za ThermiQ).
+   - Prodavnica tonera (TonerPro): pretraga po modelu štampača vraća tonere koji odgovaraju; cene prate najnižu cenu na tržištu do granice marže koju određuje vlasnik.
+   - Jedna firma (Praxis): CRM, program u kome se vodi evidencija klijenata (bez drugih detalja).
    Kako radimo (novo na ovoj stranici):
-   - Pre izrade zapisujemo koliko zadatak traje danas, da posle ima sa čim da se poredi.
-   - Prvi korak je prolazak kroz običnu nedelju u firmi i spisak ručnih zadataka.
-   - Automatizaciju uvodimo zadatak po zadatak; prvi alat je proveren u radu pre nego što počne drugi.
-   - Nov alat prvo radi uporedo sa ručnim postupkom, dok se rezultati ne poklope.
+   - Pregled poslovanja: razgovaramo sa vlasnikom i sa ljudima koji zadatke rade svaki dan; zapisujemo šta se radi ručno, koliko traje i gde se greši.
+   - Idejno rešenje: predlog koji zadatak ide prvi, odakle alat uzima podatke i šta odlučuju ljudi, sa cenom i rokom za svaki deo.
+   - Izrada i održavanje: alat povezujemo sa sajtom i programima koje klijent koristi, pratimo ga i prilagođavamo kad se izvor promeni; dok se ne prilagodi, alat ne menja cene sam.
+   - Svaki deo uvodimo posebno; nov alat neko vreme radi uporedo sa ručnim postupkom dok se rezultati ne poklope.
+   - Pre izrade zapisujemo koliko zadatak traje, a posle prvih nedelja poredimo; rezultat i izmene klijent vidi u klijentskom portalu i mesečnom izveštaju.
    - Svaka automatizacija ima granicu do koje radi sama; sve preko nje čeka potvrdu čoveka iz firme.
-   - Naše automatizacije imaju pregled pre uvoza i zapis svake promene.
    - AI stavljamo tamo gde čovek brzo proveri rezultat pre nego što stigne do kupca.
    - Zadatak koji se retko ponavlja ne predlažemo za automatizaciju.
-   - Pratimo greške i promene u izvorima i alat prilagođavamo u okviru održavanja; dok se ne prilagodi, ne menja ništa sam.
-   - Rad i izmene klijent vidi u klijentskom portalu i mesečnom izveštaju.
+   - Kolona „Šta odlučuje čovek“ u tabeli (granica marže, artikli koje uvoz ne rasporedi, popust za veće kupce, provera iznosa pre knjiženja i ostalo) opisuje kako takve alate pravimo.
+   - Usluge koje nudimo, a nisu među urađenim primerima: AI asistent na sajtu, upiti sa sajta u CRM sa podsetnikom, čitanje podataka iz faktura, prodaja iz upita nazad u Google Ads (rađeno za ThermiQ, ali bez imena).
    - Sajt povezujemo sa fiskalnom kasom, lagerom ili knjigovodstvenim programom kad taj program ima API ili izvoz u tabelu; to proveravamo pre ponude.
-   - Usluge koje nudimo, a nisu među urađenim projektima: AI asistent na sajtu, upiti sa sajta u CRM sa podsetnikom, čitanje podataka iz faktura, opisi i prevodi, nedeljni izveštaj koji se sastavi sam.
    - AI asistent odgovara samo iz podataka firme, pitanje koje ne zna prosleđuje čoveku sa celim razgovorom, a pre puštanja ga proveravamo na pitanjima koja su kupci stvarno slali.
    - Podaci ostaju u bazi i na nalozima klijenta; AI modelu šaljemo samo podatke potrebne za zadatak.
-   - Svaku od tri grupe (cene i katalog, ponude i upiti, veze između programa) klijent može da naruči posebno.
-   - Iznos izrade i trošak održavanja pišemo u ponudi posle prvog razgovora. */
+   - Tačan iznos izrade i održavanja klijent dobija uz idejno rešenje, posle prvog razgovora. */
 
 const page = {
   slug: "ai-automatizacija",
@@ -43,153 +35,125 @@ const page = {
   },
   label: "AI i automatizacija",
   h1: "AI i automatizacija poslovanja",
-  lead: "Pravimo AI alate i automatizacije koje u prodavnicama i drugim firmama preuzimaju zadatke koji se ponavljaju svake nedelje. Ponuda se sastavi sama, cene prate konkurenciju, a cenovnik dobavljača uđe u katalog bez prepisivanja. Vi potvrđujete samo ono što traži odluku, na primer veliku promenu cene.",
-  proof: [
-    {
-      value: "Svake nedelje",
-      label: "cene prema najnižoj kod konkurencije",
-      href: "/projects/thermiq",
-    },
-    {
-      value: "Uz potvrdu",
-      label: "samo velike promene cena",
-      href: "/projects/thermiq",
-    },
-  ],
+  lead: "Pravimo AI alate i automatizacije koje sa vaših zaposlenih skidaju zadatke koji se ponavljaju svake nedelje. Cene se svako jutro usklade sa konkurencijom, ponuda se sastavi sama, a cenovnik dobavljača uđe u katalog bez prepisivanja. Vaši ljudi odlučuju samo o onome što traži procenu, na primer o velikoj promeni cene.",
+  proof: [],
   intro: {
     title: "Šta je automatizacija poslovanja i gde pomaže AI",
     body: [
-      "Automatizacija poslovanja je program koji umesto zaposlenog radi zadatke sa stalnim pravilima, od prepisivanja cena do slanja potvrde porudžbine. AI (veštačka inteligencija) tu preuzima i zadatke koji su do skoro tražili čoveka, kao što su čitanje cenovnika u kome svaki dobavljač kolone zove drugačije ili pisanje opisa proizvoda iz tehničkih podataka.",
-      "Korist od automatizacije meri se u satima i greškama. Ako je nekome prepisivanje cenovnika uzimalo celo prepodne svake nedelje, posle automatizacije mu ostaje samo da pregleda promene koje je program napravio i potvrdi one koje traže odluku. Zato pre izrade zapisujemo koliko zadatak traje danas, da posle imate sa čim da poredite.",
-      "Alate ugrađujemo u sajt koji već imate ili u [novi sajt koji pravimo za vas](/usluge/izrada-sajta), i povezujemo ih sa programima koje firma koristi. Tako smo radili za online prodavnice ThermiQ, Ideal Keramika i TonerPro, a za Praxis smo napravili CRM, program u kome se vodi evidencija klijenata. Kod ThermiQ-a se uz to prodaja iz upita vraća u Google Ads, pa se u [oglasima](/usluge/placeno-oglasavanje) vidi koja je kampanja donela kupca.",
+      "Automatizacija poslovanja znači da zadatke koji se ponavljaju po stalnim pravilima više ne rade vaši zaposleni ručno. To su prepisivanje cena, unos cenovnika dobavljača, sastavljanje ponuda i podsećanje na upite na koje niko nije odgovorio. Ljudima tako ostaje vreme za ono što traži procenu, kao što su razgovor sa kupcem ili odluka o ceni.",
+      "AI (veštačka inteligencija) pomaže kod zadataka u kojima ulaz nije uredan, na primer kad svaki dobavljač kolone u cenovniku zove drugačije ili kad iz tehničkih podataka treba napisati opis proizvoda. Korist merimo u satima i greškama, pa pre izrade zapisujemo koliko zadatak traje danas.",
+      "Za online prodavnicu opreme za grejanje i hlađenje, sa hiljadama proizvoda, napravili smo praćenje cena. Svako jutro alat proveri cene dobavljača i konkurencije i postavi cenu 4% ispod najniže cene konkurencije. Promena veća od 15% čeka da je neko iz prodavnice pogleda i potvrdi.",
+      "Prodavnica keramike i sanitarija dobija cenovnike od mnogo proizvođača, svaki u drugačijoj tabeli. Uvoz ih sada sam raspoređuje u kategorije i osobine prodavnice, a svaki proizvod dobije naslov i opis za Google. Ponude za kupce prave se iz istog kataloga sa važećim cenama, pa prodavac samo proveri ponudu i pošalje je.",
+      "Kupac u prodavnici tonera obično zna samo model svog štampača. Za tu prodavnicu smo napravili pretragu u kojoj upiše model i dobije tonere koji mu odgovaraju, a cene prate najnižu cenu na tržištu do granice marže koju određuje vlasnik.",
     ],
   },
   included: {
-    title: "Šta je uključeno",
+    title: "Šta dobijate od saradnje",
     intro:
-      "Automatizacije smo podelili po mestu gde ručni rad nastaje, i svaku grupu možete da naručite posebno.",
+      "Pre nego što napravimo bilo kakav alat, upoznajemo kako vaša firma radi danas i gde gubi vreme.",
     items: [
       {
-        title: "Cene i katalog proizvoda",
-        sub: "cene, cenovnici, opisi",
-        text: "Program prati cene konkurencije i menja vaše po pravilu koje postavite, uz donju granicu marže. Cenovnike dobavljača uvozi u vaše kategorije, a svakom proizvodu napiše naslov i opis za Google.",
+        title: "Pregled poslovanja",
+        sub: "gde odlazi vreme",
+        text: "Razgovaramo sa vama i sa ljudima koji zadatke rade svaki dan. Zapisujemo šta se radi ručno, koliko traje i gde se greši, na primer cena koja kasni ili upit na koji niko nije odgovorio.",
       },
       {
-        title: "Ponude, upiti i kupci",
-        sub: "od upita do odgovora",
-        text: "Ponude se prave same, a potvrde porudžbina i upita odlaze bez ručnog slanja. Upit sa sajta ulazi u CRM sa podsetnikom kad treba javiti kupcu, dok AI asistent na sajtu odgovara na česta pitanja.",
+        title: "Idejno rešenje",
+        sub: "šta i kako automatizovati",
+        text: "Dobijate predlog koji zadatak automatizujemo prvi, odakle alat uzima podatke i šta i dalje odlučuju vaši ljudi. Uz predlog idu cena i rok za svaki deo.",
       },
       {
-        title: "Veze između programa",
-        sub: "sajt, kasa, knjigovodstvo",
-        text: "Sajt povezujemo sa fiskalnom kasom, lagerom ili knjigovodstvenim programom, pa se stanje i cene menjaju na jednom mestu. Nedeljni izveštaj o prodaji i upitima sastavi se sam, iz podataka koje programi već imaju.",
+        title: "Izrada i održavanje",
+        sub: "i posle puštanja u rad",
+        text: "Alat pravimo i povezujemo sa sajtom i programima koje već koristite. Posle puštanja ga pratimo i prilagođavamo kad dobavljač promeni cenovnik ili konkurent promeni sajt.",
       },
     ],
   },
   steps: {
-    title: "Kako radimo",
+    title: "Kako uvodimo automatizaciju",
     intro:
-      "Automatizaciju uvodimo zadatak po zadatak, pa je prvi alat proveren u radu pre nego što počnemo drugi.",
+      "Svaki deo idejnog rešenja uvodimo posebno, pa prvi alat radi i proveren je pre nego što počnemo drugi.",
     items: [
       {
-        title: "Ručni zadaci",
-        text: "Sa vama prolazimo kroz običnu nedelju u firmi i zapisujemo šta se radi ručno, ko to radi i koliko vremena uzima.",
-      },
-      {
         title: "Pravila i granice",
-        text: "Za zadatak koji ide prvi zapisujemo pravila, na primer prema kojoj ceni se računa vaša. Dogovaramo šta program radi sam, a šta čeka vašu potvrdu.",
+        text: "Sa osobom koja zadatak radi danas zapisujemo pravila, na primer od koje cene se računa vaša. Dogovaramo šta ide samo, a šta čeka vašu potvrdu.",
       },
       {
-        title: "Izrada i proba",
-        text: "Pravimo alat i puštamo ga da radi uporedo sa ručnim postupkom. Rezultate poredimo dok se ne poklope.",
+        title: "Proba uz ručni rad",
+        text: "Alat neko vreme radi uporedo sa ručnim postupkom. Rezultate poredimo dok se ne poklope.",
       },
       {
         title: "Puštanje u rad",
         text: "Alat radi sam, po rasporedu ili čim stigne nov podatak. Promene preko dogovorene granice stižu vam na potvrdu pre nego što ih kupac vidi.",
       },
       {
-        title: "Praćenje i izmene",
-        text: "Pratimo greške i promene u izvorima, kao što je nov raspored kolona u cenovniku dobavljača. Šta smo menjali vidite u klijentskom portalu i mesečnom izveštaju.",
+        title: "Poređenje sa ranijim",
+        text: "Posle prvih nedelja poredimo koliko zadatak traje sada sa onim što smo zapisali na početku. Rezultat i izmene vidite u klijentskom portalu i mesečnom izveštaju.",
       },
     ],
   },
-  cases: [
-    {
-      slug: "thermiq",
-      title: "ThermiQ",
-      text: "Prodavnica opreme za grejanje i hlađenje sa hiljadama proizvoda. Cene svake nedelje prate najnižu cenu kod konkurencije, a na upite kupaca odgovara se iz administracije prodavnice.",
-    },
-  ],
+  cases: [],
   guide: [
     {
       title: "Koje zadatke u firmi vredi automatizovati",
       body: [
         "Vredi automatizovati zadatak koji se često ponavlja po istim pravilima i čiji podaci već postoje u tabeli, programu ili na sajtu.",
-        "Ovo su zadaci koje smo već automatizovali za klijente:",
+        "Ovo su zadaci koje automatizujemo, uz ono što posle toga i dalje odlučuju vaši ljudi:",
         {
           table: {
-            head: ["Zadatak", "Šta radi automatizacija", "Gde radi"],
+            head: ["Zadatak", "Šta ide samo", "Šta odlučuje čovek"],
             rows: [
               [
-                "Ponude za kupce",
-                "Ponuda se pravi sama, sa važećim cenama iz kataloga",
-                "ThermiQ, Ideal Keramika",
-              ],
-              [
                 "Cene prema konkurenciji",
-                "Program prati cene istih proizvoda u drugim prodavnicama i prema najnižoj menja vašu",
-                "ThermiQ, TonerPro",
+                "Svako jutro se proveravaju cene konkurencije i dobavljača, pa se vaše menjaju po pravilu",
+                "Pravilo, granica marže i promene veće od dogovorene granice",
               ],
               [
                 "Cenovnici dobavljača",
-                "Cene i podaci od više proizvođača ulaze u katalog, raspoređeni po vašim kategorijama i osobinama",
-                "Ideal Keramika",
+                "Cene i podaci proizvođača ulaze u katalog, raspoređeni po vašim kategorijama i osobinama",
+                "Artikli koje uvoz ne može sam da rasporedi",
+              ],
+              [
+                "Ponude za kupce",
+                "Ponuda se sastavi iz kataloga, sa važećim cenama",
+                "Popust i uslovi za veće kupce",
+              ],
+              [
+                "Upiti sa sajta",
+                "Upit ulazi u CRM, sa podsetnikom kad treba javiti kupcu",
+                "Šta ćete kupcu ponuditi",
               ],
               [
                 "Naslovi i opisi za Google",
-                "Svaki proizvod i svaka kategorija dobijaju svoj naslov i opis za pretragu",
-                "Ideal Keramika",
+                "Svaki proizvod i svaka kategorija dobiju naslov i opis za pretragu",
+                "Provera primera pre objave",
               ],
               [
-                "Potvrde porudžbina i upita",
-                "Kupac i prodavnica dobiju poruku e-poštom čim porudžbina ili upit stigne",
-                "Ideal Keramika",
+                "Pitanja kupaca",
+                "AI asistent na sajtu odgovara iz vaših cena, rokova i uslova",
+                "Pitanja koja asistent ne zna, pa ih prosledi dalje",
               ],
               [
-                "Pretraga po štampaču",
-                "Kupac upiše model štampača i dobije tonere koji mu odgovaraju",
-                "TonerPro",
+                "Fakture i dokumenti",
+                "Iznosi i šifre iz PDF-a prelaze u tabelu",
+                "Provera iznosa pre knjiženja",
               ],
               [
                 "Prodaja iz upita",
-                "Prodaja koja je počela od oglasa vraća se u Google Ads kao konverzija",
-                "ThermiQ",
-              ],
-              [
-                "Evidencija klijenata",
-                "CRM napravljen za firmu, sa svim klijentima na jednom mestu",
-                "Praxis",
+                "Prodaja se vraća u Google Ads kao konverzija, pa se vidi koja je kampanja donela kupca",
+                "Budžet po kampanjama, uz [plaćeno oglašavanje](/usluge/placeno-oglasavanje)",
               ],
             ],
           },
         },
-        "Isti pristup važi i za zadatke koje ima skoro svaka firma, šta god da prodaje. Za njih možemo da napravimo:",
-        {
-          list: [
-            "AI asistenta na sajtu, koji na česta pitanja kupaca odgovara iz vaših cena, uslova i rokova",
-            "prelazak upita sa sajta u CRM, sa podsetnikom kad treba javiti kupcu",
-            "vezu sajta sa fiskalnom kasom, lagerom ili knjigovodstvenim programom",
-            "čitanje iznosa i šifara iz faktura i drugih dokumenata u PDF-u",
-          ],
-        },
-        "Naslovi i opisi proizvoda spadaju i u [SEO optimizaciju](/usluge/seo-optimizacija). Kod prodavnice sa hiljadama artikala ručno pisanje nikad ne stigne do kraja kataloga, pa naslov i opis za svaki proizvod i svaku kategoriju piše program.",
+        "Naslovi i opisi proizvoda spadaju i u [SEO optimizaciju](/usluge/seo-optimizacija). Kod prodavnice sa hiljadama artikala ručno pisanje nikad ne stigne do kraja kataloga, pa ga preuzima automatizacija.",
       ],
     },
     {
       title: "Kada vam treba AI, a kada obična automatizacija",
       body: [
-        "AI vam treba kad program mora da razume tekst ili tabelu koja svaki put izgleda drugačije. Za zadatak sa jasnim pravilima dovoljna je obična automatizacija, koja je jeftinija i uvek daje isti rezultat.",
-        "Praćenje cena je zadatak sa jasnim pravilima. Program nađe najnižu cenu istog proizvoda i proveri da li vaša nova cena ostaje iznad granice marže, a za to AI ne treba.",
+        "AI vam treba kad zadatak traži razumevanje teksta ili tabele koja svaki put izgleda drugačije. Za zadatak sa jasnim pravilima dovoljna je obična automatizacija, koja je jeftinija i uvek daje isti rezultat.",
+        "Praćenje cena je zadatak sa jasnim pravilima. Alat nađe najnižu cenu istog proizvoda, postavi vašu 4% ispod nje i proveri da li ostaje iznad granice marže, a za to AI ne treba.",
         "AI ima smisla tamo gde je ulaz neuredan ili gde treba napisati tekst:",
         {
           list: [
@@ -200,7 +164,7 @@ const page = {
             "odgovori na pitanja kupaca iz vaših cena i uslova",
           ],
         },
-        "AI greši drugačije od programa sa pravilima, jer i netačan odgovor napiše uverljivo. Zato ga stavljamo tamo gde čovek brzo proveri rezultat pre nego što stigne do kupca, na primer opis proizvoda pre objave.",
+        "AI greši drugačije od automatizacije sa pravilima, jer i netačan odgovor napiše uverljivo. Zato ga stavljamo tamo gde čovek brzo proveri rezultat pre nego što stigne do kupca, na primer opis proizvoda pre objave.",
       ],
     },
     {
@@ -224,7 +188,7 @@ const page = {
       title: "Od čega zavisi cena automatizacije",
       body: [
         "Cenu najviše određuje koliko programa i izvora podataka treba povezati i u kakvom su stanju ti podaci, više nego sam broj proizvoda.",
-        "API je način na koji dva programa razmenjuju podatke bez čoveka između njih. Preko API-ja ThermiQ svakog dana dobija nove cene. Kad program nema API, podaci idu preko izvoza u tabelu, što traži više provera.",
+        "API je način na koji dva programa razmenjuju podatke bez čoveka između njih. Jedna prodavnica sa kojom radimo preko API-ja svako jutro dobija nove cene. Kad program nema API, podaci idu preko izvoza u tabelu, što traži više provera.",
         "Kad pravimo ponudu, gledamo ove stavke:",
         {
           list: [
@@ -242,8 +206,8 @@ const page = {
       title: "Kako automatizacija ostaje pod vašom kontrolom",
       body: [
         "Svaka automatizacija koju pravimo ima granicu do koje radi sama, a sve preko nje čeka potvrdu nekoga iz vaše firme.",
-        "Kod ThermiQ-a program svake nedelje menja cene prema konkurenciji, a promena veća od 15% ne ide na sajt dok je neko iz firme ne pogleda i potvrdi.",
-        "Granica hvata greške u sparivanju proizvoda. Recimo da druga prodavnica isti materijal prodaje po rolni, a vi po metru. Program koji samo poredi brojeve tada bi vašu cenu spustio daleko ispod nabavne, pa ThermiQ za robu na metar ima i cenu po metru.",
+        "Kod praćenja cena granica je procenat promene, pa veliku razliku uvek vidi čovek pre kupca. Takva razlika često znači da su upoređena dva različita proizvoda.",
+        "Recimo da druga prodavnica isti materijal prodaje po rolni, a vi po metru. Alat koji samo poredi brojeve tada bi vašu cenu spustio daleko ispod nabavne, pa prodavnica opreme za grejanje sa kojom radimo za robu na metar ima i cenu po metru.",
         "Ko god da vam pravi automatizaciju, proverite da ima ovo:",
         {
           list: [
@@ -257,8 +221,8 @@ const page = {
     },
   ],
   price: {
-    from: null,
-    note: "Cena zavisi od toga koliko programa povezujemo, koliko izvora podataka ima i u kakvom su stanju, i da li zadatak traži AI. Iznos izrade i trošak održavanja pišemo u ponudi posle prvog razgovora.",
+    from: 100,
+    note: "Iznos zavisi od toga koliko programa povezujemo, koliko izvora podataka ima i u kakvom su stanju, i da li zadatak traži AI. Tačnu cenu izrade i održavanja dobijate uz idejno rešenje, posle prvog razgovora.",
   },
   faq: [
     {
@@ -275,7 +239,7 @@ const page = {
     },
     {
       q: "Šta se dešava kad dobavljač promeni cenovnik ili konkurent promeni sajt?",
-      a: "Alat koji čita taj izvor tada mora da se prilagodi novom obliku podataka. Pratimo greške i neobične rezultate, na primer cenu koja preko noći padne mnogo više nego inače, i alat prilagođavamo u okviru održavanja. Dok to ne uradimo, program ne menja cene sam.",
+      a: "Alat koji čita taj izvor tada mora da se prilagodi novom obliku podataka. Pratimo greške i neobične rezultate, na primer cenu koja preko noći padne mnogo više nego inače, i alat prilagođavamo u okviru održavanja. Dok to ne uradimo, alat ne menja cene sam.",
     },
     {
       q: "Može li AI asistent da odgovara kupcima na sajtu?",
@@ -283,7 +247,7 @@ const page = {
     },
     {
       q: "Radite li automatizaciju i za firme koje nisu online prodavnice?",
-      a: "Radimo, i CRM za Praxis je takav primer. Firmama koje prodaju usluge najviše vremena obično odnose upiti, ponude i podsetnici za javljanje kupcu, a to su zadaci sa jasnim pravilima.",
+      a: "Radimo. Za jednu firmu smo napravili CRM, program u kome se vodi evidencija klijenata. Firmama koje prodaju usluge najviše vremena obično odnose upiti, ponude i podsetnici za javljanje kupcu, a to su zadaci sa jasnim pravilima.",
     },
     {
       q: "Gde stoje podaci i ko ih vidi?",
@@ -292,7 +256,7 @@ const page = {
   ],
   cta: {
     title: "Pokažite nam zadatak koji vam uzima najviše vremena",
-    text: "Zakažite razgovor i opišite jedan zadatak koji danas radite ručno, na primer ponude, cene ili uvoz cenovnika. Reći ćemo vam da li ga vredi automatizovati, šta bi program radio sam i šta bi čekalo vašu potvrdu.",
+    text: "Zakažite razgovor i opišite jedan zadatak koji danas radite ručno, na primer ponude, cene ili uvoz cenovnika. Reći ćemo vam da li ga vredi automatizovati, šta bi išlo samo i šta bi čekalo vašu potvrdu.",
   },
 };
 
