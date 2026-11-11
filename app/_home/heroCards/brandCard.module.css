@@ -992,207 +992,265 @@
   }
 }
 
-/* skin "sticker" (the /v7 test): the card drawn in the service pages'
-   sticker language. White pieces with an ink outline and a white sticker
-   edge; the brand artwork inside the tiles (the mark, the mockups, the
-   chosen palette) stays as it is. Borders are taken out of the padding, so
-   nothing moves or grows. */
-
-/* the shell, and the brand book sheets behind it as a stack of stickers */
-:global([data-skin="sticker"]) .card {
-  padding: 13.5px 13.5px 11.5px;
-  border: 2.5px solid var(--ink);
-  background: #fff;
+/* ── the hero tests' shared accents (any skin: /v7, /v8) ───────────
+   The card as it is, with the new design's accents and no outlines. The
+   brand system and its mockups are content and keep their own colours.
+   The applications count sits on lime and, once every application is
+   lit, becomes the steps' blue card; each application's label turns into
+   a flat lime tag as it is applied (quiet before); the chosen palette is
+   ringed in blue. */
+:global([data-skin]) .dot[aria-pressed="true"]::before {
   box-shadow:
-    0 0 0 6px #fff,
-    0 30px 50px -26px rgb(11 11 22 / 0.45);
-}
-:global([data-skin="sticker"]) .deck::before,
-:global([data-skin="sticker"]) .deck::after {
-  border: 2px solid var(--ink);
-  background: #fff;
-  box-shadow: 0 0 0 4px #fff;
-  opacity: 1;
-}
-
-/* the name field: a white bar with an ink outline */
-:global([data-skin="sticker"]) .bar,
-:global([data-skin="sticker"]) .bar:hover {
-  padding: 0 5px 0 16px;
-  border: 2px solid var(--ink);
-  background: #fff;
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .bar:focus-within {
-  background: #fff;
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 20%, white);
-}
-:global([data-skin="sticker"]) .pen {
-  color: var(--ink-2);
-}
-
-/* Primeni: a blue key with an ink edge that presses down. The margin lifts
-   it by half its ledge, so the key and the ledge sit centred in the bar. */
-:global([data-skin="sticker"]) .go {
-  height: 42px;
-  margin-top: -3px;
-  padding: 0 18px;
-  border: 2px solid var(--ink);
-  background: var(--accent);
-  box-shadow: 0 3px 0 var(--ink);
-  transition:
-    background 0.3s var(--ease),
-    transform 0.2s var(--ease),
-    box-shadow 0.2s var(--ease);
-}
-:global([data-skin="sticker"]) .go:hover {
-  background: var(--accent);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 0 var(--ink);
-}
-:global([data-skin="sticker"]) .go:active,
-:global([data-skin="sticker"]) .go[data-press="true"] {
-  background: var(--accent);
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--ink);
-}
-
-/* palette dots: little ink-outlined swatches; the chosen one gets a ring */
-:global([data-skin="sticker"]) .dot::before {
-  box-shadow: inset 0 0 0 1.5px var(--ink);
-}
-:global([data-skin="sticker"]) .dot[aria-pressed="true"]::before {
-  box-shadow:
-    inset 0 0 0 1.5px var(--ink),
     0 0 0 2px #fff,
-    0 0 0 3.5px var(--ink);
+    0 0 0 3.5px var(--accent);
 }
-
-/* Primene: a white chip; the count is a tilted pill that turns lime once
-   every application is done */
-:global([data-skin="sticker"]) .count,
-:global([data-skin="sticker"]) .count[data-full="true"] {
-  padding: 0 2px 0 9px;
-  border: 2px solid var(--ink);
-  background: #fff;
-  color: var(--ink);
-}
-:global([data-skin="sticker"]) .countNo {
-  height: 20px;
-  border: 2px solid var(--ink);
-  background: #fff;
-  box-shadow: none;
-  rotate: -3deg;
-}
-:global([data-skin="sticker"]) .count[data-full="true"] .countNo {
-  background: var(--secondary);
-  box-shadow: none;
-}
-
-/* the system: each part a tile with an ink outline. The mark keeps its
-   artboard (grey, then the brand colour), the logo and the type sit on
-   white, the colours on a mist panel. */
-:global([data-skin="sticker"]) .sys > div {
-  border: 2px solid var(--ink);
-}
-:global([data-skin="sticker"]) .lockup,
-:global([data-skin="sticker"]) .type {
-  background: #fff;
-}
-:global([data-skin="sticker"]) .sw,
-:global([data-skin="sticker"]) .sys[data-c="true"] .sw {
-  box-shadow: inset 0 0 0 1.5px var(--ink);
-}
-
-/* the applications: mist tiles with an ink outline, so the white paper in
-   the mockups still reads; the label is a small sticker that turns lime
-   when its application is done */
-:global([data-skin="sticker"]) .app {
-  border: 2px solid var(--ink);
-}
-:global([data-skin="sticker"]) .appLabel {
-  top: 6px;
-  left: 7px;
-  height: 18px;
-  padding: 0 7px 0 5px;
-  border: 1.5px solid var(--ink);
-  border-radius: 999px;
-  background: #fff;
-  box-shadow: 0 0 0 2px #fff;
-  color: var(--ink-3);
-  rotate: -3deg;
+:global([data-skin]) .count {
+  background: var(--mist);
+  color: var(--ink-2);
   transition:
-    background 0.4s var(--ease),
-    color 0.4s var(--ease);
+    background-color 0.4s var(--ease),
+    color 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
 }
-:global([data-skin="sticker"]) .app[data-on="true"] .appLabel {
+:global([data-skin]) .countNo,
+:global([data-skin]) .count[data-full="true"] .countNo,
+:global([data-skin]) .count[data-full-phone="true"] .countNo {
+  background: var(--secondary);
+  box-shadow: 0 0 0 3px
+    color-mix(in oklab, var(--secondary) 35%, transparent);
+  rotate: -4deg;
+}
+:global([data-skin]) .count[data-full="true"] {
+  background:
+    radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 / 12px
+      12px,
+    var(--accent);
+  color: #fff;
+  box-shadow: 0 12px 24px -12px
+    color-mix(in oklab, var(--accent) 70%, transparent);
+}
+:global([data-skin]) .appLabel {
+  top: 6px;
+  left: 6px;
+  padding: 3px 7px 3px 5px;
+  border-radius: 999px;
+  transition:
+    background-color 0.4s var(--ease),
+    color 0.4s var(--ease),
+    rotate 0.5s var(--ease);
+}
+:global([data-skin]) .app[data-on="true"] .appLabel {
   background: var(--secondary);
   color: var(--ink);
+  rotate: -3deg;
 }
-:global([data-skin="sticker"]) .app[data-on="true"] .appLabel i {
+:global([data-skin]) .app[data-on="true"] .appLabel i {
   background: var(--ink);
   box-shadow: none;
 }
-
-/* the website mockup is a device: an ink frame, coloured window dots and
-   an outlined address pill */
-:global([data-skin="sticker"]) .app:nth-child(1) .paper {
-  stroke: var(--ink);
-  stroke-width: 2.5px;
-  vector-effect: non-scaling-stroke;
-}
-:global([data-skin="sticker"]) .app:nth-child(1) svg > circle.fG {
-  stroke: var(--ink);
-  stroke-width: 1.5px;
-  vector-effect: non-scaling-stroke;
-}
-:global([data-skin="sticker"]) .app:nth-child(1) svg > circle.fG:nth-of-type(1) {
-  fill: var(--spark);
-}
-:global([data-skin="sticker"]) .app:nth-child(1) svg > circle.fG:nth-of-type(2) {
-  fill: var(--secondary);
-}
-:global([data-skin="sticker"]) .app:nth-child(1) svg > circle.fG:nth-of-type(3) {
-  fill: var(--accent);
-}
-:global([data-skin="sticker"]) .app:nth-child(1) svg > rect.fM[rx="8"] {
-  fill: #fff;
-  stroke: var(--ink);
-  stroke-width: 1.5px;
-  vector-effect: non-scaling-stroke;
-}
-:global([data-skin="sticker"]) .app:nth-child(1) svg > rect.fM[height="1"] {
-  fill: var(--ink);
+@media (max-width: 640px) {
+  :global([data-skin]) .count[data-full="true"] {
+    background: var(--mist);
+    color: var(--ink-2);
+    box-shadow: none;
+  }
+  :global([data-skin]) .count[data-full-phone="true"] {
+    background:
+      radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 /
+        12px 12px,
+      var(--accent);
+    color: #fff;
+    box-shadow: 0 12px 24px -12px
+      color-mix(in oklab, var(--accent) 70%, transparent);
+  }
 }
 
-@media (max-width: 560px) {
-  :global([data-skin="sticker"]) .card {
-    padding: 7.5px 7.5px 9.5px;
-  }
-  :global([data-skin="sticker"]) .bar,
-  :global([data-skin="sticker"]) .bar:hover {
-    padding: 0 3px 0 12px;
-  }
-  :global([data-skin="sticker"]) .go {
-    height: 38px;
-    padding: 0 13px;
-  }
+/* "lift" (variant C, /v7): the card leans like the steps' cards and three
+   pieces of the story come off it as stickers: the name bar, the mark on
+   its artboard (off the card's left edge) and the applications count. */
+:global([data-skin="lift"]) .deck {
+  rotate: -1.4deg;
+}
+:global([data-skin="lift"]) .bar,
+:global([data-skin="lift"]) .bar:hover {
+  margin: 0 -22px 0 -18px;
+  background: #fff;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 18px 34px -16px rgb(11 11 22 / 0.4),
+    0 0 0 6px rgb(11 11 22 / 0.06);
+  rotate: 1.6deg;
+}
+:global([data-skin="lift"]) .bar:focus-within {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px #fff,
+    0 0 0 9px var(--accent-soft),
+    0 18px 34px -16px rgb(11 11 22 / 0.4);
+}
+:global([data-skin="lift"]) .sys > .markTile {
+  z-index: 2;
+  margin-left: -28px;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 24px 36px -18px color-mix(in oklab, var(--D) 70%, transparent);
+  rotate: -3deg;
+}
+:global([data-skin="lift"]) .meta {
+  padding-top: 11px;
+  padding-bottom: 7px;
+}
+:global([data-skin="lift"]) .count {
+  height: 34px;
+  margin-right: -26px;
+  padding: 0 5px 0 13px;
+  font-size: 13px;
+  background: #fff;
+  box-shadow:
+    0 0 0 4px #fff,
+    0 12px 22px -12px rgb(11 11 22 / 0.4);
+  rotate: 3deg;
+}
+:global([data-skin="lift"]) .count[data-full="true"] {
+  box-shadow:
+    0 0 0 4px #fff,
+    0 16px 26px -12px color-mix(in oklab, var(--accent) 75%, transparent);
 }
 @media (max-width: 640px) {
-  /* the website is tiny here: a lighter frame, plain window dots */
-  :global([data-skin="sticker"]) .app:nth-child(1) .paper {
-    stroke-width: 1.5px;
-  }
-  :global([data-skin="sticker"]) .app:nth-child(1) svg > rect.fM[rx="8"] {
-    stroke-width: 1px;
-  }
-  :global([data-skin="sticker"]) .app:nth-child(1) svg > circle.fG {
-    stroke: none;
-  }
-  :global([data-skin="sticker"]) .count[data-full="true"] .countNo {
+  :global([data-skin="lift"]) .count[data-full="true"] {
     background: #fff;
+    color: var(--ink-2);
+    box-shadow:
+      0 0 0 4px #fff,
+      0 12px 22px -12px rgb(11 11 22 / 0.4);
   }
-  :global([data-skin="sticker"]) .count[data-full-phone="true"] .countNo {
-    background: var(--secondary);
+  :global([data-skin="lift"]) .count[data-full-phone="true"] {
+    background:
+      radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 /
+        12px 12px,
+      var(--accent);
+    color: #fff;
+    box-shadow:
+      0 0 0 4px #fff,
+      0 16px 26px -12px color-mix(in oklab, var(--accent) 75%, transparent);
+  }
+  :global([data-skin="lift"]) .sys > .markTile {
+    margin-left: -8px;
+    box-shadow:
+      0 0 0 4px #fff,
+      0 16px 26px -14px color-mix(in oklab, var(--D) 70%, transparent);
+    rotate: -1deg;
+  }
+}
+@media (max-width: 560px) {
+  :global([data-skin="lift"]) .deck {
+    rotate: -1deg;
+  }
+  :global([data-skin="lift"]) .bar,
+  :global([data-skin="lift"]) .bar:hover {
+    margin: 0 -14px 0 -12px;
+    box-shadow:
+      0 0 0 4px #fff,
+      0 14px 26px -14px rgb(11 11 22 / 0.4),
+      0 0 0 5px rgb(11 11 22 / 0.06);
+    rotate: 1deg;
+  }
+  :global([data-skin="lift"]) .bar:focus-within {
+    box-shadow:
+      inset 0 0 0 1.5px var(--accent),
+      0 0 0 4px #fff,
+      0 0 0 7px var(--accent-soft),
+      0 14px 26px -14px rgb(11 11 22 / 0.4);
+  }
+  :global([data-skin="lift"]) .meta {
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+  :global([data-skin="lift"]) .count {
+    height: 28px;
+    margin-right: -14px;
+    padding: 0 4px 0 11px;
+    font-size: 12px;
+    rotate: 1deg;
+  }
+}
+
+/* "fine" (variant D, /v8): the white card stays and the pieces inside are
+   drawn the way the steps draw their little screens: a white name field
+   that sits up off the card, the site's key with its arrow in a circle,
+   and the brand book's tiles as white cards in a mist tray. The brand
+   artwork in them is untouched. */
+:global([data-skin="fine"]) .bar,
+:global([data-skin="fine"]) .bar:hover {
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 12px 26px -16px rgb(26 25 120 / 0.35);
+}
+:global([data-skin="fine"]) .bar:focus-within {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px var(--accent-soft);
+}
+:global([data-skin="fine"]) .go {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px 0 18px;
+}
+:global([data-skin="fine"]) .go::after {
+  content: "";
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")
+      center / 15px no-repeat,
+    rgb(255 255 255 / 0.2);
+  transition: translate 0.3s var(--ease);
+}
+:global([data-skin="fine"]) .go:hover::after,
+:global([data-skin="fine"]) .go[data-press="true"]::after {
+  translate: 2px 0;
+}
+:global([data-skin="fine"]) .main {
+  gap: 6px;
+  padding: 6px;
+  border-radius: 22px;
+  background: var(--mist);
+}
+:global([data-skin="fine"]) .sys,
+:global([data-skin="fine"]) .apps {
+  gap: 6px;
+}
+:global([data-skin="fine"]) .sys > div,
+:global([data-skin="fine"]) .app {
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04);
+}
+@media (max-width: 640px) {
+  :global([data-skin="fine"]) .main {
+    padding: 4px;
+    border-radius: 18px;
+  }
+  :global([data-skin="fine"]) .apps {
+    grid-template-rows: 81px 81px;
+  }
+  :global([data-skin="fine"]) .sys > div,
+  :global([data-skin="fine"]) .app {
+    border-radius: 14px;
+  }
+}
+@media (max-width: 560px) {
+  :global([data-skin="fine"]) .go {
+    padding: 0 5px 0 14px;
+    gap: 8px;
+  }
+  :global([data-skin="fine"]) .go::after {
+    width: 30px;
+    height: 30px;
   }
 }

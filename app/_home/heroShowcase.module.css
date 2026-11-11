@@ -7,6 +7,7 @@
   min-height: 630px;
 }
 .card {
+  position: relative;
   display: grid;
   min-width: 0;
 }
@@ -23,5 +24,26 @@
   }
   .wait {
     min-height: 340px;
+  }
+}
+
+/* the service's sticker on the card's corner, for the hero tests (/v7, /v8) */
+.sticker {
+  display: none;
+}
+
+:global([data-skin]) .sticker {
+  position: absolute;
+  right: -30px;
+  bottom: -34px;
+  z-index: 3;
+  display: block;
+  width: 96px;
+  height: 96px;
+  filter: drop-shadow(0 14px 16px rgb(11 11 22 / 0.22));
+}
+@media (max-width: 640px) {
+  :global([data-skin]) .sticker {
+    display: none;
   }
 }

@@ -25,8 +25,9 @@ import Work from "./Work";
     chrome, so the global SiteNav hides itself (data-own-chrome).
 
     look "v2" (the default since 11 Nov 2026) draws the service cards and
-    the steps in the service pages' sticker language; skin "sticker" does
-    the same for the hero's cards (the /v7 test). */
+    the steps in the service pages' sticker language. skin restyles the
+    hero's cards for the tests: "lift" on /v7, "fine" on /v8 (the rules
+    sit at the end of each card's stylesheet). */
 export default function HomeV5({ clients, fonts, look = "v2", skin }) {
   return (
     <div

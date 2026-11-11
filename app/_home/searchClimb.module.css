@@ -707,198 +707,204 @@
   }
 }
 
-/* skin "sticker" (the /v7 test): the card drawn in the service pages' sticker
-   language. White pieces with an ink outline and a white sticker edge; every
-   border is paid for out of the padding, so the card keeps its size. */
-/* outlined rows need air between them: 2px off each row pays for a wider
-   gap, and the list comes out 2px shorter than before */
-:global([data-skin="sticker"]) .stage {
-  --row: 66px;
-  --gap: 6px;
+/* ── the hero tests' shared accents (any skin: /v7, /v8) ───────────
+   The card as it is, with the new design's accents and no outlines on
+   the interface (Luka found ink outlines on every row retro): your result
+   is the steps' blue card with its dot grain, numbers sit on lime, the
+   other sites wear flat brand colours. The service's sticker sits on the
+   card's corner (heroShowcase.module.css). */
+:global([data-skin]) .row[data-mine] {
+  background:
+    radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 / 12px
+      12px,
+    var(--accent);
+  box-shadow: 0 18px 34px -16px
+    color-mix(in oklab, var(--accent) 70%, transparent);
 }
-:global([data-skin="sticker"]) .card {
-  padding: 13.5px 13.5px 11.5px;
-  border: 2.5px solid var(--ink);
-  background: #fff;
+:global([data-skin]) .row[data-top] {
   box-shadow:
-    0 0 0 6px #fff,
-    0 30px 50px -26px rgb(11 11 22 / 0.45);
+    0 0 0 4px color-mix(in oklab, var(--secondary) 55%, transparent),
+    0 22px 40px -16px color-mix(in oklab, var(--accent) 75%, transparent);
 }
-/* the two sheets behind it: a stack of stickers */
-:global([data-skin="sticker"]) .deck::before,
-:global([data-skin="sticker"]) .deck::after {
-  box-sizing: border-box;
-  border: 2px solid var(--ink);
-  background: #fff;
-  box-shadow: none;
-  opacity: 1;
+:global([data-skin]) .row[data-mine] .url {
+  color: rgb(255 255 255 / 0.7);
 }
-:global([data-skin="sticker"]) .deck::before {
-  bottom: -14px;
-}
-:global([data-skin="sticker"]) .deck::after {
-  bottom: -26px;
-}
-
-/* search field and its button */
-:global([data-skin="sticker"]) .bar {
-  padding: 0 5px 0 16px;
-  border: 2px solid var(--ink);
-  background: #fff;
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .bar:hover {
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .bar:focus-within {
-  background: #fff;
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 20%, white);
-}
-:global([data-skin="sticker"]) .lens {
-  color: var(--ink);
-}
-:global([data-skin="sticker"]) .go {
-  margin-top: -3px; /* centres the button and its 3px foot in the bar */
-  padding: 0 18px;
-  border: 2px solid var(--ink);
-  box-shadow: 0 3px 0 var(--ink);
-  transition:
-    background 0.3s var(--ease),
-    transform 0.2s var(--ease),
-    box-shadow 0.2s var(--ease);
-}
-:global([data-skin="sticker"]) .go:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 0 var(--ink);
-}
-:global([data-skin="sticker"]) .go:active {
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--ink);
-}
-
-/* "Vaš sajt #2": a white chip, the number a tilted lime sticker; at #1 the
-   chip itself turns lime */
-:global([data-skin="sticker"]) .rank {
-  padding: 0 3px 0 9px;
-  border: 2px solid var(--ink);
-  background: #fff;
-  color: var(--ink);
-}
-:global([data-skin="sticker"]) .rank[data-top="true"] {
-  background: color-mix(in oklab, var(--secondary) 34%, white);
-  color: var(--ink);
-}
-:global([data-skin="sticker"]) .rankNo,
-:global([data-skin="sticker"]) .rank[data-top="true"] .rankNo {
-  min-width: 32px;
-  height: 20px;
-  border: 2px solid var(--ink);
-  background: var(--secondary);
-  box-shadow: none;
-  rotate: -3deg;
-}
-
-/* results: each one an outlined tile, yours the lifted sticker on top */
-:global([data-skin="sticker"]) .row {
-  padding: 0 10px;
-  border: 2px solid var(--ink);
-  background: #fff;
-}
-:global([data-skin="sticker"]) .row[data-mine] {
-  padding: 0 9.5px;
-  border-width: 2.5px;
-  background: color-mix(in oklab, var(--accent) 10%, white);
-  box-shadow:
-    0 0 0 4px #fff,
-    0 16px 24px -14px rgb(11 11 22 / 0.5);
-  rotate: -0.6deg;
-}
-/* the url line's leading sits above the text and the snippet's below, so
-   inside a drawn outline the lines look high; nudge them to the middle */
-@media (min-width: 641px) {
-  :global([data-skin="sticker"]) .row .body {
-    translate: 0 1.5px;
-  }
-}
-:global([data-skin="sticker"]) .row[data-mine] .url {
-  min-width: 0;
-  overflow: visible; /* room for the tilted label; the path still ellipses */
-}
-:global([data-skin="sticker"]) .fav {
-  border: 2px solid var(--ink);
-  background: var(--mist);
-  color: var(--ink);
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .fav[data-tone="ink"] {
-  background: var(--ink);
+:global([data-skin]) .row[data-mine] .url b,
+:global([data-skin]) .row[data-mine] .title {
   color: #fff;
 }
-:global([data-skin="sticker"]) .fav[data-tone="spark"] {
+:global([data-skin]) .row[data-mine] .text {
+  color: rgb(255 255 255 / 0.78);
+}
+:global([data-skin]) .row[data-mine] .url {
+  overflow: visible;
+}
+:global([data-skin]) .tag {
+  background: var(--secondary);
+  color: var(--ink);
+  rotate: -3deg;
+}
+:global([data-skin]) .fav[data-tone="mine"] {
+  background: #fff;
+  color: var(--accent);
+  box-shadow: 0 6px 14px -6px rgb(11 11 22 / 0.5);
+}
+:global([data-skin]) .fav[data-tone="spark"] {
   background: var(--spark);
-}
-:global([data-skin="sticker"]) .fav[data-tone="lime"] {
-  background: var(--secondary);
-}
-:global([data-skin="sticker"]) .fav[data-tone="pale"] {
-  background: #fff;
-}
-:global([data-skin="sticker"]) .fav[data-tone="mine"] {
-  background: var(--accent);
   color: #fff;
-  box-shadow: none;
 }
-:global([data-skin="sticker"]) .tag {
-  padding: 0 7px;
-  border: 1.5px solid var(--ink);
+:global([data-skin]) .fav[data-tone="lime"] {
   background: var(--secondary);
-  line-height: 1.25;
   color: var(--ink);
-  rotate: -3deg;
 }
-:global([data-skin="sticker"]) .badge {
-  padding: 0 9px;
-  border: 2px solid var(--ink);
-  box-shadow: 0 0 0 3px #fff;
+:global([data-skin]) .badge {
+  rotate: -4deg;
+  box-shadow: 0 6px 14px -8px rgb(11 11 22 / 0.6);
+}
+:global([data-skin]) .rank {
+  background: var(--mist);
+  color: var(--ink-2);
+}
+:global([data-skin]) .rankNo {
+  background: var(--secondary);
+  box-shadow: 0 0 0 3px
+    color-mix(in oklab, var(--secondary) 35%, transparent);
   rotate: -4deg;
 }
-:global([data-skin="sticker"]) .badge::after {
-  inset: -2px;
+:global([data-skin]) .rank[data-top="true"] {
+  background: var(--secondary-soft);
 }
 
-/* placeholders while a search is typed: faint tiles, so the rows have
-   somewhere to land */
-:global([data-skin="sticker"]) .skelRow {
-  padding: 0 10px;
-  border: 2px solid rgb(11 11 22 / 0.1);
-  border-radius: 18px;
+/* ── direction C, "lift" (the /v7 test, Luka picked it 11 Nov 2026) ── */
+
+/* "lift": the white card leans like the steps' cards, and the pieces that
+   tell the story come off it as stickers: the search bar, your result and
+   the rank */
+:global([data-skin="lift"]) .deck {
+  rotate: -1.4deg;
+}
+:global([data-skin="lift"]) .bar {
+  margin: 0 -22px 0 -18px;
+  background: #fff;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 18px 34px -16px rgb(11 11 22 / 0.4),
+    0 0 0 6px rgb(11 11 22 / 0.06);
+  rotate: 1.6deg;
+}
+:global([data-skin="lift"]) .row[data-mine] {
+  margin: 0 -30px 0 -6px;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 26px 40px -16px color-mix(in oklab, var(--accent) 70%, transparent);
+  rotate: -2.2deg;
+}
+:global([data-skin="lift"]) .rank {
+  margin-right: -26px;
+  box-shadow:
+    0 0 0 4px #fff,
+    0 12px 22px -12px rgb(11 11 22 / 0.4);
+  background: #fff;
+  rotate: 3deg;
+  height: 34px;
+  padding: 0 5px 0 13px;
+  font-size: 13px;
 }
 
 @media (max-width: 560px) {
-  :global([data-skin="sticker"]) .card {
-    padding: 7.5px 7.5px 9.5px;
+  :global([data-skin="lift"]) .deck {
+    rotate: -1deg;
   }
-  :global([data-skin="sticker"]) .bar {
-    padding: 0 3px 0 12px;
+  :global([data-skin="lift"]) .bar {
+    margin: 0 -8px 0 -6px;
+    rotate: 1deg;
   }
-  :global([data-skin="sticker"]) .go {
-    padding: 0 13px;
+  :global([data-skin="lift"]) .row[data-mine] {
+    margin: 0 -10px 0 -2px;
+    rotate: -1.2deg;
   }
-  :global([data-skin="sticker"]) .row,
-  :global([data-skin="sticker"]) .skelRow {
-    padding: 0 6px;
-  }
-  :global([data-skin="sticker"]) .row[data-mine] {
-    padding: 0 5.5px;
+  :global([data-skin="lift"]) .rank {
+    margin-right: -8px;
   }
 }
-/* phones clip the list at four rows: a tilted row would lose a corner there */
-@media (max-width: 640px) {
-  :global([data-skin="sticker"]) .stage {
-    --row: 48px;
-    --gap: 6px;
+
+/* "fine" (the /v8 test): the white card stays; the pieces inside are
+   drawn the way the steps draw their little screens. A white search field
+   that sits up off the card, the site's key with its arrow in a circle,
+   and the results as white cards in a mist tray. */
+:global([data-skin="fine"]) .stage {
+  --row: 63px;
+  --gap: 5px;
+}
+:global([data-skin="fine"]) .bar {
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 12px 26px -16px rgb(26 25 120 / 0.35);
+}
+:global([data-skin="fine"]) .bar:focus-within {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px var(--accent-soft);
+}
+:global([data-skin="fine"]) .go {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px 0 18px;
+}
+:global([data-skin="fine"]) .go::after {
+  content: "";
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")
+      center / 15px no-repeat,
+    rgb(255 255 255 / 0.2);
+  transition: translate 0.3s var(--ease);
+}
+:global([data-skin="fine"]) .go:hover::after {
+  translate: 2px 0;
+}
+:global([data-skin="fine"]) .list {
+  padding: 6px 6px 6px 0;
+  border-radius: 22px;
+  background: var(--mist);
+}
+:global([data-skin="fine"]) .row:not([data-mine]) {
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04);
+}
+:global([data-skin="fine"]) .row:not([data-mine]):hover {
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 10px 20px -14px rgb(11 11 22 / 0.3);
+}
+:global([data-skin="fine"]) .row {
+  border-radius: 16px;
+}
+:global([data-skin="fine"]) .skelRow {
+  border-radius: 16px;
+  background: rgb(255 255 255 / 0.6);
+}
+@media (max-width: 560px) {
+  :global([data-skin="fine"]) .stage {
+    --gap: 4px;
   }
-  :global([data-skin="sticker"]) .row[data-mine] {
-    rotate: none;
+  :global([data-skin="fine"]) .list {
+    padding: 4px 4px 4px 0;
+    border-radius: 18px;
+  }
+  :global([data-skin="fine"]) .go {
+    padding: 0 5px 0 14px;
+    gap: 8px;
+  }
+  :global([data-skin="fine"]) .go::after {
+    width: 30px;
+    height: 30px;
   }
 }

@@ -1010,268 +1010,280 @@
   }
 }
 
-/* skin "sticker" (the /v7 test): the card drawn in the service pages'
-   sticker language. White pieces with an ink outline, lime and coral
-   labels with a slight tilt, the best ad lifted like a sticker on top.
-   Every rule waits for [data-skin="sticker"], so the live homepage and the
-   service pages keep the card as it was. Borders sit inside the existing
-   boxes (border-box, padding trimmed by the border), so nothing moves. */
-
-/* outlined rows need air between them: half a pixel off each row pays for
-   a 6px gap, and the list keeps its height */
-:global([data-skin="sticker"]) .stage {
-  --row: 78.5px;
-  --gap: 6px;
+/* ── the hero tests' shared accents (any skin: /v7, /v8) ───────────
+   The card as it is, with the new design's accents and no outlines on
+   the interface: the best ad (the one that wins the budget) becomes the
+   steps' blue card with its dot grain and a lime share bar, the cost per
+   enquiry sits on lime, channel marks wear flat brand colours (lime for
+   search, coral for social), labels are flat and tilted. */
+:global([data-skin]) .row[data-best] {
+  background:
+    radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 / 12px
+      12px,
+    var(--accent);
+  box-shadow: 0 18px 34px -16px
+    color-mix(in oklab, var(--accent) 70%, transparent);
 }
-
-/* the shell, and the two sheets behind it as a stack of stickers */
-:global([data-skin="sticker"]) .card {
-  padding: 13.5px 13.5px 11.5px;
-  background: #fff;
-  border: 2.5px solid var(--ink);
-  box-shadow:
-    0 0 0 6px #fff,
-    0 30px 50px -26px rgb(11 11 22 / 0.45);
+:global([data-skin]) .row[data-best] .url,
+:global([data-skin]) .row[data-best] .enq,
+:global([data-skin]) .row[data-best] .clicks {
+  color: rgb(255 255 255 / 0.7);
 }
-:global([data-skin="sticker"]) .deck::before,
-:global([data-skin="sticker"]) .deck::after {
-  box-sizing: border-box;
-  background: #fff;
-  border: 2px solid var(--ink);
-  box-shadow: none;
-  opacity: 1;
-}
-:global([data-skin="sticker"]) .deck::before {
-  bottom: -14px;
-}
-:global([data-skin="sticker"]) .deck::after {
-  bottom: -26px;
-}
-
-/* campaign bar: white, outlined; the megaphone is a lime sticker */
-:global([data-skin="sticker"]) .bar {
-  padding: 0 5px 0 6px;
-  background: #fff;
-  border: 2px solid var(--ink);
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .bar:has(.field:hover) {
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .bar:has(.pick:focus-visible) {
-  background: #fff;
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 20%, white);
-}
-:global([data-skin="sticker"]) .icon {
-  background: var(--secondary);
-  color: var(--ink);
-  border: 2px solid var(--ink);
-  box-shadow: none;
-}
-
-/* Pokreni / Optimizuj: a pressable blue key; done, it stays pressed in lime */
-:global([data-skin="sticker"]) .go {
-  margin-top: -3px; /* centres the button and its 3px foot in the bar */
-  background: var(--accent);
+:global([data-skin]) .row[data-best] .url b,
+:global([data-skin]) .row[data-best] .title,
+:global([data-skin]) .row[data-best] .enq b {
   color: #fff;
-  border: 2px solid var(--ink);
-  box-shadow: 0 3px 0 var(--ink);
 }
-:global([data-skin="sticker"]) .go:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 0 var(--ink);
+:global([data-skin]) .row[data-best] .text {
+  color: rgb(255 255 255 / 0.78);
 }
-:global([data-skin="sticker"]) .go:is(:active:not(:disabled), [data-press]) {
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--ink);
+:global([data-skin]) .row[data-best] .pct {
+  color: rgb(255 255 255 / 0.8);
 }
-:global([data-skin="sticker"]) .go[data-done] {
+:global([data-skin]) .row[data-best] .track {
+  background: rgb(255 255 255 / 0.2);
+}
+:global([data-skin]) .row[data-best] .track i {
   background: var(--secondary);
-  color: var(--ink);
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--ink);
 }
 
-/* "Cena po upitu": a white chip, the price a tilted lime label on it */
-:global([data-skin="sticker"]) .rank {
-  padding: 0 3px 0 9px;
-  background: #fff;
-  border: 2px solid var(--ink);
-  color: var(--ink);
-}
-:global([data-skin="sticker"]) .rank[data-top="true"] {
-  background: color-mix(in oklab, var(--secondary) 34%, white);
-  color: var(--ink);
-}
-:global([data-skin="sticker"]) .rankNo,
-:global([data-skin="sticker"]) .rank[data-top="true"] .rankNo {
+/* channel marks: flat lime for search, flat coral for social */
+:global([data-skin]) .mark {
   background: var(--secondary);
-  border: 2px solid var(--ink);
+  color: var(--ink);
   box-shadow: none;
+}
+:global([data-skin]) .mark[data-ch="social"] {
+  background: var(--spark);
+  color: #fff;
+  box-shadow: none;
+}
+:global([data-skin]) .row[data-best] .mark {
+  background: #fff;
+  color: var(--accent);
+  box-shadow: 0 6px 14px -6px rgb(11 11 22 / 0.5);
+}
+
+/* labels: flat, tilted */
+:global([data-skin]) .best {
+  rotate: -3deg;
+}
+:global([data-skin]) .off {
+  background: var(--spark);
+  color: var(--ink);
+  rotate: -3deg;
+}
+:global([data-skin]) .toast {
   rotate: -3deg;
 }
 
-/* the ads: outlined white rows */
-:global([data-skin="sticker"]) .row {
-  padding: 0 12px 0 10px;
-  background: #fff;
-  border: 2px solid var(--ink);
+/* cost per enquiry: the number on lime */
+:global([data-skin]) .rank {
+  background: var(--mist);
+  color: var(--ink-2);
 }
-/* the best ad: blue-tinted, a heavier outline, lifted and a touch tilted
-   (rotate, not transform: Motion owns the row's transform) */
-:global([data-skin="sticker"]) .row[data-best] {
-  padding: 0 11.5px 0 9.5px;
-  background: color-mix(in oklab, var(--accent) 10%, white);
-  border-width: 2.5px;
+:global([data-skin]) .rank[data-top="true"] {
+  background: var(--secondary-soft);
+}
+:global([data-skin]) .rankNo {
+  background: var(--secondary);
+  box-shadow: 0 0 0 3px
+    color-mix(in oklab, var(--secondary) 35%, transparent);
+  rotate: -4deg;
+}
+
+/* ── skin "lift" (variant C, /v7) ─────────────────────────────────────
+   The white card leans like the steps' cards and the pieces that tell the
+   story come off it as stickers: the campaign bar (out to the left), the
+   best ad once it wins the budget (out to the left, tilted the other way
+   so it clears the chip) and the cost per enquiry (out to the right). */
+:global([data-skin="lift"]) .deck {
+  rotate: -1.4deg;
+}
+:global([data-skin="lift"]) .bar,
+:global([data-skin="lift"]) .bar:has(.field:hover) {
+  margin: 0 -22px 0 -18px;
+  background: #fff;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 18px 34px -16px rgb(11 11 22 / 0.4),
+    0 0 0 6px rgb(11 11 22 / 0.06);
+  rotate: 1.6deg;
+}
+:global([data-skin="lift"]) .bar:has(.pick:focus-visible) {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px #fff,
+    0 0 0 9px var(--accent-soft),
+    0 18px 34px -16px rgb(11 11 22 / 0.4);
+}
+:global([data-skin="lift"]) .icon {
+  background: var(--mist);
+  box-shadow: none;
+}
+:global([data-skin="lift"]) .rank {
+  margin-right: -26px;
+  height: 34px;
+  padding: 0 5px 0 13px;
+  background: #fff;
+  font-size: 13px;
   box-shadow:
     0 0 0 4px #fff,
-    0 16px 24px -14px rgb(11 11 22 / 0.5);
-  rotate: -0.6deg;
+    0 12px 22px -12px rgb(11 11 22 / 0.4);
+  rotate: 3deg;
 }
-/* a paused ad: a dashed cut-out on grey */
-:global([data-skin="sticker"]) .row[data-off] {
-  background: var(--mist);
-  border-style: dashed;
-  border-color: rgb(11 11 22 / 0.4);
+:global([data-skin="lift"]) .row {
+  transition:
+    background 0.4s var(--ease),
+    box-shadow 0.4s var(--ease),
+    margin 0.5s var(--ease),
+    rotate 0.5s var(--ease);
 }
-
-/* channel marks: lime for search, coral for social, blue for the best */
-:global([data-skin="sticker"]) .mark {
-  background: var(--secondary);
-  color: var(--ink);
-  border: 2px solid var(--ink);
-  box-shadow: none;
+:global([data-skin="lift"]) .row[data-best] {
+  margin: 0 -6px 0 -30px;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 26px 40px -16px color-mix(in oklab, var(--accent) 70%, transparent);
+  rotate: 2deg;
 }
-:global([data-skin="sticker"]) .mark[data-ch="social"] {
-  background: var(--spark);
-  color: var(--ink);
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .row[data-best] .mark {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: none;
-}
-
-/* "Najbolji" and "Pauzirano" as tilted labels. The url line clips its
-   overflow (for the ellipsis); padding with a matching negative margin
-   gives the tilted corners room without moving a line. */
-:global([data-skin="sticker"]) .url {
-  padding-block: 3px;
-  margin-block: -3px;
-}
-:global([data-skin="sticker"]) .best,
-:global([data-skin="sticker"]) .off {
-  padding: 0 7px;
-  border: 1.5px solid var(--ink);
-  line-height: 14.75px;
-  color: var(--ink);
-  rotate: -3deg;
-}
-:global([data-skin="sticker"]) .best::after {
-  inset: -1.5px;
-}
-:global([data-skin="sticker"]) .off {
-  background: var(--spark);
-}
-
-/* "Novi upit": a lime label that pops beside the count */
-:global([data-skin="sticker"]) .toast {
-  padding: 0 7.5px 0 5.5px;
-  border: 1.5px solid var(--ink);
-  box-shadow: 0 0 0 3px #fff;
-  rotate: -3deg;
-}
-
-/* budget share: an outlined white track with a solid blue fill */
-:global([data-skin="sticker"]) .track {
-  height: 8px;
-  background: #fff;
-  border: 1.5px solid var(--ink);
-}
-:global([data-skin="sticker"]) .row[data-best] .track i {
-  background: var(--accent);
-}
-
-/* daily budget: an outlined tray, a white track, a white knob, a value pill */
-:global([data-skin="sticker"]) .ctrl {
-  padding: 0 5px 0 16px;
-  background: var(--mist);
-  border: 2px solid var(--ink);
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .ctrl:hover {
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .rail {
-  height: 10px;
-  margin-top: -5px;
-  background: #fff;
-  border: 1.5px solid var(--ink);
-}
-:global([data-skin="sticker"]) .knob {
-  border: 2.5px solid var(--ink);
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .range:focus-visible .knob {
-  box-shadow: 0 0 0 4px var(--accent-pale);
-}
-:global([data-skin="sticker"]) .val {
-  border: 2px solid var(--ink);
-  box-shadow: none;
-  line-height: 34px;
-}
-
-/* placeholders while the next campaign loads: the rows as faint outlines */
-:global([data-skin="sticker"]) .skelRow {
-  padding: 0 12px 0 10px;
-  border: 2px solid rgb(11 11 22 / 0.1);
-  border-radius: 18px;
-}
-/* the outline would show a placeholder bar running past the edge on phones */
-:global([data-skin="sticker"]) .skelStat i {
-  max-width: 100%;
-}
-
-@media (max-width: 560px) {
-  :global([data-skin="sticker"]) .card {
-    padding: 7.5px 7.5px 9.5px;
-  }
-  :global([data-skin="sticker"]) .bar {
-    padding: 0 3px 0 4px;
-  }
-  :global([data-skin="sticker"]) .row,
-  :global([data-skin="sticker"]) .skelRow {
-    padding: 0 8px 0 6px;
-  }
-  :global([data-skin="sticker"]) .row[data-best] {
-    padding: 0 7.5px 0 5.5px;
-  }
-  :global([data-skin="sticker"]) .ctrl {
-    padding: 0 3px 0 12px;
-  }
-  :global([data-skin="sticker"]) .val {
-    line-height: 32px;
-  }
-}
-
 @media (max-width: 640px) {
-  :global([data-skin="sticker"]) .stage {
-    --row: 53px;
-    --gap: 5.5px;
+  /* the list clips the fourth ad on phones: keep that cut, but let the
+     lifted ad reach past the sides and its white edge show on top */
+  :global([data-skin="lift"]) .list {
+    max-height: calc(3 * var(--row) + 2 * var(--gap) + 8px);
+    margin-top: -8px;
+    padding-top: 8px;
+    overflow: visible clip;
   }
-  /* the list clips to three rows here; a little room above and to the
-     sides keeps the best ad's white edge and tilt from being cut off */
-  :global([data-skin="sticker"]) .list {
-    max-height: calc(3 * var(--row) + 2 * var(--gap) + 5px);
-    margin: -5px -5px 0;
-    padding: 5px 5px 0;
+}
+@media (max-width: 560px) {
+  :global([data-skin="lift"]) .bar,
+  :global([data-skin="lift"]) .bar:has(.field:hover) {
+    margin: 0 -14px;
+    rotate: 0.8deg;
   }
-  /* the taller track would lift the count; take it back from the gap */
-  :global([data-skin="sticker"]) .share {
-    margin-top: 1px;
+  :global([data-skin="lift"]) .rank {
+    margin-right: -14px;
+    height: 30px;
+    padding: 0 4px 0 11px;
+    font-size: 12px;
+    rotate: 1deg;
   }
-  :global([data-skin="sticker"]) .toast {
-    padding: 0 5.5px;
+  :global([data-skin="lift"]) .row[data-best] {
+    margin: 0 -10px 0 -16px;
+    rotate: 1deg;
+  }
+}
+
+/* ── skin "fine" (variant D, /v8) ─────────────────────────────────────
+   The white card stays; the pieces inside are drawn the way the steps
+   draw their little screens: a white campaign bar that sits up off the
+   card, the site's key with its arrow in a circle, the ads as white cards
+   in a mist tray, the budget tray quiet. Rows are trimmed so the card
+   keeps its height. */
+:global([data-skin="fine"]) .stage {
+  --row: 76px;
+  --gap: 5px;
+}
+:global([data-skin="fine"]) .bar,
+:global([data-skin="fine"]) .bar:has(.field:hover) {
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 12px 26px -16px rgb(26 25 120 / 0.35);
+}
+:global([data-skin="fine"]) .bar:has(.pick:focus-visible) {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px var(--accent-soft);
+}
+:global([data-skin="fine"]) .icon {
+  background: var(--mist);
+  box-shadow: none;
+}
+:global([data-skin="fine"]) .go {
+  gap: 10px;
+  padding: 0 6px 0 18px;
+}
+:global([data-skin="fine"]) .go::after {
+  content: "";
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")
+      center / 15px no-repeat,
+    rgb(255 255 255 / 0.2);
+  transition: translate 0.3s var(--ease);
+}
+:global([data-skin="fine"]) .go:hover:not(:disabled)::after {
+  translate: 2px 0;
+}
+/* "Optimizovano" is a state, not a way forward: no arrow */
+:global([data-skin="fine"]) .go[data-done] {
+  padding: 0 20px;
+}
+:global([data-skin="fine"]) .go[data-done]::after {
+  display: none;
+}
+:global([data-skin="fine"]) .list {
+  padding: 6px;
+  border-radius: 22px;
+  background: var(--mist);
+}
+:global([data-skin="fine"]) .row {
+  border-radius: 16px;
+}
+:global([data-skin="fine"]) .row:not([data-best]),
+:global([data-skin="fine"]) .row:not([data-best]):hover {
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04);
+}
+:global([data-skin="fine"]) .row:not([data-best]):hover {
+  box-shadow:
+    var(--ring),
+    0 10px 20px -14px rgb(11 11 22 / 0.3);
+}
+:global([data-skin="fine"]) .skelRow {
+  border-radius: 16px;
+  background: rgb(255 255 255 / 0.6);
+}
+:global([data-skin="fine"]) .ctrl,
+:global([data-skin="fine"]) .ctrl:hover {
+  box-shadow: none;
+}
+:global([data-skin="fine"]) .val {
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04);
+}
+@media (max-width: 640px) {
+  :global([data-skin="fine"]) .stage {
+    --row: 51px;
+    --gap: 4px;
+  }
+  :global([data-skin="fine"]) .list {
+    max-height: calc(3 * var(--row) + 2 * var(--gap) + 8px);
+    padding: 4px;
+    border-radius: 18px;
+  }
+}
+@media (max-width: 560px) {
+  /* no arrow on phones: the bar has no room for it without cutting the
+     business name short */
+  :global([data-skin="fine"]) .go {
+    padding: 0 15px;
+  }
+  :global([data-skin="fine"]) .go::after {
+    display: none;
+  }
+  :global([data-skin="fine"]) .go[data-done] {
+    padding: 0;
+  }
+  :global([data-skin="fine"]) .row {
+    border-radius: 14px;
   }
 }

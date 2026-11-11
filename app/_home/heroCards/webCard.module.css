@@ -1623,214 +1623,298 @@
   }
 }
 
-/* skin "sticker" (the /v7 test): the card drawn in the service pages'
-   sticker language. The frame, the controls and the chips become white
-   pieces with an ink outline; the demo site inside the browser keeps its
-   own design. Borders are paid for out of the padding, so nothing moves. */
+/* ── the hero tests' shared accents (any skin: /v7, /v8) ───────────
+   The card as it is, with the new design's accents and no outlines on
+   the interface: the enquiry that lands on the finished site is the
+   steps' blue card with its dot grain, the speed score sits on lime
+   (flat coral while the site is slow), the load time likewise, the
+   window dots wear the brand colours and the chosen view is flat blue.
+   The demo site inside the browser keeps its own design. */
 
-/* shell: ink outline, white sticker edge, soft drop */
-:global([data-skin="sticker"]) .card {
-  padding: 13.5px 13.5px 11.5px;
-  border: 2.5px solid var(--ink);
-  background: #fff;
-  box-shadow:
-    0 0 0 6px #fff,
-    0 30px 50px -26px rgb(11 11 22 / 0.45);
-}
-/* the two sheets behind it: a stack of stickers */
-:global([data-skin="sticker"]) .deck::before,
-:global([data-skin="sticker"]) .deck::after {
-  border: 2px solid var(--ink);
-  background: #fff;
-  box-shadow: none;
-  opacity: 1;
-}
-
-/* name field; the button rides 1.5px high so it and its ink shadow sit
-   centred in the field */
-:global([data-skin="sticker"]) .bar,
-:global([data-skin="sticker"]) .bar:hover {
-  padding: 0 4px 0 16px;
-  border: 2px solid var(--ink);
-  background: #fff;
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .bar:focus-within {
-  box-shadow: 0 0 0 4px var(--accent-soft);
-}
-:global([data-skin="sticker"]) .go {
-  border: 2px solid var(--ink);
-  background: var(--accent);
+/* the enquiry: the blue moment */
+:global([data-skin]) .toast {
+  background:
+    radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 / 12px
+      12px,
+    var(--accent);
   color: #fff;
-  box-shadow: 0 3px 0 var(--ink);
-  margin-top: -3px;
-  transition:
-    transform 0.2s var(--ease),
-    box-shadow 0.2s var(--ease);
+  box-shadow: 0 18px 34px -16px
+    color-mix(in oklab, var(--accent) 70%, transparent);
 }
-:global([data-skin="sticker"]) .go:hover {
-  background: var(--accent);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 0 var(--ink);
-}
-:global([data-skin="sticker"]) .go:active {
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--ink);
-}
-
-/* desktop / phone toggle: a white pill, the chosen view in blue */
-:global([data-skin="sticker"]) .views {
-  gap: 0;
-  padding: 1px;
-  border: 2px solid var(--ink);
-  background: #fff;
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .views button {
-  border: 1.5px solid transparent;
-}
-:global([data-skin="sticker"]) .views button[aria-pressed="true"] {
-  border-color: var(--ink);
-  background: var(--accent);
-  color: #fff;
-  box-shadow: none;
-}
-
-/* "Brzina": a white chip, the score a tilted pill in the tone's colour */
-:global([data-skin="sticker"]) .speed,
-:global([data-skin="sticker"]) .speed[data-tone] {
-  padding: 0 3px 0 5px;
-  border: 2px solid var(--ink);
-  background: #fff;
+:global([data-skin]) .toastIcon {
+  background: var(--secondary);
   color: var(--ink);
 }
-:global([data-skin="sticker"]) .ringBg {
-  stroke: rgb(11 11 22 / 0.12);
-}
-:global([data-skin="sticker"]) .speedNo,
-:global([data-skin="sticker"]) .speed[data-tone] .speedNo {
-  border: 2px solid var(--ink);
-  background: #fff;
-  height: 20px;
-  box-shadow: none;
-  rotate: -3deg;
-}
-:global([data-skin="sticker"]) .speed[data-tone="low"] .speedNo {
-  background: var(--spark);
-}
-:global([data-skin="sticker"]) .speed[data-tone="mid"] .speedNo {
-  background: color-mix(in oklab, var(--warn) 55%, white);
-}
-:global([data-skin="sticker"]) .speed[data-tone="high"] .speedNo {
-  background: var(--secondary);
+:global([data-skin]) .toastBody small {
+  color: rgb(255 255 255 / 0.78);
 }
 
-/* the browser: an ink frame; in the phone view it gets the white edge */
-:global([data-skin="sticker"]) .view {
-  border: 2.5px solid var(--ink);
-  box-shadow: none;
-}
-:global([data-skin="sticker"]) .view[data-mode="phone"] {
-  box-shadow:
-    0 0 0 5px #fff,
-    0 30px 50px -30px rgb(11 11 22 / 0.45);
-}
-:global([data-skin="sticker"]) .chrome {
-  border-bottom: 2px solid var(--ink);
-  background: #fff;
-}
-:global([data-skin="sticker"]) .dots i {
-  width: 10px;
-  height: 10px;
-  border: 1.5px solid var(--ink);
+/* window dots: flat coral, lime and blue */
+:global([data-skin]) .dots i {
   background: var(--spark);
 }
-:global([data-skin="sticker"]) .dots i:nth-child(2) {
+:global([data-skin]) .dots i:nth-child(2) {
   background: var(--secondary);
 }
-:global([data-skin="sticker"]) .dots i:nth-child(3) {
+:global([data-skin]) .dots i:nth-child(3) {
   background: var(--accent);
 }
-:global([data-skin="sticker"]) .addr {
-  border: 1.5px solid var(--ink);
-  box-shadow: none;
+
+/* desktop / phone: the chosen view is flat blue */
+:global([data-skin]) .views button[aria-pressed="true"],
+:global([data-skin]) .views button[aria-pressed="true"]:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 10px -4px
+    color-mix(in oklab, var(--accent) 70%, transparent);
 }
-/* the load time: coral while slow, lime once fast, white while building */
-:global([data-skin="sticker"]) .time,
-:global([data-skin="sticker"]) .time[data-s] {
-  border: 1.5px solid var(--ink);
-  background: #fff;
-  box-shadow: none;
-  color: var(--ink);
+
+/* "Brzina": a mist chip, the score on lime, flat coral while slow */
+:global([data-skin]) .speed,
+:global([data-skin]) .speed[data-tone="low"],
+:global([data-skin]) .speed[data-tone="mid"] {
+  background: var(--mist);
+  color: var(--ink-2);
 }
-:global([data-skin="sticker"]) .time[data-s="run"],
-:global([data-skin="sticker"]) .time[data-s="slow"] {
-  --mini-ring: rgb(11 11 22 / 0.22);
+:global([data-skin]) .speed[data-tone="high"] {
+  background: var(--secondary-soft);
+  color: var(--ink-2);
+}
+:global([data-skin]) .speedNo {
+  rotate: -4deg;
+}
+:global([data-skin]) .speed[data-tone="low"] .speedNo {
+  background: var(--spark);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--spark) 35%, transparent);
+}
+:global([data-skin]) .speed[data-tone="mid"] .speedNo,
+:global([data-skin]) .speed[data-tone="high"] .speedNo {
+  background: var(--secondary);
+  box-shadow: 0 0 0 3px
+    color-mix(in oklab, var(--secondary) 35%, transparent);
+}
+
+/* the load time: flat coral while slow, lime once fast */
+:global([data-skin]) .time[data-s="run"],
+:global([data-skin]) .time[data-s="slow"] {
+  --mini-ring: rgb(11 11 22 / 0.2);
   --mini-ink: var(--ink);
   background: var(--spark);
+  color: var(--ink);
 }
-:global([data-skin="sticker"]) .time[data-s="fast"] {
+:global([data-skin]) .time[data-s="fast"] {
   background: var(--secondary);
-}
-:global([data-skin="sticker"]) .time[data-s="build"] {
-  color: var(--accent);
-}
-/* the load bar runs along the chrome's ink line */
-:global([data-skin="sticker"]) .line {
-  bottom: 0;
-  height: 3px;
+  color: var(--ink);
 }
 
-/* the old site's spinner */
-:global([data-skin="sticker"]) .spin {
-  border: 2px solid var(--ink);
+/* ── direction C, "lift" (the /v7 test) ───────────────────────────────
+   The white card leans like the steps' cards, and the pieces that tell
+   the story come off it as stickers: the name bar, the speed chip and the
+   blue enquiry, which lands half off the browser and the card. The
+   browser stops clipping at its top and sides so the enquiry can hang
+   out; the site itself is still clipped by its layer, and the visitor's
+   cursor by the browser's bottom edge. */
+:global([data-skin="lift"]) .deck {
+  rotate: -1.4deg;
+}
+:global([data-skin="lift"]) .bar {
+  margin: 0 -22px 0 -18px;
+  background: #fff;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 18px 34px -16px rgb(11 11 22 / 0.4),
+    0 0 0 6px rgb(11 11 22 / 0.06);
+  rotate: 1.6deg;
+}
+:global([data-skin="lift"]) .bar:focus-within {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px #fff,
+    0 0 0 9px var(--accent-soft),
+    0 18px 34px -16px rgb(11 11 22 / 0.4);
+}
+:global([data-skin="lift"]) .speed {
+  height: 34px;
+  margin: -3px -30px -3px 0;
+  padding: 0 5px 0 9px;
   box-shadow:
     0 0 0 4px #fff,
-    0 12px 22px -12px rgb(11 11 22 / 0.5);
+    0 12px 22px -12px rgb(11 11 22 / 0.4);
+  font-size: 13px;
+  rotate: 3deg;
 }
-:global([data-skin="sticker"]) .spin::after {
-  inset: 9px;
-  border-top-color: var(--ink);
+:global([data-skin="lift"]) .speed[data-tone] {
+  background: #fff;
+}
+:global([data-skin="lift"]) .speed[data-tone="high"] {
+  background: var(--secondary-soft);
 }
 
-/* the enquiry: a lime sticker slapped on the page */
-:global([data-skin="sticker"]) .toast {
-  padding: 5px 12px 5px 5px;
-  border: 2px solid var(--ink);
-  box-shadow:
-    0 0 0 4px #fff,
-    0 16px 24px -14px rgb(11 11 22 / 0.5);
-  rotate: -2deg;
+/* the browser: the page clips its site, not the enquiry */
+:global([data-skin="lift"]) .view {
+  overflow: visible;
 }
-:global([data-skin="sticker"]) .toastIcon {
-  border: 2px solid var(--ink);
+:global([data-skin="lift"]) .chrome {
+  border-radius: 20px 20px 0 0;
+}
+:global([data-skin="lift"]) .page {
+  overflow: visible;
+  clip-path: inset(-90px -90px 0 -90px);
+}
+:global([data-skin="lift"]) .layer {
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+}
+:global([data-skin="lift"]) .view[data-mode="phone"] .chrome {
+  border-radius: 26px 26px 0 0;
+}
+:global([data-skin="lift"]) .view[data-mode="phone"] .layer {
+  border-radius: 0 0 26px 26px;
+}
+
+/* the enquiry lands off the browser's edge, as a sticker */
+:global([data-skin="lift"]) .toast {
+  right: -34px;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 26px 40px -16px color-mix(in oklab, var(--accent) 70%, transparent);
+  rotate: 2.4deg;
+}
+:global([data-skin="lift"]) .toast::after {
+  inset: -5px;
+  border-radius: 21px;
+}
+:global([data-skin="lift"]) .view[data-mode="phone"] .toast {
+  left: 14px;
+  right: -26px;
 }
 @container page (max-width: 419px) or (max-height: 240px) {
-  /* the toast runs nearly the page's width here, so it tilts less */
-  :global([data-skin="sticker"]) .toast {
-    padding: 4px 10px 4px 4px;
-    rotate: -1deg;
+  :global([data-skin="lift"]) .toast::after {
+    border-radius: 19px;
   }
 }
 
 @media (max-width: 640px) {
-  :global([data-skin="sticker"]) .view[data-mode] {
-    box-shadow: none;
+  :global([data-skin="lift"]) .chrome,
+  :global([data-skin="lift"]) .view[data-mode] .chrome {
+    border-radius: 16px 16px 0 0;
   }
-  :global([data-skin="sticker"]) .dots i {
-    width: 9px;
-    height: 9px;
+  :global([data-skin="lift"]) .layer,
+  :global([data-skin="lift"]) .view[data-mode] .layer {
+    border-radius: 0 0 16px 16px;
+  }
+  :global([data-skin="lift"]) .view[data-mode] .toast {
+    left: 4px;
+    right: -12px;
+    rotate: 1deg;
   }
 }
 @media (max-width: 560px) {
-  :global([data-skin="sticker"]) .card {
-    padding: 7.5px 7.5px 9.5px;
+  :global([data-skin="lift"]) .deck {
+    rotate: -1deg;
   }
-  :global([data-skin="sticker"]) .bar,
-  :global([data-skin="sticker"]) .bar:hover {
-    padding: 0 3px 0 12px;
+  :global([data-skin="lift"]) .bar {
+    margin: 0 -8px 0 -6px;
+    rotate: 1deg;
   }
-  :global([data-skin="sticker"]) .go {
-    height: 40px;
+  :global([data-skin="lift"]) .speed {
+    margin-right: -8px;
+  }
+}
+
+/* ── direction D, "fine" (the /v8 test) ───────────────────────────────
+   The white card stays; the pieces inside are drawn the way the steps
+   draw their little screens. A white name field that sits up off the
+   card, the site's key with its arrow in a circle, the view toggle and
+   the speed chip as quiet white pills, and the browser as a white card
+   resting in a mist tray (the grey backdrop it already had). The demo
+   site inside keeps its own design; the card keeps its height (the tray
+   takes its padding out of the browser). */
+:global([data-skin="fine"]) .bar {
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 12px 26px -16px rgb(26 25 120 / 0.35);
+}
+:global([data-skin="fine"]) .bar:focus-within {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px var(--accent-soft);
+}
+:global([data-skin="fine"]) .go {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px 0 18px;
+}
+:global([data-skin="fine"]) .go::after {
+  content: "";
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")
+      center / 15px no-repeat,
+    rgb(255 255 255 / 0.2);
+  transition: translate 0.3s var(--ease);
+}
+:global([data-skin="fine"]) .go:hover::after {
+  translate: 2px 0;
+}
+
+/* the view toggle and the speed chip: quiet white pills */
+:global([data-skin="fine"]) .views,
+:global([data-skin="fine"]) .speed[data-tone] {
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04);
+}
+:global([data-skin="fine"]) .speed[data-tone="wait"] .speedNo {
+  background: var(--mist);
+  box-shadow: none;
+}
+
+/* the browser: a white card in a mist tray */
+:global([data-skin="fine"]) .main {
+  padding: 6px;
+  border-radius: 22px;
+  background: var(--mist);
+}
+:global([data-skin="fine"]) .view[data-mode="desktop"] {
+  border-radius: 16px;
+  box-shadow:
+    var(--ring),
+    0 1px 2px rgb(11 11 22 / 0.04);
+}
+:global([data-skin="fine"]) .chrome {
+  background: #fff;
+}
+:global([data-skin="fine"]) .addr,
+:global([data-skin="fine"]) .time {
+  background: var(--mist);
+  box-shadow: none;
+}
+
+@media (max-width: 640px) {
+  :global([data-skin="fine"]) .main {
+    padding: 4px;
+    border-radius: 18px;
+  }
+  :global([data-skin="fine"]) .view[data-mode] {
+    border-radius: 14px;
+    box-shadow:
+      var(--ring),
+      0 1px 2px rgb(11 11 22 / 0.04);
+  }
+}
+@media (max-width: 560px) {
+  :global([data-skin="fine"]) .go {
+    padding: 0 5px 0 14px;
+    gap: 8px;
+  }
+  :global([data-skin="fine"]) .go::after {
+    width: 30px;
+    height: 30px;
   }
 }
