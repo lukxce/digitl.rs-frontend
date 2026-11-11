@@ -6,7 +6,7 @@ import b from "./base.module.css";
 import { SERVICES } from "./content";
 import { ArrowRight, Rotate, Search } from "./icons";
 import s from "./services.module.css";
-import { STICKERS } from "../_usluge/Stickers";
+import { SCENES } from "./StickerScenes";
 import { Bridge, EASE, Head, useApp } from "./ui";
 
 /* ── one small looping scene per service, drawn in CSS ─────────────────── */
@@ -145,23 +145,6 @@ const ART = {
   brand: ArtBrand,
 };
 
-/* The /v2 look: the service pages' sticker in place of the scene, so the
-   homepage cards and the service pages speak the same picture language. */
-function StickerArt({ id }) {
-  const Sticker = STICKERS[id];
-  return (
-    <motion.span
-      className={s.stickerArt}
-      initial={{ scale: 0.6, rotate: -22, opacity: 0 }}
-      whileInView={{ scale: 1, rotate: -6, opacity: 1 }}
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ type: "spring", stiffness: 190, damping: 14 }}
-    >
-      <Sticker size="100%" />
-    </motion.span>
-  );
-}
-
 function Card({ x, i, rank, wide, onAsk, look }) {
   const [flipped, setFlipped] = useState(false);
   const Art = ART[x.id];
@@ -191,7 +174,11 @@ function Card({ x, i, rank, wide, onAsk, look }) {
                 : null}
             </span>
             <span className={s.art}>
-              {look === "v2" ? <StickerArt id={x.id} /> : <Art />}
+              {(() => {
+                // /v2: the same story, drawn as stickers
+                const Scene = look === "v2" ? SCENES[x.id] : Art;
+                return <Scene />;
+              })()}
             </span>
             <span className={s.frontText}>
               <b>{x.title}</b>
