@@ -1092,120 +1092,37 @@
   rotate: -4deg;
 }
 
-/* ── skin "lift" (variant C, /v7) ─────────────────────────────────────
-   The white card leans like the steps' cards and the pieces that tell the
-   story come off it as stickers: the campaign bar (out to the left), the
-   best ad once it wins the budget (out to the left, tilted the other way
-   so it clears the chip) and the cost per enquiry (out to the right). */
-:global([data-skin="lift"]) .deck {
-  rotate: -1.4deg;
-}
-:global([data-skin="lift"]) .bar,
-:global([data-skin="lift"]) .bar:has(.field:hover) {
-  margin: 0 -22px 0 -18px;
-  background: #fff;
-  box-shadow:
-    0 0 0 5px #fff,
-    0 18px 34px -16px rgb(11 11 22 / 0.4),
-    0 0 0 6px rgb(11 11 22 / 0.06);
-  rotate: 1.6deg;
-}
-:global([data-skin="lift"]) .bar:has(.pick:focus-visible) {
-  box-shadow:
-    inset 0 0 0 1.5px var(--accent),
-    0 0 0 5px #fff,
-    0 0 0 9px var(--accent-soft),
-    0 18px 34px -16px rgb(11 11 22 / 0.4);
-}
-:global([data-skin="lift"]) .icon {
-  background: var(--mist);
-  box-shadow: none;
-}
-:global([data-skin="lift"]) .rank {
-  margin-right: -26px;
-  height: 34px;
-  padding: 0 5px 0 13px;
-  background: #fff;
-  font-size: 13px;
-  box-shadow:
-    0 0 0 4px #fff,
-    0 12px 22px -12px rgb(11 11 22 / 0.4);
-  rotate: 3deg;
-}
-:global([data-skin="lift"]) .row {
-  transition:
-    background 0.4s var(--ease),
-    box-shadow 0.4s var(--ease),
-    margin 0.5s var(--ease),
-    rotate 0.5s var(--ease);
-}
-:global([data-skin="lift"]) .row[data-best] {
-  margin: 0 -6px 0 -30px;
-  box-shadow:
-    0 0 0 5px #fff,
-    0 26px 40px -16px color-mix(in oklab, var(--accent) 70%, transparent);
-  rotate: 2deg;
-}
-@media (max-width: 640px) {
-  /* the list clips the fourth ad on phones: keep that cut, but let the
-     lifted ad reach past the sides and its white edge show on top */
-  :global([data-skin="lift"]) .list {
-    max-height: calc(3 * var(--row) + 2 * var(--gap) + 8px);
-    margin-top: -8px;
-    padding-top: 8px;
-    overflow: visible clip;
-  }
-}
-@media (max-width: 560px) {
-  :global([data-skin="lift"]) .bar,
-  :global([data-skin="lift"]) .bar:has(.field:hover) {
-    margin: 0 -14px;
-    rotate: 0.8deg;
-  }
-  :global([data-skin="lift"]) .rank {
-    margin-right: -14px;
-    height: 30px;
-    padding: 0 4px 0 11px;
-    font-size: 12px;
-    rotate: 1deg;
-  }
-  :global([data-skin="lift"]) .row[data-best] {
-    margin: 0 -10px 0 -16px;
-    rotate: 1deg;
-  }
-}
-
 /* ── skin "fine" (variant D, /v8) ─────────────────────────────────────
    The white card stays; the pieces inside are drawn the way the steps
    draw their little screens: a white campaign bar that sits up off the
    card, the site's key with its arrow in a circle, the ads as white cards
    in a mist tray, the budget tray quiet. Rows are trimmed so the card
    keeps its height. */
-:global([data-skin="fine"]) .stage {
+:global([data-skin~="fine"]) .stage {
   --row: 76px;
   --gap: 5px;
 }
-:global([data-skin="fine"]) .bar,
-:global([data-skin="fine"]) .bar:has(.field:hover) {
+:global([data-skin~="fine"]) .bar,
+:global([data-skin~="fine"]) .bar:has(.field:hover) {
   background: #fff;
   box-shadow:
     var(--ring),
     0 12px 26px -16px rgb(26 25 120 / 0.35);
 }
-:global([data-skin="fine"]) .bar:has(.pick:focus-visible) {
+:global([data-skin~="fine"]) .bar:has(.pick:focus-visible) {
   box-shadow:
     inset 0 0 0 1.5px var(--accent),
     0 0 0 5px var(--accent-soft);
 }
-:global([data-skin="fine"]) .icon {
+:global([data-skin~="fine"]) .icon {
   background: var(--mist);
   box-shadow: none;
 }
-:global([data-skin="fine"]) .go {
+:global([data-skin~="fine"]) .go {
   gap: 10px;
   padding: 0 6px 0 18px;
 }
-:global([data-skin="fine"]) .go::after {
+:global([data-skin~="fine"]) .go::after {
   content: "";
   flex: none;
   width: 32px;
@@ -1217,55 +1134,55 @@
     rgb(255 255 255 / 0.2);
   transition: translate 0.3s var(--ease);
 }
-:global([data-skin="fine"]) .go:hover:not(:disabled)::after {
+:global([data-skin~="fine"]) .go:hover:not(:disabled)::after {
   translate: 2px 0;
 }
 /* "Optimizovano" is a state, not a way forward: no arrow */
-:global([data-skin="fine"]) .go[data-done] {
+:global([data-skin~="fine"]) .go[data-done] {
   padding: 0 20px;
 }
-:global([data-skin="fine"]) .go[data-done]::after {
+:global([data-skin~="fine"]) .go[data-done]::after {
   display: none;
 }
-:global([data-skin="fine"]) .list {
+:global([data-skin~="fine"]) .list {
   padding: 6px;
   border-radius: 22px;
   background: var(--mist);
 }
-:global([data-skin="fine"]) .row {
+:global([data-skin~="fine"]) .row {
   border-radius: 16px;
 }
-:global([data-skin="fine"]) .row:not([data-best]),
-:global([data-skin="fine"]) .row:not([data-best]):hover {
+:global([data-skin~="fine"]) .row:not([data-best]),
+:global([data-skin~="fine"]) .row:not([data-best]):hover {
   background: #fff;
   box-shadow:
     var(--ring),
     0 1px 2px rgb(11 11 22 / 0.04);
 }
-:global([data-skin="fine"]) .row:not([data-best]):hover {
+:global([data-skin~="fine"]) .row:not([data-best]):hover {
   box-shadow:
     var(--ring),
     0 10px 20px -14px rgb(11 11 22 / 0.3);
 }
-:global([data-skin="fine"]) .skelRow {
+:global([data-skin~="fine"]) .skelRow {
   border-radius: 16px;
   background: rgb(255 255 255 / 0.6);
 }
-:global([data-skin="fine"]) .ctrl,
-:global([data-skin="fine"]) .ctrl:hover {
+:global([data-skin~="fine"]) .ctrl,
+:global([data-skin~="fine"]) .ctrl:hover {
   box-shadow: none;
 }
-:global([data-skin="fine"]) .val {
+:global([data-skin~="fine"]) .val {
   box-shadow:
     var(--ring),
     0 1px 2px rgb(11 11 22 / 0.04);
 }
 @media (max-width: 640px) {
-  :global([data-skin="fine"]) .stage {
+  :global([data-skin~="fine"]) .stage {
     --row: 51px;
     --gap: 4px;
   }
-  :global([data-skin="fine"]) .list {
+  :global([data-skin~="fine"]) .list {
     max-height: calc(3 * var(--row) + 2 * var(--gap) + 8px);
     padding: 4px;
     border-radius: 18px;
@@ -1274,16 +1191,114 @@
 @media (max-width: 560px) {
   /* no arrow on phones: the bar has no room for it without cutting the
      business name short */
-  :global([data-skin="fine"]) .go {
+  :global([data-skin~="fine"]) .go {
     padding: 0 15px;
   }
-  :global([data-skin="fine"]) .go::after {
+  :global([data-skin~="fine"]) .go::after {
     display: none;
   }
-  :global([data-skin="fine"]) .go[data-done] {
+  :global([data-skin~="fine"]) .go[data-done] {
     padding: 0;
   }
-  :global([data-skin="fine"]) .row {
+  :global([data-skin~="fine"]) .row {
     border-radius: 14px;
   }
+}
+
+/* ── skin "lift" (variant C, /v7) ─────────────────────────────────────
+   The white card leans like the steps' cards and the pieces that tell the
+   story come off it as stickers: the campaign bar (out to the left), the
+   best ad once it wins the budget (out to the left, tilted the other way
+   so it clears the chip) and the cost per enquiry (out to the right). */
+:global([data-skin~="lift"]) .deck {
+  rotate: -1.4deg;
+}
+:global([data-skin~="lift"]) .bar,
+:global([data-skin~="lift"]) .bar:has(.field:hover) {
+  margin: 0 -22px 0 -18px;
+  background: #fff;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 18px 34px -16px rgb(11 11 22 / 0.4),
+    0 0 0 6px rgb(11 11 22 / 0.06);
+  rotate: 1.6deg;
+}
+:global([data-skin~="lift"]) .bar:has(.pick:focus-visible) {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px #fff,
+    0 0 0 9px var(--accent-soft),
+    0 18px 34px -16px rgb(11 11 22 / 0.4);
+}
+:global([data-skin~="lift"]) .icon {
+  background: var(--mist);
+  box-shadow: none;
+}
+:global([data-skin~="lift"]) .rank {
+  margin-right: -26px;
+  height: 34px;
+  padding: 0 5px 0 13px;
+  background: #fff;
+  font-size: 13px;
+  box-shadow:
+    0 0 0 4px #fff,
+    0 12px 22px -12px rgb(11 11 22 / 0.4);
+  rotate: 3deg;
+}
+:global([data-skin~="lift"]) .row {
+  transition:
+    background 0.4s var(--ease),
+    box-shadow 0.4s var(--ease),
+    margin 0.5s var(--ease),
+    rotate 0.5s var(--ease);
+}
+:global([data-skin~="lift"]) .row[data-best] {
+  margin: 0 -6px 0 -30px;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 26px 40px -16px color-mix(in oklab, var(--accent) 70%, transparent);
+  rotate: 2deg;
+}
+@media (max-width: 640px) {
+  /* the list clips the fourth ad on phones: keep that cut, but let the
+     lifted ad reach past the sides and its white edge show on top */
+  :global([data-skin~="lift"]) .list {
+    max-height: calc(3 * var(--row) + 2 * var(--gap) + 8px);
+    margin-top: -8px;
+    padding-top: 8px;
+    overflow: visible clip;
+  }
+}
+@media (max-width: 560px) {
+  :global([data-skin~="lift"]) .bar,
+  :global([data-skin~="lift"]) .bar:has(.field:hover) {
+    margin: 0 -14px;
+    rotate: 0.8deg;
+  }
+  :global([data-skin~="lift"]) .rank {
+    margin-right: -14px;
+    height: 30px;
+    padding: 0 4px 0 11px;
+    font-size: 12px;
+    rotate: 1deg;
+  }
+  :global([data-skin~="lift"]) .row[data-best] {
+    margin: 0 -10px 0 -16px;
+    rotate: 1deg;
+  }
+}
+
+/* ── "flat" (the /v9 test, Luka 11 Nov 2026: mostly D, the same pieces
+   as C come off the card, nothing leans). Listed after everything
+   above, so it wins: every tilt the accents and C give is taken back. */
+:global([data-skin~="flat"]) .best,
+:global([data-skin~="flat"]) .off,
+:global([data-skin~="flat"]) .toast,
+:global([data-skin~="flat"]) .rankNo,
+:global([data-skin~="flat"]) .deck,
+:global([data-skin~="flat"]) .bar,
+:global([data-skin~="flat"]) .bar:has(.field:hover),
+:global([data-skin~="flat"]) .rank,
+:global([data-skin~="flat"]) .row[data-best] {
+  rotate: none;
 }

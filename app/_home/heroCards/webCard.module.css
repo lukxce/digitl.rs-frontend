@@ -1707,121 +1707,6 @@
   color: var(--ink);
 }
 
-/* ── direction C, "lift" (the /v7 test) ───────────────────────────────
-   The white card leans like the steps' cards, and the pieces that tell
-   the story come off it as stickers: the name bar, the speed chip and the
-   blue enquiry, which lands half off the browser and the card. The
-   browser stops clipping at its top and sides so the enquiry can hang
-   out; the site itself is still clipped by its layer, and the visitor's
-   cursor by the browser's bottom edge. */
-:global([data-skin="lift"]) .deck {
-  rotate: -1.4deg;
-}
-:global([data-skin="lift"]) .bar {
-  margin: 0 -22px 0 -18px;
-  background: #fff;
-  box-shadow:
-    0 0 0 5px #fff,
-    0 18px 34px -16px rgb(11 11 22 / 0.4),
-    0 0 0 6px rgb(11 11 22 / 0.06);
-  rotate: 1.6deg;
-}
-:global([data-skin="lift"]) .bar:focus-within {
-  box-shadow:
-    inset 0 0 0 1.5px var(--accent),
-    0 0 0 5px #fff,
-    0 0 0 9px var(--accent-soft),
-    0 18px 34px -16px rgb(11 11 22 / 0.4);
-}
-:global([data-skin="lift"]) .speed {
-  height: 34px;
-  margin: -3px -30px -3px 0;
-  padding: 0 5px 0 9px;
-  box-shadow:
-    0 0 0 4px #fff,
-    0 12px 22px -12px rgb(11 11 22 / 0.4);
-  font-size: 13px;
-  rotate: 3deg;
-}
-:global([data-skin="lift"]) .speed[data-tone] {
-  background: #fff;
-}
-:global([data-skin="lift"]) .speed[data-tone="high"] {
-  background: var(--secondary-soft);
-}
-
-/* the browser: the page clips its site, not the enquiry */
-:global([data-skin="lift"]) .view {
-  overflow: visible;
-}
-:global([data-skin="lift"]) .chrome {
-  border-radius: 20px 20px 0 0;
-}
-:global([data-skin="lift"]) .page {
-  overflow: visible;
-  clip-path: inset(-90px -90px 0 -90px);
-}
-:global([data-skin="lift"]) .layer {
-  overflow: hidden;
-  border-radius: 0 0 20px 20px;
-}
-:global([data-skin="lift"]) .view[data-mode="phone"] .chrome {
-  border-radius: 26px 26px 0 0;
-}
-:global([data-skin="lift"]) .view[data-mode="phone"] .layer {
-  border-radius: 0 0 26px 26px;
-}
-
-/* the enquiry lands off the browser's edge, as a sticker */
-:global([data-skin="lift"]) .toast {
-  right: -34px;
-  box-shadow:
-    0 0 0 5px #fff,
-    0 26px 40px -16px color-mix(in oklab, var(--accent) 70%, transparent);
-  rotate: 2.4deg;
-}
-:global([data-skin="lift"]) .toast::after {
-  inset: -5px;
-  border-radius: 21px;
-}
-:global([data-skin="lift"]) .view[data-mode="phone"] .toast {
-  left: 14px;
-  right: -26px;
-}
-@container page (max-width: 419px) or (max-height: 240px) {
-  :global([data-skin="lift"]) .toast::after {
-    border-radius: 19px;
-  }
-}
-
-@media (max-width: 640px) {
-  :global([data-skin="lift"]) .chrome,
-  :global([data-skin="lift"]) .view[data-mode] .chrome {
-    border-radius: 16px 16px 0 0;
-  }
-  :global([data-skin="lift"]) .layer,
-  :global([data-skin="lift"]) .view[data-mode] .layer {
-    border-radius: 0 0 16px 16px;
-  }
-  :global([data-skin="lift"]) .view[data-mode] .toast {
-    left: 4px;
-    right: -12px;
-    rotate: 1deg;
-  }
-}
-@media (max-width: 560px) {
-  :global([data-skin="lift"]) .deck {
-    rotate: -1deg;
-  }
-  :global([data-skin="lift"]) .bar {
-    margin: 0 -8px 0 -6px;
-    rotate: 1deg;
-  }
-  :global([data-skin="lift"]) .speed {
-    margin-right: -8px;
-  }
-}
-
 /* ── direction D, "fine" (the /v8 test) ───────────────────────────────
    The white card stays; the pieces inside are drawn the way the steps
    draw their little screens. A white name field that sits up off the
@@ -1830,24 +1715,24 @@
    resting in a mist tray (the grey backdrop it already had). The demo
    site inside keeps its own design; the card keeps its height (the tray
    takes its padding out of the browser). */
-:global([data-skin="fine"]) .bar {
+:global([data-skin~="fine"]) .bar {
   background: #fff;
   box-shadow:
     var(--ring),
     0 12px 26px -16px rgb(26 25 120 / 0.35);
 }
-:global([data-skin="fine"]) .bar:focus-within {
+:global([data-skin~="fine"]) .bar:focus-within {
   box-shadow:
     inset 0 0 0 1.5px var(--accent),
     0 0 0 5px var(--accent-soft);
 }
-:global([data-skin="fine"]) .go {
+:global([data-skin~="fine"]) .go {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 0 6px 0 18px;
 }
-:global([data-skin="fine"]) .go::after {
+:global([data-skin~="fine"]) .go::after {
   content: "";
   width: 32px;
   height: 32px;
@@ -1858,50 +1743,50 @@
     rgb(255 255 255 / 0.2);
   transition: translate 0.3s var(--ease);
 }
-:global([data-skin="fine"]) .go:hover::after {
+:global([data-skin~="fine"]) .go:hover::after {
   translate: 2px 0;
 }
 
 /* the view toggle and the speed chip: quiet white pills */
-:global([data-skin="fine"]) .views,
-:global([data-skin="fine"]) .speed[data-tone] {
+:global([data-skin~="fine"]) .views,
+:global([data-skin~="fine"]) .speed[data-tone] {
   background: #fff;
   box-shadow:
     var(--ring),
     0 1px 2px rgb(11 11 22 / 0.04);
 }
-:global([data-skin="fine"]) .speed[data-tone="wait"] .speedNo {
+:global([data-skin~="fine"]) .speed[data-tone="wait"] .speedNo {
   background: var(--mist);
   box-shadow: none;
 }
 
 /* the browser: a white card in a mist tray */
-:global([data-skin="fine"]) .main {
+:global([data-skin~="fine"]) .main {
   padding: 6px;
   border-radius: 22px;
   background: var(--mist);
 }
-:global([data-skin="fine"]) .view[data-mode="desktop"] {
+:global([data-skin~="fine"]) .view[data-mode="desktop"] {
   border-radius: 16px;
   box-shadow:
     var(--ring),
     0 1px 2px rgb(11 11 22 / 0.04);
 }
-:global([data-skin="fine"]) .chrome {
+:global([data-skin~="fine"]) .chrome {
   background: #fff;
 }
-:global([data-skin="fine"]) .addr,
-:global([data-skin="fine"]) .time {
+:global([data-skin~="fine"]) .addr,
+:global([data-skin~="fine"]) .time {
   background: var(--mist);
   box-shadow: none;
 }
 
 @media (max-width: 640px) {
-  :global([data-skin="fine"]) .main {
+  :global([data-skin~="fine"]) .main {
     padding: 4px;
     border-radius: 18px;
   }
-  :global([data-skin="fine"]) .view[data-mode] {
+  :global([data-skin~="fine"]) .view[data-mode] {
     border-radius: 14px;
     box-shadow:
       var(--ring),
@@ -1909,12 +1794,139 @@
   }
 }
 @media (max-width: 560px) {
-  :global([data-skin="fine"]) .go {
+  :global([data-skin~="fine"]) .go {
     padding: 0 5px 0 14px;
     gap: 8px;
   }
-  :global([data-skin="fine"]) .go::after {
+  :global([data-skin~="fine"]) .go::after {
     width: 30px;
     height: 30px;
   }
+}
+
+/* ── direction C, "lift" (the /v7 test) ───────────────────────────────
+   The white card leans like the steps' cards, and the pieces that tell
+   the story come off it as stickers: the name bar, the speed chip and the
+   blue enquiry, which lands half off the browser and the card. The
+   browser stops clipping at its top and sides so the enquiry can hang
+   out; the site itself is still clipped by its layer, and the visitor's
+   cursor by the browser's bottom edge. */
+:global([data-skin~="lift"]) .deck {
+  rotate: -1.4deg;
+}
+:global([data-skin~="lift"]) .bar {
+  margin: 0 -22px 0 -18px;
+  background: #fff;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 18px 34px -16px rgb(11 11 22 / 0.4),
+    0 0 0 6px rgb(11 11 22 / 0.06);
+  rotate: 1.6deg;
+}
+:global([data-skin~="lift"]) .bar:focus-within {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px #fff,
+    0 0 0 9px var(--accent-soft),
+    0 18px 34px -16px rgb(11 11 22 / 0.4);
+}
+:global([data-skin~="lift"]) .speed {
+  height: 34px;
+  margin: -3px -30px -3px 0;
+  padding: 0 5px 0 9px;
+  box-shadow:
+    0 0 0 4px #fff,
+    0 12px 22px -12px rgb(11 11 22 / 0.4);
+  font-size: 13px;
+  rotate: 3deg;
+}
+:global([data-skin~="lift"]) .speed[data-tone] {
+  background: #fff;
+}
+:global([data-skin~="lift"]) .speed[data-tone="high"] {
+  background: var(--secondary-soft);
+}
+
+/* the browser: the page clips its site, not the enquiry */
+:global([data-skin~="lift"]) .view {
+  overflow: visible;
+}
+:global([data-skin~="lift"]) .chrome {
+  border-radius: 20px 20px 0 0;
+}
+:global([data-skin~="lift"]) .page {
+  overflow: visible;
+  clip-path: inset(-90px -90px 0 -90px);
+}
+:global([data-skin~="lift"]) .layer {
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+}
+:global([data-skin~="lift"]) .view[data-mode="phone"] .chrome {
+  border-radius: 26px 26px 0 0;
+}
+:global([data-skin~="lift"]) .view[data-mode="phone"] .layer {
+  border-radius: 0 0 26px 26px;
+}
+
+/* the enquiry lands off the browser's edge, as a sticker */
+:global([data-skin~="lift"]) .toast {
+  right: -34px;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 26px 40px -16px color-mix(in oklab, var(--accent) 70%, transparent);
+  rotate: 2.4deg;
+}
+:global([data-skin~="lift"]) .toast::after {
+  inset: -5px;
+  border-radius: 21px;
+}
+:global([data-skin~="lift"]) .view[data-mode="phone"] .toast {
+  left: 14px;
+  right: -26px;
+}
+@container page (max-width: 419px) or (max-height: 240px) {
+  :global([data-skin~="lift"]) .toast::after {
+    border-radius: 19px;
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-skin~="lift"]) .chrome,
+  :global([data-skin~="lift"]) .view[data-mode] .chrome {
+    border-radius: 16px 16px 0 0;
+  }
+  :global([data-skin~="lift"]) .layer,
+  :global([data-skin~="lift"]) .view[data-mode] .layer {
+    border-radius: 0 0 16px 16px;
+  }
+  :global([data-skin~="lift"]) .view[data-mode] .toast {
+    left: 4px;
+    right: -12px;
+    rotate: 1deg;
+  }
+}
+@media (max-width: 560px) {
+  :global([data-skin~="lift"]) .deck {
+    rotate: -1deg;
+  }
+  :global([data-skin~="lift"]) .bar {
+    margin: 0 -8px 0 -6px;
+    rotate: 1deg;
+  }
+  :global([data-skin~="lift"]) .speed {
+    margin-right: -8px;
+  }
+}
+
+/* ── "flat" (the /v9 test, Luka 11 Nov 2026: mostly D, the same pieces
+   as C come off the card, nothing leans). Listed after everything
+   above, so it wins: every tilt the accents and C give is taken back. */
+:global([data-skin~="flat"]) .speedNo,
+:global([data-skin~="flat"]) .deck,
+:global([data-skin~="flat"]) .bar,
+:global([data-skin~="flat"]) .speed,
+:global([data-skin~="flat"]) .toast,
+:global([data-skin~="flat"]) .view[data-mode] .toast {
+  rotate: none;
 }

@@ -1065,140 +1065,30 @@
   }
 }
 
-/* "lift" (variant C, /v7): the card leans like the steps' cards and three
-   pieces of the story come off it as stickers: the name bar, the mark on
-   its artboard (off the card's left edge) and the applications count. */
-:global([data-skin="lift"]) .deck {
-  rotate: -1.4deg;
-}
-:global([data-skin="lift"]) .bar,
-:global([data-skin="lift"]) .bar:hover {
-  margin: 0 -22px 0 -18px;
-  background: #fff;
-  box-shadow:
-    0 0 0 5px #fff,
-    0 18px 34px -16px rgb(11 11 22 / 0.4),
-    0 0 0 6px rgb(11 11 22 / 0.06);
-  rotate: 1.6deg;
-}
-:global([data-skin="lift"]) .bar:focus-within {
-  box-shadow:
-    inset 0 0 0 1.5px var(--accent),
-    0 0 0 5px #fff,
-    0 0 0 9px var(--accent-soft),
-    0 18px 34px -16px rgb(11 11 22 / 0.4);
-}
-:global([data-skin="lift"]) .sys > .markTile {
-  z-index: 2;
-  margin-left: -28px;
-  box-shadow:
-    0 0 0 5px #fff,
-    0 24px 36px -18px color-mix(in oklab, var(--D) 70%, transparent);
-  rotate: -3deg;
-}
-:global([data-skin="lift"]) .meta {
-  padding-top: 11px;
-  padding-bottom: 7px;
-}
-:global([data-skin="lift"]) .count {
-  height: 34px;
-  margin-right: -26px;
-  padding: 0 5px 0 13px;
-  font-size: 13px;
-  background: #fff;
-  box-shadow:
-    0 0 0 4px #fff,
-    0 12px 22px -12px rgb(11 11 22 / 0.4);
-  rotate: 3deg;
-}
-:global([data-skin="lift"]) .count[data-full="true"] {
-  box-shadow:
-    0 0 0 4px #fff,
-    0 16px 26px -12px color-mix(in oklab, var(--accent) 75%, transparent);
-}
-@media (max-width: 640px) {
-  :global([data-skin="lift"]) .count[data-full="true"] {
-    background: #fff;
-    color: var(--ink-2);
-    box-shadow:
-      0 0 0 4px #fff,
-      0 12px 22px -12px rgb(11 11 22 / 0.4);
-  }
-  :global([data-skin="lift"]) .count[data-full-phone="true"] {
-    background:
-      radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 /
-        12px 12px,
-      var(--accent);
-    color: #fff;
-    box-shadow:
-      0 0 0 4px #fff,
-      0 16px 26px -12px color-mix(in oklab, var(--accent) 75%, transparent);
-  }
-  :global([data-skin="lift"]) .sys > .markTile {
-    margin-left: -8px;
-    box-shadow:
-      0 0 0 4px #fff,
-      0 16px 26px -14px color-mix(in oklab, var(--D) 70%, transparent);
-    rotate: -1deg;
-  }
-}
-@media (max-width: 560px) {
-  :global([data-skin="lift"]) .deck {
-    rotate: -1deg;
-  }
-  :global([data-skin="lift"]) .bar,
-  :global([data-skin="lift"]) .bar:hover {
-    margin: 0 -14px 0 -12px;
-    box-shadow:
-      0 0 0 4px #fff,
-      0 14px 26px -14px rgb(11 11 22 / 0.4),
-      0 0 0 5px rgb(11 11 22 / 0.06);
-    rotate: 1deg;
-  }
-  :global([data-skin="lift"]) .bar:focus-within {
-    box-shadow:
-      inset 0 0 0 1.5px var(--accent),
-      0 0 0 4px #fff,
-      0 0 0 7px var(--accent-soft),
-      0 14px 26px -14px rgb(11 11 22 / 0.4);
-  }
-  :global([data-skin="lift"]) .meta {
-    padding-top: 12px;
-    padding-bottom: 8px;
-  }
-  :global([data-skin="lift"]) .count {
-    height: 28px;
-    margin-right: -14px;
-    padding: 0 4px 0 11px;
-    font-size: 12px;
-    rotate: 1deg;
-  }
-}
-
 /* "fine" (variant D, /v8): the white card stays and the pieces inside are
    drawn the way the steps draw their little screens: a white name field
    that sits up off the card, the site's key with its arrow in a circle,
    and the brand book's tiles as white cards in a mist tray. The brand
    artwork in them is untouched. */
-:global([data-skin="fine"]) .bar,
-:global([data-skin="fine"]) .bar:hover {
+:global([data-skin~="fine"]) .bar,
+:global([data-skin~="fine"]) .bar:hover {
   background: #fff;
   box-shadow:
     var(--ring),
     0 12px 26px -16px rgb(26 25 120 / 0.35);
 }
-:global([data-skin="fine"]) .bar:focus-within {
+:global([data-skin~="fine"]) .bar:focus-within {
   box-shadow:
     inset 0 0 0 1.5px var(--accent),
     0 0 0 5px var(--accent-soft);
 }
-:global([data-skin="fine"]) .go {
+:global([data-skin~="fine"]) .go {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 0 6px 0 18px;
 }
-:global([data-skin="fine"]) .go::after {
+:global([data-skin~="fine"]) .go::after {
   content: "";
   width: 32px;
   height: 32px;
@@ -1209,22 +1099,22 @@
     rgb(255 255 255 / 0.2);
   transition: translate 0.3s var(--ease);
 }
-:global([data-skin="fine"]) .go:hover::after,
-:global([data-skin="fine"]) .go[data-press="true"]::after {
+:global([data-skin~="fine"]) .go:hover::after,
+:global([data-skin~="fine"]) .go[data-press="true"]::after {
   translate: 2px 0;
 }
-:global([data-skin="fine"]) .main {
+:global([data-skin~="fine"]) .main {
   gap: 6px;
   padding: 6px;
   border-radius: 22px;
   background: var(--mist);
 }
-:global([data-skin="fine"]) .sys,
-:global([data-skin="fine"]) .apps {
+:global([data-skin~="fine"]) .sys,
+:global([data-skin~="fine"]) .apps {
   gap: 6px;
 }
-:global([data-skin="fine"]) .sys > div,
-:global([data-skin="fine"]) .app {
+:global([data-skin~="fine"]) .sys > div,
+:global([data-skin~="fine"]) .app {
   border-radius: 16px;
   background-color: #fff;
   box-shadow:
@@ -1232,25 +1122,150 @@
     0 1px 2px rgb(11 11 22 / 0.04);
 }
 @media (max-width: 640px) {
-  :global([data-skin="fine"]) .main {
+  :global([data-skin~="fine"]) .main {
     padding: 4px;
     border-radius: 18px;
   }
-  :global([data-skin="fine"]) .apps {
+  :global([data-skin~="fine"]) .apps {
     grid-template-rows: 81px 81px;
   }
-  :global([data-skin="fine"]) .sys > div,
-  :global([data-skin="fine"]) .app {
+  :global([data-skin~="fine"]) .sys > div,
+  :global([data-skin~="fine"]) .app {
     border-radius: 14px;
   }
 }
 @media (max-width: 560px) {
-  :global([data-skin="fine"]) .go {
+  :global([data-skin~="fine"]) .go {
     padding: 0 5px 0 14px;
     gap: 8px;
   }
-  :global([data-skin="fine"]) .go::after {
+  :global([data-skin~="fine"]) .go::after {
     width: 30px;
     height: 30px;
   }
+}
+
+/* "lift" (variant C, /v7): the card leans like the steps' cards and three
+   pieces of the story come off it as stickers: the name bar, the mark on
+   its artboard (off the card's left edge) and the applications count. */
+:global([data-skin~="lift"]) .deck {
+  rotate: -1.4deg;
+}
+:global([data-skin~="lift"]) .bar,
+:global([data-skin~="lift"]) .bar:hover {
+  margin: 0 -22px 0 -18px;
+  background: #fff;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 18px 34px -16px rgb(11 11 22 / 0.4),
+    0 0 0 6px rgb(11 11 22 / 0.06);
+  rotate: 1.6deg;
+}
+:global([data-skin~="lift"]) .bar:focus-within {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 0 0 5px #fff,
+    0 0 0 9px var(--accent-soft),
+    0 18px 34px -16px rgb(11 11 22 / 0.4);
+}
+:global([data-skin~="lift"]) .sys > .markTile {
+  z-index: 2;
+  margin-left: -28px;
+  box-shadow:
+    0 0 0 5px #fff,
+    0 24px 36px -18px color-mix(in oklab, var(--D) 70%, transparent);
+  rotate: -3deg;
+}
+:global([data-skin~="lift"]) .meta {
+  padding-top: 11px;
+  padding-bottom: 7px;
+}
+:global([data-skin~="lift"]) .count {
+  height: 34px;
+  margin-right: -26px;
+  padding: 0 5px 0 13px;
+  font-size: 13px;
+  background: #fff;
+  box-shadow:
+    0 0 0 4px #fff,
+    0 12px 22px -12px rgb(11 11 22 / 0.4);
+  rotate: 3deg;
+}
+:global([data-skin~="lift"]) .count[data-full="true"] {
+  box-shadow:
+    0 0 0 4px #fff,
+    0 16px 26px -12px color-mix(in oklab, var(--accent) 75%, transparent);
+}
+@media (max-width: 640px) {
+  :global([data-skin~="lift"]) .count[data-full="true"] {
+    background: #fff;
+    color: var(--ink-2);
+    box-shadow:
+      0 0 0 4px #fff,
+      0 12px 22px -12px rgb(11 11 22 / 0.4);
+  }
+  :global([data-skin~="lift"]) .count[data-full-phone="true"] {
+    background:
+      radial-gradient(rgb(255 255 255 / 0.14) 1px, transparent 1.4px) 0 0 /
+        12px 12px,
+      var(--accent);
+    color: #fff;
+    box-shadow:
+      0 0 0 4px #fff,
+      0 16px 26px -12px color-mix(in oklab, var(--accent) 75%, transparent);
+  }
+  :global([data-skin~="lift"]) .sys > .markTile {
+    margin-left: -8px;
+    box-shadow:
+      0 0 0 4px #fff,
+      0 16px 26px -14px color-mix(in oklab, var(--D) 70%, transparent);
+    rotate: -1deg;
+  }
+}
+@media (max-width: 560px) {
+  :global([data-skin~="lift"]) .deck {
+    rotate: -1deg;
+  }
+  :global([data-skin~="lift"]) .bar,
+  :global([data-skin~="lift"]) .bar:hover {
+    margin: 0 -14px 0 -12px;
+    box-shadow:
+      0 0 0 4px #fff,
+      0 14px 26px -14px rgb(11 11 22 / 0.4),
+      0 0 0 5px rgb(11 11 22 / 0.06);
+    rotate: 1deg;
+  }
+  :global([data-skin~="lift"]) .bar:focus-within {
+    box-shadow:
+      inset 0 0 0 1.5px var(--accent),
+      0 0 0 4px #fff,
+      0 0 0 7px var(--accent-soft),
+      0 14px 26px -14px rgb(11 11 22 / 0.4);
+  }
+  :global([data-skin~="lift"]) .meta {
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+  :global([data-skin~="lift"]) .count {
+    height: 28px;
+    margin-right: -14px;
+    padding: 0 4px 0 11px;
+    font-size: 12px;
+    rotate: 1deg;
+  }
+}
+
+/* ── "flat" (the /v9 test, Luka 11 Nov 2026: mostly D, the same pieces
+   as C come off the card, nothing leans). Listed after everything
+   above, so it wins: every tilt the accents and C give is taken back. */
+:global([data-skin~="flat"]) .countNo,
+:global([data-skin~="flat"]) .count[data-full="true"] .countNo,
+:global([data-skin~="flat"]) .count[data-full-phone="true"] .countNo,
+:global([data-skin~="flat"]) .app[data-on="true"] .appLabel,
+:global([data-skin~="flat"]) .deck,
+:global([data-skin~="flat"]) .bar,
+:global([data-skin~="flat"]) .bar:hover,
+:global([data-skin~="flat"]) .sys > .markTile,
+:global([data-skin~="flat"]) .count {
+  rotate: none;
 }
