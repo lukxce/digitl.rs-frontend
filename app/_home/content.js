@@ -8,7 +8,8 @@
 export const SERVICES = [
   {
     id: "ads",
-    footer: "Google i Meta oglasi",
+    footer: "Plaćeno oglašavanje",
+    sub: "Google Ads, Facebook i Instagram",
     page: "/usluge/placeno-oglasavanje",
     title: "Plaćeno oglašavanje",
     name: "Plaćeno oglašavanje",

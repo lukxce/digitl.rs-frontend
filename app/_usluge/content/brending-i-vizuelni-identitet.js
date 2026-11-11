@@ -6,13 +6,13 @@
    - Logo predajemo kao vektor (SVG i PDF) i kao PNG sa providnom pozadinom.
    - Predajemo verziju logotipa u boji, jednobojnu i belu verziju za tamnu podlogu.
    - Uz logo ide skraćeni znak za profilnu sliku i ikonicu sajta.
-   - Brend knjiga počinje idejom brenda, odnosno rečenicom iz pozicioniranja.
+   - Brend knjiga počinje pričom brenda (ko ste, za koga radite, po čemu se razlikujete).
    - U brend knjizi su kodovi boja za ekran (HEX, RGB) i za štampu (CMYK), fontovi sa veličinama i podatak gde se fontovi nabavljaju.
    - Brend knjiga ima pravila sa primerima dobre i pogrešne upotrebe.
    - Klijent dobija i izvorne fajlove.
    - Posle isplate imovinska prava na logo i identitet prenosimo na klijenta, i to piše u ugovoru.
    - Pokazujemo nekoliko pravaca identiteta (broj nije naveden), svaki sa svojim logotipom, bojama i fontovima, postavljen na zaglavlje sajta, objavu i oglas. Ranije su to bili pravci logotipa.
-   - Uz svaki pravac objašnjavamo koju rečenicu iz pozicioniranja nosi.
+   - Uz svaki pravac objašnjavamo koji deo priče brenda nosi.
    - Broj krugova izmena i rok za svaki korak pišemo u ponudi.
    - Pozicioniranje zapisujemo i kad se naručuje samo logo (isti redosled koraka).
    - Pravce pokazujemo svima koji odlučuju, na istom sastanku.
@@ -33,12 +33,12 @@ const page = {
   },
   label: "Brend i identitet",
   h1: "Brending i vizuelni identitet",
-  lead: "Određujemo šta vaša firma obećava i kome, pa iz toga dizajniramo logo i ceo vizuelni identitet. Pravila za boje, fontove i upotrebu logotipa zapisujemo u brend knjigu, a uz nju dobijate šablone za objave i oglase. Tako vas kupac prepoznaje kao istu firmu na sajtu, na Instagramu i na tabli ispred lokala.",
+  lead: "Polazimo od priče vaše firme, od toga šta radite, za koga i po čemu se razlikujete, pa iz nje dizajniramo logo i ceo vizuelni identitet. Pravila za boje, fontove i upotrebu logotipa zapisujemo u brend knjigu, a uz nju dobijate šablone za objave i oglase. Tako vas kupac prepoznaje kao istu firmu na sajtu, na Instagramu i na tabli ispred lokala.",
   proof: [],
   intro: {
     title: "Šta je brending i šta od njega dobijate",
     body: [
-      "Brending je izrada svega po čemu kupac pamti vašu firmu, od rečenice o tome šta mu obećavate do boje na vizitkarti. Počinje pozicioniranjem, odnosno odlukom o tome po čemu se vaša firma razlikuje od drugih koje nude isto, pa iz te odluke posle izlaze i izgled i ton kojim firma piše.",
+      "Brending je izrada svega po čemu kupac pamti vašu firmu, od priče o tome ko ste i kako radite do boje na vizitkarti. Počinje pozicioniranjem, odnosno odlukom o tome po čemu se vaša firma razlikuje od drugih koje nude isto, pa iz te odluke posle izlaze i izgled i ton kojim firma piše.",
       "Vizuelni identitet je skup boja, fontova, logotipa i grafičkih elemenata po kome vas kupac prepoznaje svuda gde vas sreće. Uz njih idu pravila za upotrebu, recimo koja boja nosi akciju i koliko praznog prostora ostaje oko logotipa. Logo je najvidljiviji deo identiteta, ali sam logo ne kaže kojim slovima se piše cena ni kakve fotografije idu u oglas.",
       "Recimo da vaš logo postoji samo kao jedan JPG, a objave i cenovnike pravi onaj ko je tog dana slobodan. Posle godinu dana firma ima tri nijanse plave i dva različita fonta, pa kupac koji je video vaš oglas na Instagramu ne prepoznaje istu firmu kad otvori sajt.",
       "Zato sve odluke zapisujemo u brend knjigu i pravimo šablone za formate koje najčešće koristite. Po njima sledeći baner ili cenovnik može da napravi vaš zaposleni, druga agencija ili štamparija, a da izgleda kao sve ostalo što firma objavljuje. Svaki nov materijal se onda slaže od gotovih delova, pa nastaje brže i ne plaćate da neko ispočetka bira boje i slova.",
@@ -81,8 +81,8 @@ const page = {
         text: "Gledamo sve gde se firma danas pojavljuje, od fakture do Instagrama. Pitamo šta prodajete, kome i s kim vas kupci porede.",
       },
       {
-        title: "Jedna rečenica",
-        text: "Obećanje brenda zapisujemo u rečenici koju odobravate pre nego što počnemo da crtamo. Ona posle rešava svaki spor oko boje ili slova.",
+        title: "Priča brenda",
+        text: "Priču vaše firme zapisujemo u nekoliko rečenica koje odobravate pre nego što počnemo da crtamo. One posle rešavaju svaki spor oko boje ili slova.",
       },
       {
         title: "Pravci identiteta",
@@ -130,7 +130,7 @@ const page = {
         "Brend knjiga je priručnik sa pravilima za logo, boje, fontove i ton komunikacije, u kome uz svako pravilo stoji primer. Knjiga koju predajemo ima ove delove:",
         {
           list: [
-            "ideju brenda, odnosno rečenicu o tome šta firma obećava i kome",
+            "priču brenda: ko ste, za koga radite i po čemu se razlikujete",
             "zaštitni prostor oko logotipa i najmanju veličinu na kojoj se logo još čita",
             "boje sa kodovima za ekran (HEX i RGB) i za štampu (CMYK)",
             "fontove sa veličinama za naslove, tekst i cene, uz podatak gde se nabavljaju",

@@ -15,7 +15,7 @@ import u from "./usluge.module.css";
 
 export const HUB = {
   title: "Usluge digitalnog marketinga",
-  lead: "Vodimo oglase na Google-u i Meta mrežama, SEO, izradu sajtova, društvene mreže i brend. Možete da uzmete jednu uslugu, a najviše dobijate kad vodimo ceo marketing kao jedan sistem.",
+  lead: "Vodimo plaćeno oglašavanje na Google-u i Meta mrežama, SEO, izradu sajtova, društvene mreže i brending, a ponavljajuće zadatke u firmi skidamo sa zaposlenih automatizacijom poslovanja. Možete da uzmete jednu uslugu, a najviše dobijate kad vodimo ceo marketing kao jedan sistem.",
   body: [
     "Digitl je marketing agencija koja za firme u Srbiji vodi oglase, SEO, sajt, društvene mreže i brend. Kad usluge vodimo zajedno, oglasi vode na stranice napravljene za njih, a sajt, mreže i oglasi izgledaju kao isti brend.",
     "Za svaki kanal merimo nešto konkretno: cenu po upitu kod oglasa, pozicije, posete i upite iz pretrage kod SEO-a, brzinu i stopu konverzije kod sajta. Te brojeve vidite u mesečnom izveštaju.",

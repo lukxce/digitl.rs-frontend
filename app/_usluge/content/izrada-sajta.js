@@ -2,7 +2,6 @@
    that no approved source states, one per line, so Luka can confirm or cut
    them before the page goes live.
    - Sajtove pravimo po meri, u Next.js-u, sa urednikom sadržaja Sanity u kome klijent sam menja tekst, cene i slike.
-   - Cena od 200 € važi za jednostavan sajt koji predstavlja firmu.
    - Izrada počinje razgovorom o firmi, kupcima i tome čemu sajt služi (prodaja, upiti ili prezentacija firme), pa tek onda dizajn.
    - Spisak stranica pravimo od toga kojim rečima kupci traže ono što klijent nudi.
    - Sajt dizajniramo prvo za ekran telefona.
@@ -33,7 +32,7 @@ const page = {
   seo: {
     title: "Izrada sajta i online prodavnice za vašu firmu | Digitl",
     description:
-      "Brz sajt ili online prodavnica po meri, za firme od jednog čoveka do distributera. Izrada sajta od 200 €, pogledajte od čega zavisi cena i zakažite razgovor.",
+      "Brz sajt ili online prodavnica po meri, za firme od jednog čoveka do distributera. Pogledajte od čega zavisi cena izrade sajta i zakažite razgovor.",
   },
   label: "Web dizajn i razvoj",
   h1: "Izrada sajta i online prodavnice",
@@ -125,7 +124,7 @@ const page = {
     {
       title: "Od čega zavisi cena izrade sajta?",
       body: [
-        "Izrada sajta kod nas košta od 200 €. Cenu najviše pomeraju vrsta sajta i veze sa drugim programima, mnogo više od samog broja stranica.",
+        "Cenu izrade sajta najviše pomeraju vrsta sajta i veze sa drugim programima, mnogo više od samog broja stranica.",
         "Kad pravimo ponudu, gledamo ove stavke:",
         {
           list: [
@@ -256,8 +255,8 @@ const page = {
     },
   ],
   price: {
-    from: 200,
-    note: "Od 200 € košta jednostavan sajt koji predstavlja firmu. Cenu podižu prodavnica, kalkulatori po meri i veze sa kasom, plaćanjem ili programom za lager. Pomeraju je i broj različitih vrsta stranica i to da li tekst pišemo mi. U ponudi su stavke i rok.",
+    from: null,
+    note: "Najmanje košta jednostavan sajt koji predstavlja firmu. Cenu podižu prodavnica, kalkulatori po meri i veze sa kasom, plaćanjem ili programom za lager. Pomeraju je i broj različitih vrsta stranica i to da li tekst pišemo mi. U ponudi su stavke i rok.",
   },
   faq: [
     {

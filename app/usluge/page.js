@@ -7,7 +7,7 @@ const URL = "https://www.digitl.rs/usluge";
 export const metadata = {
   title: { absolute: "Usluge digitalnog marketinga za firme u Srbiji | Digitl" },
   description:
-    "Google i Meta oglasi, SEO optimizacija, izrada sajta, vođenje društvenih mreža i dizajn logotipa. Pogledajte šta obuhvata svaka usluga i kako radimo.",
+    "Plaćeno oglašavanje, SEO optimizacija, izrada sajta, vođenje društvenih mreža, brending i automatizacija poslovanja. Pogledajte šta obuhvata svaka usluga.",
   alternates: { canonical: "/usluge" },
   openGraph: { url: URL, type: "website" },
 };

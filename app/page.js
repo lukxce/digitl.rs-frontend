@@ -21,7 +21,7 @@ const ORGANIZATION = {
   email: "hello@digitl.rs",
   telephone: "+381641338383",
   description:
-    "Marketing agencija iz Srbije: Google i Meta oglasi, SEO, izrada sajtova, društvene mreže i brend kao jedan sistem.",
+    "Marketing agencija iz Srbije: plaćeno oglašavanje, SEO, izrada sajtova, društvene mreže, brending i automatizacija poslovanja kao jedan sistem.",
   areaServed: { "@type": "Country", name: "Srbija" },
   sameAs: [
     "https://www.instagram.com/digitl.rs",

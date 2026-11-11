@@ -26,18 +26,18 @@ const page = {
   slug: "placeno-oglasavanje",
   service: "ads",
   seo: {
-    title: "Google Ads agencija za Google i Meta oglase | Digitl",
+    title: "Plaćeno oglašavanje: Google Ads i Meta oglasi | Digitl",
     description:
-      "Vodimo Google Ads i Meta oglase na Facebook-u i Instagram-u i za svaku kampanju merimo cenu po upitu. Pogledajte od čega zavisi cena i zakažite razgovor.",
+      "Plaćeno oglašavanje za firme: Google Ads i oglasi na Facebook-u i Instagram-u, sa cenom po upitu za svaku kampanju. Pogledajte od čega zavisi cena.",
   },
-  label: "Plaćeno oglašavanje",
-  h1: "Google oglašavanje i Meta oglasi",
-  lead: "Postavljamo i vodimo Google Ads kampanje i Meta oglase na Facebook-u i Instagram-u za firme koje od oglasa očekuju pozive, poruke i prodaju. Pre prvog oglasa podešavamo merenje upita, pa za svaku kampanju znate koliko vas košta jedan upit. Taj broj dobijate u mesečnom izveštaju, uz predlog kako da rasporedimo budžet sledećeg meseca.",
+  label: "Oglašavanje na internetu",
+  h1: "Plaćeno oglašavanje",
+  lead: "Vodimo plaćeno oglašavanje za firme koje od oglasa očekuju pozive, poruke i prodaju, na Google-u i na Facebook-u i Instagram-u. Pre prvog oglasa podešavamo merenje upita, pa za svaku kampanju znate koliko vas košta jedan upit. Taj broj dobijate u mesečnom izveštaju, uz predlog kako da rasporedimo budžet sledećeg meseca.",
   proof: [],
   intro: {
-    title: "Kako Google i Meta oglasi dovode upite",
+    title: "Kako plaćeni oglasi dovode upite",
     body: [
-      "Google oglašavanje je plaćeno mesto u rezultatima pretrage koje dobijate kad neko ukuca ono što prodajete, a uglavnom ga plaćate tek kad neko klikne na oglas. Takav oglas stoji iznad ili ispod običnih rezultata, označen kao sponzorisan. Meta oglasi se pojavljuju na Facebook-u i Instagram-u ljudima koji vas nisu tražili, ali po mestu i interesovanjima liče na vaše kupce.",
+      "Kod plaćenog oglašavanja platformi plaćate da vaš oglas vidi tačno onaj ko vam treba, a za firme u Srbiji to su najčešće dva kanala. Google oglašavanje je plaćeno mesto u rezultatima pretrage koje dobijate kad neko ukuca ono što prodajete, a uglavnom ga plaćate tek kad neko klikne na oglas. Takav oglas stoji iznad ili ispod običnih rezultata, označen kao sponzorisan. Meta oglasi se pojavljuju na Facebook-u i Instagram-u ljudima koji vas nisu tražili, ali po mestu i interesovanjima liče na vaše kupce.",
       "Od te razlike zavisi kako pravimo oglas za svaki kanal. Na Google-u oglas vidi čovek kome je usluga već potrebna i koji sad bira koga da pozove, pa tekst treba tačno da odgovori na ono što je ukucao. Na Facebook-u i Instagram-u oglas mora da privuče pažnju nekoga ko lista objave i ne misli na vas, zato tamo slika i prva rečenica odlučuju više od same ponude.",
       "Oba kanala vodimo kao jedan budžet i merimo ih istim brojem, cenom po upitu. Kad Google donosi pozive jeftinije od Instagram-a, novac prebacujemo na Google, i obrnuto. Isto radimo između dve kampanje u istom kanalu, a razlog za svaku takvu odluku piše u mesečnom izveštaju.",
     ],
@@ -94,7 +94,7 @@ const page = {
   cases: [],
   guide: [
     {
-      title: "Koliko košta Google oglašavanje i od čega zavisi cena",
+      title: "Koliko košta plaćeno oglašavanje i od čega zavisi cena",
       body: [
         "Cenu čine dva odvojena iznosa: budžet koji ide direktno Google-u ili Meti za klikove i prikaze, i naknada koju plaćate nama za vođenje kampanja.",
         "Budžet za oglase raste i pada sa konkurencijom. Google za svaku pretragu održi aukciju u kojoj ne pobeđuje uvek najviša ponuda, jer [u računicu ulazi i kvalitet oglasa i stranice na koju vodi](https://support.google.com/google-ads/answer/1704431?hl=sr). Oglas koji tačno odgovara pretrazi zato može da dobije bolje mesto i po nižoj ceni klika.",
