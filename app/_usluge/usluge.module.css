@@ -7,7 +7,8 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(112px, 13vh, 150px) 0 clamp(56px, 7vw, 96px);
+  /* room under the buttons, so the light fades out below them */
+  padding: clamp(112px, 13vh, 150px) 0 clamp(110px, 11vw, 170px);
   isolation: isolate;
   background: #fff;
 }
@@ -30,8 +31,20 @@
     ), linear-gradient(180deg, #fff 0%, var(--accent-soft) 100%);
   /* the brand light melts into the white below: no straight edge where
      the hero ends */
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 45%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 0%, #000 45%, transparent 100%);
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 66%,
+    rgb(0 0 0 / 0.55) 82%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 66%,
+    rgb(0 0 0 / 0.55) 82%,
+    transparent 100%
+  );
 }
 .heroGrid {
   position: relative;
