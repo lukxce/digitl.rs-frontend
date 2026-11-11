@@ -32,10 +32,13 @@
   font-weight: 600;
   color: var(--ink-3);
 }
-.links a {
+.links > a,
+.links .dropLink {
   transition: color 0.25s var(--ease);
 }
-.links a:hover {
+.links > a:hover,
+.links .dropLink:hover,
+.links .drop[data-open] .dropLink {
   color: var(--ink);
 }
 .actions {
@@ -192,7 +195,8 @@
   flex: 1;
   justify-content: center;
 }
-.pillLinks a {
+.pillLinks > a,
+.pillLinks .dropLink {
   padding: 8px 12px;
   border-radius: 999px;
   font-size: 14px;
@@ -202,7 +206,8 @@
     background 0.25s var(--ease),
     color 0.25s var(--ease);
 }
-.pillLinks a:hover {
+.pillLinks > a:hover,
+.pillLinks .dropLink:hover {
   background: var(--mist);
   color: var(--ink);
 }
@@ -339,7 +344,7 @@
   color: var(--accent);
   transform: translate(2px, -2px);
 }
-.sheetLinks a {
+.sheetLinks > a {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -349,17 +354,17 @@
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-.sheetLinks a svg {
+.sheetLinks > a svg {
   color: var(--ink-5);
   transition:
     transform 0.3s var(--ease),
     color 0.3s var(--ease);
 }
-.sheetLinks a:hover {
+.sheetLinks > a:hover {
   background: var(--accent-soft);
   color: var(--accent);
 }
-.sheetLinks a:hover svg {
+.sheetLinks > a:hover svg {
   color: var(--accent);
   transform: translateX(3px);
 }
@@ -468,4 +473,206 @@
 .sheetSide > button {
   margin: 4px 2px 0;
   justify-content: space-between;
+}
+
+/* Usluge: the word leads to /usluge, the arrow beside it (or pointing at
+   it) opens the five service pages */
+.drop {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.dropBtn {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  color: inherit;
+  transition:
+    background 0.25s var(--ease),
+    rotate 0.3s var(--ease);
+}
+.dropBtn:hover {
+  background: var(--mist);
+}
+.drop[data-open] .dropBtn {
+  rotate: 180deg;
+}
+.pillLinks .drop {
+  gap: 0;
+}
+.pillLinks .dropLink {
+  padding-right: 4px;
+}
+.pillLinks .dropBtn {
+  margin-right: 4px;
+}
+.panel {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 196px;
+  gap: 8px;
+  width: 560px;
+  padding: 8px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow:
+    0 30px 60px -24px rgb(11 11 22 / 0.4),
+    var(--ring);
+  transform-origin: top center;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+/* the gap between the word and the panel still counts as pointing at it */
+.panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 16px;
+}
+.pill .panel {
+  top: calc(100% + 16px);
+}
+.panelList {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.panelItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  border-radius: 16px;
+  transition: background 0.25s var(--ease);
+}
+.panelItem:hover,
+.panelItem:focus-visible {
+  background: var(--mist);
+}
+.panelSticker {
+  display: block;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  transition: rotate 0.35s var(--ease), scale 0.35s var(--ease);
+}
+.panelItem:hover .panelSticker {
+  rotate: -9deg;
+  scale: 1.08;
+}
+.panelText {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+.panelText b {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.panelText small {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+.panelItem:hover .panelText b {
+  color: var(--accent);
+}
+/* the way to all of them: the steps' blue card, with its dot grain */
+.panelAll {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 18px 18px 16px;
+  border-radius: 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(rgb(255 255 255 / 0.16) 1px, transparent 1.4px) 0 0 / 12px
+      12px,
+    var(--accent);
+  color: #fff;
+  isolation: isolate;
+}
+.panelAllLabel {
+  padding: 3px 9px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--secondary);
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 800;
+  rotate: -3deg;
+}
+.panelAll b {
+  margin-top: 4px;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.panelAllNote {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: rgb(255 255 255 / 0.78);
+  text-wrap: pretty;
+}
+.panelAllArrow {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-top: auto;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--accent);
+  transition: translate 0.3s var(--ease);
+}
+.panelAll:hover .panelAllArrow {
+  translate: 4px 0;
+}
+
+/* the menu sheet: the five pages under Usluge, as small chips */
+.sheetSub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 10px 10px;
+}
+.sheetSub a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px 4px 5px;
+  border-radius: 999px;
+  background: var(--mist);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-2);
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+.sheetSub a:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.sheetSub svg {
+  flex: none;
 }

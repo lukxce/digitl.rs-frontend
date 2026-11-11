@@ -19,16 +19,21 @@ import Work from "./Work";
 
 /** The digitl.rs homepage: one conversation, top to bottom. The promise
     with one of our services shown working, what we do, how we work, three
-    questions for a plan, whether it works, what clients say, the blog, the
-    customer's path, the talk. The plan from the three questions travels
-    through the sections below it. Brings its own chrome, so the global
-    SiteNav hides itself (data-own-chrome). */
-export default function HomeV5({ clients, fonts, look }) {
+    questions for a plan, whether it works, what clients say, the talk,
+    then the customer's path and the questions. The plan from the three
+    questions travels through the sections below it. Brings its own
+    chrome, so the global SiteNav hides itself (data-own-chrome).
+
+    look "v2" (the default since 11 Nov 2026) draws the service cards and
+    the steps in the service pages' sticker language; skin "sticker" does
+    the same for the hero's cards (the /v7 test). */
+export default function HomeV5({ clients, fonts, look = "v2", skin }) {
   return (
     <div
       className={`${b.root} ${fonts}`}
       data-own-chrome
       data-look={look}
+      data-skin={skin}
     >
       <AppProvider>
         <Nav />
@@ -42,8 +47,9 @@ export default function HomeV5({ clients, fonts, look }) {
           {/* <Value /> */}
           {/* The blog is off the site for now (Luka, 10 Nov 2026: the old
               posts were industry news). Blog.js stays for when it returns. */}
-          <Loop />
+          {/* the form comes before the wheel (Luka, 11 Nov 2026) */}
           <Contact />
+          <Loop />
           <Faq />
         </main>
         <Footer />

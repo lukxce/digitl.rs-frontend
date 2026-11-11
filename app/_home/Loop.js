@@ -455,9 +455,10 @@ export default function Loop() {
           </div>
         </div>
 
+        {/* the form now sits above the wheel, so the talk opens here */}
         <Bridge
           text="Vodimo ceo krug, od prvog pogleda do kupca koji se vraća. Razgovarajmo o vašem."
-          to="#kontakt"
+          book
           label="Razgovarajmo"
         />
       </div>

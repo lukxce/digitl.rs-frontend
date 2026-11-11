@@ -3,26 +3,36 @@
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { STICKERS } from "../_usluge/Stickers";
 import logo from "../assets/digitl-logo.png";
 import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
-import { CONTACT } from "./content";
-import { ArrowRight, ArrowUpRight, Lock, Mail, Phone } from "./icons";
+import { CONTACT, SERVICES } from "./content";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ChevronDown,
+  Lock,
+  Mail,
+  Phone,
+} from "./icons";
 import n from "./nav.module.css";
 import { Btn, EASE, useApp } from "./ui";
 
-// The same menu everywhere: Projekti and Blog are their own pages; the rest
-// are sections of the homepage (reached by gliding there, or by going home
-// first from an inner page). Every page ends with the contact form.
+// The same menu everywhere: Usluge and Projekti are their own pages; the
+// rest are sections of the homepage (reached by gliding there, or by going
+// home first from an inner page). Every page ends with the contact form.
+// Usluge also opens the five service pages beneath it (Luka, 11 Nov 2026:
+// the hub must be reachable from the menu, for search and breadcrumbs).
 export const LINKS = [
-  { href: "#usluge", label: "Usluge" },
+  { href: "/usluge", label: "Usluge", services: true },
   { href: "#proces", label: "Kako radimo" },
   { href: "/projects", label: "Projekti" },
   { href: "#kontakt", label: "Kontakt" },
 ];
 
 export const INNER_LINKS = [
-  { href: "/usluge", label: "Usluge" },
+  { href: "/usluge", label: "Usluge", services: true },
   { href: "/#proces", label: "Kako radimo" },
   { href: "/projects", label: "Projekti" },
   { href: "#kontakt", label: "Kontakt" },
@@ -40,6 +50,136 @@ export function NavLink({ href, onGo, children, ...rest }) {
     <Link href={href} {...rest}>
       {children}
     </Link>
+  );
+}
+
+/** Usluge in the bar and in the floating pill: the word goes to /usluge,
+    and pointing at it (or pressing the arrow beside it) opens the five
+    service pages and a way to all of them. */
+function ServicesDrop({ href, label }) {
+  const [open, setOpen] = useState(false);
+  const wrap = useRef(null);
+  const timer = useRef(0);
+  const id = useId();
+  const show = () => {
+    clearTimeout(timer.current);
+    setOpen(true);
+  };
+  // a short grace, so a pointer crossing the gap to the panel keeps it
+  const hide = () => {
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setOpen(false), 160);
+  };
+  useEffect(() => () => clearTimeout(timer.current), []);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      wrap.current?.querySelector("button")?.focus();
+    };
+    const onDown = (e) => {
+      if (!wrap.current?.contains(e.target)) setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", onDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", onDown);
+    };
+  }, [open]);
+  const close = () => setOpen(false);
+
+  return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: hover intent only; the link and the arrow button carry the interaction
+    <div
+      ref={wrap}
+      className={n.drop}
+      data-open={open ? "true" : undefined}
+      onPointerEnter={(e) => e.pointerType === "mouse" && show()}
+      onPointerLeave={(e) => e.pointerType === "mouse" && hide()}
+      onBlur={(e) => {
+        if (!wrap.current?.contains(e.relatedTarget)) setOpen(false);
+      }}
+    >
+      <Link href={href} className={n.dropLink}>
+        {label}
+      </Link>
+      <button
+        type="button"
+        className={n.dropBtn}
+        aria-expanded={open}
+        aria-controls={id}
+        aria-label="Prikaži usluge"
+        onClick={() => setOpen((v) => !v)}
+      >
+        <ChevronDown size={14} />
+      </button>
+      <AnimatePresence>
+        {open
+          ? <motion.div
+              id={id}
+              className={n.panel}
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -6, scale: 0.98 }}
+              transition={{ duration: 0.3, ease: EASE }}
+            >
+              <ul className={n.panelList}>
+                {SERVICES.map((sv, i) => {
+                  const Sticker = STICKERS[sv.id];
+                  return (
+                    <motion.li
+                      key={sv.id}
+                      initial={{ opacity: 0, x: -6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        delay: 0.04 + i * 0.03,
+                        duration: 0.3,
+                        ease: EASE,
+                      }}
+                    >
+                      <Link
+                        href={sv.page}
+                        className={n.panelItem}
+                        onClick={close}
+                      >
+                        <span className={n.panelSticker}>
+                          <Sticker size="100%" />
+                        </span>
+                        <span className={n.panelText}>
+                          <b>{sv.footer}</b>
+                          <small>{sv.title}</small>
+                        </span>
+                      </Link>
+                    </motion.li>
+                  );
+                })}
+              </ul>
+              <Link href={href} className={n.panelAll} onClick={close}>
+                <span className={n.panelAllLabel}>Sve usluge</span>
+                <b>Usluge digitalnog marketinga</b>
+                <span className={n.panelAllNote}>
+                  Jedna usluga ili ceo marketing kao jedan sistem.
+                </span>
+                <span className={n.panelAllArrow}>
+                  <ArrowRight size={16} />
+                </span>
+              </Link>
+            </motion.div>
+          : null}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/** One link of the bar or the pill; Usluge brings its panel. */
+function BarLink({ l, onGo }) {
+  if (l.services) return <ServicesDrop href={l.href} label={l.label} />;
+  return (
+    <NavLink href={l.href} onGo={onGo}>
+      {l.label}
+    </NavLink>
   );
 }
 
@@ -93,7 +233,7 @@ function Menu({ onClose, onBook, onGo, links }) {
     >
       <div className={n.sheetMain}>
         <nav className={n.sheetLinks} aria-label="Stranica">
-          {links.map((l, i) => (
+          {links.map((l, i) => [
             <motion.a
               key={l.href}
               href={l.href}
@@ -111,8 +251,31 @@ function Menu({ onClose, onBook, onGo, links }) {
             >
               {l.label}
               <ArrowRight size={15} />
-            </motion.a>
-          ))}
+            </motion.a>,
+            l.services
+              ? <motion.div
+                  key={`${l.href}-sub`}
+                  className={n.sheetSub}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.07 + i * 0.04,
+                    duration: 0.35,
+                    ease: EASE,
+                  }}
+                >
+                  {SERVICES.map((sv) => {
+                    const Sticker = STICKERS[sv.id];
+                    return (
+                      <Link key={sv.id} href={sv.page} onClick={onClose}>
+                        <Sticker size={22} />
+                        {sv.footer}
+                      </Link>
+                    );
+                  })}
+                </motion.div>
+              : null,
+          ])}
         </nav>
         <a className={n.login} href={CONTACT.hub}>
           <span className={n.loginIcon}>
@@ -249,9 +412,7 @@ export default function Nav() {
         <Logo home={home} onGo={go} />
         <nav className={n.links} aria-label="Glavna">
           {links.map((l) => (
-            <NavLink key={l.href} href={l.href} onGo={go}>
-              {l.label}
-            </NavLink>
+            <BarLink key={l.href} l={l} onGo={go} />
           ))}
         </nav>
         <div className={n.actions}>
@@ -298,9 +459,7 @@ export default function Nav() {
               <Logo home={home} onGo={go} />
               <nav className={n.pillLinks} aria-label="Brze veze">
                 {links.slice(0, 4).map((l) => (
-                  <NavLink key={l.href} href={l.href} onGo={go}>
-                    {l.label}
-                  </NavLink>
+                  <BarLink key={l.href} l={l} onGo={go} />
                 ))}
               </nav>
               <span className={n.pillIcons}>

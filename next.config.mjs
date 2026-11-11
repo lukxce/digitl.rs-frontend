@@ -5,6 +5,9 @@ const nextConfig = {
   async redirects() {
     return [
       { source: "/v2home", destination: "/v1", permanent: true },
+      // the /v2 test became the homepage (11 Nov 2026); not permanent, so
+      // the address can hold the next test
+      { source: "/v2", destination: "/", permanent: false },
       { source: "/v4", destination: "/", permanent: true },
       { source: "/v5", destination: "/", permanent: true },
       { source: "/v6", destination: "/", permanent: true },

@@ -159,7 +159,8 @@ export function useVisible(ref, amount = 0.35) {
   return v;
 }
 
-const useIsoLayout = typeof window === "undefined" ? useEffect : useLayoutEffect;
+const useIsoLayout =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /** Rolls from the previous value to `target` instead of jumping. The server
     and the first paint show the real number, so a crawler or a link preview
@@ -344,8 +345,9 @@ export function Head({ label, title, intro, id, center = false }) {
 }
 
 /** The line that closes a section and hands over to the next one. */
-export function Bridge({ text, to, label }) {
-  const { scrollTo } = useApp();
+// `to` glides to a section below; `book` opens the booking dialog instead
+export function Bridge({ text, to, label, book = false }) {
+  const { scrollTo, openBooking } = useApp();
   return (
     <Reveal className={b.bridge}>
       <span className={b.bridgeLine} aria-hidden="true" />
@@ -353,7 +355,7 @@ export function Bridge({ text, to, label }) {
       <button
         type="button"
         className={b.bridgeBtn}
-        onClick={() => scrollTo(to)}
+        onClick={() => (book ? openBooking() : scrollTo(to))}
       >
         {label}
         <span className={b.bridgeArrow}>

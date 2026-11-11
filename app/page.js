@@ -5,7 +5,7 @@ import HomeV5 from "./_home/HomeV5";
 export const revalidate = 60;
 
 /* Title and description come from the layout, which carries the site's
-   real ones. The previous homepages live on, out of the index, at /v2
+   real ones. The previous homepages live on, out of the index, at /v1
    (the original) and /v3 (the bento). */
 export const metadata = { alternates: { canonical: "/" } };
 
