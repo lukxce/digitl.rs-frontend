@@ -244,12 +244,11 @@ function Card({ x, i, rank, wide, onAsk, look }) {
 
 export default function Services({ look }) {
   const { plan, book } = useApp();
-  // the five marketing services plus AI and automation; the plan ranks the
-  // five, and whatever it leaves out keeps its place after them
-  const all = SERVICE_PAGES.map((x) => x.id);
+  // Top row, wide: paid ads (or the plan's first pick) and AI; below, the
+  // other four as squares (Luka, 13 Nov 2026)
   const order = plan
-    ? [...plan.ranked, ...all.filter((id) => !plan.ranked.includes(id))]
-    : all;
+    ? [plan.ranked[0], "ai", ...plan.ranked.slice(1)]
+    : ["ads", "ai", "seo", "web", "social", "brand"];
   const list = order.map((id) => SERVICE_PAGES.find((x) => x.id === id));
 
   return (

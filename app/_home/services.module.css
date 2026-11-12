@@ -21,7 +21,7 @@
   color: var(--accent);
 }
 
-/* six cards: two wide on top, four below */
+/* six cards: two wide ones lying down on top, four near-squares below */
 .grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -401,6 +401,62 @@
   background: var(--accent);
   color: #fff;
 }
+/* desktop: the wide cards lie down (scene left, words right), the four
+   below stay close to square; the back of a small card drops the list so
+   it fits the same height */
+@media (min-width: 1000px) {
+  .front,
+  .back {
+    min-height: 340px;
+  }
+  .wide .front {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "top top" "art text" "art hint";
+    column-gap: 28px;
+    row-gap: 14px;
+  }
+  .wide .frontTop {
+    grid-area: top;
+  }
+  .wide .art {
+    grid-area: art;
+    min-height: 0;
+  }
+  .wide .frontText {
+    grid-area: text;
+    align-self: end;
+  }
+  .wide .hint {
+    grid-area: hint;
+  }
+  .cell:not(.wide) .art {
+    min-height: 140px;
+  }
+  .cell:not(.wide) .art > span {
+    transform: scale(0.86);
+  }
+  .cell:not(.wide) .frontText b {
+    font-size: clamp(22px, 1.8vw, 26px);
+  }
+  .cell:not(.wide) .frontText em {
+    font-size: 14.5px;
+  }
+  /* a small card's back: what we do, what we measure, the two buttons;
+     the list of what's included lives on the service page */
+  .cell:not(.wide) .rows {
+    display: none;
+  }
+  .cell:not(.wide) .lead {
+    font-size: 16px;
+    line-height: 1.35;
+  }
+  .wide .hint {
+    justify-self: start;
+  }
+}
+
 /* the two wide cards: the line across the top; under it the list on the
    left, what we measure and the button on the right */
 @media (min-width: 1000px) {
