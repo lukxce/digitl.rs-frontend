@@ -16,7 +16,7 @@
 
 import { animate, motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Check } from "../_home/icons";
+import { ArrowRight, Check, X } from "../_home/icons";
 import w from "./widgets.module.css";
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -185,7 +185,9 @@ function Compare({ lines }) {
             {c.items.map((t) => (
               <div key={t} className={w.item} role="listitem">
                 <i aria-hidden="true">
-                  {i === cols.length - 1 ? <Check size={12} strokeWidth={3} /> : "·"}
+                  {i === cols.length - 1
+                    ? <Check size={12} strokeWidth={3} />
+                    : <X size={11} strokeWidth={3} />}
                 </i>
                 <span>
                   <Rich text={t} />
@@ -238,12 +240,14 @@ function Steps({ lines }) {
           transition={{ ...rise.transition, delay: i * 0.08 }}
         >
           <span className={w.stepNo}>{i + 1}</span>
-          <b>{t}</b>
-          {text
-            ? <span>
-                <Rich text={text} />
-              </span>
-            : null}
+          <span className={w.stepBody}>
+            <b>{t}</b>
+            {text
+              ? <span>
+                  <Rich text={text} />
+                </span>
+              : null}
+          </span>
         </motion.div>
       ))}
     </div>

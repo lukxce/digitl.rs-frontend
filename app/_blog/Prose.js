@@ -166,7 +166,11 @@ function Node({ n, k }) {
     case "rule":
       return <hr />;
     case "widget":
-      return <Widget kind={n.kind} lines={n.lines} />;
+      return (
+        <div className={p.piece}>
+          <Widget kind={n.kind} lines={n.lines} />
+        </div>
+      );
     case "legacy":
       return (
         <div className={p.legacy}>

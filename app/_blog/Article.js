@@ -161,41 +161,40 @@ export default async function Article({ article, more }) {
           </div>
         </header>
 
-        {keys.length
-          ? <section className={b.container} aria-labelledby="kljucne-poruke">
-              <Reveal className={s.keys}>
-                <div className={s.keysHead}>
-                  <h2 id="kljucne-poruke" className={s.keysLabel}>
-                    Ključne poruke
-                  </h2>
-                  <span className={s.keysCount}>{keys.length} stvari za poneti</span>
-                </div>
-                <ul className={s.keysList}>
-                  {keys.map((k, i) => (
-                    // biome-ignore lint/suspicious/noArrayIndexKey: a fixed list from the CMS
-                    <li key={i} className={s.key}>
-                      <span className={s.keyTick} aria-hidden="true">
-                        <Check size={14} strokeWidth={3.2} />
-                      </span>
-                      <p>
-                        {k.title
-                          ? <strong>
-                              <Tie>{k.title}</Tie>
-                            </strong>
-                          : null}
-                        {k.title && k.description ? " " : null}
-                        {k.description ? <Tie>{k.description}</Tie> : null}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </section>
-          : null}
-
         <div className={b.container}>
           <div className={s.layout}>
             <div className={s.main}>
+            {keys.length
+              ? <section className={s.keysWrap} aria-labelledby="kljucne-poruke">
+                  <Reveal className={s.keys}>
+                    <div className={s.keysHead}>
+                      <h2 id="kljucne-poruke" className={s.keysLabel}>
+                        Ključne poruke
+                      </h2>
+                      <span className={s.keysCount}>{keys.length} stvari za poneti</span>
+                    </div>
+                    <ul className={s.keysList}>
+                      {keys.map((k, i) => (
+                        // biome-ignore lint/suspicious/noArrayIndexKey: a fixed list from the CMS
+                        <li key={i} className={s.key}>
+                          <span className={s.keyTick} aria-hidden="true">
+                            <Check size={14} strokeWidth={3.2} />
+                          </span>
+                          <p>
+                            {k.title
+                              ? <strong>
+                                  <Tie>{k.title}</Tie>
+                                </strong>
+                              : null}
+                            {k.title && k.description ? " " : null}
+                            {k.description ? <Tie>{k.description}</Tie> : null}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </Reveal>
+                </section>
+              : null}
               {showToc ? <TocFold items={toc} /> : null}
               <div id="tekst">
                 {hasBody

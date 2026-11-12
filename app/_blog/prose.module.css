@@ -178,9 +178,15 @@ div.prose > * + * {
   }
 }
 
-/* tables scroll sideways inside their own frame */
-.prose > .table {
-  max-width: var(--wide);
+/* tables and the designed pieces sit in the same column as the text, with
+   clear air above and below (13 Nov 2026: Luka, everything on one axis) */
+div.prose > .table,
+div.prose > .piece {
+  margin-top: 2.6em;
+}
+div.prose > .table + *,
+div.prose > .piece + * {
+  margin-top: 2.6em;
 }
 .table {
   overflow-x: auto;
