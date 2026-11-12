@@ -178,7 +178,11 @@
 }
 
 /* ── type ─────────────────────────────────────────────────────────────── */
-.display {
+/* zero specificity, so a page's own size for its headline (hero .title,
+   service .title) always wins, whatever order the production build loads
+   the stylesheets in. On the live site this one used to win and the
+   homepage headline ran to five lines. */
+:where(.display) {
   font-size: clamp(44px, 6.2vw, 96px);
   font-weight: 800;
   letter-spacing: -0.05em;

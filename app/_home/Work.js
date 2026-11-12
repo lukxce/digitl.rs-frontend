@@ -3,8 +3,17 @@
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import b from "./base.module.css";
-import { ArrowUpRight, Check, ChevronDown, ChevronUp, X } from "./icons";
-import { Bridge, Counter, EASE, Head, Roll, useApp, useVisible } from "./ui";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, X } from "./icons";
+import {
+  Btn,
+  Bridge,
+  Counter,
+  EASE,
+  Head,
+  Roll,
+  useApp,
+  useVisible,
+} from "./ui";
 import w from "./work.module.css";
 
 const find = (clients, re) => clients.find((c) => re.test(c.name));
@@ -485,29 +494,6 @@ export default function Work({ clients }) {
                 : "Primeri saradnji i rezultata koje smo ostvarili sa klijentima."
             }
           />
-          {n > 1
-            ? <div className={w.controls}>
-                <span className={w.count} aria-live="polite">
-                  {pad(active + 1)} <i>/ {pad(n)}</i>
-                </span>
-                <button
-                  type="button"
-                  className={w.arrow}
-                  onClick={() => go(-1)}
-                  aria-label="Prethodni projekat"
-                >
-                  <ChevronUp size={18} />
-                </button>
-                <button
-                  type="button"
-                  className={w.arrow}
-                  onClick={() => go(1)}
-                  aria-label="Sledeći projekat"
-                >
-                  <ChevronDown size={18} />
-                </button>
-              </div>
-            : null}
         </div>
 
         {/* the cases change on the left; all of them are a click away on
@@ -535,9 +521,52 @@ export default function Work({ clients }) {
               </Slot>
             ))}
           </div>
+          {n > 1
+            ? <div className={w.controls}>
+                <span className={w.pips}>
+                  {slides.map((sl, i) => (
+                    <button
+                      key={sl.key}
+                      type="button"
+                      className={w.pip}
+                      data-on={i === active ? "true" : undefined}
+                      onClick={() => i !== active && show(i)}
+                      aria-label={`Prikaži: ${sl.name}`}
+                    />
+                  ))}
+                </span>
+                <span className={w.count} aria-live="polite">
+                  {pad(active + 1)} <i>/ {pad(n)}</i>
+                </span>
+                <span className={w.arrows}>
+                  <button
+                    type="button"
+                    className={w.arrow}
+                    onClick={() => go(-1)}
+                    aria-label="Prethodni projekat"
+                  >
+                    <ArrowLeft size={17} />
+                  </button>
+                  <button
+                    type="button"
+                    className={w.arrow}
+                    onClick={() => go(1)}
+                    aria-label="Sledeći projekat"
+                  >
+                    <ArrowRight size={17} />
+                  </button>
+                </span>
+              </div>
+            : null}
           <div className={w.side}>
             <AllCases clients={clients} />
           </div>
+          {/* on a phone the deck is enough; the rest are one tap away */}
+          <span className={w.allPhone}>
+            <Btn variant="ink" href="/projects">
+              Pogledajte sve projekte
+            </Btn>
+          </span>
         </div>
       </div>
       <div className={b.container}>
