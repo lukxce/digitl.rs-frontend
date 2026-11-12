@@ -1,4 +1,5 @@
 import { createMessage } from "../../../lib/cms.js";
+import { notifyLead } from "../../../lib/leadNotify.js";
 
 const MESSAGE_MAX_LENGTH = 4000;
 const EMAIL_MAX_LENGTH = 254;
@@ -53,12 +54,30 @@ export async function POST(request) {
     );
   }
 
+  // the page the enquiry came from, for the email (path only)
+  let page = null;
   try {
-    const data = await createMessage({ email, text });
-    return Response.json(data, { status: 201 });
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Unable to create message.";
-    return Response.json({ error: message }, { status: 502 });
-  }
+    const ref = request.headers.get("referer");
+    if (ref) page = new URL(ref).pathname.slice(0, 200);
+  } catch {}
+
+  // Save and notify independently: an enquiry counts as received when
+  // either one works, so a mail outage never loses it and vice versa.
+  const [saved, mailed] = await Promise.allSettled([
+    createMessage({ email, text, page }),
+    notifyLead({ email, text, page }),
+  ]);
+  if (saved.status === "rejected")
+    console.error("[messages] save failed:", saved.reason);
+  if (mailed.status === "rejected")
+    console.error("[messages] email failed:", mailed.reason);
+  const ok =
+    saved.status === "fulfilled" ||
+    (mailed.status === "fulfilled" && mailed.value?.sent);
+  if (!ok)
+    return Response.json(
+      { error: "Unable to receive the message." },
+      { status: 502 },
+    );
+  return Response.json({ ok: true }, { status: 201 });
 }

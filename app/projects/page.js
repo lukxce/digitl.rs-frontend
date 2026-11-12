@@ -8,9 +8,9 @@ import Shell from "../_home/Shell";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Projekti",
+  title: { absolute: "Projekti i studije slučaja | Digitl" },
   description:
-    "Izbor projekata koje smo realizovali za klijente iz različitih industrija.",
+    "Studije slučaja sa brojevima, periodom i izvorom: posete iz pretrage, pozicije na Google-u i upiti za firme iz Srbije, od lokalnih servisa do online prodavnice.",
   alternates: { canonical: "/projects" },
 };
 

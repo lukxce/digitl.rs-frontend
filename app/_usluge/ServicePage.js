@@ -12,6 +12,7 @@ import { Btn, EASE, Reveal, useApp } from "../_home/ui";
 import AiCard from "./AiCard";
 import ReportSample from "./ReportSample";
 import Rich from "./Rich";
+import { SERVICES_UPDATED } from "./slugs";
 import { STICKERS } from "./Stickers";
 import u from "./usluge.module.css";
 
@@ -314,6 +315,26 @@ function Block({ block }) {
   return null;
 }
 
+const MONTHS = [
+  "januara",
+  "februara",
+  "marta",
+  "aprila",
+  "maja",
+  "juna",
+  "jula",
+  "avgusta",
+  "septembra",
+  "oktobra",
+  "novembra",
+  "decembra",
+];
+/** "2026-11-12" -> "12. novembra 2026." */
+function srDate(iso) {
+  const [y, m, d] = iso.split("-").map(Number);
+  return `${d}. ${MONTHS[m - 1]} ${y}.`;
+}
+
 function Guide({ guide, price }) {
   const { openBooking } = useApp();
   return (
@@ -326,6 +347,16 @@ function Guide({ guide, price }) {
                 {String(i + 1).padStart(2, "0")}
               </span>
               <h2>{g.title}</h2>
+              {/* when the answers were last checked: readers and AI
+                  answers both weigh how fresh a guide is */}
+              {i === 0
+                ? <p className={u.updated}>
+                    Ažurirano{" "}
+                    <time dateTime={SERVICES_UPDATED}>
+                      {srDate(SERVICES_UPDATED)}
+                    </time>
+                  </p>
+                : null}
             </div>
             <div className={u.prose}>
               {g.body.map((blk, j) => (

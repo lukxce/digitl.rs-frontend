@@ -294,9 +294,27 @@
     margin-left: auto;
   }
 }
+/* on a phone the call stays: one tap to ring is the shortest way to us;
+   mail goes to save room */
 @media (max-width: 480px) {
   .pillIcons {
+    gap: 0;
+  }
+  .pillIcons a + a {
     display: none;
+  }
+  .pill {
+    gap: 6px;
+  }
+  .pillMenu {
+    margin-left: 0;
+    padding: 0 12px;
+  }
+  .pillIcons a {
+    width: 36px;
+    height: 36px;
+    background: var(--mist);
+    color: var(--accent);
   }
 }
 

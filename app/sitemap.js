@@ -1,5 +1,5 @@
 import { tryGetClientShowcases } from "../lib/cms.js";
-import { SERVICE_SLUGS } from "./_usluge/slugs.js";
+import { SERVICE_SLUGS, SERVICES_UPDATED } from "./_usluge/slugs.js";
 
 const SITE_URL = "https://www.digitl.rs";
 
@@ -11,10 +11,21 @@ export default async function sitemap() {
   const showcases = await tryGetClientShowcases(200);
 
   const staticEntries = [
-    { url: SITE_URL, changeFrequency: "weekly", priority: 1 },
-    { url: `${SITE_URL}/usluge`, changeFrequency: "monthly", priority: 0.9 },
+    {
+      url: SITE_URL,
+      lastModified: SERVICES_UPDATED,
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: `${SITE_URL}/usluge`,
+      lastModified: SERVICES_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
     ...SERVICE_SLUGS.map((slug) => ({
       url: `${SITE_URL}/usluge/${slug}`,
+      lastModified: SERVICES_UPDATED,
       changeFrequency: "monthly",
       priority: 0.9,
     })),

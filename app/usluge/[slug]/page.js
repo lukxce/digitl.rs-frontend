@@ -4,7 +4,7 @@ import Shell from "../../_home/Shell";
 import { PAGES } from "../../_usluge/content";
 import { plain } from "../../_usluge/Rich";
 import ServicePage from "../../_usluge/ServicePage";
-import { SERVICE_SLUGS } from "../../_usluge/slugs";
+import { SERVICE_SLUGS, SERVICES_UPDATED } from "../../_usluge/slugs";
 
 const SITE = "https://www.digitl.rs";
 
@@ -27,6 +27,15 @@ export async function generateMetadata({ params }) {
       description: page.seo.description,
       url: `${SITE}/usluge/${slug}`,
       type: "website",
+      images: [
+        { url: `/og/${slug}.png`, width: 1200, height: 630, alt: page.h1 },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.seo.title,
+      description: page.seo.description,
+      images: [`/og/${slug}.png`],
     },
   };
 }
@@ -43,7 +52,27 @@ function jsonLd(page) {
       serviceType: page.label,
       description: plain(page.lead),
       url,
+      image: `${SITE}/og/${page.slug}.png`,
+      dateModified: SERVICES_UPDATED,
       areaServed: { "@type": "Country", name: "Srbija" },
+      // the starting price, where one is published on the page
+      ...(page.price?.from
+        ? {
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "EUR",
+              price: page.price.from,
+              priceSpecification: {
+                "@type": "PriceSpecification",
+                minPrice: page.price.from,
+                priceCurrency: "EUR",
+                ...(page.price.per === "mesečno"
+                  ? { unitText: "MON", billingDuration: "P1M" }
+                  : {}),
+              },
+            },
+          }
+        : {}),
       provider: {
         "@type": "Organization",
         "@id": `${SITE}/#organization`,
@@ -56,7 +85,12 @@ function jsonLd(page) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Početna", item: SITE },
-        { "@type": "ListItem", position: 2, name: "Usluge", item: `${SITE}/usluge` },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Usluge",
+          item: `${SITE}/usluge`,
+        },
         { "@type": "ListItem", position: 3, name: page.h1, item: url },
       ],
     },

@@ -9,3 +9,7 @@ export const SERVICE_SLUGS = [
   "brending-i-vizuelni-identitet",
   "ai-automatizacija",
 ];
+
+/* When the service pages' copy last changed. Shown on the pages ("Ažurirano"),
+   in their structured data and in the sitemap; bump it with each copy round. */
+export const SERVICES_UPDATED = "2026-11-12";

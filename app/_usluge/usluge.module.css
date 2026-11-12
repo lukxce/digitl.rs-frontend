@@ -1035,3 +1035,11 @@
   font-size: 14px;
   font-weight: 700;
 }
+
+/* the guide's freshness line, under the first question */
+.updated {
+  margin-top: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
