@@ -14,55 +14,61 @@
 }
 .chips {
   display: flex;
-  gap: 6px;
+  gap: 2px;
   min-width: 0;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--mist);
   overflow-x: auto;
   scrollbar-width: none;
 }
 .chips::-webkit-scrollbar {
   display: none;
 }
+/* a segmented switch: the chosen service is a white key in the grey tray,
+   marked by a blue dot; the rest are plain words */
 .chip {
   display: inline-flex;
   flex: none;
   align-items: center;
-  gap: 5px;
+  gap: 7px;
   height: 30px;
-  padding: 0 12px 0 7px;
+  padding: 0 13px;
   border-radius: 999px;
-  background: var(--mist);
+  background: transparent;
   font-size: 13px;
   font-weight: 700;
   color: var(--ink-3);
   transition:
     background 0.35s var(--ease),
-    color 0.35s var(--ease);
+    color 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
 }
 .chip:hover {
-  background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--ink);
 }
 .mark {
-  display: grid;
-  place-items: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fff;
-  color: transparent;
-  box-shadow: var(--ring);
-  transition:
-    background 0.35s var(--ease),
-    color 0.35s var(--ease);
+  display: none;
 }
 .chip[data-on] {
-  background: var(--accent);
-  color: #fff;
+  padding-left: 11px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow:
+    var(--ring),
+    0 2px 6px -2px rgb(11 11 22 / 0.18);
 }
 .chip[data-on] .mark {
-  background: rgb(255 255 255 / 0.22);
-  color: #fff;
-  box-shadow: none;
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: transparent;
+  overflow: hidden;
+}
+.chip[data-on] .mark svg {
+  display: none;
 }
 @media (max-width: 560px) {
   .row {
@@ -72,25 +78,11 @@
   .label {
     display: none;
   }
-  .chips {
-    gap: 4px;
-  }
   .chip {
-    height: 30px;
     padding: 0 10px;
     font-size: 12.5px;
   }
-  /* on phones only the chosen one carries its check, so all five fit */
-  .chip:not([data-on]) .mark {
-    display: none;
-  }
   .chip[data-on] {
-    padding-left: 6px;
+    padding-left: 9px;
   }
-}
-
-/* with the hero cards' skin: the chosen service's check sits on lime */
-:global([data-skin]) .chip[data-on] .mark {
-  background: var(--secondary);
-  color: var(--ink);
 }

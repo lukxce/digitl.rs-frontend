@@ -50,10 +50,14 @@
   .grid {
     display: flex;
     gap: 10px;
+    /* sideways only: overflow-x alone turns the other axis to auto too,
+       so the lift and the flip let the row scroll up and cut the cards */
     overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     margin: clamp(28px, 6vw, 40px) -16px 0;
-    padding: 0 16px 8px;
+    padding: 6px 16px 8px;
     scrollbar-width: none;
   }
   .grid::-webkit-scrollbar {
@@ -121,9 +125,11 @@
 .flip[data-flipped="true"] .back {
   visibility: visible;
 }
-.front:hover {
-  box-shadow: var(--lift);
-  transform: translateY(-3px);
+@media (hover: hover) {
+  .front:hover {
+    box-shadow: var(--lift);
+    transform: translateY(-3px);
+  }
 }
 /* both sides of a card wear the same colour */
 .front,
