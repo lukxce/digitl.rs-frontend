@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import b from "./base.module.css";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, X } from "./icons";
 import {
-  Btn,
   Bridge,
   Counter,
   EASE,
@@ -364,16 +363,18 @@ const CARDS = [
 const BEHIND = 2;
 const pad = (n) => String(n).padStart(2, "0");
 
-function usePeek() {
-  const [peek, setPeek] = useState(22);
+/** On a phone the cards peek out less, and "see all" is the deck's last
+    card instead of a card beside it. */
+function usePhone() {
+  const [phone, setPhone] = useState(false);
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 760px)");
-    const set = () => setPeek(mq.matches ? 22 : 14);
+    const mq = window.matchMedia("(max-width: 759px)");
+    const set = () => setPhone(mq.matches);
     set();
     mq.addEventListener("change", set);
     return () => mq.removeEventListener("change", set);
   }, []);
-  return peek;
+  return phone;
 }
 
 /** One card of the deck. `k` is its place: 0 in front, 1 and 2 peeking out
@@ -437,7 +438,8 @@ function Slot({ k, was, n, peek, name, onShow, children }) {
 
 export default function Work({ clients }) {
   const { plan } = useApp();
-  const peek = usePeek();
+  const phone = usePhone();
+  const peek = phone ? 14 : 22;
   const available = CARDS.map((x) => ({ ...x, c: find(clients, x.re) })).filter(
     (x) => x.c,
   );
@@ -453,6 +455,12 @@ export default function Work({ clients }) {
       <C c={c} closest={plan?.match === c.slug} front={front} />
     ),
   }));
+  if (phone)
+    slides.push({
+      key: "all",
+      name: "Svi projekti",
+      render: () => <AllCases clients={clients} />,
+    });
   const n = slides.length;
   // where the deck is, and where it was before the last move
   const [pos, setPos] = useState({ active: 0, prev: 0 });
@@ -561,12 +569,6 @@ export default function Work({ clients }) {
           <div className={w.side}>
             <AllCases clients={clients} />
           </div>
-          {/* on a phone the deck is enough; the rest are one tap away */}
-          <span className={w.allPhone}>
-            <Btn variant="ink" href="/projects">
-              Pogledajte sve projekte
-            </Btn>
-          </span>
         </div>
       </div>
       <div className={b.container}>

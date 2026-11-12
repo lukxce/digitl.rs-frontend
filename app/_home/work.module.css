@@ -976,17 +976,45 @@
 .side {
   display: grid;
 }
-.allPhone {
-  display: none;
-}
-/* phones: the deck and a plain way to all the cases, no side card */
+/* phones: no side card; "see all" is the deck's last card */
 @media (max-width: 759px) {
   .side {
     display: none;
   }
-  .allPhone {
-    display: block;
-    margin-top: 10px;
+  .deck .ink {
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 24px 20px 20px;
+  }
+  /* the four sites take the room the other cases give their story */
+  .deck .ink .allSites {
+    flex: 1;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    margin-top: 4px;
+  }
+  .deck .ink .allSite {
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+  /* the picture must not size the tile, or the rows grow past the card */
+  .deck .ink .allSite img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .deck .ink {
+    align-self: stretch;
+    height: 100%;
+  }
+  .deck .ink::after {
+    right: 22px;
+    bottom: auto;
+    top: 24px;
+    width: 52px;
+    height: 52px;
+    opacity: 0.14;
   }
 }
 .deck {
