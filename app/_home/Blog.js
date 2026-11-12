@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import b from "./base.module.css";
 import l from "./blog.module.css";
-import { ArrowRight, ArrowUpRight, Check } from "./icons";
+import { ArrowRight, Check } from "./icons";
 import { EASE, Head } from "./ui";
 
 export const date = (iso) =>
@@ -15,20 +15,6 @@ export const date = (iso) =>
         year: "numeric",
       })
     : "";
-
-function Meta({ a }) {
-  return (
-    <span className={l.meta}>
-      {a.avatar
-        ? // eslint-disable-next-line @next/next/no-img-element
-          <img src={a.avatar} alt="" />
-        : null}
-      {a.author ? <b>{a.author}</b> : null}
-      <span>{date(a.publishedAt)}</span>
-      {a.minutes ? <span>{a.minutes} min čitanja</span> : null}
-    </span>
-  );
-}
 
 export function Newsletter({ id = "home-news" }) {
   const [email, setEmail] = useState("");
@@ -124,6 +110,9 @@ export function Newsletter({ id = "home-news" }) {
   );
 }
 
+/* The blog on the homepage, in the hero cards' language: white cards in a
+   grey tray, the newest one large with its cover, the next three as rows,
+   each key an arrow in a circle. */
 export default function Blog({ articles }) {
   if (!articles.length) return null;
   const [lead, ...rest] = articles;
@@ -139,54 +128,50 @@ export default function Blog({ articles }) {
             title="Blog."
             intro="Praktični uvidi o marketingu, rastu i izgradnji brendova koji se izdvajaju."
           />
-          <a className={l.all} href="/journal">
-            Svi tekstovi <ArrowUpRight size={15} />
+          <a className={l.allKey} href="/journal">
+            Svi tekstovi
+            <i>
+              <ArrowRight size={15} />
+            </i>
           </a>
         </div>
 
-        <div className={l.layout}>
-          {/* the latest article, told like the front of a magazine */}
+        <div className={l.tray}>
           <motion.a
             href={`/journal/${lead.slug}`}
-            className={l.lead}
+            className={l.leadCard}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7, ease: EASE }}
           >
-            <span className={l.leadCover}>
+            <span className={l.leadPic}>
               {lead.cover
                 ? // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    className={l.leadImg}
-                    src={lead.cover}
-                    alt=""
-                    loading="lazy"
-                  />
+                  <img src={lead.cover} alt="" loading="lazy" />
                 : null}
-              <span className={l.new}>Najnovije</span>
             </span>
-            <span className={l.leadBody}>
-              <Meta a={lead} />
-              <b className={l.leadTitle}>{lead.title}</b>
-              {lead.description
-                ? <span className={l.excerpt}>{lead.description}</span>
-                : null}
-              <span className={l.read}>
-                Pročitajte tekst <ArrowRight size={15} />
+            <span className={l.leadText}>
+              <span className={l.when}>
+                <span className={l.newChip}>Najnovije</span>
+                {date(lead.publishedAt)}
+                {lead.minutes ? ` · ${lead.minutes} min čitanja` : ""}
               </span>
+              <b>{lead.title}</b>
+              {lead.description ? <em>{lead.description}</em> : null}
             </span>
+            <i className={l.key} aria-hidden="true">
+              <ArrowRight size={18} />
+            </i>
           </motion.a>
 
-          {/* the next ones as a reading list */}
           {more.length
-            ? <div className={l.list}>
-                <span className={l.listLabel}>Još sa bloga</span>
+            ? <div className={l.rows}>
                 {more.map((a, i) => (
                   <motion.a
                     key={a.slug}
                     href={`/journal/${a.slug}`}
-                    className={l.item}
+                    className={l.rowCard}
                     initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
@@ -196,24 +181,22 @@ export default function Blog({ articles }) {
                       ease: EASE,
                     }}
                   >
-                    <span className={l.itemBody}>
-                      <span className={l.itemMeta}>
-                        <span>{date(a.publishedAt)}</span>
-                        {a.minutes
-                          ? <span>{a.minutes} min čitanja</span>
-                          : null}
-                      </span>
-                      <b className={l.itemTitle}>{a.title}</b>
-                      {a.description
-                        ? <span className={l.itemExcerpt}>{a.description}</span>
-                        : null}
-                    </span>
-                    <span className={l.thumb}>
+                    <span className={l.rowPic}>
                       {a.cover
                         ? // eslint-disable-next-line @next/next/no-img-element
                           <img src={a.cover} alt="" loading="lazy" />
                         : null}
                     </span>
+                    <span className={l.rowText}>
+                      <span className={l.when}>
+                        {date(a.publishedAt)}
+                        {a.minutes ? ` · ${a.minutes} min` : ""}
+                      </span>
+                      <b>{a.title}</b>
+                    </span>
+                    <i className={l.keySm} aria-hidden="true">
+                      <ArrowRight size={15} />
+                    </i>
                   </motion.a>
                 ))}
               </div>
