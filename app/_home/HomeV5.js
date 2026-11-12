@@ -1,5 +1,6 @@
 "use client";
 
+import Blog from "./Blog";
 import Booking from "./Booking";
 import b from "./base.module.css";
 import Contact from "./Contact";
@@ -34,6 +35,7 @@ import Work from "./Work";
     stylesheet. */
 export default function HomeV5({
   clients,
+  articles = [],
   fonts,
   look = "v2",
   skin = CARD_SKIN,
@@ -61,6 +63,8 @@ export default function HomeV5({
           {/* the site check comes back right before the form (Luka, 12 Nov
               2026); what it measures is carried into the form */}
           <Check />
+          {/* the blog sits under the site check (Luka, 13 Nov 2026) */}
+          <Blog articles={articles} />
           <Contact />
           <Loop />
           <Faq />

@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 
 /* The blog is off the site for now (Luka, 10 Nov 2026): the old posts were
    industry news and the site is to read as an agency's, page by service.
+   Back on 13 Nov 2026 with the new posts written to the blog-writer rules.
    Their addresses answer 410 Gone, which tells search engines the pages were
    removed on purpose, so they drop out of the index faster than with a 404.
    The posts themselves are still in Sanity. To bring the blog back, set
    BLOG_LIVE to true and put Blog back on the homepage, in the nav and in the
    sitemap. */
-export const BLOG_LIVE = false;
+export const BLOG_LIVE = true;
 
 const GONE = `<!doctype html><html lang="sr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">

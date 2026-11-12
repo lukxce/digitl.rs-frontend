@@ -1,4 +1,4 @@
-import { getClients } from "./_home/data";
+import { getArticles, getClients } from "./_home/data";
 import { sans } from "./_home/font";
 import { SERVICE_PAGES } from "./_home/content";
 import HomeV5 from "./_home/HomeV5";
@@ -64,7 +64,7 @@ const WEBSITE = {
 };
 
 export default async function Home() {
-  const clients = await getClients();
+  const [clients, articles] = await Promise.all([getClients(), getArticles()]);
   return (
     <>
       <script
@@ -74,7 +74,7 @@ export default async function Home() {
           __html: JSON.stringify([ORGANIZATION, WEBSITE]),
         }}
       />
-      <HomeV5 clients={clients} fonts={sans.variable} />
+      <HomeV5 clients={clients} articles={articles} fonts={sans.variable} />
     </>
   );
 }

@@ -1,14 +1,17 @@
-import { tryGetClientShowcases } from "../lib/cms.js";
+import { tryGetArticlesForHome, tryGetClientShowcases } from "../lib/cms.js";
 import { SERVICE_SLUGS, SERVICES_UPDATED } from "./_usluge/slugs.js";
 
 const SITE_URL = "https://www.digitl.rs";
 
 export const revalidate = 3600; // refresh the sitemap every hour
 
-/* The blog is off the site for now (see proxy.js), so its posts and /journal
-   are left out. The service pages are static, so they are listed by hand. */
+/* The service pages are static, so they are listed by hand; projects and
+   blog posts come from Sanity. */
 export default async function sitemap() {
-  const showcases = await tryGetClientShowcases(200);
+  const [showcases, articles] = await Promise.all([
+    tryGetClientShowcases(200),
+    tryGetArticlesForHome(200),
+  ]);
 
   const staticEntries = [
     {
@@ -30,6 +33,7 @@ export default async function sitemap() {
       priority: 0.9,
     })),
     { url: `${SITE_URL}/projects`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/journal`, changeFrequency: "weekly", priority: 0.8 },
   ];
 
   const showcaseEntries = showcases.map((showcase) => ({
@@ -39,5 +43,12 @@ export default async function sitemap() {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...showcaseEntries];
+  const articleEntries = articles.map((article) => ({
+    url: `${SITE_URL}/journal/${encodeURIComponent(article.slug)}`,
+    lastModified: article.publishedAt ?? undefined,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticEntries, ...showcaseEntries, ...articleEntries];
 }
