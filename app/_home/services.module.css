@@ -401,21 +401,26 @@
   background: var(--accent);
   color: #fff;
 }
-/* desktop: the wide cards lie down (scene left, words right), the four
-   below stay close to square; the back of a small card drops the list so
-   it fits the same height */
+/* desktop, as the approved PNG: the two wide cards on top lie down and
+   stay low (scene left; number, words and the hint right), the four below
+   are near-squares. Each back drops the list of what's included (it lives
+   on the service page) so it fits its front's height. */
 @media (min-width: 1000px) {
-  .front,
-  .back {
+  .wide .front,
+  .wide .back {
+    min-height: 240px;
+  }
+  .cell:not(.wide) .front,
+  .cell:not(.wide) .back {
     min-height: 340px;
   }
   .wide .front {
     display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-columns: 240px minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
-    grid-template-areas: "top top" "art text" "art hint";
+    grid-template-areas: "art top" "art text" "art hint";
     column-gap: 28px;
-    row-gap: 14px;
+    row-gap: 10px;
   }
   .wide .frontTop {
     grid-area: top;
@@ -424,18 +429,29 @@
     grid-area: art;
     min-height: 0;
   }
+  .wide .art > span {
+    transform: none;
+  }
   .wide .frontText {
     grid-area: text;
     align-self: end;
   }
+  .wide .frontText b {
+    font-size: 28px;
+  }
+  .wide .frontText em {
+    font-size: 14.5px;
+  }
   .wide .hint {
     grid-area: hint;
+    justify-self: start;
   }
   .cell:not(.wide) .art {
-    min-height: 140px;
+    min-height: 120px;
   }
+  /* zoom, not transform: the scene's box shrinks too, so the card does */
   .cell:not(.wide) .art > span {
-    transform: scale(0.86);
+    zoom: 0.78;
   }
   .cell:not(.wide) .frontText b {
     font-size: clamp(22px, 1.8vw, 26px);
@@ -443,17 +459,25 @@
   .cell:not(.wide) .frontText em {
     font-size: 14.5px;
   }
-  /* a small card's back: what we do, what we measure, the two buttons;
-     the list of what's included lives on the service page */
-  .cell:not(.wide) .rows {
+  .backBody .rows {
     display: none;
   }
   .cell:not(.wide) .lead {
-    font-size: 16px;
+    font-size: 15.5px;
     line-height: 1.35;
   }
-  .wide .hint {
-    justify-self: start;
+  .cell:not(.wide) .actions {
+    gap: 6px;
+  }
+  .wide .back .lead {
+    font-size: 19px;
+    line-height: 1.25;
+  }
+  .cell:not(.wide) .ask,
+  .cell:not(.wide) .more {
+    height: 36px;
+    padding: 0 12px;
+    font-size: 13px;
   }
 }
 
@@ -462,9 +486,9 @@
 @media (min-width: 1000px) {
   .wide .backBody {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas: "lead lead" "rows fact" "rows ask";
-    gap: 14px 28px;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: "lead fact" "lead ask";
+    gap: 12px 28px;
   }
   .wide .lead {
     max-width: 23em;
