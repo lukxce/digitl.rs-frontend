@@ -323,6 +323,42 @@ function Klima({ c, closest, front }) {
   );
 }
 
+/** The deck's last card on a phone: a bundle of the sites, the front one
+    whole and the rest fading behind it, and one blue key in the middle.
+    It says "there are more", not "here are four". */
+function AllBundle({ clients }) {
+  const ref = useRef(null);
+  const run = useVisible(ref, 0.4);
+  const sites = clients.slice(0, 4);
+  return (
+    <a ref={ref} href="/projects" className={`${w.card} ${w.bundleCard}`}>
+      <span className={w.bundleHead}>
+        <span className={w.allNum}>
+          <Roll value={50} run={run} ms={1600} suffix="+" />
+        </span>
+        <span className={w.bundleText}>
+          uspešnih saradnji, od majstora iz Niša do distributera sa hiljadama
+          proizvoda.
+        </span>
+      </span>
+      <span className={w.bundle} aria-hidden="true">
+        {sites.map((c, i) => (
+          <span key={c.slug} className={w.bundleSite} data-i={i}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={c.cover} alt="" loading="lazy" />
+          </span>
+        ))}
+      </span>
+      <span className={w.bundleBtn}>
+        Pogledajte sve projekte
+        <i>
+          <ArrowRight size={16} />
+        </i>
+      </span>
+    </a>
+  );
+}
+
 /** Beside the deck: how many there are in all, and the way to them. */
 function AllCases({ clients }) {
   const ref = useRef(null);
@@ -459,7 +495,7 @@ export default function Work({ clients }) {
     slides.push({
       key: "all",
       name: "Svi projekti",
-      render: () => <AllCases clients={clients} />,
+      render: () => <AllBundle clients={clients} />,
     });
   const n = slides.length;
   // where the deck is, and where it was before the last move

@@ -981,41 +981,116 @@
   .side {
     display: none;
   }
-  .deck .ink {
-    justify-content: flex-start;
-    gap: 16px;
-    padding: 24px 20px 20px;
-  }
-  /* the four sites take the room the other cases give their story */
-  .deck .ink .allSites {
-    flex: 1;
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    margin-top: 4px;
-  }
-  .deck .ink .allSite {
-    aspect-ratio: auto;
-    min-height: 0;
-  }
-  /* the picture must not size the tile, or the rows grow past the card */
-  .deck .ink .allSite img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .deck .ink {
-    align-self: stretch;
-    height: 100%;
-  }
-  .deck .ink::after {
-    right: 22px;
-    bottom: auto;
-    top: 24px;
-    width: 52px;
-    height: 52px;
-    opacity: 0.14;
-  }
+}
+
+/* the bundle card: white with dots like the side card, everything centred */
+.bundleCard {
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  height: 100%;
+  padding: 26px 20px 22px;
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(rgb(11 11 22 / 0.07) 1.2px, transparent 1.6px) 0 0 / 14px
+      14px,
+    radial-gradient(80% 50% at 50% 100%, rgb(42 41 255 / 0.1), transparent 70%),
+    #fff;
+  box-shadow: var(--ring);
+}
+.bundleHead {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+.bundleCard .allNum {
+  color: var(--accent);
+  font-size: 76px;
+}
+.bundleText {
+  max-width: 17em;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink-3);
+}
+/* the sites stand one behind the other, the front one whole, the others
+   smaller, softer and fading towards the edges */
+.bundle {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 240px;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+}
+.bundleSite {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 74%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--mist);
+  box-shadow:
+    var(--ring),
+    0 22px 40px -22px rgb(11 11 22 / 0.5);
+  transform: translate(-50%, -50%);
+}
+.bundleSite img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* a pile: the front site whole at the bottom, the others behind it,
+   each higher, smaller and fainter, fading out at the top */
+.bundleSite[data-i="0"] {
+  z-index: 4;
+  width: 84%;
+  transform: translate(-50%, -26%);
+}
+.bundleSite[data-i="1"] {
+  z-index: 3;
+  width: 84%;
+  transform: translate(-50%, -52%) scale(0.9);
+  opacity: 0.7;
+}
+.bundleSite[data-i="2"] {
+  z-index: 2;
+  width: 84%;
+  transform: translate(-50%, -76%) scale(0.8);
+  opacity: 0.45;
+}
+.bundleSite[data-i="3"] {
+  z-index: 1;
+  width: 84%;
+  transform: translate(-50%, -98%) scale(0.7);
+  opacity: 0.25;
+}
+.bundleBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 7px 0 22px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 12px 28px -12px rgb(42 41 255 / 0.75);
+}
+.bundleBtn i {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.2);
 }
 .deck {
   display: grid;
