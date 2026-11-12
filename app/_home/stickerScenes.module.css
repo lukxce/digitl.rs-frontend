@@ -6,7 +6,8 @@
 .seo,
 .web,
 .social,
-.brand {
+.brand,
+.ai {
   position: relative;
   display: block;
   width: 240px;
@@ -1224,13 +1225,176 @@
   }
 }
 
+/* ── ai ───────────────────────────────────────────────────────────────── */
+.sheet {
+  left: 2px;
+  top: 30px;
+  display: grid;
+  gap: 5px;
+  width: 92px;
+  padding: 8px 9px 10px;
+  border-radius: 12px;
+  rotate: -6deg;
+}
+.sheetHead {
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--ink-3);
+}
+.sheet i {
+  display: block;
+  height: 7px;
+  border-radius: 3px;
+  background:
+    linear-gradient(90deg, var(--mist) 0 58%, transparent 58% 64%, var(--mist) 64%);
+}
+.spark {
+  left: 98px;
+  top: 64px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  animation: spark 6s var(--ease) infinite;
+}
+@keyframes spark {
+  0%,
+  8% {
+    scale: 0.6;
+    opacity: 0;
+  }
+  14%,
+  70% {
+    scale: 1;
+    opacity: 1;
+    rotate: 0deg;
+  }
+  40% {
+    rotate: 20deg;
+  }
+  78%,
+  100% {
+    scale: 0.6;
+    opacity: 0;
+  }
+}
+.quote {
+  right: 4px;
+  top: 14px;
+  display: grid;
+  gap: 7px;
+  width: 98px;
+  padding: 10px 10px 12px;
+  border-radius: 14px;
+  rotate: 4deg;
+}
+.quote b {
+  font-size: 12px;
+}
+.quote i {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--accent);
+  transform-origin: 0 50%;
+  scale: 0 1;
+}
+.quote i[data-n="0"] {
+  animation: q0 6s var(--ease) infinite;
+}
+.quote i[data-n="1"] {
+  width: 80%;
+  animation: q1 6s var(--ease) infinite;
+}
+.quote i[data-n="2"] {
+  width: 56%;
+  background: var(--secondary);
+  animation: q2 6s var(--ease) infinite;
+}
+@keyframes q0 {
+  0%,
+  18% {
+    scale: 0 1;
+  }
+  28%,
+  88% {
+    scale: 1 1;
+  }
+  96%,
+  100% {
+    scale: 0 1;
+  }
+}
+@keyframes q1 {
+  0%,
+  28% {
+    scale: 0 1;
+  }
+  38%,
+  88% {
+    scale: 1 1;
+  }
+  96%,
+  100% {
+    scale: 0 1;
+  }
+}
+@keyframes q2 {
+  0%,
+  38% {
+    scale: 0 1;
+  }
+  48%,
+  88% {
+    scale: 1 1;
+  }
+  96%,
+  100% {
+    scale: 0 1;
+  }
+}
+.sent {
+  right: 0;
+  top: 110px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--secondary);
+  font-size: 10.5px;
+  rotate: -6deg;
+  opacity: 0;
+  animation: sent 6s var(--ease) infinite;
+}
+@keyframes sent {
+  0%,
+  52% {
+    opacity: 0;
+    scale: 1.4;
+  }
+  58%,
+  86% {
+    opacity: 1;
+    scale: 1;
+  }
+  92%,
+  100% {
+    opacity: 0;
+    scale: 1;
+  }
+}
+
 /* no motion: every scene rests on its finished moment */
 @media (prefers-reduced-motion: reduce) {
   .ads *,
   .seo *,
   .web *,
   .social *,
-  .brand * {
+  .brand *,
+  .ai * {
     animation-play-state: paused !important;
     animation-delay: -4.4s !important;
   }

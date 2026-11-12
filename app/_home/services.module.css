@@ -21,18 +21,19 @@
   color: var(--accent);
 }
 
+/* six cards: two wide on top, four below */
 .grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 12px;
   margin-top: clamp(32px, 4vw, 48px);
 }
 .cell {
-  grid-column: span 2;
+  grid-column: span 3;
   min-width: 0;
 }
 .wide {
-  grid-column: span 3;
+  grid-column: span 6;
 }
 @media (max-width: 999px) {
   .grid {
@@ -41,9 +42,6 @@
   .cell,
   .wide {
     grid-column: span 1;
-  }
-  .cell:first-child {
-    grid-column: 1 / -1;
   }
 }
 @media (max-width: 640px) {
@@ -164,6 +162,17 @@
   box-shadow: inset 0 0 0 1px
     color-mix(in oklab, var(--accent) 12%, transparent);
 }
+/* AI: white with the dot grain, a blue glow in the corner */
+.front[data-tone="ai"],
+.back[data-tone="ai"] {
+  background:
+    radial-gradient(rgb(11 11 22 / 0.07) 1.2px, transparent 1.6px) 0 0 / 14px
+      14px,
+    radial-gradient(70% 55% at 100% 0%, rgb(42 41 255 / 0.12), transparent 70%),
+    #fff;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px rgb(11 11 22 / 0.08);
+}
 .frontTop {
   display: flex;
   align-items: center;
@@ -227,7 +236,8 @@
 }
 .front[data-tone="web"] .hint,
 .front[data-tone="social"] .hint,
-.front[data-tone="brand"] .hint {
+.front[data-tone="brand"] .hint,
+.front[data-tone="ai"] .hint {
   background: rgb(11 11 22 / 0.08);
 }
 
@@ -271,12 +281,14 @@
 }
 .back[data-tone="web"] .unflip,
 .back[data-tone="social"] .unflip,
-.back[data-tone="brand"] .unflip {
+.back[data-tone="brand"] .unflip,
+.back[data-tone="ai"] .unflip {
   background: rgb(11 11 22 / 0.08);
 }
 .back[data-tone="web"] .unflip:hover,
 .back[data-tone="social"] .unflip:hover,
-.back[data-tone="brand"] .unflip:hover {
+.back[data-tone="brand"] .unflip:hover,
+.back[data-tone="ai"] .unflip:hover {
   background: rgb(11 11 22 / 0.14);
 }
 .backBody {
@@ -382,7 +394,8 @@
   background: var(--ink);
   color: #fff;
 }
-.back[data-tone="brand"] .ask {
+.back[data-tone="brand"] .ask,
+.back[data-tone="ai"] .ask {
   background: var(--accent);
   color: #fff;
 }

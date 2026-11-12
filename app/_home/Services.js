@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import b from "./base.module.css";
-import { SERVICES } from "./content";
+import { SERVICE_PAGES } from "./content";
 import { ArrowRight, Rotate, Search } from "./icons";
 import s from "./services.module.css";
 import { SCENES } from "./StickerScenes";
@@ -244,8 +244,13 @@ function Card({ x, i, rank, wide, onAsk, look }) {
 
 export default function Services({ look }) {
   const { plan, book } = useApp();
-  const order = plan ? plan.ranked : SERVICES.map((x) => x.id);
-  const list = order.map((id) => SERVICES.find((x) => x.id === id));
+  // the five marketing services plus AI and automation; the plan ranks the
+  // five, and whatever it leaves out keeps its place after them
+  const all = SERVICE_PAGES.map((x) => x.id);
+  const order = plan
+    ? [...plan.ranked, ...all.filter((id) => !plan.ranked.includes(id))]
+    : all;
+  const list = order.map((id) => SERVICE_PAGES.find((x) => x.id === id));
 
   return (
     <section className={b.section} data-section="Usluge">

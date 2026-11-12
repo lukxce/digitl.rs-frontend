@@ -152,10 +152,34 @@ function BrandScene() {
   );
 }
 
+/* ai: a supplier's price list goes in, the quote fills itself in line by
+   line, and goes out stamped */
+function AiScene() {
+  return (
+    <span className={k.ai} aria-hidden="true">
+      <span className={`${k.stk} ${k.sheet}`}>
+        <span className={k.sheetHead}>cenovnik.xlsx</span>
+        {[0, 1, 2, 3].map((n) => (
+          <i key={n} data-n={n} />
+        ))}
+      </span>
+      <span className={`${k.stk} ${k.spark}`}>AI</span>
+      <span className={`${k.stk} ${k.quote}`}>
+        <b>Ponuda</b>
+        {[0, 1, 2].map((n) => (
+          <i key={n} data-n={n} />
+        ))}
+      </span>
+      <span className={`${k.stk} ${k.sent}`}>Poslato</span>
+    </span>
+  );
+}
+
 export const SCENES = {
   ads: AdsScene,
   seo: SeoScene,
   web: WebScene,
   social: SocialScene,
   brand: BrandScene,
+  ai: AiScene,
 };

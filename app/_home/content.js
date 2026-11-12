@@ -100,6 +100,8 @@ export const SERVICE_PAGES = [
     title: "AI i automatizacija",
     name: "AI",
     body: "Automatizacije i AI alati koji umesto vas rade zadatke koji se ponavljaju: ponude, cene, podatke o proizvodima i upite.",
+    lead: "Zadatke koje zaposleni rade ručno svake nedelje prepuštamo automatizaciji, a ljudi odlučuju samo o onome što traži procenu.",
+    fact: ["Merimo", "Sate ručnog rada i greške, pre i posle"],
     includes: [
       "Automatske ponude i cene",
       "Pretraga i podaci o proizvodima",

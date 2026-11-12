@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import b from "./base.module.css";
 import c from "./contact.module.css";
-import { CONTACT, SERVICES } from "./content";
+import { CONTACT, SERVICE_PAGES, SERVICES } from "./content";
 import { ArrowRight, Check, Mail, Phone } from "./icons";
 import { IconInstagram, IconLinkedin, IconX } from "../components/socialIcons";
 import { EASE, useApp } from "./ui";
@@ -23,7 +23,7 @@ const SOCIALS = [
   { label: "X", href: "https://x.com/digitl_rs", Icon: IconX },
 ];
 
-const TOPICS = [...SERVICES.map((s) => s.name), "Ceo marketing"];
+const TOPICS = [...SERVICE_PAGES.map((s) => s.name), "Ceo marketing"];
 
 export default function Contact() {
   const { plan, topic, audit } = useApp();
