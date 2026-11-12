@@ -26,7 +26,7 @@ const SOCIALS = [
 const TOPICS = [...SERVICES.map((s) => s.name), "Ceo marketing"];
 
 export default function Contact() {
-  const { plan, topic } = useApp();
+  const { plan, topic, audit } = useApp();
   const [topics, setTopics] = useState([]);
   const [email, setEmail] = useState("");
   const [site, setSite] = useState("");
@@ -42,6 +42,10 @@ export default function Contact() {
     if (plan)
       setTopics(plan.top.map((id) => SERVICES.find((s) => s.id === id).name));
   }, [plan]);
+  // a checked site fills the address in, unless one is already typed
+  useEffect(() => {
+    if (audit?.host) setSite((v) => v || audit.host);
+  }, [audit?.host]);
 
   const toggle = (t) =>
     setTopics((arr) =>
@@ -61,6 +65,11 @@ export default function Contact() {
       `Interesuje ih: ${topics.length ? topics.join(", ") : "nije izabrano"}`,
       site.trim() ? `Sajt: ${site.trim()}` : null,
       plan ? `Plan sa sajta: ${plan.answers.join(" | ")}` : null,
+      audit?.scores
+        ? `Provera sajta (${audit.host}): brzina ${audit.scores.performance}, SEO ${audit.scores.seo}, LCP ${audit.metrics?.lcp?.display ?? "?"}`
+        : audit?.host
+          ? `Provera sajta (${audit.host}) nije uspela: ${audit.error}`
+          : null,
       note.trim() ? `Poruka: ${note.trim()}` : null,
     ]
       .filter(Boolean)

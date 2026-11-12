@@ -57,6 +57,9 @@ export function AppProvider({ children, home = true }) {
   const lenis = useLenis();
   const [plan, setPlan] = useState(null);
   const [topic, setTopic] = useState(null);
+  // the last site check: its address and scores go into the contact form
+  const [audit, setAudit] = useState(null);
+  const [focusAudit, setFocusAudit] = useState(0);
   // the booking dialog: null when closed, { topic } when open
   const [booking, setBooking] = useState(null);
 
@@ -131,6 +134,13 @@ export function AppProvider({ children, home = true }) {
     setPlan,
     scrollTo,
     topic,
+    audit,
+    setAudit,
+    focusAudit,
+    openAudit: () => {
+      scrollTo("#provera-sajta");
+      setFocusAudit((n) => n + 1);
+    },
     book: (t = null) => {
       if (t) setTopic(t);
       scrollTo("#kontakt");

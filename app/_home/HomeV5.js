@@ -9,7 +9,7 @@ import Hero from "./Hero";
 import Journey from "./Journey";
 import Loop from "./Loop";
 import Nav from "./Nav";
-import { Faq, PlanSection } from "./Sections";
+import { Check, Faq, PlanSection } from "./Sections";
 import Services from "./Services";
 import { AppProvider } from "./ui";
 // The "Šta dobijate" section is parked (Luka, 21 Oct 2026); its four little
@@ -58,6 +58,9 @@ export default function HomeV5({
           {/* The blog is off the site for now (Luka, 10 Nov 2026: the old
               posts were industry news). Blog.js stays for when it returns. */}
           {/* the form comes before the wheel (Luka, 11 Nov 2026) */}
+          {/* the site check comes back right before the form (Luka, 12 Nov
+              2026); what it measures is carried into the form */}
+          <Check />
           <Contact />
           <Loop />
           <Faq />

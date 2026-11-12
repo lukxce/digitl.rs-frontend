@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { useState } from "react";
+import Audit from "./Audit";
 import b from "./base.module.css";
 import { FAQ } from "./content";
 import { Plus } from "./icons";
@@ -10,6 +11,27 @@ import x from "./sections.module.css";
 import { Btn, EASE, Head, useApp } from "./ui";
 
 /* ── Vaš plan: the three questions, right under the four steps ──────── */
+/* ── Provera sajta: Google's own phone test, live, right before the form;
+   the address and the scores travel into the form below ──────────────── */
+export function Check() {
+  return (
+    <section className={`${b.glow} ${x.check}`} data-section="Provera sajta">
+      <div className={b.container}>
+        <span id="provera-sajta" className={b.anchor} />
+        <div className={x.checkHead}>
+          <span className={b.label}>Besplatna provera</span>
+          <h2>Krenite od svog sajta.</h2>
+          <p>
+            Isti test kojim Google ocenjuje sajtove na telefonu. Ocena i prve
+            popravke za dvadesetak sekundi, bez prijave.
+          </p>
+        </div>
+        <Audit />
+      </div>
+    </section>
+  );
+}
+
 export function PlanSection({ clients }) {
   return (
     <section className={`${b.glow} ${x.plan}`} data-section="Vaš plan">
