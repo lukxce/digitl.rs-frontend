@@ -57,22 +57,26 @@
   outline-offset: 3px;
   border-radius: 10px;
 }
-.root :where(h1, h2, h3, h4) {
+/* The element resets below weigh nothing (:where on both sides), so any
+   component class wins over them whatever order the production build loads
+   the stylesheets in. At equal weight the reset for button came later on
+   the live site and wiped the hero's service chips. */
+:where(.root) :where(h1, h2, h3, h4) {
   text-wrap: balance;
   margin: 0;
 }
-.root :where(p, ul, ol, figure, blockquote, dl, dd) {
+:where(.root) :where(p, ul, ol, figure, blockquote, dl, dd) {
   margin: 0;
   padding: 0;
 }
-.root :where(ul, ol) {
+:where(.root) :where(ul, ol) {
   list-style: none;
 }
-.root :where(a) {
+:where(.root) :where(a) {
   color: inherit;
   text-decoration: none;
 }
-.root :where(button) {
+:where(.root) :where(button) {
   font: inherit;
   color: inherit;
   background: none;
@@ -80,11 +84,11 @@
   padding: 0;
   cursor: pointer;
 }
-.root :where(input, textarea, select) {
+:where(.root) :where(input, textarea, select) {
   font: inherit;
   color: inherit;
 }
-.root :where(img) {
+:where(.root) :where(img) {
   display: block;
   max-width: 100%;
 }
