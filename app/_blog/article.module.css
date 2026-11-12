@@ -659,3 +659,69 @@ a.shareBtn:focus-visible {
 .fold > button:focus-visible {
   border-radius: 22px;
 }
+
+/* key takeaways as one card, a checklist (13 Nov 2026), in the reading
+   column, not spread across the page */
+.keys {
+  max-width: 820px;
+  margin-top: clamp(4px, 1.4vw, 18px);
+  padding: 8px;
+  border-radius: 30px;
+  background: var(--mist);
+}
+.keysHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px 14px;
+}
+.keysHead .keysLabel {
+  padding: 0;
+}
+.keysCount {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-3);
+}
+.keysList {
+  display: grid;
+  margin: 0;
+  padding: 6px 22px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: var(--ring);
+  list-style: none;
+}
+.keysList .key {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.keysList .key + .key {
+  border-top: 1px solid var(--line);
+}
+.keyTick {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--secondary);
+  color: var(--ink);
+}
+.keysList .key p {
+  margin: 0;
+  font-size: 16.5px;
+  line-height: 1.5;
+  color: var(--ink-2, #2a2a36);
+}

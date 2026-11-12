@@ -14,6 +14,7 @@ const RULE = /^([-*_])(?:\s*\1){2,}$/;
 const BULLET = /^[-*+]\s+(.*)$/;
 const NUMBER = /^(\d{1,3})[.)]\s+(.*)$/;
 const FENCE = /^(```|~~~)/;
+const WIDGETS = new Set(["stat", "stats", "bars", "compare", "todo", "steps", "check"]);
 const TABLE_RULE = /^\|?\s*:?-+:?\s*(?:\|\s*:?-+:?\s*)*\|?$/;
 const SENTENCE_END = /[.!?:;…"”)]$/;
 
@@ -81,11 +82,20 @@ function parseMarkdown(md, ctx) {
     if (FENCE.test(line)) {
       flush();
       const fence = line.slice(0, 3);
+      const lang = line.slice(3).trim().toLowerCase();
       const code = [];
       i++;
       while (i < lines.length && !lines[i].trim().startsWith(fence))
         code.push(lines[i++]);
-      out.push({ type: "code", text: code.join("\n") });
+      // ```stat, ```bars, ```compare… are the designed pieces a post can
+      // carry between its paragraphs (see Widgets.js); anything else is code
+      if (WIDGETS.has(lang))
+        out.push({
+          type: "widget",
+          kind: lang,
+          lines: code.map((l) => l.trim()).filter(Boolean),
+        });
+      else out.push({ type: "code", text: code.join("\n") });
       continue;
     }
 

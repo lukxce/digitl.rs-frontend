@@ -2,7 +2,7 @@ import Link from "next/link";
 import { extractContentHeadings } from "../../lib/blockHeadings.js";
 import b from "../_home/base.module.css";
 import { Newsletter } from "../_home/Blog";
-import { ArrowLeft, ArrowUpRight } from "../_home/icons";
+import { ArrowLeft, ArrowUpRight, Check } from "../_home/icons";
 import { Head, Reveal } from "../_home/ui";
 import logo from "../assets/digitl-logo.png";
 import Ask, { Calm } from "./Ask";
@@ -164,29 +164,31 @@ export default async function Article({ article, more }) {
         {keys.length
           ? <section className={b.container} aria-labelledby="kljucne-poruke">
               <Reveal className={s.keys}>
-                <h2 id="kljucne-poruke" className={s.keysLabel}>
-                  Ključne poruke
-                </h2>
-                <ol className={s.keysGrid}>
+                <div className={s.keysHead}>
+                  <h2 id="kljucne-poruke" className={s.keysLabel}>
+                    Ključne poruke
+                  </h2>
+                  <span className={s.keysCount}>{keys.length} stvari za poneti</span>
+                </div>
+                <ul className={s.keysList}>
                   {keys.map((k, i) => (
                     // biome-ignore lint/suspicious/noArrayIndexKey: a fixed list from the CMS
                     <li key={i} className={s.key}>
-                      <span className={s.keyNo} aria-hidden="true">
-                        {String(i + 1).padStart(2, "0")}
+                      <span className={s.keyTick} aria-hidden="true">
+                        <Check size={14} strokeWidth={3.2} />
                       </span>
-                      {k.title
-                        ? <h3>
-                            <Tie>{k.title}</Tie>
-                          </h3>
-                        : null}
-                      {k.description
-                        ? <p>
-                            <Tie>{k.description}</Tie>
-                          </p>
-                        : null}
+                      <p>
+                        {k.title
+                          ? <strong>
+                              <Tie>{k.title}</Tie>
+                            </strong>
+                          : null}
+                        {k.title && k.description ? " " : null}
+                        {k.description ? <Tie>{k.description}</Tie> : null}
+                      </p>
                     </li>
                   ))}
-                </ol>
+                </ul>
               </Reveal>
             </section>
           : null}

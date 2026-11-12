@@ -1,0 +1,384 @@
+/* The designed pieces between paragraphs (Widgets.js). Site tokens only. */
+
+.stat,
+.stats,
+.bars,
+.compare,
+.todo,
+.steps,
+.check {
+  margin: clamp(26px, 3.4vw, 40px) 0;
+}
+
+/* one big number, the blue card */
+.stat {
+  display: grid;
+  gap: 18px 28px;
+  align-items: center;
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: 28px;
+  color: #fff;
+  background:
+    radial-gradient(rgb(255 255 255 / 0.16) 1.2px, transparent 1.6px) 0 0 / 14px
+      14px,
+    var(--accent);
+  box-shadow: 0 22px 40px -22px rgb(42 41 255 / 0.7);
+}
+@media (min-width: 640px) {
+  .stat {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+.statNum {
+  font-size: clamp(56px, 7vw, 92px);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.statSide p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.statSide strong {
+  color: var(--secondary);
+}
+.statSide figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* a row of numbers: the first on blue, the rest white */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 8px;
+  padding: 8px;
+  border-radius: 28px;
+  background: var(--mist);
+}
+.tile {
+  display: grid;
+  align-content: space-between;
+  gap: 14px;
+  min-height: 150px;
+  padding: 20px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.tile b {
+  font-size: clamp(34px, 3.6vw, 46px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+}
+.tile span {
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink-3);
+}
+.tile[data-on] {
+  color: #fff;
+  background:
+    radial-gradient(rgb(255 255 255 / 0.16) 1.2px, transparent 1.6px) 0 0 / 14px
+      14px,
+    var(--accent);
+  box-shadow: none;
+}
+.tile[data-on] span {
+  color: rgb(255 255 255 / 0.85);
+}
+
+/* bars that grow when they come into view */
+.bars {
+  display: grid;
+  gap: 12px;
+  padding: clamp(20px, 2.6vw, 28px);
+  border-radius: 28px;
+  background: #fff;
+  box-shadow:
+    var(--ring),
+    0 24px 50px -32px rgb(11 11 22 / 0.35);
+}
+.cap {
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.bar {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.9fr) minmax(0, 2fr) auto;
+  align-items: center;
+  gap: 14px;
+}
+.barLabel {
+  font-size: 14.5px;
+  font-weight: 700;
+}
+.track {
+  height: 26px;
+  border-radius: 999px;
+  background: var(--mist);
+  overflow: hidden;
+}
+.track i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent) 30%, #fff);
+}
+.bar[data-on] .track i {
+  background: var(--accent);
+}
+.barNum {
+  min-width: 4ch;
+  text-align: right;
+  font-size: 15px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.bar[data-on] .barNum {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--secondary);
+}
+@media (max-width: 560px) {
+  .bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .track {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* two columns: the weaker way grey, the better way blue */
+.compare {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+@media (min-width: 640px) {
+  .compare {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.side {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 22px;
+  border-radius: 24px;
+  background: var(--mist);
+}
+.side[data-on] {
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.sideName {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.side .list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.side .item {
+  display: flex;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+.side[data-on] .item {
+  color: var(--ink);
+}
+.side .item i {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: #fff;
+  font-style: normal;
+  font-weight: 800;
+}
+.side[data-on] .item i {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* what to do: the dark box with arrows */
+.todo {
+  padding: clamp(22px, 2.8vw, 30px);
+  border-radius: 28px;
+  color: #fff;
+  background:
+    radial-gradient(90% 70% at 100% 0%, rgb(42 41 255 / 0.55), transparent 70%),
+    var(--ink);
+}
+.todoLabel {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--secondary);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.todo .list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.todo .item {
+  display: flex;
+  gap: 12px;
+  font-size: 16.5px;
+  line-height: 1.45;
+}
+.todo .item svg {
+  flex: none;
+  margin-top: 4px;
+  color: var(--secondary);
+}
+.todo strong {
+  color: #fff;
+}
+
+/* numbered steps */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+  padding: 8px;
+  border-radius: 28px;
+  background: var(--mist);
+  list-style: none;
+}
+.step {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 20px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.stepNo {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  background: var(--secondary);
+  font-size: 14px;
+  font-weight: 800;
+}
+.steps b {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.step > span:last-child {
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+/* a checklist you can tick */
+.check {
+  padding: 8px;
+  border-radius: 28px;
+  background: var(--mist);
+}
+.checkTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.checkTop em {
+  font-style: normal;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--accent);
+  letter-spacing: 0;
+}
+.check .list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.check button {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--ring);
+  font: inherit;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.25s var(--ease);
+}
+.check button i {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 2px var(--line-2, #d6d6de);
+  transition: background 0.25s var(--ease);
+}
+.check button[aria-pressed="true"] {
+  background: color-mix(in oklab, var(--secondary) 18%, #fff);
+}
+.check button[aria-pressed="true"] i {
+  background: var(--secondary);
+  box-shadow: none;
+  color: var(--ink);
+}
+.check button[aria-pressed="true"] span {
+  text-decoration: line-through;
+  text-decoration-color: rgb(11 11 22 / 0.3);
+}

@@ -3,6 +3,7 @@ import BlocksRenderer from "../components/BlocksRenderer";
 import Figure from "./Figure";
 import p from "./prose.module.css";
 import Tie from "./Tie";
+import Widget from "./Widgets";
 import { img, imgSet } from "./util";
 
 /* ── inline Markdown → React nodes (nothing is injected as HTML) ───────── */
@@ -164,6 +165,8 @@ function Node({ n, k }) {
       );
     case "rule":
       return <hr />;
+    case "widget":
+      return <Widget kind={n.kind} lines={n.lines} />;
     case "legacy":
       return (
         <div className={p.legacy}>
