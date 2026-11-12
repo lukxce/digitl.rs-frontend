@@ -1,5 +1,6 @@
 import { safeLinkHref } from "../../lib/sanitizeHtml.js";
 import BlocksRenderer from "../components/BlocksRenderer";
+import Chapter from "./Chapter";
 import Figure from "./Figure";
 import p from "./prose.module.css";
 import Tie from "./Tie";
@@ -186,6 +187,13 @@ function Node({ n, k }) {
     shape that parser does not read (HTML, Portable Text, Strapi block JSON),
     pass the raw `blocks` and the site's existing renderer draws them inside
     the same typography. */
+const PLAIN = /^(česta pitanja|izvori|sources|faq)/i;
+
+/** The article body. `nodes` come from parseBlocks(); when the CMS sends a
+    shape that parser does not read (HTML, Portable Text, Strapi block JSON),
+    pass the raw `blocks` and the site's existing renderer draws them inside
+    the same typography. Nodes are grouped into chapters, one per H2, each in
+    its own colour; the FAQ and the sources stay plain. */
 export default function Prose({ nodes, blocks }) {
   if (!nodes)
     return (
@@ -193,12 +201,40 @@ export default function Prose({ nodes, blocks }) {
         <BlocksRenderer blocks={blocks} />
       </div>
     );
+  const groups = [];
+  for (const [i, n] of nodes.entries()) {
+    if (n.type === "heading" && n.level === 2)
+      groups.push({ head: n, key: i, items: [] });
+    else {
+      if (!groups.length) groups.push({ head: null, key: i, items: [] });
+      groups[groups.length - 1].items.push([i, n]);
+    }
+  }
+  let count = 0;
   return (
     <div className={p.prose}>
-      {nodes.map((n, i) => (
-        // biome-ignore lint/suspicious/noArrayIndexKey: a fixed list from the CMS
-        <Node key={i} n={n} k={`n${i}`} />
-      ))}
+      {groups.map((g) => {
+        const plain = g.head ? PLAIN.test(g.head.label) : false;
+        const n = g.head && !plain ? ++count : 0;
+        return (
+          <Chapter
+            key={g.key}
+            n={n}
+            tone={Math.max(0, n - 1)}
+            band={n > 0 && n % 2 === 0}
+            plain={plain || !g.head}
+            head={
+              g.head
+                ? <h2 id={g.head.id}>{inline(g.head.text, `h${g.key}`)}</h2>
+                : null
+            }
+          >
+            {g.items.map(([i, node]) => (
+              <Node key={i} n={node} k={`n${i}`} />
+            ))}
+          </Chapter>
+        );
+      })}
     </div>
   );
 }

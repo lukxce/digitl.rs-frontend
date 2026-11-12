@@ -14,7 +14,7 @@ const RULE = /^([-*_])(?:\s*\1){2,}$/;
 const BULLET = /^[-*+]\s+(.*)$/;
 const NUMBER = /^(\d{1,3})[.)]\s+(.*)$/;
 const FENCE = /^(```|~~~)/;
-const WIDGETS = new Set(["stat", "stats", "bars", "compare", "todo", "steps", "check"]);
+const WIDGETS = new Set(["stat", "stats", "bars", "compare", "todo", "steps", "check", "waffle", "range", "review", "toggle", "calc", "quiz"]);
 const TABLE_RULE = /^\|?\s*:?-+:?\s*(?:\|\s*:?-+:?\s*)*\|?$/;
 const SENTENCE_END = /[.!?:;…"”)]$/;
 
