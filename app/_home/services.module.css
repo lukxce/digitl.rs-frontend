@@ -49,10 +49,12 @@
     display: flex;
     gap: 10px;
     /* sideways only: overflow-x alone turns the other axis to auto too,
-       so the lift and the flip let the row scroll up and cut the cards */
+       so the lift and the flip let the row scroll up and cut the cards.
+       No overscroll-behavior here: Safari applies it to both axes, and a
+       vertical swipe that starts on a card then never reaches the page. */
     overflow-x: auto;
     overflow-y: hidden;
-    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
     scroll-snap-type: x mandatory;
     margin: clamp(28px, 6vw, 40px) -16px 0;
     padding: 6px 16px 8px;

@@ -281,7 +281,8 @@
     scroll-snap-type: x mandatory;
     scroll-padding-inline: clamp(16px, 3vw, 32px);
     scrollbar-width: none;
-    overscroll-behavior-x: contain;
+    overflow-y: hidden;
+    touch-action: pan-x pan-y;
   }
   .steps::-webkit-scrollbar {
     display: none;
