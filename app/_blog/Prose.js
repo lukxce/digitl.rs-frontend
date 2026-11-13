@@ -1,6 +1,7 @@
 import { safeLinkHref } from "../../lib/sanitizeHtml.js";
 import BlocksRenderer from "../components/BlocksRenderer";
 import Chapter from "./Chapter";
+import Fold from "./Fold";
 import Figure from "./Figure";
 import p from "./prose.module.css";
 import Tie from "./Tie";
@@ -188,6 +189,7 @@ function Node({ n, k }) {
     pass the raw `blocks` and the site's existing renderer draws them inside
     the same typography. */
 const PLAIN = /^(česta pitanja|izvori|sources|faq)/i;
+const SOURCES = /^(izvori|sources)/i;
 
 /** The article body. `nodes` come from parseBlocks(); when the CMS sends a
     shape that parser does not read (HTML, Portable Text, Strapi block JSON),
@@ -229,9 +231,15 @@ export default function Prose({ nodes, blocks }) {
                 : null
             }
           >
-            {g.items.map(([i, node]) => (
-              <Node key={i} n={node} k={`n${i}`} />
-            ))}
+            {g.head && SOURCES.test(g.head.label)
+              ? <Fold>
+                  {g.items.map(([i, node]) => (
+                    <Node key={i} n={node} k={`n${i}`} />
+                  ))}
+                </Fold>
+              : g.items.map(([i, node]) => (
+                  <Node key={i} n={node} k={`n${i}`} />
+                ))}
           </Chapter>
         );
       })}

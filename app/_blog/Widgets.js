@@ -17,6 +17,7 @@
 import { animate, motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check, X } from "../_home/icons";
+import { BESPOKE } from "./pieces";
 import w from "./widgets.module.css";
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -610,6 +611,10 @@ const KINDS = {
 };
 
 export default function Widget({ kind, lines }) {
+  if (kind === "piece") {
+    const P = BESPOKE[field(lines, "name")];
+    return P ? <P lines={lines.filter((l) => !l.startsWith("name:"))} /> : null;
+  }
   const C = KINDS[kind];
   return C ? <C lines={lines} /> : null;
 }

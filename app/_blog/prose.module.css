@@ -475,3 +475,60 @@ div.prose > .chapter + .chapter {
 .chapter[data-band] .table {
   box-shadow: 0 0 0 1px rgb(11 11 22 / 0.06);
 }
+
+/* sources: three show, the rest fade under the arrow */
+.fold {
+  position: relative;
+}
+.foldBody {
+  position: relative;
+  max-height: 15.5em;
+  overflow: hidden;
+  transition: max-height 0.6s var(--ease);
+}
+.foldBody::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 9em;
+  background: linear-gradient(rgb(255 255 255 / 0), #fff 85%);
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+.fold[data-open] .foldBody {
+  max-height: 400em;
+}
+.fold[data-open] .foldBody::after {
+  opacity: 0;
+}
+.foldKey {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 0 6px 0 18px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--ring);
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+}
+.foldKey i {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--mist);
+  transition: transform 0.4s var(--ease);
+}
+.fold[data-open] .foldKey i {
+  transform: rotate(180deg);
+}

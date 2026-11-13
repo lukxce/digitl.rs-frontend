@@ -1,0 +1,706 @@
+/* Bespoke pieces for the Instagram post (instagram.js). Same family as
+   widgets.module.css: radius 24, mist tray, white cards, the chapter colour
+   (--c) for what matters, lime for the number. */
+
+.reach,
+.boost,
+.week {
+  margin: 0;
+  display: grid;
+  gap: 18px;
+  padding: 26px;
+  border-radius: 24px;
+  color: var(--ink);
+}
+.reach,
+.week {
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.boost {
+  background: var(--mist);
+}
+@media (max-width: 560px) {
+  .reach,
+  .boost,
+  .week {
+    padding: 20px 18px;
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cap {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-3);
+  background: var(--mist);
+  white-space: nowrap;
+}
+.boost .tag {
+  background: #fff;
+  box-shadow: var(--ring);
+}
+
+/* ── the switch ────────────────────────────────────────────────────────── */
+.switch {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--mist);
+  box-shadow: var(--ring);
+}
+.boost .switch {
+  background: #fff;
+}
+.switch button {
+  position: relative;
+  z-index: 1;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: color 0.3s var(--ease);
+}
+.switch button:hover {
+  color: var(--ink);
+}
+.switch button[aria-selected="true"] {
+  color: #fff;
+}
+.switch button:focus-visible {
+  outline: 2px solid var(--c, var(--accent));
+  outline-offset: 2px;
+}
+.knob {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 999px;
+  background: var(--c, var(--accent));
+}
+
+/* ── 1. who sees it ────────────────────────────────────────────────────── */
+.zones {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 600px) {
+  .zones {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+}
+.zone {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--mist);
+}
+.zone[data-own] {
+  background: var(--soft, var(--accent-soft));
+}
+.zoneName {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-3);
+}
+.zone[data-own] .zoneName {
+  color: var(--c, var(--accent));
+}
+.dots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18px, 1fr));
+  gap: 10px;
+}
+.dots i {
+  display: block;
+  aspect-ratio: 1;
+  max-width: 22px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--line-2, #d6d6de);
+  transform: scale(0.82);
+  transition:
+    background 0.45s var(--ease),
+    box-shadow 0.45s var(--ease),
+    transform 0.55s var(--ease);
+}
+.dots i[data-lit] {
+  background: var(--c, var(--accent));
+  box-shadow: 0 0 0 4px
+    color-mix(in oklab, var(--c, var(--accent)) 16%, transparent);
+  transform: scale(1);
+}
+.reachCap {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  min-height: 74px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.chip {
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--secondary);
+}
+
+/* ── 2. one phone, two screens ─────────────────────────────────────────── */
+.stage {
+  display: grid;
+  gap: 16px;
+  align-items: start;
+}
+@media (min-width: 620px) {
+  .stage {
+    grid-template-columns: 290px minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+.phone {
+  width: 100%;
+  max-width: 300px;
+  justify-self: center;
+  padding: 9px;
+  border-radius: 40px;
+  background: var(--ink);
+  box-shadow: var(--lift, 0 24px 50px -28px rgb(11 11 22 / 0.35));
+}
+.screen {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  padding: 34px 12px 14px;
+  border-radius: 32px;
+  background: #fff;
+}
+.notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 74px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  transform: translateX(-50%);
+}
+.screenHead {
+  display: grid;
+  gap: 2px;
+  padding: 2px 6px 4px;
+}
+.screenHead b {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.screenHead span {
+  font-size: 12px;
+  color: var(--ink-4);
+}
+.rows {
+  display: grid;
+  gap: 6px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 10px 8px 12px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--mist);
+  font: inherit;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+.row:hover {
+  background: color-mix(in oklab, var(--c, var(--accent)) 7%, var(--mist));
+}
+.row[aria-pressed="true"] {
+  background: var(--soft, var(--accent-soft));
+  box-shadow: inset 0 0 0 1.5px var(--c, var(--accent));
+}
+.row:focus-visible {
+  outline: 2px solid var(--c, var(--accent));
+  outline-offset: 2px;
+}
+.rowText {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+.rowText small {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.rowText b {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.row[data-lock] .rowText b {
+  color: var(--ink-4);
+}
+.rowEnd {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-4);
+}
+.row:not([data-lock]) .rowEnd {
+  color: var(--c, var(--accent));
+  transform: rotate(-90deg);
+}
+.row[data-lock] .rowEnd {
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #fff;
+}
+.cta {
+  display: block;
+  margin-top: 4px;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  background: var(--c, var(--accent));
+}
+.note {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 22px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--ring);
+}
+.noteHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.noteHead em {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--c, var(--accent));
+  background: var(--soft, var(--accent-soft));
+}
+.noteValue {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+.noteValue[data-lock] {
+  color: var(--ink-3);
+}
+.noteText {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-2, var(--ink));
+}
+.noteFoot {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chips em {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--mist);
+}
+.chips em:first-child {
+  background: var(--secondary);
+}
+.six {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--mist);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+.six b {
+  font-weight: 800;
+  color: var(--ink);
+}
+.sixDots {
+  display: flex;
+  gap: 8px;
+}
+.sixDots i {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--line-2, #d6d6de);
+}
+.sixDots i[data-lit] {
+  background: var(--c, var(--accent));
+  box-shadow: none;
+}
+.hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-4);
+}
+@media (min-width: 620px) {
+  .hint svg {
+    transform: rotate(180deg);
+  }
+}
+@media (max-width: 619px) {
+  .hint svg {
+    transform: rotate(-90deg);
+  }
+}
+
+/* ── 3. a week on a daily budget ───────────────────────────────────────── */
+.weekBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.budgets {
+  display: flex;
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--mist);
+}
+.budgets button,
+.again {
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+.budgets button:hover {
+  color: var(--ink);
+}
+.budgets button[aria-pressed="true"] {
+  color: #fff;
+  background: var(--c, var(--accent));
+}
+.again {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--c, var(--accent));
+  background: var(--soft, var(--accent-soft));
+}
+.again:hover {
+  background: color-mix(in oklab, var(--c, var(--accent)) 16%, #fff);
+}
+.budgets button:focus-visible,
+.again:focus-visible {
+  outline: 2px solid var(--c, var(--accent));
+  outline-offset: 2px;
+}
+.nums {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.nums > div {
+  display: grid;
+  align-content: space-between;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--mist);
+}
+.nums b {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.nums span {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink-3);
+}
+.nums > div[data-on] {
+  color: #fff;
+  background: var(--c, var(--accent));
+}
+.nums > div[data-on] span {
+  color: rgb(255 255 255 / 0.85);
+}
+@media (max-width: 520px) {
+  .nums {
+    grid-template-columns: 1fr;
+  }
+  .nums > div {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  .nums b {
+    font-size: 24px;
+  }
+}
+.chart {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  padding: 26px 0 0 40px;
+}
+.lineMax,
+.lineDay {
+  position: absolute;
+  left: 40px;
+  right: 0;
+  z-index: 2;
+  border-top: 1.5px dashed var(--ink-5, #b5b5bd);
+  pointer-events: none;
+}
+/* the track is 180px tall, starts 26px down; 175% is its top, 100% is 4/7 */
+.lineMax {
+  top: 26px;
+}
+.lineDay {
+  top: calc(26px + 180px * (75 / 175));
+  border-top-color: var(--ink-3);
+}
+.lineMax em,
+.lineDay em {
+  position: absolute;
+  left: -40px;
+  top: -8px;
+  width: 34px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: right;
+  color: var(--ink-4);
+}
+.col {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.colTrack {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: 180px;
+  border-radius: 10px;
+  background: var(--mist);
+}
+.colTrack i {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--c, var(--accent)) 30%, #fff);
+}
+.colTrack i[data-max] {
+  background: var(--c, var(--accent));
+}
+.colTrack small {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  font-style: normal;
+  white-space: nowrap;
+  color: var(--ink-3);
+}
+.colTrack i[data-max] small {
+  padding: 2px 5px;
+  border-radius: 6px;
+  color: var(--ink);
+  background: var(--secondary);
+}
+.day {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--ink-4);
+}
+@media (max-width: 420px) {
+  .chart {
+    gap: 5px;
+    padding-left: 36px;
+  }
+  .lineMax,
+  .lineDay {
+    left: 36px;
+  }
+  .lineMax em,
+  .lineDay em {
+    left: -36px;
+    width: 30px;
+  }
+  .colTrack small {
+    font-size: 9.5px;
+  }
+}
+.meter {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--mist);
+}
+.meterTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+.meterTop b {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.meterTrack {
+  position: relative;
+  height: 16px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #fff;
+}
+/* seven segments, one per daily budget */
+.meterTrack::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(100% / 7 - 2px),
+    var(--mist) calc(100% / 7 - 2px),
+    var(--mist) calc(100% / 7)
+  );
+}
+.meterTrack span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--c, var(--accent));
+}
+.meterNote {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dots i,
+  .row,
+  .switch button {
+    transition: none;
+  }
+}

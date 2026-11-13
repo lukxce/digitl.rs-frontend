@@ -1,6 +1,11 @@
 .section {
   background: #fff;
 }
+/* less air under the newsletter, so the contact form follows closely
+   (section.x outranks the shared .section, whatever the load order) */
+section.section {
+  padding-bottom: clamp(24px, 3vw, 40px);
+}
 .top {
   display: flex;
   flex-wrap: wrap;
