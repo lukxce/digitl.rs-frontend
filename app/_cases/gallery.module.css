@@ -28,6 +28,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   transition: transform 0.8s var(--ease);
 }
 .frame:hover img {
@@ -68,11 +69,8 @@
   .gallery[data-layout="two"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .gallery[data-layout="lead"] {
-    grid-template-columns: repeat(var(--rest), minmax(0, 1fr));
-  }
-  .gallery[data-layout="lead"] .item[data-big] {
-    grid-column: 1 / -1;
+  .gallery[data-layout="grid"] {
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
   }
   .item:not([data-big]) .frame {
     border-radius: 18px;

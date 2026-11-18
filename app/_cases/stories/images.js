@@ -224,6 +224,48 @@ const IMAGES = {
     "https://cdn.sanity.io/images/203ybdbh/production/ff10d83832bcf505ba0a1f4ce0fe804a18b9ee1b-2400x1083.jpg",
   "tonerpro/stampac":
     "https://cdn.sanity.io/images/203ybdbh/production/d1afba01903e3d48120531c363104a42a62dda87-2400x1833.jpg",
+  "tonerpro/ig-1":
+    "https://cdn.sanity.io/images/203ybdbh/production/c0a92687a8e05e7aa0d58fb477b1ce68e0a9786b-359x449.jpg",
+  "tonerpro/ig-2":
+    "https://cdn.sanity.io/images/203ybdbh/production/b65fea902bfbe67855946af12ec31f1fcb399c95-358x449.jpg",
+  "tonerpro/ig-3":
+    "https://cdn.sanity.io/images/203ybdbh/production/7af4902710d066cdbb3824d72a8846142b59824f-359x449.jpg",
+  "tonerpro/ig-4":
+    "https://cdn.sanity.io/images/203ybdbh/production/74cc8aecc21d31e18b036584707f3eef6804c552-359x448.jpg",
+  "tonerpro/ig-5":
+    "https://cdn.sanity.io/images/203ybdbh/production/f98303436e134c5683d7b75836e68ffcbd59c688-358x448.jpg",
+  "tonerpro/ig-6":
+    "https://cdn.sanity.io/images/203ybdbh/production/12fb4a17db256e86a3a23f026afee9673dabd43a-359x448.jpg",
+  "tonerpro/ig-7":
+    "https://cdn.sanity.io/images/203ybdbh/production/3b1011268b518c9031f8545c4e43181479a1a4a3-359x449.jpg",
+  "tonerpro/ig-8":
+    "https://cdn.sanity.io/images/203ybdbh/production/47eb4d4c96d0833eabb1d9523b93d4bb5bd089d8-358x449.jpg",
+  "tonerpro/ig-9":
+    "https://cdn.sanity.io/images/203ybdbh/production/e80df2e2e7ebaf3c9d192205f773b03b904e467b-359x449.jpg",
+  "planet-residence/g-1":
+    "https://cdn.sanity.io/images/203ybdbh/production/e5bc7595e7449bc89e3eb4d7227a9c2b293a9f88-538x674.jpg",
+  "planet-residence/g-2":
+    "https://cdn.sanity.io/images/203ybdbh/production/b2c93b349e4c120a38664fca9f075bb82eb939ac-538x674.jpg",
+  "planet-residence/g-3":
+    "https://cdn.sanity.io/images/203ybdbh/production/1e8c62ba2645b1814a1f3b94f2371d099e89833a-538x674.jpg",
+  "planet-residence/g-4":
+    "https://cdn.sanity.io/images/203ybdbh/production/858a57bcff928b0537d54c5a207a61bef1dffc53-538x673.jpg",
+  "planet-residence/g-5":
+    "https://cdn.sanity.io/images/203ybdbh/production/f720f56a05042e5a67f36cbbdb0389b0afc2a446-538x673.jpg",
+  "planet-residence/g-6":
+    "https://cdn.sanity.io/images/203ybdbh/production/4aeb699eb0ceedccd113b41c1b0400076405852b-538x673.jpg",
+  "planet-residence/g-7":
+    "https://cdn.sanity.io/images/203ybdbh/production/73d54b986cb84d24f692cbb725e0b14ede750c17-538x673.jpg",
+  "planet-residence/g-8":
+    "https://cdn.sanity.io/images/203ybdbh/production/1fe46d5915b0d77c70d32778fe5f6bbb47b42662-538x673.jpg",
+  "planet-residence/g-9":
+    "https://cdn.sanity.io/images/203ybdbh/production/30365de4099e62f1dcf61e0fdad52f300bf05451-538x673.jpg",
+  "planet-residence/g-10":
+    "https://cdn.sanity.io/images/203ybdbh/production/e6777a9a9752bc1697d740a1923c8505f11a70ce-538x674.jpg",
+  "planet-residence/g-11":
+    "https://cdn.sanity.io/images/203ybdbh/production/7c3414e29497c8bf9c4f9bc528b10e3d23ca1292-538x674.jpg",
+  "planet-residence/g-12":
+    "https://cdn.sanity.io/images/203ybdbh/production/5b888c473660ae1fb1233b7d3b82a87c88c3d0e8-538x674.jpg",
 };
 
 export const img = (key) => IMAGES[key] ?? null;

@@ -68,19 +68,14 @@ const story = {
       ],
       media: [
         {
-          src: img("moler-nis/home"),
-          alt: "Naslovna molernis.rs",
-          caption: "Naslovna strana.",
-        },
-        {
           src: img("moler-nis/gletovanje"),
           alt: "Stranica usluge gletovanje",
           caption: "Stranica usluge sa cenom.",
         },
         {
-          src: img("moler-nis/m-home"),
-          alt: "Sajt na telefonu",
-          caption: "Na telefonu.",
+          src: img("moler-nis/dekorativni"),
+          alt: "Dekorativne tehnike",
+          caption: "Dekorativni premazi i tehnike.",
         },
         {
           src: img("moler-nis/pagespeed"),
@@ -99,14 +94,16 @@ const story = {
       ],
       piece: {
         kind: "serp",
-        title: "Gde je Moler Niš kada kupac traži cenu",
+        title: "Gde je Moler Niš kada kupac traži molera",
         site: "molernis.rs",
         note: "Prosečna pozicija iz Google Search Console-a, 19. oktobar do 15. novembar 2026. Ostali rezultati su šematski.",
         queries: [
+          { q: "moler niš", pos: "1,4" },
           { q: "obrada špaletni oko prozora cena niš", pos: "2,5" },
           { q: "cena krečenja po kvadratu niš", pos: "3,7" },
           { q: "krečenje niš cena", pos: "3,9" },
           { q: "gletovanje i krečenje cena niš", pos: "4,6" },
+          { q: "krečenje niš", pos: "4,8" },
           { q: "farbanje stolarije cena niš", pos: "4,8" },
         ],
       },

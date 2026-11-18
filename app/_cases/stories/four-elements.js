@@ -10,14 +10,14 @@ import { img } from "./images";
 const story = {
   slug: "four-elements",
   headline:
-    "Butik spa centar koji je za pet dana dobio ideju, znak sa smislom, sajt na dva jezika i Instagram.",
+    "Vlasnik je imao snažnu ideju iza imena. Mi smo je pretvorili u brend, a iz njega su nastali sajt i Instagram.",
   standfirst:
-    "Four Elements je butik spa centar u Nišu, u kompleksu Planet Residence. Prostor je bio gotov i lep, ali ništa nije objašnjavalo zašto bi neko platio dan baš ovde. Postavili smo ideju brenda, napisali i nacrtali brend knjigu, dizajnirali sajt na srpskom i engleskom i pripremili Instagram sa objavama, pričama i video snimcima.",
+    "Four Elements je butik spa centar u Nišu, u kompleksu Planet Residence, sa gostima i prostorom uređenim po izuzetnoj zamisli vlasnika. Iza imena je stajala jasna ideja, ali je do sada niko nije uspeo da prenese u formu. Mi smo krenuli od nje: prvo da je razumemo, pa da napravimo brend knjigu koju će i oni i mi koristiti nadalje. Iz te knjige su nastali sajt na srpskom i engleskom i Instagram sa objavama, pričama i video snimcima.",
   meta: [
     { label: "Klijent", value: "Four Elements Spa Center, Niš" },
     { label: "Delatnost", value: "Butik spa centar" },
     { label: "Šta smo radili", value: "Ideja, brend knjiga, sajt, Instagram" },
-    { label: "Trajanje", value: "10. do 15. novembar 2026." },
+    { label: "Godina", value: "2026." },
   ],
   services: ["Brend", "Sajt", "Instagram"],
   numbers: [],
@@ -28,7 +28,7 @@ const story = {
       title: "Četiri elementa. Peti je vreme.",
       body: [
         "U starom shvatanju sveta četiri elementa grade sve, a peti, kvintesencija, je najčistiji. U spa centru četiri elementa su ono što prostor nudi: kamen, vodu, paru i toplotu. Peti je ono što gost dobija: vreme samo za sebe.",
-        "Ideja nije izmišljena sa strane. Došla je iz njihovih reči, „Četiri elementa, jedno vreme, samo za vas“, i iz toga kako rade: ne veruju u brze usluge.",
+        "Ideja nije naša. Bila je vlasnikova od početka, u imenu i u prostoru, i u njihovim rečima: „Četiri elementa, jedno vreme, samo za vas“. Naš posao je bio da je razumemo i zapišemo tako da je svako može preneti dalje.",
       ],
       widget: {
         kind: "stats",
@@ -117,11 +117,6 @@ const story = {
       ],
       media: [
         {
-          src: img("four-elements/home"),
-          alt: "Naslovna",
-          caption: "Naslovna.",
-        },
-        {
           src: img("four-elements/rituali"),
           alt: "Rituali",
           caption: "Rituali.",
@@ -135,6 +130,11 @@ const story = {
           src: img("four-elements/en"),
           alt: "Engleska verzija",
           caption: "Engleska verzija.",
+        },
+        {
+          src: img("four-elements/arkada"),
+          alt: "Spa arkada",
+          caption: "Spa arkada.",
         },
       ],
     },
@@ -160,25 +160,13 @@ const story = {
           "ig-vatra",
         ].map((k) => img(`four-elements/${k}`)),
       },
-      media: [
-        {
-          src: img("four-elements/reel-rituali"),
-          alt: "Kadar iz videa Četiri rituala",
-          caption: "Video „Četiri rituala“.",
-        },
-        {
-          src: img("four-elements/reel-arkada"),
-          alt: "Kadar iz videa Spa arkada",
-          caption: "Video „Spa arkada“.",
-        },
-      ],
     },
   ],
   next: {
     label: "Rezultat i sledeći koraci",
-    title: "Od lepog prostora do brenda koji objašnjava zašto vredi doći.",
+    title: "Od ideje koju je imao samo vlasnik do brenda koji svi mogu da nose.",
     body: [
-      "Za pet dana Four Elements je dobio ideju koja povezuje sve što rade, znak koji ima značenje, brend knjigu sa pravilima za svaku primenu, sajt na dva jezika i Instagram spreman za objavljivanje. Klijentu se predlog dopao od prvog pregleda.",
+      "Four Elements je dobio brend knjigu koja zapisuje vlasnikovu ideju i pravila za svaku primenu, a iz nje sajt na dva jezika i Instagram spreman za objavljivanje. Knjigu nadalje koriste i oni i mi, pa svaki novi materijal govori istim jezikom. Klijentu se predlog dopao od prvog pregleda.",
       "Sledeće je puštanje novog sajta, prvi mesec objava po planu i fotografisanje tima i rituala po pravilima iz brend knjige.",
     ],
   },

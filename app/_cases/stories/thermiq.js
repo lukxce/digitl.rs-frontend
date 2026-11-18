@@ -90,14 +90,14 @@ const story = {
       },
       media: [
         {
-          src: img("thermiq/home"),
-          alt: "Naslovna thermiq.rs",
-          caption: "Naslovna strana.",
-        },
-        {
           src: img("thermiq/proizvod"),
           alt: "Stranica proizvoda",
           caption: "Stranica proizvoda.",
+        },
+        {
+          src: img("thermiq/kategorija"),
+          alt: "Kategorija toplotne pumpe",
+          caption: "Kategorija sa filterima po marki i snazi.",
         },
       ],
     },
@@ -124,13 +124,6 @@ const story = {
           { q: "romstal 12000 btu", pos: "5,8" },
         ],
       },
-      media: [
-        {
-          src: img("thermiq/kategorija"),
-          alt: "Kategorija toplotne pumpe",
-          caption: "Kategorija sa filterima po marki i snazi.",
-        },
-      ],
     },
     {
       id: "kalkulatori",
@@ -224,6 +217,11 @@ const story = {
           src: img("thermiq/knjiga-01"),
           alt: "Brend knjiga 2.0",
           caption: "Brend knjiga 2.0.",
+        },
+        {
+          src: img("thermiq/knjiga-03"),
+          alt: "Poglavlje brend knjige",
+          caption: "Pozicija i ton, iz brend knjige.",
         },
         {
           src: img("thermiq/kartice"),

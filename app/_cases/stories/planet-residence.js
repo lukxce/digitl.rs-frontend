@@ -10,9 +10,9 @@ import { img } from "./images";
 const story = {
   slug: "planet-residence",
   headline:
-    "Instagram koji prodaje poslednje i najveće stanove u zgradi, a ne zgradu.",
+    "Instagram koji prodaje poslednje i najveće stanove, i život u zgradi u kojoj je sve na dohvat ruke.",
   standfirst:
-    "Planet Residence je stambeno-poslovni kompleks u Nišu, pored Delta Planeta. Većina od 420 stanova je prodata, a ostali su najveći: četvorosobni, sa dvorištem i penthausi. Takav stan kupuje porodica koja bira način života, ne kvadrate. Za taj nivo kupca postavili smo novu Instagram strategiju, od sistema objava do video snimaka.",
+    "Planet Residence je stambeno-poslovni kompleks u Nišu, pored Delta Planeta. Većina od 420 stanova je prodata, a ostali su najveći: četvorosobni, sa dvorištem i penthausi. Takav stan kupuje porodica koja bira način života, ne kvadrate. Zato profil prodaje i stan i zgradu: drogerija, apoteka, teretana i spa u prizemlju, dvorište samo za stanare i Delta Planet na sto metara. Za taj nivo kupca postavili smo novu Instagram strategiju, od sistema objava do video snimaka.",
   meta: [
     { label: "Klijent", value: "Planet Residence, Niš" },
     { label: "Delatnost", value: "Stambeno-poslovni kompleks" },
@@ -57,18 +57,15 @@ const story = {
           "Karusel | Raspored soba, enterijer, lokacija i zakupci u prizemlju.",
         ],
       },
-      media: [
-        {
-          src: img("planet-residence/mreza"),
-          alt: "Prvih dvanaest objava",
-          caption: "Prvih dvanaest objava.",
-        },
-        {
-          src: img("planet-residence/pregled-mreza"),
-          alt: "Profil na telefonu",
-          caption: "Profil na telefonu, sa opisom i istaknutim pričama.",
-        },
-      ],
+      piece: {
+        kind: "feed",
+        title: "Prvih dvanaest objava",
+        note: "Redosled kako stoje na profilu: stan, život, zgrada.",
+        cols: 3,
+        items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) =>
+          img(`planet-residence/g-${n}`),
+        ),
+      },
     },
     {
       id: "stanovi",
@@ -82,15 +79,10 @@ const story = {
         kind: "feed",
         title: "Stanovi u prodaji",
         note: "3D modeli i renderi su klijentovi, raspored, tekst i sistem su naši.",
-        cols: 3,
-        items: [
-          "stan-c3",
-          "stan-ph",
-          "stan-dv",
-          "raspored",
-          "enterijer",
-          "simbol",
-        ].map((k) => img(`planet-residence/${k}`)),
+        cols: 4,
+        items: ["stan-ph", "stan-dv", "raspored", "enterijer"].map((k) =>
+          img(`planet-residence/${k}`),
+        ),
       },
     },
     {
@@ -106,14 +98,9 @@ const story = {
         title: "Život u kompleksu",
         note: "Objave za seriju o životu u zgradi i oko nje.",
         cols: 3,
-        items: [
-          "spa",
-          "zakupci",
-          "lokacija",
-          "garaza",
-          "brojevi",
-          "reel-dan-noc",
-        ].map((k) => img(`planet-residence/${k}`)),
+        items: ["zakupci", "lokacija", "brojevi"].map((k) =>
+          img(`planet-residence/${k}`),
+        ),
       },
     },
     {
@@ -137,13 +124,6 @@ const story = {
           "reel-stan",
         ].map((k) => img(`planet-residence/${k}`)),
       },
-      media: [
-        {
-          src: img("planet-residence/istaknute"),
-          alt: "Omoti istaknutih priča",
-          caption: "Omoti istaknutih priča.",
-        },
-      ],
     },
     {
       id: "pravila",
@@ -176,7 +156,8 @@ const story = {
   ],
   next: {
     label: "Rezultat i sledeći koraci",
-    title: "Od profila zgrade u prodaji do profila koji prodaje način života.",
+    title:
+      "Od profila zgrade u prodaji do profila koji prodaje stan i lak život oko njega.",
     body: [
       "Planet Residence je dobio Instagram strategiju napravljenu za kupca velikog stana: sistem objava iz njihovog logotipa i rendera, prvih dvanaest objava, karusele za svaki stan u prodaji, priče, istaknute priče, video snimke i plan objavljivanja za četiri nedelje.",
       "Sledeće je fotografisanje zakupaca i dvorišta i oglasi koji vode na karusele stanova koji su još u prodaji.",

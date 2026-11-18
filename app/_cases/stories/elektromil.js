@@ -63,9 +63,9 @@ const story = {
       ],
       media: [
         {
-          src: img("elektromil/mockup"),
-          alt: "Sajt ElektroMil na računaru i telefonu",
-          caption: "Sajt na računaru i telefonu.",
+          src: img("elektromil/home"),
+          alt: "Naslovna",
+          caption: "Naslovna strana.",
         },
         {
           src: img("elektromil/usluge"),

@@ -90,11 +90,6 @@ const story = {
       ],
       media: [
         {
-          src: img("tonerpro/home"),
-          alt: "Naslovna strana tonerpro.rs",
-          caption: "Naslovna: pretraga po štampaču ili šifri.",
-        },
-        {
           src: img("tonerpro/stampac"),
           alt: "Stranica štampača",
           caption: "Stranica štampača sa tonerima koji mu odgovaraju.",
@@ -224,12 +219,14 @@ const story = {
         "Iza sajta je administracija napravljena za ovu prodavnicu: proizvodi sa cenom, stanjem i redosledom po potražnji, porudžbine sa statusom, upiti firmi, poruke iz četa, blog i statistika bez kolačića, koja pokazuje i šta su kupci tražili a nisu našli.",
         "O toneru niko ne želi da čita. O štampaču koji štampa prazne strane petkom u pet, želi svako. Instagram smo zato postavili oko situacija iz kancelarije, sa tonerom kao rešenjem, a uz porudžbinu idu nalepnice iz iste serije.",
       ],
+      piece: {
+        kind: "feed",
+        title: "Predlog Instagram profila",
+        note: "Objave za prvi mesec, novembar 2026.",
+        cols: 3,
+        items: [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => img(`tonerpro/ig-${n}`)),
+      },
       media: [
-        {
-          src: img("tonerpro/ig"),
-          alt: "Instagram profil TonerPro",
-          caption: "Predlog Instagram profila.",
-        },
         {
           src: img("tonerpro/nalepnice"),
           alt: "Nalepnice u paketu",

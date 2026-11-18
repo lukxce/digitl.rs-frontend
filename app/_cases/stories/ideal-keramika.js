@@ -56,19 +56,14 @@ const story = {
       ],
       media: [
         {
-          src: img("ideal-keramika/home"),
-          alt: "Naslovna strana idealkeramika.rs",
-          caption: "Naslovna strana.",
+          src: img("ideal-keramika/laptop"),
+          alt: "Katalog na ekranu",
+          caption: "Katalog kao izlog.",
         },
         {
-          src: img("ideal-keramika/m-home"),
-          alt: "Naslovna na telefonu",
-          caption: "Ista strana na telefonu.",
-        },
-        {
-          src: img("ideal-keramika/m-proizvod"),
-          alt: "Proizvod na telefonu",
-          caption: "Stranica pločice na telefonu.",
+          src: img("ideal-keramika/tus"),
+          alt: "Stranica tuš sistema",
+          caption: "Stranica proizvoda sa stanjem na lageru.",
         },
       ],
     },

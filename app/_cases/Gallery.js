@@ -179,19 +179,22 @@ export default function Gallery({ items }) {
   const list = (items ?? []).filter((m) => m?.src);
   if (!list.length) return null;
   const n = list.length;
-  const layout = n === 1 ? "one" : n === 2 ? "two" : "lead";
+  // every picture gets the same frame (16:10, top of the shot), so a row
+  // never has one tall picture and empty space next to it
+  const layout = n === 1 ? "one" : "grid";
+  const cols = n === 1 ? 1 : n === 2 || n === 4 ? 2 : 3;
 
   return (
     <>
       <div
         className={g.gallery}
         data-layout={layout}
-        style={{ "--rest": Math.min(3, Math.max(1, n - 1)) }}
+        style={{ "--cols": cols }}
       >
         {list.map((m, i) => {
           const size = imageSize(m.src) ?? { width: 1600, height: 900 };
-          const big = n === 1 || (layout === "lead" && i === 0);
-          const slot = big ? "full" : n === 2 || n === 3 ? "half" : "third";
+          const big = n === 1;
+          const slot = big ? "full" : cols === 2 ? "half" : "third";
           return (
             <figure
               key={m.src}
@@ -203,7 +206,7 @@ export default function Gallery({ items }) {
                 className={g.frame}
                 onClick={() => setOpen(i)}
                 aria-label={`Uvećajte sliku: ${m.alt || m.caption || `slika ${i + 1}`}`}
-                style={{ aspectRatio: `${size.width} / ${size.height}` }}
+                style={{ aspectRatio: "16 / 10" }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

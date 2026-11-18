@@ -277,7 +277,6 @@ function PriceTool({ data }) {
             <div
               key={r.code}
               className={p.prow}
-             
               data-sent={r.sent ? "" : undefined}
             >
               <span>
