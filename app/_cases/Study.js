@@ -1,13 +1,15 @@
 import Link from "next/link";
-import ProjectBlocksRendererAuto from "../components/ProjectBlocksRendererAuto";
+import Widget from "../_blog/Widgets";
 import b from "../_home/base.module.css";
 import { ArrowLeft, ArrowUpRight, Quote } from "../_home/icons";
 import { Btn, Reveal } from "../_home/ui";
+import ProjectBlocksRendererAuto from "../components/ProjectBlocksRendererAuto";
 import ProjectCard from "./Card";
 import ChapterNav from "./ChapterNav";
 import CaseCta from "./Cta";
 import Gallery from "./Gallery";
 import { monthYear, sized, srcSet, widestEm } from "./lib";
+import Piece from "./Pieces";
 import s from "./study.module.css";
 import Viz, { CountUp } from "./Viz";
 
@@ -240,6 +242,16 @@ function Chapter({ p }) {
           </Reveal>
         : null}
       {viz && !p.beside ? <Reveal className={s.wide}>{viz}</Reveal> : null}
+      {ch.widget
+        ? <Reveal className={s.wide}>
+            <Widget kind={ch.widget.kind} lines={ch.widget.lines} />
+          </Reveal>
+        : null}
+      {ch.piece
+        ? <Reveal className={s.wide}>
+            <Piece piece={ch.piece} />
+          </Reveal>
+        : null}
       {ch.media?.length
         ? <Reveal className={s.media}>
             <Gallery items={ch.media} />

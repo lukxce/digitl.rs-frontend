@@ -1,209 +1,125 @@
-/* ElektroMil: the story told on /projects/elektromil.
+/* ElektroMil: the story on /projects/elektromil (rewritten 18 Nov 2026). No link to the site (Luka, 18 Nov).
 
-   What is measured and where it comes from:
-   - "Prvi pozivi u prvom mesecu" and "najveći izvor novih klijenata do
-     trećeg meseca" are the client's own account of where enquiries came
-     from; they are an order of sources, not a count of calls.
-   - Second organic result for "električar niš": a check of Google results
-     for Niš on 27 Sep 2026 (OpenSEO audit).
-   - Seven service pages: the live site, read 10 Oct 2026. They stay in the
-     text; as a headline number they said nothing to a reader (Luka, 11 Oct).
-   - "Urađeni poslovi i garancija": what the homepage shows, read 11 Oct 2026.
-   We have no Search Console access for elektromilnis.rs, so there are no
-   visit numbers here. Add them when there is access. */
-
-const IMG = "https://cdn.sanity.io/images/203ybdbh/production";
+   Sources (studije-slucaja/assets/elektromil/facts.md). elektromilnis.rs did not answer on 18 Nov 2026, so the
+   images are Digitl's earlier ones. No Search Console access.
+   - Measured: second organic result for "električar niš" in Niš, 27 Sep and 1 Nov 2026.
+   - Luka (18 Nov): now first for "električar niš" and some other searches. First calls in month one, the site
+     the biggest source of new clients by month three (old study, 11 Oct).
+   - PageSpeed desktop 2 Aug 2026: 96, largest content in 0,9 s.
+   - The gallery (stock photos) and the form (placeholder "youremail") are not shown. */
+import { img } from "./images";
 
 const story = {
   slug: "elektromil",
-  headline: "Od preporuke do najvećeg izvora upita za tri meseca.",
+  headline:
+    "Firma koja godinama radi velike projekte, a na internetu nije postojala. Danas je prva na Google-u za „električar Niš“.",
   standfirst:
-    "Izgradili smo ElektroMilu sajt i lokalnu SEO osnovu od nule. Već u prvom mesecu sajt je počeo da donosi pozive. Do trećeg meseca postao je njihov najveći izvor novih klijenata, ispred preporuka koje su decenijama bile jedini kanal rasta.",
+    "ElektroMil je elektroinstalaterska firma iz Niša sa velikim projektima iza sebe i imenom koje se prenosi preporukom. Ali ko nije znao nekoga ko je radio sa njima, nije imao kako da ih nađe. Uradili smo dizajn i sajt od nule i postavili ga za lokalnu pretragu. Danas je ElektroMil prvi za „električar Niš“.",
   meta: [
     { label: "Klijent", value: "ElektroMil, Niš" },
-    { label: "Delatnost", value: "Elektroinstalaterske usluge" },
-    { label: "Šta smo radili", value: "Sajt, lokalni SEO" },
-    {
-      label: "Podaci",
-      value: "Prva tri meseca, i provera 27. septembra 2026.",
-    },
+    { label: "Delatnost", value: "Elektroinstalacije i elektro usluge" },
+    { label: "Šta smo radili", value: "Dizajn, sajt, SEO i lokalna pretraga" },
+    { label: "Godina", value: "2026." },
   ],
-  services: ["Web", "SEO"],
+  services: ["Dizajn", "Web", "SEO"],
   source:
-    "Izvor: redosled izvora upita prema ElektroMilu, i provera Google rezultata za Niš od 27. septembra 2026.",
+    "Izvor: pretraga u Nišu, evidencija upita firme i Google PageSpeed, 2026.",
   numbers: [
-    { value: "1. mesec", label: "prvi pozivi sa pretrage", note: "" },
     {
-      value: "3. mesec",
-      label: "najveći izvor novih klijenata",
+      value: "1.",
+      label: "mesto za „električar Niš“",
+      note: "ispred firmi koje su na internetu godinama",
+    },
+    {
+      value: "1",
+      label: "mesec do prvih poziva iz pretrage",
+      note: "od ljudi koji firmu nisu znali",
+    },
+    {
+      value: "3",
+      label: "meseca, i sajt je najveći izvor klijenata",
       note: "ispred preporuka",
     },
-    {
-      value: "2.",
-      label: "rezultat na Google-u za „električar niš“",
-      note: "27. septembar 2026.",
-    },
+    { value: "0,9 s", label: "da se sajt učita", note: "Google PageSpeed 96" },
   ],
-
   chapters: [
     {
       id: "polazna-tacka",
       kicker: "Polazna tačka",
-      title: "Bez prisustva na internetu, nema ni dolaznih upita.",
+      title: "Velika imena među klijentima, nijedan rezultat u pretrazi.",
       body: [
-        "ElektroMil ima više od decenije reputacije u Nišu, izgrađene isključivo na preporuci od usta do usta. Sa nultim digitalnim prisustvom, svaki novi posao je zavisio od preporuke ili starog klijenta koji se vraća.",
-        "Vrednost ovog sajta leži u rešavanju vrlo konkretnog problema: iskusna firma sa decenijom stvarnog rada iza sebe, potpuno nevidljiva za svakoga ko na internetu traži baš njenu uslugu. Cilj nije bio napraviti nešto upečatljivo. Električara ljudi traže onda kad im zatreba, najčešće u žurbi i sa telefona, pa je sajt morao da se rangira za te pretrage i da se učita odmah.",
-        "Od tog prvog utiska zavisi sve ostalo: da posetilac za nekoliko sekundi vidi ozbiljnu firmu, sa urađenim poslovima i garancijom na rad, i da mu poziv bude na jedan dodir.",
+        "ElektroMil radi za domove i firme: instalacije, rasvetu, razvodne table, servis, klima uređaje i punjače za električne automobile. Iza sebe ima velike projekte, ali je ceo posao dolazio preporukom.",
+        "Preporuka ima granicu. Ko traži električara kad mu nešto stane, ukuca „električar Niš“ i zove prvog koga vidi. ElektroMila tamo nije bilo.",
+      ],
+      pull: "Firma koja radi velike poslove ne sme da izgleda kao neko ko radi sam. Sajt je morao da pokaže ozbiljnost na prvom ekranu.",
+    },
+    {
+      id: "dizajn",
+      kicker: "Dizajn i sajt",
+      title: "Sajt koji izgleda kao firma koja radi velike poslove.",
+      body: [
+        "Električara se zove kad nešto ne radi, i kupac odlučuje brzo: da li je ovo ozbiljna firma, da li dolaze danas i da li daju garanciju. Sajt odgovara na sva tri pitanja na prvom ekranu, sa dugmetom za poziv koje je uvek vidljivo.",
+        "Crno, belo i narandžasta munja. Stranica za svaku uslugu, od elektroinstalacija do punjača za električne automobile, i hitne intervencije odmah uz broj telefona.",
       ],
       media: [
         {
-          src: `${IMG}/bd66e13588b4a1c5677d5c7053039c8f955bd8e2-1600x900.png`,
-          alt: "Početna stranica sajta ElektroMil",
-          caption: "Početna stranica.",
+          src: img("elektromil/mockup"),
+          alt: "Sajt ElektroMil na računaru i telefonu",
+          caption: "Sajt na računaru i telefonu.",
+        },
+        {
+          src: img("elektromil/usluge"),
+          alt: "Usluge",
+          caption: "Sve usluge na jednom mestu.",
+        },
+        {
+          src: img("elektromil/ev"),
+          alt: "Punjači za električne automobile",
+          caption: "Stranica za punjače električnih automobila.",
+        },
+        {
+          src: img("elektromil/mobilni"),
+          alt: "Sajt na telefonu",
+          caption: "Na telefonu.",
         },
       ],
     },
     {
-      id: "istrazivanje",
-      kicker: "Istraživanje",
-      title: "Šta ljudi u Nišu zapravo kucaju u Google.",
+      id: "pretraga",
+      kicker: "Pretraga",
+      title: "Lokalna pretraga, stranicu po stranicu.",
       body: [
-        "Pre nego što je napisan bilo koji red koda, istraženo je šta ljudi u Nišu zapravo kucaju u Google kada im treba električar. Ne opšti upiti, već konkretne pretrage vezane za konkretan problem: zamena osigurača, kvar na instalaciji, ugradnja klime, postavljanje EV punjača.",
-        "Svaka od tih pretraga ima jasnu nameru. Osoba koja pretražuje je spremna da pozove, samo treba da pronađe pravog izvođača. Pretrage poput „električar Niš“ ili „ugradnja klime Niš“ nose visoku komercijalnu nameru, i cela strategija je izgrađena oko toga da ElektroMil bude najlakše pronađen odgovor u tom trenutku.",
+        "Električar se traži po gradu. Zato svaka stranica govori o Nišu i okolini, a naslovi i opisi su pisani za ono što ljudi kucaju: električar Niš, ugradnja punjača, popravka instalacija. Sajt se učitava za manje od sekunde i tehnički je čist.",
+        "Prvo je došla druga pozicija za „električar Niš“, a sada je ElektroMil prvi, uz prvu stranu za još nekoliko usluga.",
       ],
-      pull: "Osoba koja pretražuje je spremna da pozove, samo treba da pronađe pravog izvođača.",
-    },
-    {
-      id: "struktura",
-      kicker: "Struktura",
-      title: "Sedam usluga, sedam stranica.",
-      body: [
-        "Na osnovu toga je izgrađena arhitektura sajta. Svaka usluga je dobila svoju stranicu, umesto da sve bude nabacano na jednu opštu stranicu usluga: elektroinstalacije, rasveta, osigurači i table, utičnice i prekidači, servis uređaja, ugradnja klima uređaja i ugradnja EV punjača.",
-        "To je omogućilo da svaka stranica cilja svoj skup ključnih reči i da se pojavljuje u rezultatima pretrage za specifične upite, umesto da se sve stranice takmiče međusobno za iste opšte termine.",
-      ],
-      media: [
-        {
-          src: `${IMG}/aab8db1b77809898e29efee23f068f045acbcb3d-1600x900.png`,
-          alt: "Primer stranice usluge na sajtu ElektroMil",
-          caption: "Stranica jedne usluge.",
-        },
-        {
-          src: `${IMG}/223afcd06c4a63c5c60cb5e5d998d69865ca8b9d-1600x900.png`,
-          alt: "Galerija projekata na sajtu ElektroMil",
-          caption: "Urađeni poslovi kao dokaz.",
-        },
-      ],
-    },
-    {
-      id: "poziv",
-      kicker: "Dizajn",
-      title: "Svaka odluka je služila jednom cilju: da telefon zazvoni.",
-      body: [
-        "Broj telefona je vidljiv i klikabilan na svakoj poziciji skrolovanja. Nema nepotrebnih animacija, nema praznog teksta, nema dizajnerskog ukrasa koji ne služi cilju.",
-        "Neko ko dođe na ovaj sajt već ima potrebu za električarom. Jedini preostali posao je da se ukloni svako trenje između dolaska na stranicu i poziva.",
-      ],
-      media: [
-        {
-          src: `${IMG}/c04ad9c024eca2c65ec26d0b6a3bc14fadfc4964-1600x900.png`,
-          alt: "Poziv na akciju sa brojem telefona",
-          caption: "Broj telefona na svakom koraku.",
-        },
-        {
-          src: `${IMG}/ac070be14e3df329e216b19aa797bc5941ed0fd5-1600x900.png`,
-          alt: "Mobilni prikaz sajta ElektroMil",
-          caption: "Mobilni prikaz.",
-        },
-      ],
-    },
-    {
-      id: "tehnika",
-      kicker: "Tehnika",
-      title: "Tehnički deo bez kompromisa.",
-      body: [
-        "Brzo učitavanje, mobilni prikaz kao prioritet, jer većina lokalnih pretraga dolazi sa telefona, čista URL struktura i ispravno indeksiranje kod Google-a.",
-        "Ovo su stvari koje se lako zanemare, ali za lokalni servisni sajt prave razliku između toga da li ćete se pojaviti u prve tri pozicije ili ćete biti nevidljivi na drugoj strani rezultata.",
-      ],
-      media: [
-        {
-          src: `${IMG}/1d62c60a78cff9446f336e49750d5876bf067a5a-1600x900.png`,
-          alt: "Tehnički prikaz brzine sajta",
-          caption: "Brzina učitavanja.",
-        },
-      ],
-    },
-    {
-      id: "ev-punjaci",
-      kicker: "Otkriće",
-      title: "EV punjači: niša koju niko nije pokrivao.",
-      body: [
-        "Jedna stvar se izdvojila u podacima koju nismo predviđali u tolikoj meri. Stranica za ugradnju EV punjača dovela je nesrazmerno veliki broj poseta i upita u odnosu na ostale usluge. Ispostavilo se da u Nišu praktično niko ozbiljno ne pokriva tu uslugu na internetu. Veliki igrači se fokusiraju na Beograd, a lokalni izvođači je uglavnom i ne pominju na sajtu, iako je rade.",
-        "To je otkrilo praznu nišu tačno u trenutku kada je broj vlasnika električnih vozila počeo primetno da raste. ElektroMil se pozicionirao kao jedna od retkih ozbiljnih opcija u gradu za ugradnju EV punjača, i pozivi po tom osnovu i dalje redovno stižu.",
-        "Ovo je dobar primer zašto je vredno graditi posebnu stranicu za svaku uslugu. Da EV punjači nisu imali sopstvenu stranicu, ta potražnja bi verovatno prošla potpuno nezapaženo.",
-      ],
-      media: [
-        {
-          src: `${IMG}/7d13f9b40d13d74b07caed08a1e7922d75b363c4-1600x900.png`,
-          alt: "Stranica usluge ugradnje EV punjača",
-          caption: "Ugradnja EV punjača kao posebna usluga.",
-        },
-      ],
-    },
-    {
-      id: "rezultati",
-      kicker: "Rezultati",
-      title: "Rezultati su stigli brže nego što bi se očekivalo.",
-      body: [
-        "Za lokalni servisni biznis u gradu srednje veličine, dobro urađen lokalni SEO ne mora da bude igra čekanja od pola godine. Pretrage postoje svakog dana, namera je jasna, a kada sajt uđe na tržište gde je konkurencija slaba ili je uopšte nema, rangiranje dolazi relativno brzo.",
-        "Već u prvom mesecu stigli su prvi pozivi direktno sa pretrage, pre bilo kakvog plaćenog oglašavanja. Do trećeg meseca sajt je postao najveći pojedinačni izvor novih klijenata za ElektroMil, prestigavši preporuke koje su decenijama bile jedini način da posao dođe do njih.",
-        "Krajem septembra 2026. sajt je bio drugi rezultat na Google-u za pretragu „električar niš“.",
-      ],
-      viz: {
-        kind: "compare",
-        title: "Odakle stižu novi klijenti",
-        note: "Prema ElektroMilu: redosled izvora, ne broj poziva.",
-        rows: [
-          {
-            label: "Najveći izvor novih klijenata",
-            from: "Preporuka",
-            to: "Google pretraga",
-          },
-          {
-            label: "Prisustvo na internetu",
-            from: "Nikakvo",
-            to: "Sajt sa sedam stranica usluga",
-          },
-          {
-            label: "Pozicija za „električar niš“",
-            from: "Nije u rezultatima",
-            to: "Drugi rezultat",
-          },
+      widget: {
+        kind: "steps",
+        lines: [
+          "1. mesec | Prvi pozivi iz pretrage, od ljudi koji firmu ranije nisu znali.",
+          "Septembar | Druga pozicija za „električar Niš“ u Nišu.",
+          "3. mesec | Sajt donosi više novih klijenata nego preporuke.",
+          "Danas | Prvo mesto za „električar Niš“ i prva strana za još nekoliko usluga.",
         ],
       },
+      media: [
+        {
+          src: img("elektromil/brzina"),
+          alt: "Google PageSpeed 96",
+          caption: "Google PageSpeed na računaru: 96.",
+        },
+      ],
     },
   ],
-
   next: {
-    title: "Šta još ne znamo, i šta sledi.",
+    label: "Rezultat i sledeći koraci",
+    title:
+      "Od firme koju znaju samo oni koji su čuli za nju do prvog rezultata u Nišu.",
     body: [
-      "Ova studija govori o redosledu izvora upita, onako kako ga vidi sam ElektroMil, ne o tačnom broju poziva po stranici. To je sledeće što treba izmeriti.",
-      "Organska pretraga ima tu osobinu da što duže sajt postoji i što više sadržaja i poverenja gradi, to više prostora zauzima u rezultatima.",
+      "ElektroMil je dobio dizajn, sajt sa stranicom za svaku uslugu i prvo mesto na Google-u za „električar Niš“. Firma koja je godinama radila velike poslove sada je vidljiva i onima koji je ranije nisu znali.",
+      "Sledeće su fotografije stvarnih projekata, Google profil firme sa recenzijama i stranice za veće poslove, za firme i investitore.",
     ],
   },
-
-  takeaways: [
-    {
-      title: "Bez prisustva na internetu, nema ni dolaznih upita",
-      text: "ElektroMil ima više od decenije reputacije u Nišu, izgrađene isključivo na preporuci od usta do usta. Sa nultim digitalnim prisustvom, svaki novi posao je zavisio od preporuke ili starog klijenta koji se vraća.",
-    },
-    {
-      title: "Lokalna namera pretrage je bila prilika",
-      text: "Pretrage poput „električar Niš“ ili „ugradnja klime Niš“ nose visoku komercijalnu nameru. Cela strategija je izgrađena oko toga da budemo najlakše pronađen odgovor u trenutku kada neko pretražuje.",
-    },
-    {
-      title: "Lokalni SEO se brzo akumulira kada je konkurencija odsutna",
-      text: "Većina lokalnih konkurenata ili nije imala sajt ili je imala sajt koji nije bio optimizovan ni za šta. Ta praznina je značila da dobro izgrađen, ispravno optimizovan sajt nije morao da čeka mesecima.",
-    },
-  ],
+  takeaways: [],
 };
 
 export default story;
