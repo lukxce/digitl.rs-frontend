@@ -6,6 +6,7 @@ import fourElements from "../assets/clients/four-elements.webp";
 import idealKeramika from "../assets/clients/ideal-keramika.webp";
 import molerNis from "../assets/clients/moler-nis.webp";
 import planetResidence from "../assets/clients/planet-residence.webp";
+import praxisCentar from "../assets/clients/praxis-centar.webp";
 import primaDental from "../assets/clients/prima-dental.webp";
 import thermiq from "../assets/clients/thermiq.webp";
 import vojvodaResidence from "../assets/clients/vojvoda-residence.webp";
@@ -35,6 +36,7 @@ const LOGOS = [
   { src: idealKeramika.src, name: "Ideal Keramika" },
   { src: planetResidence.src, name: "Planet Residence" },
   { src: fourElements.src, name: "Four Elements", label: true },
+  { src: praxisCentar.src, name: "Praxis centar", h: 0.75 },
   { src: primaDental.src, name: "Prima Dental" },
   { src: molerNis.src, name: "Moler Niš", label: true },
   { src: elektromil.src, name: "ElektroMil", h: 0.7 },

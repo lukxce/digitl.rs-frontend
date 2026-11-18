@@ -272,6 +272,38 @@ const IMAGES = {
     "https://cdn.sanity.io/images/203ybdbh/production/908b248731fad710c34306bd5914f151f9a63182-1080x1350.jpg",
   "four-elements/v5-rituals-sr-04":
     "https://cdn.sanity.io/images/203ybdbh/production/4046fc515925a734394080492275b0daba857a10-1080x1350.jpg",
+  "praxis-centar/blog":
+    "https://cdn.sanity.io/images/203ybdbh/production/39461e19395ee768305e8df3b1845956077811f4-2400x1500.jpg",
+  "praxis-centar/cover":
+    "https://cdn.sanity.io/images/203ybdbh/production/26728f07a46a94ed65643d9c1fe3afb3b831d5e2-3200x1800.png",
+  "praxis-centar/crm-blog":
+    "https://cdn.sanity.io/images/203ybdbh/production/a230db5f44b95c37c0329bf7fcbe7d2588adc261-2400x1500.jpg",
+  "praxis-centar/crm-danas":
+    "https://cdn.sanity.io/images/203ybdbh/production/c0f17c310fe116b03a8701a1dbf6ada811377b09-2400x1500.jpg",
+  "praxis-centar/crm-izvestaji":
+    "https://cdn.sanity.io/images/203ybdbh/production/46d1f73c6f4bb9b74c513ea85932531a328ff1ea-2400x1500.jpg",
+  "praxis-centar/crm-kalendar":
+    "https://cdn.sanity.io/images/203ybdbh/production/0b15d36212d0772db2acb4705dd9c701bde84a3f-2400x1500.jpg",
+  "praxis-centar/crm-karton":
+    "https://cdn.sanity.io/images/203ybdbh/production/8d45a646fbf7ed897e08095262de6338e13f0a28-2400x1500.jpg",
+  "praxis-centar/crm-prijava":
+    "https://cdn.sanity.io/images/203ybdbh/production/f6b013941f0717c724916bb54b55d4009367c3b1-2400x1500.jpg",
+  "praxis-centar/crm-zahtevi":
+    "https://cdn.sanity.io/images/203ybdbh/production/53e17cfb874c5e61190495e0eaadb8e3d7140258-2400x1500.jpg",
+  "praxis-centar/doktor":
+    "https://cdn.sanity.io/images/203ybdbh/production/89622dc3029eb8fd23494b1cbe0bd3f11c4f60be-2400x1500.jpg",
+  "praxis-centar/home":
+    "https://cdn.sanity.io/images/203ybdbh/production/bc8c66e2a4b52d3c0338ee8dec0ef2868274592e-2400x1500.jpg",
+  "praxis-centar/logo":
+    "https://cdn.sanity.io/images/203ybdbh/production/63e448062346bbbdd9c916b804646376bc58dbf7-512x512.png",
+  "praxis-centar/staro":
+    "https://cdn.sanity.io/images/203ybdbh/production/011699230440aa4ceff43488939f6d363d9cea89-2400x1500.jpg",
+  "praxis-centar/tekst":
+    "https://cdn.sanity.io/images/203ybdbh/production/8e5126c512cbf0880e78d36a9f01491633f1972e-2400x1500.jpg",
+  "praxis-centar/tim":
+    "https://cdn.sanity.io/images/203ybdbh/production/2f743dc25d8b5620736de96701edacdb957b7829-2400x1500.jpg",
+  "praxis-centar/usluga":
+    "https://cdn.sanity.io/images/203ybdbh/production/89cb5b73c4a90c95ed33f569b287b6b9d1da4c08-2400x1500.jpg",
 };
 
 export const img = (key) => IMAGES[key] ?? null;

@@ -3,6 +3,7 @@ import fourElements from "./four-elements";
 import idealKeramika from "./ideal-keramika";
 import molerNis from "./moler-nis";
 import planetResidence from "./planet-residence";
+import praxisCentar from "./praxis-centar";
 import servisKlimeNis from "./servis-klime-nis";
 import thermiq from "./thermiq";
 import tonerpro from "./tonerpro";
@@ -16,6 +17,7 @@ const STORIES = {
   "planet-residence": planetResidence,
   "four-elements": fourElements,
   tonerpro,
+  "praxis-centar": praxisCentar,
   thermiq,
   "ideal-keramika": idealKeramika,
   "servis-klime-nis": servisKlimeNis,
