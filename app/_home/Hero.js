@@ -31,6 +31,7 @@ function Line({ delay, children }) {
    wordmark gets the name beside it; `h` evens out logos that read larger
    than the rest at the same height (ElektroMil's is very wide). */
 const LOGOS = [
+  { src: elektromil.src, name: "ElektroMil", h: 0.7 },
   { src: thermiq.src, name: "ThermiQ" },
   { src: vojvodaResidence.src, name: "Vojvoda Residence" },
   { src: idealKeramika.src, name: "Ideal Keramika" },
@@ -39,7 +40,6 @@ const LOGOS = [
   { src: praxisCentar.src, name: "Praxis centar", h: 0.75 },
   { src: primaDental.src, name: "Prima Dental" },
   { src: molerNis.src, name: "Moler Niš", label: true },
-  { src: elektromil.src, name: "ElektroMil", h: 0.7 },
 ];
 
 function Logos() {
