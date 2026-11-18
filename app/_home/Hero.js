@@ -6,6 +6,7 @@ import fourElements from "../assets/clients/four-elements.webp";
 import idealKeramika from "../assets/clients/ideal-keramika.webp";
 import molerNis from "../assets/clients/moler-nis.webp";
 import planetResidence from "../assets/clients/planet-residence.webp";
+import primaDental from "../assets/clients/prima-dental.webp";
 import thermiq from "../assets/clients/thermiq.webp";
 import vojvodaResidence from "../assets/clients/vojvoda-residence.webp";
 import b from "./base.module.css";
@@ -29,13 +30,14 @@ function Line({ delay, children }) {
    wordmark gets the name beside it; `h` evens out logos that read larger
    than the rest at the same height (ElektroMil's is very wide). */
 const LOGOS = [
-  { src: molerNis.src, name: "Moler Niš", label: true },
   { src: thermiq.src, name: "ThermiQ" },
-  { src: elektromil.src, name: "ElektroMil", h: 0.7 },
   { src: vojvodaResidence.src, name: "Vojvoda Residence" },
   { src: idealKeramika.src, name: "Ideal Keramika" },
   { src: planetResidence.src, name: "Planet Residence" },
   { src: fourElements.src, name: "Four Elements", label: true },
+  { src: primaDental.src, name: "Prima Dental" },
+  { src: molerNis.src, name: "Moler Niš", label: true },
+  { src: elektromil.src, name: "ElektroMil", h: 0.7 },
 ];
 
 function Logos() {
