@@ -110,14 +110,14 @@ const page = {
   },
   cases: [
     {
-      slug: "servis-klime-nis",
-      title: "Servis Klime Niš",
-      text: "Sajt koji razdvaja kvar od kupovine, sa cenom vidljivom pre poziva. Google PageSpeed ocena 100 na telefonu.",
+      slug: "ideal-keramika",
+      title: "Ideal Keramika",
+      text: "Web shop sa 8.532 proizvoda za prodavnicu pločica i opreme za kupatilo u Beogradu. Prve prodaje stigle su deset dana posle pokretanja.",
     },
     {
       slug: "thermiq",
       title: "ThermiQ",
-      text: "Online prodavnica distributera grejanja i hlađenja, sa hiljadama proizvoda u katalogu. Za 91 dan sajt je dobio 2.836 poseta iz pretrage.",
+      text: "Online prodavnica opreme za grejanje i klimatizaciju u Beogradu, sa 4.275 proizvoda. Za tri meseca sajt je dobio 4.719 poseta iz Google pretrage.",
     },
   ],
   guide: [
@@ -169,7 +169,7 @@ const page = {
       body: [
         "Sajtove pravimo po meri, u savremenim tehnologijama, jer se takav sajt brže otvara i teže ga je napasti. Ako više volite WordPress, pravimo i njega.",
         "WordPress je besplatan sistem za upravljanje sadržajem, sa hiljadama gotovih šablona i dodataka koje može da instalira i neko ko ne programira. Sajt po meri programiramo u Next.js-u i povezujemo ga sa urednikom sadržaja Sanity, pa svaka stranica ima tačno ona polja koja vašoj firmi trebaju.",
-        "Stranice sajta po meri pripremljene su unapred, pa se na telefonu otvaraju bez čekanja da se učitaju šablon i dodaci. Sajtovi koje smo napravili za [molersku firmu](/projects/moler-nis) i [servis klima](/projects/servis-klime-nis) imaju Google PageSpeed ocenu 100 na telefonu.",
+        "Stranice sajta po meri pripremljene su unapred, pa se na telefonu otvaraju bez čekanja da se učitaju šablon i dodaci. Sajt koji smo napravili za [molersku firmu](/projects/moler-nis) ima Google PageSpeed ocenu 100 na telefonu.",
         "Bezbednost je druga razlika. Prema [izveštaju firme Patchstack](https://patchstack.com/whitepaper/state-of-wordpress-security-in-2026/), 91% novih bezbednosnih propusta nađenih u WordPress-u tokom 2025. bilo je u dodacima. Sajt po meri ima mnogo manje tuđeg koda, pa ima i manje mesta za napad i manje ažuriranja posle kojih nešto prestane da radi.",
         "Kad vam zatreba kalkulator, veza sa kasom ili nova vrsta stranice, programiramo je baš za vaš sajt. Tako sajt raste zajedno sa firmom, pa kasnije može da dobije prodavnicu ili drugi jezik bez prelaska na novi sistem.",
         {

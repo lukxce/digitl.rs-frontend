@@ -25,10 +25,14 @@ const page = {
   h1: "SEO optimizacija sajta",
   lead: "Pišemo stranice za usluge koje prodajete i optimizujemo sajt i Google profil firme, da vas na Google-u i u AI pretrazi pronađu ljudi koji traže vašu uslugu. Radimo za firme iz cele Srbije, od lokalnih servisa i ordinacija do online prodavnica. Svakog meseca vidite pozicije, posete i upite iz pretrage.",
   proof: [
-    { value: "2.836", label: "poseta iz pretrage", href: "/projects/thermiq" },
     {
-      value: "516",
-      label: "klikova iz Google pretrage za tri meseca",
+      value: "4.719",
+      label: "poseta iz Google pretrage za tri meseca",
+      href: "/projects/thermiq",
+    },
+    {
+      value: "576",
+      label: "poseta iz Google pretrage za tri meseca",
       href: "/projects/moler-nis",
     },
     {
@@ -99,7 +103,7 @@ const page = {
     {
       slug: "moler-nis",
       title: "Moler Niš",
-      text: "Molerska firma iz Niša počela je bez sajta i bez imena koje ljudi traže, a za tri meseca stigla je do prvog mesta na Google-u.",
+      text: "Molerska firma iz Niša počela je bez sajta i bez imena koje ljudi traže, a za manje od dva meseca stigla je do prvog mesta na Google-u za svoju glavnu ključnu reč.",
     },
     {
       slug: "elektromil",
@@ -212,7 +216,7 @@ const page = {
     },
     {
       q: "Radite li SEO optimizaciju za webshop?",
-      a: "Radimo, i tu se SEO radi drugačije nego na sajtu sa nekoliko usluga. Kad prodavnica ima stotine ili hiljade proizvoda, naslove i opise podešavamo u šablonu, pa važe za ceo katalog odjednom. Tako smo radili ThermiQ, katalog sa hiljadama proizvoda koji je od jula do oktobra 2026. imao 2.836 poseta iz pretrage.",
+      a: "Radimo, i tu se SEO radi drugačije nego na sajtu sa nekoliko usluga. Kad prodavnica ima stotine ili hiljade proizvoda, naslove i opise podešavamo u šablonu, pa važe za ceo katalog odjednom. Tako smo radili ThermiQ, katalog sa 4.275 proizvoda koji je od avgusta do novembra 2026. imao 4.719 poseta iz Google pretrage.",
     },
     {
       q: "Treba li za SEO nov sajt?",

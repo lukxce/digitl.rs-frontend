@@ -169,10 +169,11 @@ function Moler({ c, closest, front }) {
 }
 
 /* ThermiQ: from invisible in search to a steady stream of visits.
-   Numbers from Search Console, 5 Jul to 3 Oct 2026 (the same window as the
-   case study at /projects/thermiq): 2.836 clicks, 51.773 impressions, average
-   position 7,1 in the last 28 days, 3.157 indexed pages. The little chart is
-   the real series: clicks per full week, 6 Jul to 21 Sep (80 → 341). */
+   Numbers from Search Console via Fortress (project 6), 18 Aug to 16 Nov
+   2026, the same window as the case study at /projects/thermiq: 4.719
+   clicks, 106.019 impressions, 376 of the top 500 queries on page 1. The
+   little chart is the real series: clicks per full week, July then
+   17 Aug to 9 Nov (80 → 517). */
 const VISITS_PATH =
   "M0.0,87.7 L20.0,69.3 L40.0,55.5 L60.0,63.2 L80.0,60.6 L100.0,47.4 L120.0,47.7 L140.0,55.4 L160.0,48.2 L180.0,25.6 L200.0,44.8 L220.0,23.9 L240.0,14.0 L260.0,20.7";
 const VISITS_AREA = `${VISITS_PATH} L260,100 L0,100 Z`;

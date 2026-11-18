@@ -850,10 +850,10 @@
 .hubItem[data-tone="ai"] {
   background:
     radial-gradient(
-        color-mix(in oklab, var(--accent) 22%, transparent) 1px,
-        transparent 1.4px
-      )
-      0 0 / 12px 12px,
+      color-mix(in oklab, var(--accent) 22%, transparent) 1px,
+      transparent 1.4px
+    )
+    0 0 / 12px 12px,
     #fff;
   color: var(--ink);
   box-shadow:

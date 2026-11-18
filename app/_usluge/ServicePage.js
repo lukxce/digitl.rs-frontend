@@ -12,8 +12,8 @@ import { Btn, EASE, Reveal, useApp } from "../_home/ui";
 import AiCard from "./AiCard";
 import ReportSample from "./ReportSample";
 import Rich from "./Rich";
-import { SERVICES_UPDATED } from "./slugs";
 import { STICKERS } from "./Stickers";
+import { SERVICES_UPDATED } from "./slugs";
 import u from "./usluge.module.css";
 
 /* One service page: the homepage's language (light page, grey and brand
@@ -26,8 +26,11 @@ import u from "./usluge.module.css";
 const CLIENTS = {
   thermiq: "ThermiQ",
   "moler-nis": "Moler Niš",
-  "servis-klime-nis": "Servis Klime Niš",
   elektromil: "ElektroMil",
+  "ideal-keramika": "Ideal Keramika",
+  tonerpro: "TonerPro",
+  "four-elements": "Four Elements",
+  "planet-residence": "Planet Residence",
 };
 
 /* ── the price slot ───────────────────────────────────────────────────────

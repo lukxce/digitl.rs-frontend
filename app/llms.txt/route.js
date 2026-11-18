@@ -1,6 +1,6 @@
 import { PAGES } from "../_usluge/content";
-import { SERVICE_SLUGS, SERVICES_UPDATED } from "../_usluge/slugs";
 import { plain } from "../_usluge/Rich";
+import { SERVICE_SLUGS, SERVICES_UPDATED } from "../_usluge/slugs";
 
 const SITE = "https://www.digitl.rs";
 
@@ -29,9 +29,12 @@ ${services}
 
 ## Projekti
 
+- [Ideal Keramika, web shop pločica i opreme za kupatilo](${SITE}/projects/ideal-keramika)
 - [ThermiQ, online prodavnica grejanja i klimatizacije](${SITE}/projects/thermiq)
+- [TonerPro, online prodavnica tonera](${SITE}/projects/tonerpro)
+- [Four Elements, brend, sajt i Instagram za butik spa centar](${SITE}/projects/four-elements)
+- [Planet Residence, Instagram za prodaju stanova](${SITE}/projects/planet-residence)
 - [Moler Niš, molerski radovi](${SITE}/projects/moler-nis)
-- [Servis Klime Niš, servis klima uređaja](${SITE}/projects/servis-klime-nis)
 - [ElektroMil, električar iz Niša](${SITE}/projects/elektromil)
 
 Ažurirano: ${SERVICES_UPDATED}
