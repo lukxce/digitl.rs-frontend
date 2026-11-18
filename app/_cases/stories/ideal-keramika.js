@@ -75,14 +75,6 @@ const story = {
         "Kada je u jednom odeljenju četiri hiljade artikala, katalog je dobar onoliko koliko su dobri filteri. Svako odeljenje ima svoje: pločice po formatu, površini, masi i efektu, slavine po vrsti i montaži. Pored svake opcije piše koliko artikala ostaje kada se izabere, pa kupac nikad ne završi na praznoj strani.",
         "Pretraga predlaže dok kupac kuca: prvo marku, pa odeljenje, pa proizvode. Ko ukuca „calacatta“, dobije 104 pločice podeljene po kategoriji i proizvođaču, sa prečicama za najčešće formate.",
       ],
-      widget: {
-        kind: "stats",
-        lines: [
-          "13 | odeljenja, svako sa svojim filterima",
-          "122 | kategorije, svaka sa svojom stranicom",
-          "43 | proizvođača, svaki sa stranicom brenda",
-        ],
-      },
       media: [
         {
           src: img("ideal-keramika/kategorija"),
@@ -104,17 +96,28 @@ const story = {
         "Pločice se kupuju po kvadratu, slavine po komadu, a investitor kupuje za celu zgradu. Kupovina je zato napravljena za sva tri: cena po m² ili po komadu sa stanjem na lageru, kupovina kao fizičko lice ili firma, dostava ili preuzimanje u salonu, nalog sa istorijom porudžbina i listom želja.",
         "Za investitore i izvođače prodavac u administraciji pravi ponudu i šalje je kao link i PDF, sa rokom važenja. Mejlovi za porudžbinu, upit i termin u salonu stižu i kupcu i prodaji.",
       ],
-      widget: {
-        kind: "toggle",
-        lines: [
-          "A: Kupac koji renovira",
-          "- Cena po m² i stanje na lageru na svakoj pločici",
-          "- Dostava na adresu ili preuzimanje u salonu",
-          "- Lista želja i savetovanje u salonu od 45 minuta",
-          "B: Firma i investitor",
-          "- Kupovina na firmu, sa PIB-om i matičnim brojem",
-          "- Ponuda za celu zgradu, kao link i PDF",
-          "- Plaćanje uplatom po predračunu",
+      piece: {
+        kind: "checkout",
+        title: "Naplata na idealkeramika.rs",
+        note: "Polja i načini preuzimanja kakvi su na sajtu, novembar 2026.",
+        buyers: {
+          "Fizičko lice": ["Ime i prezime", "Telefon", "E-pošta", "Adresa"],
+          Firma: [
+            "Naziv firme",
+            "PIB",
+            "Matični broj",
+            "Kontakt osoba",
+            "Telefon",
+            "Adresa",
+          ],
+        },
+        ways: [
+          {
+            name: "Dostava na adresu",
+            text: "Isporuka 2 do 4 radna dana, besplatno u Beogradu preko 60.000 RSD",
+          },
+          { name: "Salon Voždovac", text: "Bulevar oslobođenja 301" },
+          { name: "Salon i magacin Jajinci", text: "Bulevar JNA 144b" },
         ],
       },
       media: [
@@ -186,12 +189,41 @@ const story = {
         "Iza sajta je administracija koju koriste prodavci u oba salona. Porudžbine, upiti, ponude i zakazani termini stižu na jedno mesto, a uz svaki piše odakle je kupac došao: iz Google pretrage, sa Instagrama ili direktno.",
         "Iz istog prozora prodavac odgovara na upit mejlom, pravi ponudu za investitora, menja akcije i banere i dodaje nove proizvode. Obrazac za proizvod se menja po vrsti robe: pločica ima format i pakovanje, slavina završnicu.",
       ],
-      widget: {
-        kind: "steps",
-        lines: [
-          "Kupac pita ili poruči | Upit, porudžbina ili termin stižu u administraciju, sa izvorom posete.",
-          "Prodavac odgovara | Mejlom iz istog prozora, ili ponudom kao link i PDF.",
-          "Salon preuzima | Preuzimanje ili savetovanje zakazano je u salonu koji je kupac izabrao.",
+      piece: {
+        kind: "inbox",
+        title: "Prodaja u administraciji",
+        note: "Redovi su primer. Izvor posete se beleži uz svaku porudžbinu, upit i termin od 10. novembra 2026.",
+        rows: [
+          {
+            what: "Pločice 60×120, 32 m²",
+            kind: "Porudžbina",
+            source: "Google pretraga",
+            place: "Preuzimanje, Jajinci",
+          },
+          {
+            what: "Kupatilo na Vračaru",
+            kind: "Upit",
+            source: "Google pretraga",
+            place: "Voždovac",
+          },
+          {
+            what: "Savetovanje, četvrtak 11h",
+            kind: "Termin",
+            source: "Instagram",
+            place: "Voždovac",
+          },
+          {
+            what: "Stambena zgrada, 40 stanova",
+            kind: "Ponuda",
+            source: "Direktno",
+            place: "Jajinci",
+          },
+          {
+            what: "Tuš sistem Hansgrohe",
+            kind: "Porudžbina",
+            source: "Instagram",
+            place: "Dostava",
+          },
         ],
       },
     },

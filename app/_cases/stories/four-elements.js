@@ -1,66 +1,73 @@
-/* Four Elements Spa Center: the story on /projects/four-elements. Told as what we did:
-   understood the owner's idea, wrote it down as a brand book, and built the site and Instagram from it.
+/* Four Elements Spa Center: the story on /projects/four-elements (rewritten 19 Nov 2026, humanize pass).
 
    Sources (studije-slucaja/assets/four-elements/facts.md):
    - No search numbers: the new site (v5) is a proposal; the study does not say it went live.
    - "The client liked the proposal" is Luka's account, 15 Nov 2026.
-   - The idea behind the name is the owner's (Luka, 18 Nov 2026); never "nothing explained why".
-   - Instagram posts shown are from direction 5 (spa4elements-concept/public/ig/v5). */
+   - The idea behind the name is the owner's (Luka, 18 Nov 2026).
+   - Posts and reels are direction 5 (spa4elements-concept/public/ig/v5). */
 import { img } from "./images";
+
+const reel = (n) => ({
+  src: img(`four-elements/reel-${n}`),
+  poster: img(`four-elements/reel-${n}-poster`),
+});
 
 const story = {
   slug: "four-elements",
   headline:
-    "Vlasnik je imao snažnu ideju iza imena. Mi smo je pretvorili u brend, a iz njega su nastali sajt i Instagram.",
+    "Za butik spa centar u Nišu zapisali smo vlasnikovu ideju u brend knjigu, a po njoj napravili sajt na dva jezika i Instagram.",
   standfirst:
-    "Four Elements je butik spa centar u Nišu, u kompleksu Planet Residence, sa gostima i prostorom uređenim po izuzetnoj zamisli vlasnika. Iza imena je stajala jasna ideja, ali je do sada niko nije uspeo da prenese u formu. Mi smo krenuli od nje: prvo da je razumemo, pa da napravimo brend knjigu koju će i oni i mi koristiti nadalje. Iz te knjige su nastali sajt na srpskom i engleskom i Instagram.",
+    "Four Elements je butik spa centar u Nišu, u kompleksu Planet Residence. Vlasnik ga je uredio oko jedne ideje: četiri elementa, zemlja, voda, vazduh i vatra, i peti, vreme koje gost dobija za sebe. Ideja je postojala u imenu i u prostoru, ali nigde nije bila zapisana, pa je svaki materijal izgledao drugačije. Zapisali smo je kao brend knjigu sa znakom, bojama, tonom i pravilima, i po toj knjizi napravili sajt na srpskom i engleskom i prve objave i rilsove za Instagram.",
   meta: [
     { label: "Klijent", value: "Four Elements Spa Center, Niš" },
     { label: "Delatnost", value: "Butik spa centar" },
-    { label: "Šta smo radili", value: "Brend knjiga, sajt, Instagram" },
+    {
+      label: "Šta smo radili",
+      value: "Brend knjiga, sajt, Instagram i rilsovi",
+    },
     { label: "Godina", value: "2026." },
   ],
   services: ["Brend", "Sajt", "Instagram"],
   numbers: [],
   chapters: [
     {
-      id: "razumevanje",
-      kicker: "Razumevanje",
-      title: "Prvo smo slušali.",
+      id: "razgovor",
+      kicker: "Razgovor",
+      title: "Prvi korak su bili razgovori sa vlasnikom.",
       body: [
-        "Nismo krenuli od logotipa ni od sajta, nego od razgovora sa vlasnikom: zašto baš četiri elementa, šta gost treba da oseti kad izađe, po čemu se ovaj spa razlikuje od hotelskog. Ideja je bila tu od početka, u imenu i u prostoru. Trebalo je samo da je neko zapiše.",
-        "Iz tih razgovora izašla je jedna rečenica koja nosi sve ostalo: četiri elementa su ono što prostor nudi, a peti je vreme koje gost dobija za sebe.",
+        "Pitali smo zašto baš četiri elementa, šta gost treba da oseti kad izađe i po čemu se ovaj spa razlikuje od hotelskog. Odgovori su bili jasni, ali su postojali samo u razgovoru.",
+        "Iz tih razgovora izašla je rečenica na kojoj stoji ceo brend: četiri elementa su ono što prostor nudi, a peti je vreme koje gost dobija za sebe.",
       ],
       pull: "Četiri elementa. Peti je vreme.",
     },
     {
       id: "brend-knjiga",
       kicker: "Brend knjiga",
-      title: "Knjiga koju koriste i oni i mi.",
+      title: "Pravila koja koristi i njihov tim i naš.",
       body: [
-        "Ideju smo zapisali kao brend knjigu: značenje znaka, boje i tipografiju, način na koji spa govori, meni rituala, pravila za fotografije, natpise, vaučere i mreže. Svako ko pravi nešto za Four Elements, njihov tim ili mi, ima isti priručnik.",
-        "Zato sajt i Instagram nisu dva odvojena posla, nego dve primene iste knjige.",
+        "U knjigu smo zapisali šta znači znak, koje su boje i slova, kako spa piše, kako izgleda meni rituala i kako se slikaju prostor i tim. Tu su i pravila za natpise, vaučere i Instagram.",
+        "Ko god pravi nešto za Four Elements, njihov tim ili mi, radi po istim pravilima, pa vaučer, sajt i objava izgledaju kao delovi iste celine.",
       ],
       media: [
         {
-          src: img("four-elements/knjiga-01"),
-          alt: "Brend knjiga",
-          caption: "Brend knjiga.",
+          src: img("four-elements/knjiga-15"),
+          alt: "Znak",
+          caption: "Znak: list, vazduh, plamen i talas, a u sredini vreme.",
         },
         {
           src: img("four-elements/knjiga-43"),
           alt: "Meni rituala",
-          caption: "Meni rituala iz knjige.",
+          caption: "Meni rituala, složen kao meni restorana.",
         },
       ],
     },
     {
       id: "sajt",
       kicker: "Sajt",
-      title: "Sajt koji prvo pokaže prostor, pa tek onda cenu.",
+      title: "Na sajtu gost prvo vidi prostor, pa cenu.",
       body: [
-        "Dizajnirali smo novi sajt na srpskom i engleskom. Naslovna počinje njihovim videom, pa vodi kroz rituale, spa arkadu sa temperaturom svake prostorije, masaže i tretmane, i tek onda do cene i rezervacije.",
-        "Rituali, masaže i cenovnik su na jednoj stranici sa filterima, dnevna karta i članstvo su objašnjeni jednostavno, a engleska verzija pokazuje cene i u evrima, za goste iz inostranstva.",
+        "Naslovna počinje njihovim videom, pa vodi kroz rituale, spa arkadu sa temperaturom svake prostorije, masaže i tretmane. Cena i rezervacija dolaze tek posle toga, kad gost već zna šta dobija.",
+        "Rituali, masaže i cenovnik su na jednoj stranici sa filterima. Engleska verzija prikazuje cene i u evrima, za goste iz inostranstva.",
       ],
       media: [
         {
@@ -69,9 +76,9 @@ const story = {
           caption: "Rituali.",
         },
         {
-          src: img("four-elements/cenovnik"),
-          alt: "Masaže i cenovnik",
-          caption: "Masaže, tretmani i cenovnik.",
+          src: img("four-elements/arkada"),
+          alt: "Spa arkada",
+          caption: "Spa arkada sa temperaturom svake prostorije.",
         },
         {
           src: img("four-elements/en"),
@@ -83,27 +90,43 @@ const story = {
     {
       id: "instagram",
       kicker: "Instagram",
-      title: "Instagram iz iste knjige.",
+      title: "Rilsovi i objave sa njihovim fotografijama.",
       body: [
-        "Postavili smo pravac za Instagram: njihove fotografije prostora, mirna tipografija i u svakoj objavi nešto tačno, minuti, stepeni ili cena. Pripremili smo prvih dvanaest objava, priče, omote istaknutih priča, video snimke i plan objavljivanja za četiri nedelje.",
+        "Za Instagram koristimo fotografije njihovog prostora i tima, u toplim i tamnim tonovima, i u svakoj objavi jedan tačan podatak: minute, stepene ili cenu. Rilsovi vode kroz rituale, spa arkadu i tim.",
+        "Pripremili smo prvih dvanaest objava, priče, omote istaknutih priča, četiri rilsa i plan objavljivanja za četiri nedelje.",
       ],
       piece: {
+        kind: "reels",
+        title: "Rilsovi",
+        note: "Brend film, rituali, spa arkada i tim, novembar 2026.",
+        items: [
+          reel("brand-sr"),
+          reel("rituals-sr"),
+          reel("arcade-sr"),
+          reel("team-sr"),
+        ],
+      },
+      extra: {
         kind: "feed",
-        title: "Iz prvih objava",
-        note: "Rituali i spa arkada, novembar 2026.",
+        title: "Iz prvih dvanaest objava",
+        note: "Objave za početak profila.",
         cols: 3,
-        items: ["rituals-sr-01", "arcade-01", "rituals-sr-04"].map((k) =>
-          img(`four-elements/v5-${k}`),
-        ),
+        items: [
+          "grid-01",
+          "grid-06",
+          "grid-05",
+          "grid-10",
+          "grid-08",
+          "grid-12",
+        ].map((k) => img(`four-elements/v5-${k}`)),
       },
     },
   ],
   next: {
     label: "Rezultat i sledeći koraci",
-    title:
-      "Od ideje koju je imao samo vlasnik do brenda koji svi mogu da nose.",
+    title: "Brend knjiga, sajt i Instagram po istim pravilima.",
     body: [
-      "Four Elements je dobio brend knjigu koja zapisuje vlasnikovu ideju, a iz nje sajt na dva jezika i Instagram spreman za objavljivanje. Knjigu nadalje koriste i oni i mi, pa svaki novi materijal govori istim jezikom. Klijentu se predlog dopao od prvog pregleda.",
+      "Four Elements ima brend knjigu u kojoj je zapisana vlasnikova ideja, sajt na srpskom i engleskom i Instagram spreman za objavljivanje. Klijentu se predlog dopao od prvog pregleda.",
       "Sledeće je puštanje novog sajta, prvi mesec objava po planu i fotografisanje tima i rituala po pravilima iz knjige.",
     ],
   },

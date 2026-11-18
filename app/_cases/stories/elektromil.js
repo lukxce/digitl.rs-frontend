@@ -92,13 +92,16 @@ const story = {
         "Električar se traži po gradu. Zato svaka stranica govori o Nišu i okolini, a naslovi i opisi su pisani za ono što ljudi kucaju: električar Niš, ugradnja punjača, popravka instalacija. Sajt se učitava za manje od sekunde i tehnički je čist.",
         "Prvo je došla druga pozicija za „električar Niš“, a sada je ElektroMil prvi, uz prvu stranu za još nekoliko usluga.",
       ],
-      widget: {
-        kind: "steps",
-        lines: [
-          "1. mesec | Prvi pozivi iz pretrage, od ljudi koji firmu ranije nisu znali.",
-          "Septembar | Druga pozicija za „električar Niš“ u Nišu.",
-          "3. mesec | Sajt donosi više novih klijenata nego preporuke.",
-          "Danas | Prvo mesto za „električar Niš“ i prva strana za još nekoliko usluga.",
+      piece: {
+        kind: "climb",
+        title: "„električar Niš“ kroz vreme",
+        query: "električar niš",
+        site: "elektromilnis.rs",
+        note: "Septembar: pretraga u Nišu (OpenSEO, 27. septembar 2026). Danas: pretraga firme, novembar 2026. Ostali rezultati su šematski.",
+        points: [
+          { when: "Pre sajta", pos: null, text: "nema ga u pretrazi" },
+          { when: "Septembar", pos: 2, text: "drugo mesto" },
+          { when: "Danas", pos: 1, text: "prvo mesto" },
         ],
       },
       media: [

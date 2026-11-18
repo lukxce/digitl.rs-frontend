@@ -304,6 +304,38 @@ const IMAGES = {
     "https://cdn.sanity.io/images/203ybdbh/production/2f743dc25d8b5620736de96701edacdb957b7829-2400x1500.jpg",
   "praxis-centar/usluga":
     "https://cdn.sanity.io/images/203ybdbh/production/89cb5b73c4a90c95ed33f569b287b6b9d1da4c08-2400x1500.jpg",
+  "four-elements/v5-grid-01":
+    "https://cdn.sanity.io/images/203ybdbh/production/a6a4945f098916c7c81346bba3311ba85fa45676-1080x1350.jpg",
+  "four-elements/v5-grid-03":
+    "https://cdn.sanity.io/images/203ybdbh/production/a27c4691fb4963858d7cf0368d155354a90eafa9-1080x1350.jpg",
+  "four-elements/v5-grid-06":
+    "https://cdn.sanity.io/images/203ybdbh/production/5b99fbd38158f3a4fa266005d07708b23f0059cb-1080x1350.jpg",
+  "four-elements/v5-grid-08":
+    "https://cdn.sanity.io/images/203ybdbh/production/7f33c2a92e5a6c0344fe03a79fc608cece67b769-1080x1350.jpg",
+  "four-elements/v5-grid-10":
+    "https://cdn.sanity.io/images/203ybdbh/production/6d1b443de51d20da83e62e5cd4a1367a37efd356-1080x1350.jpg",
+  "four-elements/v5-grid-07":
+    "https://cdn.sanity.io/images/203ybdbh/production/abb67dd496cfcee29bf5dd0278d04589ecdb349e-1080x1350.jpg",
+  "four-elements/v5-grid-05":
+    "https://cdn.sanity.io/images/203ybdbh/production/9ddf728c0fb14020e126fb3e2f02f08c2b66425c-1080x1350.jpg",
+  "four-elements/v5-grid-12":
+    "https://cdn.sanity.io/images/203ybdbh/production/8f892516ff085ec0607f867d27243eae240c3f2b-1080x1350.jpg",
+  "four-elements/reel-rituals-sr-poster":
+    "https://cdn.sanity.io/images/203ybdbh/production/891e45da2b23314351903d89b01b47dc40c792be-720x1280.jpg",
+  "four-elements/reel-rituals-sr":
+    "https://cdn.sanity.io/files/203ybdbh/production/a47493abc9617ede93e87ec912c0b5bfc24b1421.mp4",
+  "four-elements/reel-arcade-sr-poster":
+    "https://cdn.sanity.io/images/203ybdbh/production/7f671b854e609d9a21d07450a9a95674556bdf4b-1080x1920.jpg",
+  "four-elements/reel-arcade-sr":
+    "https://cdn.sanity.io/files/203ybdbh/production/c2a0d4d7effb2eacdd383f45cc377b855ca32b30.mp4",
+  "four-elements/reel-brand-sr-poster":
+    "https://cdn.sanity.io/images/203ybdbh/production/966a243e9dc6991f15d5454522afe36be6b5ba55-720x1280.jpg",
+  "four-elements/reel-brand-sr":
+    "https://cdn.sanity.io/files/203ybdbh/production/5fa96876c4918a67a1cce485865da57e23c67cea.mp4",
+  "four-elements/reel-team-sr-poster":
+    "https://cdn.sanity.io/images/203ybdbh/production/f24edaf1c163a3e336d05e52f48012b3e71496d2-720x1280.jpg",
+  "four-elements/reel-team-sr":
+    "https://cdn.sanity.io/files/203ybdbh/production/587c4b0ce448d2f88dd01845e9380f6b5a7f4ac2.mp4",
 };
 
 export const img = (key) => IMAGES[key] ?? null;

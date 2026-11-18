@@ -48,13 +48,31 @@ const story = {
         "Model je profil koji smo ranije radili za Vojvoda Residence: stan kao 3D model na pesku, život u zgradi kroz svakodnevne situacije i zgrada kroz činjenice. Za Planet Residence smo ga podigli za veće stanove: više vazduha, mornarsko plava i zlatna iz njihovog logotipa, i veliki brojevi kvadrata umesto reči „luksuzno“.",
         "Profil počinje sa dvanaest objava poređanih tako da od prvog dana kaže šta se prodaje, kako se živi i šta zgrada ima.",
       ],
-      widget: {
-        kind: "steps",
-        lines: [
-          "Stan | 3D model stana na pesku, površina kao veliki broj, sprat i terasa.",
-          "Život | Svakodnevna situacija kao naslov, činjenica iz zgrade kao odgovor.",
-          "Zgrada | Njihova fotografija, jedna činjenica i jedan broj.",
-          "Karusel | Raspored soba, enterijer, lokacija i zakupci u prizemlju.",
+      extra: {
+        kind: "templates",
+        title: "Četiri šablona objava",
+        note: "Primeri iz predloga za Planet Residence, novembar 2026.",
+        items: [
+          {
+            name: "Stan",
+            text: "3D model stana na pesku, površina kao veliki broj, sprat i terasa.",
+            src: img("planet-residence/stan-ph"),
+          },
+          {
+            name: "Život",
+            text: "Svakodnevna situacija kao naslov, činjenica iz zgrade kao odgovor.",
+            src: img("planet-residence/spa"),
+          },
+          {
+            name: "Zgrada",
+            text: "Njihova fotografija, jedna činjenica i jedan broj.",
+            src: img("planet-residence/garaza"),
+          },
+          {
+            name: "Karusel",
+            text: "Raspored soba sa kvadraturom svake prostorije, pa enterijer i lokacija.",
+            src: img("planet-residence/raspored"),
+          },
         ],
       },
       piece: {
@@ -132,17 +150,23 @@ const story = {
       body: [
         "Uz objave smo predali i pravila: ton, boje, tipografiju, četiri šablona i primere teksta. Pravilo za tekst je jedno: piše kao savetnik za prodaju koji i sam živi u zgradi. Konkretno, mirno, uvek sa brojem, bez uzvičnika.",
       ],
-      widget: {
-        kind: "toggle",
-        lines: [
-          "A: Kako se obično piše",
-          "- Luksuzni život po meri modernog čoveka",
-          "- Poslednji stanovi, ne propustite!",
-          "- Vrhunska lokacija",
-          "B: Kako piše Planet Residence",
-          "- Bazen i sauna, bez izlaska iz zgrade",
-          "- Penthaus 155,94 m², terasa 47,57 m², 11. sprat",
-          "- Delta Planet 100 m, Nišava 150 m",
+      piece: {
+        kind: "rewrite",
+        title: "Kako se piše za Planet Residence",
+        note: "Primeri iz pravila za tekst, predatih uz objave.",
+        pairs: [
+          [
+            "Luksuzni život po meri modernog čoveka.",
+            "Bazen i sauna, bez izlaska iz zgrade.",
+          ],
+          [
+            "Poslednji stanovi, ne propustite!",
+            "Penthaus 155,94 m², terasa 47,57 m², jedanaesti sprat.",
+          ],
+          [
+            "Vrhunska lokacija u srcu grada.",
+            "Delta Planet je na 100 metara, a Nišava na 150.",
+          ],
         ],
       },
       media: [

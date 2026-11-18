@@ -358,12 +358,468 @@ function Feed({ data }) {
   );
 }
 
+/* ── beforeafter: the old site and the new one, a handle in between ──── */
+/* data: { title, note, before, after, beforeLabel, afterLabel } */
+function BeforeAfter({ data }) {
+  const box = useRef(null);
+  const [at, setAt] = useState(50);
+  const move = (x) => {
+    const r = box.current?.getBoundingClientRect();
+    if (!r) return;
+    setAt(Math.max(4, Math.min(96, ((x - r.left) / r.width) * 100)));
+  };
+  return (
+    <Card title={data.title} note={data.note} kind="ba">
+      <div
+        ref={box}
+        className={p.ba}
+        style={{ "--at": `${at}%` }}
+        onPointerDown={(e) => {
+          e.currentTarget.setPointerCapture(e.pointerId);
+          move(e.clientX);
+        }}
+        onPointerMove={(e) => {
+          if (e.buttons) move(e.clientX);
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${data.after}?w=1600&fm=webp&q=82`}
+          alt={data.afterLabel}
+          draggable="false"
+        />
+        <div className={p.baBefore}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`${data.before}?w=1600&fm=webp&q=82`}
+            alt={data.beforeLabel}
+            draggable="false"
+          />
+        </div>
+        <span className={p.baTag} data-side="l">
+          {data.beforeLabel}
+        </span>
+        <span className={p.baTag} data-side="r">
+          {data.afterLabel}
+        </span>
+        <input
+          type="range"
+          min="4"
+          max="96"
+          value={Math.round(at)}
+          onChange={(e) => setAt(Number(e.target.value))}
+          className={p.baRange}
+          aria-label="Pomerite granicu između starog i novog sajta"
+        />
+        <span className={p.baHandle} aria-hidden="true">
+          <i />
+        </span>
+      </div>
+    </Card>
+  );
+}
+
+/* ── reels: short videos in phone frames, playing while on screen ────── */
+/* data: { title, note, items: [{ src, poster }] } */
+function Reels({ data }) {
+  const ref = useRef(null);
+  const stage = useEnter(ref, 0.2);
+  return (
+    <Card title={data.title} note={data.note} kind="reels">
+      <div
+        ref={ref}
+        className={p.reels}
+        data-stage={stage}
+        style={{ "--n": data.items.length }}
+      >
+        {data.items.map((v, i) => (
+          <span key={v.src} className={p.reel} style={{ "--i": i }}>
+            <video
+              src={v.src}
+              poster={v.poster}
+              muted
+              loop
+              playsInline
+              autoPlay
+              preload="metadata"
+            />
+          </span>
+        ))}
+      </div>
+    </Card>
+  );
+}
+
+/* ── climb: one search over time, the client's place in it ────────────── */
+/* data: { title, note, query, site, points: [{ when, pos, text }] } (pos null = not on page 1) */
+function Climb({ data }) {
+  const [at, setAt] = useState(data.points.length - 1);
+  const pt = data.points[at];
+  const rows = 8;
+  return (
+    <Card title={data.title} note={data.note} kind="climb">
+      <div className={p.climb}>
+        <div className={p.when} role="tablist" aria-label="Vreme">
+          {data.points.map((x, i) => (
+            <button
+              key={x.when}
+              type="button"
+              role="tab"
+              aria-selected={i === at}
+              onClick={() => setAt(i)}
+            >
+              <i />
+              <b>{x.when}</b>
+            </button>
+          ))}
+          <span
+            className={p.whenLine}
+            style={{ "--k": at / (data.points.length - 1) }}
+            aria-hidden="true"
+          />
+        </div>
+        <div className={p.serp}>
+          <div className={p.bar}>
+            <span className={p.g} aria-hidden="true">
+              G
+            </span>
+            <span>{data.query}</span>
+          </div>
+          <ol className={p.results}>
+            {Array.from({ length: rows }, (_, k) => k + 1).map((n) => (
+              <motion.li
+                key={n}
+                layout
+                data-me={pt.pos === n ? "" : undefined}
+                transition={{ duration: 0.5, ease: EASE }}
+              >
+                <i>{n}</i>
+                {pt.pos === n
+                  ? <span className={p.mine}>
+                      <b>{data.site}</b>
+                      <em>{pt.text}</em>
+                    </span>
+                  : <span className={p.other} aria-hidden="true">
+                      <s style={{ width: `${46 + ((n * 37) % 40)}%` }} />
+                      <s style={{ width: `${30 + ((n * 23) % 45)}%` }} />
+                    </span>}
+              </motion.li>
+            ))}
+          </ol>
+          {pt.pos == null
+            ? <p className={p.missing}>
+                {data.site}: {pt.text}
+              </p>
+            : null}
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+/* ── templates: the post types of a feed, one at a time ───────────────── */
+/* data: { title, note, items: [{ name, text, src }] } */
+function Templates({ data }) {
+  const [at, setAt] = useState(0);
+  const it = data.items[at];
+  return (
+    <Card title={data.title} note={data.note} kind="templates">
+      <div className={p.tpl}>
+        <div className={p.tplList} role="tablist">
+          {data.items.map((x, i) => (
+            <button
+              key={x.name}
+              type="button"
+              role="tab"
+              aria-selected={i === at}
+              onClick={() => setAt(i)}
+            >
+              <b>{x.name}</b>
+              <span>{x.text}</span>
+            </button>
+          ))}
+        </div>
+        <div className={p.tplShow}>
+          <AnimatePresence mode="wait">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <motion.img
+              key={it.src}
+              src={`${it.src}?w=800&fm=webp&q=82`}
+              alt={it.name}
+              initial={{ opacity: 0, y: 12, rotate: -1.5 }}
+              animate={{ opacity: 1, y: 0, rotate: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: EASE }}
+            />
+          </AnimatePresence>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+/* ── rewrite: a stock sentence crossed out and written again, plainly ─── */
+/* data: { title, note, pairs: [[from, to]] } */
+function Rewrite({ data }) {
+  const [at, setAt] = useState(0);
+  const [from, to] = data.pairs[at];
+  return (
+    <Card title={data.title} note={data.note} kind="rewrite">
+      <div className={p.rw}>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={at}
+            className={p.rwPair}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <p className={p.rwFrom}>
+              <span>{from}</span>
+              <motion.i
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 0.5, duration: 0.5, ease: EASE }}
+              />
+            </p>
+            <motion.p
+              className={p.rwTo}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.5, ease: EASE }}
+            >
+              {to}
+            </motion.p>
+          </motion.div>
+        </AnimatePresence>
+        <button
+          type="button"
+          className={p.rwNext}
+          onClick={() => setAt((at + 1) % data.pairs.length)}
+        >
+          Sledeća rečenica{" "}
+          <span>
+            {at + 1} / {data.pairs.length}
+          </span>
+        </button>
+      </div>
+    </Card>
+  );
+}
+
+/* ── redirects: old addresses and where they go now ───────────────────── */
+/* data: { title, note, rows: [{ from, to, kind }] } kind: "isto" | "301" */
+function Redirects({ data }) {
+  const ref = useRef(null);
+  const stage = useEnter(ref, 0.3);
+  return (
+    <Card title={data.title} note={data.note} kind="redirects">
+      <ul ref={ref} className={p.rd} data-stage={stage}>
+        {data.rows.map((r, i) => (
+          <li key={r.from} style={{ "--i": i }}>
+            <code>{r.from}</code>
+            <span className={p.rdArrow} aria-hidden="true" />
+            <code data-new="">{r.to}</code>
+            <em data-kind={r.kind}>
+              {r.kind === "isto" ? "ista adresa" : "preusmereno"}
+            </em>
+          </li>
+        ))}
+      </ul>
+    </Card>
+  );
+}
+
+/* ── roles: the same patient card as reception and as the doctor see it ─ */
+/* data: { title, note, roles: [name], fields: [{ k, v, hide: [role] }] } */
+function Roles({ data }) {
+  const [role, setRole] = useState(data.roles[0]);
+  return (
+    <Card title={data.title} note={data.note} kind="roles">
+      <div className={p.chips} role="tablist">
+        {data.roles.map((r) => (
+          <button
+            key={r}
+            type="button"
+            role="tab"
+            aria-selected={r === role}
+            onClick={() => setRole(r)}
+          >
+            {r}
+          </button>
+        ))}
+      </div>
+      <dl className={p.roleCard}>
+        {data.fields.map((f) => {
+          const hidden = f.hide?.includes(role);
+          return (
+            <div key={f.k} data-hidden={hidden ? "" : undefined}>
+              <dt>{f.k}</dt>
+              <dd>
+                <motion.span
+                  key={`${role}-${f.k}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  {hidden ? "Nije dostupno za ovu ulogu" : f.v}
+                </motion.span>
+              </dd>
+            </div>
+          );
+        })}
+      </dl>
+    </Card>
+  );
+}
+
+/* ── inbox: everything that came in, filtered by where the buyer came from */
+/* data: { title, note, rows: [{ what, kind, source, place }] } */
+function Inbox({ data }) {
+  const sources = ["Sve", ...new Set(data.rows.map((r) => r.source))];
+  const [f, setF] = useState("Sve");
+  const rows = data.rows.filter((r) => f === "Sve" || r.source === f);
+  return (
+    <Card title={data.title} note={data.note} kind="inbox">
+      <div className={p.chips}>
+        {sources.map((x) => (
+          <button
+            key={x}
+            type="button"
+            aria-pressed={x === f}
+            onClick={() => setF(x)}
+          >
+            {x}
+          </button>
+        ))}
+      </div>
+      <ul className={p.inbox}>
+        <AnimatePresence initial={false}>
+          {rows.map((r) => (
+            <motion.li
+              key={r.what}
+              layout
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <b>{r.what}</b>
+              <em data-kind={r.kind}>{r.kind}</em>
+              <span>{r.source}</span>
+              <span>{r.place}</span>
+            </motion.li>
+          ))}
+        </AnimatePresence>
+      </ul>
+    </Card>
+  );
+}
+
+/* ── checkout: who buys and how it reaches them ───────────────────────── */
+/* data: { title, note, buyers: { name: [field] }, ways: [{ name, text }] } */
+function Checkout({ data }) {
+  const names = Object.keys(data.buyers);
+  const [buyer, setBuyer] = useState(names[0]);
+  const [way, setWay] = useState(0);
+  return (
+    <Card title={data.title} note={data.note} kind="checkout">
+      <div className={p.co}>
+        <div>
+          <span className={p.coLabel}>Kupuje</span>
+          <div className={p.chips}>
+            {names.map((n) => (
+              <button
+                key={n}
+                type="button"
+                aria-pressed={n === buyer}
+                onClick={() => setBuyer(n)}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+          <div className={p.coFields}>
+            <AnimatePresence initial={false}>
+              {data.buyers[buyer].map((fl) => (
+                <motion.span
+                  key={`${buyer}-${fl}`}
+                  layout
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {fl}
+                </motion.span>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
+        <div>
+          <span className={p.coLabel}>Preuzimanje</span>
+          <div className={p.coWays}>
+            {data.ways.map((w, i) => (
+              <button
+                key={w.name}
+                type="button"
+                aria-pressed={i === way}
+                onClick={() => setWay(i)}
+              >
+                <b>{w.name}</b>
+                <span>{w.text}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+/* ── funnel: the measured steps from looking to buying ────────────────── */
+/* data: { title, note, steps: [{ name, value }] } */
+function Funnel({ data }) {
+  const ref = useRef(null);
+  const stage = useEnter(ref, 0.3);
+  const max = Math.max(...data.steps.map((x) => x.value));
+  return (
+    <Card title={data.title} note={data.note} kind="funnel">
+      <div ref={ref} className={p.funnel} data-stage={stage}>
+        {data.steps.map((x, i) => (
+          <div
+            key={x.name}
+            style={{
+              "--w": `${Math.max(6, Math.sqrt(x.value / max) * 100)}%`,
+              "--i": i,
+            }}
+          >
+            <span className={p.fBar}>
+              <b>{fmt(x.value)}</b>
+            </span>
+            <span className={p.fName}>{x.name}</span>
+          </div>
+        ))}
+      </div>
+    </Card>
+  );
+}
+
 const PIECES = {
   serp: Serp,
   finder: Finder,
   quickorder: QuickOrder,
   pricetool: PriceTool,
   feed: Feed,
+  beforeafter: BeforeAfter,
+  reels: Reels,
+  climb: Climb,
+  templates: Templates,
+  rewrite: Rewrite,
+  redirects: Redirects,
+  roles: Roles,
+  inbox: Inbox,
+  checkout: Checkout,
+  funnel: Funnel,
 };
 
 export default function Piece({ piece }) {

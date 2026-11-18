@@ -298,6 +298,11 @@ function Chapter({ p }) {
             <Piece piece={ch.piece} />
           </Reveal>
         : null}
+      {ch.extra
+        ? <Reveal className={s.wide}>
+            <Piece piece={ch.extra} />
+          </Reveal>
+        : null}
       {ch.media?.length
         ? <Reveal className={s.media}>
             <Gallery items={ch.media} />

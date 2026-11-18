@@ -1,28 +1,26 @@
-/* Praxis centar: the story on /projects/praxis-centar. Site redesign and the clinic's own platform (CRM).
+/* Praxis centar: the story on /projects/praxis-centar (rewritten 19 Nov 2026, humanize pass).
 
    Sources (studije-slucaja/assets/praxis-centar/facts.md):
-   - New site live on praxiscentar.rs 13 Nov 2026; Search Console has only 3 days of it (to 15 Nov), so NO
-     before/after claim. Re-pull around 1 Dec 2026.
-   - Search Console (Fortress project 7), 16 Oct to 12 Nov 2026 (old site): the /nas-tim doctor pages about 825
-     clicks in 28 days; "praxis centar" position 1,03; "radan stojanovic" 1,1; the helikobakterija article 315
-     clicks and 15.224 impressions in 28 days. Doctor pages kept on their old addresses, old URLs redirected.
-   - Platform "Praxis Ordinacija" at platforma.praxiscentar.rs; screenshots are from the local DEMO with invented
-     patients, prices and notes (never production). Whether the clinic uses every module daily: not verified.
-   - "Dve decenije", "jedini smo": the clinic's own words, not used here. */
+   - New site live on praxiscentar.rs 13 Nov 2026; Search Console has 3 days of it, so NO before/after claim.
+     Re-pull Fortress project 7 around 1 Dec 2026.
+   - Search Console, 16 Oct to 12 Nov 2026 (old site): /nas-tim doctor pages about 825 clicks in 28 days;
+     "praxis centar" 1,03; the helikobakterija article 315 clicks in 28 days.
+   - Platform screenshots: local DEMO, invented patients. Reception never sees clinical notes (server-side).
+   - Social media: Luka (19 Nov) will hand-pick posts; add a chapter when he sends them. */
 import { img } from "./images";
 
 const story = {
   slug: "praxis-centar",
   headline:
-    "Novi sajt za centar koji leči timom, i platforma za ordinaciju umesto Excel tabela.",
+    "Novi sajt i program za termine, kartone i plaćanja za centar za psihijatriju i psihoterapiju u Beogradu.",
   standfirst:
-    "Praxis centar je privatni centar za psihijatriju i psihoterapiju u Beogradu, na Vračaru, specijalizovan za lečenje poremećaja ishrane i gojaznosti timskim radom: psihijatar, psiholog, nutricionista i konsultanti iz Kliničkog centra rade sa istim pacijentom. Stari sajt to nije pokazivao, a termini, pacijenti i plaćanja vodili su se u tabelama. Napravili smo novi sajt i platformu za rad ordinacije, u kojoj je i blog koji centar sam objavljuje.",
+    "Praxis centar je privatni centar za psihijatriju i psihoterapiju na Vračaru. Leče poremećaje ishrane i gojaznost, a sa jednim pacijentom radi više stručnjaka: psihijatar, psiholog, nutricionista i konsultanti iz Kliničkog centra. Stari sajt na WordPress-u to nije objašnjavao, a termini, pacijenti i plaćanja vodili su se u Excel tabelama. Napravili smo novi sajt i program za rad ordinacije, sa blogom koji lekari sami objavljuju.",
   meta: [
     { label: "Klijent", value: "Praxis centar, Beograd" },
     { label: "Delatnost", value: "Psihijatrija i psihoterapija" },
     {
       label: "Šta smo radili",
-      value: "Redizajn sajta, platforma za ordinaciju, blog",
+      value: "Redizajn sajta, program za ordinaciju, blog",
     },
     { label: "Godina", value: "2026." },
   ],
@@ -48,39 +46,27 @@ const story = {
   ],
   chapters: [
     {
-      id: "polazna-tacka",
-      kicker: "Polazna tačka",
-      title: "Centar koji leči timom, i sajt koji je izgledao kao jedan lekar.",
+      id: "redizajn",
+      kicker: "Redizajn",
+      title: "Isti centar, sajt koji objašnjava ko radi sa pacijentom.",
       body: [
-        "Praxis leči poremećaje ishrane i gojaznost tako da sa istim pacijentom radi ceo tim. Stari sajt na WordPress-u to nije pokazivao: bio je spisak tekstova i stranica, a najviše poseta su donosile stranice pojedinačnih lekara.",
-        "Iza sajta, termini, pacijenti i plaćanja vodili su se u tabelama, a zahtevi sa sajta stizali su mejlom.",
+        "Na starom sajtu naslovna je bila jedan dugačak tekst. Na novom, naslovna objašnjava kako psihijatar, psiholog, nutricionista i konsultanti rade sa istim pacijentom, svaka usluga ima svoju stranicu sa opisom kome je namenjena, a svaki lekar stranicu sa biografijom i dugmetom za termin.",
+        "Povucite crtu levo i desno da vidite stari i novi sajt.",
       ],
-      media: [
-        {
-          src: img("praxis-centar/staro"),
-          alt: "Stari sajt Praxis centra",
-          caption: "Stari sajt, pre redizajna.",
-        },
-      ],
-    },
-    {
-      id: "sajt",
-      kicker: "Novi sajt",
-      title: "Jedan stručnjak nije dovoljan. Zato radi ceo tim.",
-      body: [
-        "Novi sajt počinje od onoga po čemu se Praxis razlikuje: tim. Naslovna objašnjava kako psihijatar, psiholog, nutricionista i konsultanti rade zajedno, svaka usluga kaže kome je namenjena i ko je vodi, a svaki lekar ima svoju stranicu sa biografijom, oblastima rada i dugmetom za termin.",
-        "Dizajn je miran, svetao i bez kliničke hladnoće, jer ovaj sajt čitaju ljudi koji se teško odlučuju da potraže pomoć.",
-      ],
+      piece: {
+        kind: "beforeafter",
+        title: "Naslovna strana",
+        note: "Stari sajt je radio prethodni izvođač (snimak iz aprila 2026). Novi sajt je naš, uživo od 13. novembra 2026.",
+        before: img("praxis-centar/staro"),
+        after: img("praxis-centar/home"),
+        beforeLabel: "Stari sajt",
+        afterLabel: "Novi sajt",
+      },
       media: [
         {
           src: img("praxis-centar/usluga"),
           alt: "Stranica usluge",
           caption: "Usluga: kome je namenjena i ko je vodi.",
-        },
-        {
-          src: img("praxis-centar/tim"),
-          alt: "Tim",
-          caption: "Ceo tim na jednom mestu.",
         },
         {
           src: img("praxis-centar/doktor"),
@@ -90,49 +76,58 @@ const story = {
       ],
     },
     {
-      id: "selidba",
-      kicker: "Prelazak bez gubitka",
-      title: "Nov sajt, iste adrese za sve što je već donosilo posete.",
+      id: "adrese",
+      kicker: "Prelazak",
+      title: "Stranice koje su donosile posete ostale su na istim adresama.",
       body: [
-        "Najveća opasnost redizajna je da sajt izgubi ono što je Google već znao. Stranice lekara donosile su oko 825 poseta mesečno, a samo stranica prof. dr Radana Stojanovića bila je na drugom mestu u pretrazi. Zato su stranice lekara ostale na istim adresama, a stari tekstovi, kategorije i usluge preusmereni su na nove stranice.",
-        "Prenesena su i 34 teksta sa starog sajta. Tekst o ishrani kod helikobakterije sam donosi preko 300 poseta mesečno.",
+        "Kad se sajt menja, lako se izgube pozicije koje je Google već dao starim stranicama. Stranice lekara donosile su oko 825 poseta mesečno, a stranica prof. dr Radana Stojanovića bila je u proseku druga u pretrazi za njegovo ime.",
+        "Zato su stranice lekara ostale na istim adresama, a stari tekstovi, kategorije i usluge preusmereni su na nove stranice. Prenesena su i 34 teksta sa starog sajta.",
       ],
-      widget: {
-        kind: "steps",
-        lines: [
-          "Popis | Svaka adresa starog sajta i koliko poseta donosi.",
-          "Iste adrese | Stranice lekara ostaju gde jesu, sa novim izgledom.",
-          "Preusmerenja | Stari tekstovi, kategorije i usluge vode na nove stranice.",
-          "Praćenje | Pozicije i posete posle prelaska, nedelju po nedelju.",
+      piece: {
+        kind: "redirects",
+        title: "Stare adrese posle prelaska",
+        note: "Provereno na praxiscentar.rs, 18. novembar 2026.",
+        rows: [
+          {
+            from: "/nas-tim/radan-stojanovic",
+            to: "/nas-tim/radan-stojanovic",
+            kind: "isto",
+          },
+          {
+            from: "/nas-tim/marija-djurovic",
+            to: "/nas-tim/marija-djurovic",
+            kind: "isto",
+          },
+          {
+            from: "/adhd-kod-odraslih",
+            to: "/blog/adhd-kod-odraslih",
+            kind: "301",
+          },
+          {
+            from: "/category/arfid",
+            to: "/blog/arfid-izbegavajuce-restriktivni-poremecaj-ishrane",
+            kind: "301",
+          },
+          {
+            from: "/category/psihoterapija",
+            to: "/blog#psihoterapija",
+            kind: "301",
+          },
         ],
       },
     },
     {
-      id: "platforma",
-      kicker: "Platforma za ordinaciju",
-      title:
-        "Termini, pacijenti i plaćanja na jednom mestu, umesto u tabelama.",
+      id: "program",
+      kicker: "Program za ordinaciju",
+      title: "Termini, pacijenti i plaćanja u jednom programu.",
       body: [
-        "Pre nego što smo počeli, pogledali smo deset gotovih programa za ordinacije, osam stranih i dva domaća. Nijedan nije odgovarao načinu na koji Praxis radi, pa smo napravili sopstvenu platformu, Praxis Ordinacija.",
-        "Na jednom ekranu je današnji dan: termini, ko je stigao, novi zahtevi sa sajta i neplaćeni pregledi. Kalendar ima kolonu za svakog lekara, zahtev sa sajta se potvrđuje jednim klikom, a svaki pacijent ima karton sa istorijom termina i plaćanja sa brojem fiskalnog računa. Recepcija vidi termine i plaćanja, ali nikada beleške sa terapije: to ne skriva ekran, nego server.",
+        "Pre nego što smo počeli, pogledali smo deset gotovih programa za ordinacije, osam stranih i dva domaća. Nijedan nije odgovarao načinu na koji Praxis radi, pa smo napravili program Praxis Ordinacija.",
+        "Na jednom ekranu je današnji dan: termini, ko je stigao, novi zahtevi sa sajta i neplaćeni pregledi. Kalendar ima kolonu za svakog lekara, zahtev sa sajta se potvrđuje jednim klikom, a uz svako plaćanje stoji broj fiskalnog računa.",
       ],
-      widget: {
-        kind: "toggle",
-        lines: [
-          "A: Pre",
-          "- Termini i pacijenti u Excel tabelama",
-          "- Zahtevi sa sajta stižu mejlom",
-          "- Izveštaj se sklapa ručno na kraju meseca",
-          "B: Sa platformom",
-          "- Kalendar sa kolonom za svakog lekara",
-          "- Zahtev sa sajta se potvrđuje jednim klikom",
-          "- Izveštaj o posetama i prihodu po lekaru u svakom trenutku",
-        ],
-      },
       media: [
         {
           src: img("praxis-centar/crm-danas"),
-          alt: "Današnji dan u platformi",
+          alt: "Današnji dan u programu",
           caption: "Današnji dan: termini, dolasci, zahtevi i plaćanja.",
         },
         {
@@ -146,35 +141,56 @@ const story = {
           caption: "Zahtevi za termin sa sajta.",
         },
         {
-          src: img("praxis-centar/crm-karton"),
-          alt: "Karton pacijenta",
-          caption: "Karton pacijenta sa istorijom termina.",
-        },
-        {
           src: img("praxis-centar/crm-izvestaji"),
           alt: "Izveštaji",
-          caption: "Izveštaji po lekaru i usluzi.",
-        },
-        {
-          src: img("praxis-centar/crm-prijava"),
-          alt: "Prijava u platformu",
-          caption: "Prijava u platformu. Podaci na slikama su izmišljeni.",
+          caption:
+            "Izveštaji po lekaru i usluzi. Podaci na slikama su izmišljeni.",
         },
       ],
     },
     {
+      id: "uloge",
+      kicker: "Ko šta vidi",
+      title: "Beleške sa terapije vidi samo lekar.",
+      body: [
+        "Recepcija zakazuje termine i naplaćuje preglede, pa vidi kalendar, kontakt i plaćanja. Beleške sa terapije vidi samo lekar koji ih je napisao, a beleška se posle potpisa zaključava. Zabranu za recepciju proverava server, pa ne zavisi od toga šta je prikazano na ekranu.",
+        "Izaberite ulogu i pogledajte isti karton.",
+      ],
+      piece: {
+        kind: "roles",
+        title: "Karton pacijenta",
+        note: "Primer sa izmišljenim podacima.",
+        roles: ["Recepcija", "Lekar"],
+        fields: [
+          { k: "Pacijent", v: "Ana Petrović, 34" },
+          { k: "Sledeći termin", v: "Četvrtak, 12:00, psihoterapija" },
+          { k: "Plaćanje", v: "Plaćeno, fiskalni račun 4471" },
+          {
+            k: "Beleška sa terapije",
+            v: "Potpisana i zaključana, 14. novembar",
+            hide: ["Recepcija"],
+          },
+          {
+            k: "Plan lečenja",
+            v: "Psihoterapija jednom nedeljno, kontrola kod nutricioniste",
+            hide: ["Recepcija"],
+          },
+        ],
+      },
+    },
+    {
       id: "blog",
       kicker: "Blog",
-      title: "Tekstove pišu lekari, i objavljuju ih sami.",
+      title: "Tekstove pišu lekari i sami ih objavljuju.",
       body: [
-        "Blog je deo platforme: lekar napiše tekst u istom programu u kom vodi termine, i on se odmah pojavljuje na sajtu, sa naslovom i opisom za pretragu. Bez programera i bez čekanja.",
-        "Tako se nastavlja ono što je i na starom sajtu donosilo najviše novih ljudi: stručni odgovori na pitanja koja pacijenti postavljaju Google-u.",
+        "Blog je deo istog programa. Lekar napiše tekst tamo gde vodi termine, doda naslov i opis za pretragu, i tekst se pojavljuje na sajtu.",
+        "Stručni odgovori na pitanja koja pacijenti postavljaju Google-u donosili su najviše novih ljudi i na starom sajtu, pa se tu i nastavlja.",
       ],
       media: [
         {
           src: img("praxis-centar/crm-blog"),
-          alt: "Pisanje teksta u platformi",
-          caption: "Novi tekst se piše u platformi.",
+          alt: "Pisanje teksta u programu",
+          caption: "Novi tekst se piše u programu.",
         },
         {
           src: img("praxis-centar/blog"),
@@ -186,10 +202,10 @@ const story = {
   ],
   next: {
     label: "Rezultat i sledeći koraci",
-    title: "Sajt koji pokazuje tim, i ordinacija bez tabela.",
+    title: "Novi sajt na starim adresama i program za celu ordinaciju.",
     body: [
-      "Praxis centar je dobio sajt koji objašnjava kako leči, sa stranicama lekara na istim adresama koje Google već zna, i platformu u kojoj su termini, pacijenti, plaćanja i blog na jednom mestu.",
-      "Sledeće je praćenje pretrage posle prelaska, stranice za opšte pretrage kao psihoterapija i psihijatar u Beogradu, i zakazivanje termina direktno sa sajta preko platforme.",
+      "Praxis centar ima sajt koji objašnjava kako leči, stranice lekara na adresama koje Google već zna i program u kom su termini, pacijenti, plaćanja i blog.",
+      "Sledeće je praćenje pretrage posle prelaska, stranice za opšte pretrage kao psihoterapija i psihijatar u Beogradu i zakazivanje termina sa sajta preko programa.",
     ],
   },
   takeaways: [],

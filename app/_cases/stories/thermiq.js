@@ -235,18 +235,20 @@ const story = {
       title: "Video oglasi za skupe uređaje, i merenje pre budžeta.",
       body: [
         "Za proizvode koji nose prodaju, toplotne pumpe Hisense, kotlove Bosch i klime Romstal, napravili smo video oglase za Instagram i Facebook. Svaki pokazuje uređaj, cenu i jedan razlog za kupovinu.",
-        "Oglasi bez merenja troše budžet naslepo, pa smo pre kampanja postavili merenje od prvog pregleda do naplaćenog posla. Za prve dve nedelje sajt je zabeležio 10 kupovina preko korpe, 41 poziv i 7 upita. To je polazna linija za svaku kampanju.",
+        "Oglasi bez merenja troše budžet naslepo, pa smo pre kampanja postavili merenje od prvog pregleda do naplaćenog posla. Za prve dve nedelje sajt je zabeležio 10 kupovina preko korpe, 40 poziva i 6 upita. To je polazna linija za svaku kampanju.",
       ],
-      widget: {
-        kind: "steps",
-        lines: [
-          "Pregled | Sajt beleži koji proizvod je kupac gledao.",
-          "Korpa i poziv | Dodavanje u korpu, poziv sa sajta i poslat upit.",
-          "Porudžbina | Kupovina sa vrednošću, poslata platformama za oglase.",
-          "Posao iz upita | Prodaja zaključena telefonom ulazi u isti izveštaj.",
+      piece: {
+        kind: "funnel",
+        title: "Od pregleda proizvoda do kupovine",
+        note: "Google Analytics 4, 3. do 17. novembar 2026, od kada se kupovine mere.",
+        steps: [
+          { name: "Pregledi proizvoda", value: 1459 },
+          { name: "Dodato u korpu", value: 35 },
+          { name: "Započeta naplata", value: 29 },
+          { name: "Kupovine", value: 10 },
         ],
       },
-      piece: {
+      extra: {
         kind: "feed",
         title: "Video oglasi",
         note: "Kadrovi iz video oglasa, format 4:5 za Instagram i Facebook.",
