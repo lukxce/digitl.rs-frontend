@@ -169,7 +169,7 @@
 .back[data-tone="ai"] {
   background:
     radial-gradient(rgb(11 11 22 / 0.07) 1.2px, transparent 1.6px) 0 0 / 14px
-      14px,
+    14px,
     radial-gradient(70% 55% at 100% 0%, rgb(42 41 255 / 0.12), transparent 70%),
     #fff;
   color: var(--ink);
@@ -360,7 +360,8 @@
   height: 40px;
   padding: 0 16px;
   border-radius: 999px;
-  box-shadow: inset 0 0 0 1.5px color-mix(in oklab, currentColor 38%, transparent);
+  box-shadow: inset 0 0 0 1.5px
+    color-mix(in oklab, currentColor 38%, transparent);
   font-size: 14px;
   font-weight: 700;
   transition:
@@ -1095,5 +1096,18 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+/* On a phone the cards are a strip to swipe; a white second card read as
+   the end of the strip, so the AI card wears a pale lime there. */
+@media (max-width: 999px) {
+  .front[data-tone="ai"],
+  .back[data-tone="ai"] {
+    background:
+      radial-gradient(rgb(11 11 22 / 0.07) 1.2px, transparent 1.6px) 0 0 / 14px
+      14px,
+      color-mix(in oklab, var(--secondary) 55%, white);
+    box-shadow: none;
   }
 }

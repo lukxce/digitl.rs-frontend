@@ -133,7 +133,7 @@ export const QUIZ = [
         id: "organski",
         label: "Nađu nas na Google-u",
         w: { ads: 3, social: 2 },
-        match: "servis-klime-nis",
+        match: "ideal-keramika",
         gap: "To je dobra osnova, ali nemate dugme kad vam zatreba više posla ovog meseca.",
       },
       {

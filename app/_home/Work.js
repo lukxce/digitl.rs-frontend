@@ -4,15 +4,7 @@ import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import b from "./base.module.css";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, X } from "./icons";
-import {
-  Bridge,
-  Counter,
-  EASE,
-  Head,
-  Roll,
-  useApp,
-  useVisible,
-} from "./ui";
+import { Bridge, Counter, EASE, Head, Roll, useApp, useVisible } from "./ui";
 import w from "./work.module.css";
 
 const find = (clients, re) => clients.find((c) => re.test(c.name));
@@ -182,23 +174,23 @@ function Moler({ c, closest, front }) {
    position 7,1 in the last 28 days, 3.157 indexed pages. The little chart is
    the real series: clicks per full week, 6 Jul to 21 Sep (80 → 341). */
 const VISITS_PATH =
-  "M0.0,76.4 L23.6,77.9 L47.3,63.5 L70.9,61.0 L94.5,45.4 L118.2,40.0 L141.8,35.9 L165.5,25.1 L189.1,37.3 L212.7,33.2 L236.4,12.2 L260.0,12.6";
+  "M0.0,87.7 L20.0,69.3 L40.0,55.5 L60.0,63.2 L80.0,60.6 L100.0,47.4 L120.0,47.7 L140.0,55.4 L160.0,48.2 L180.0,25.6 L200.0,44.8 L220.0,23.9 L240.0,14.0 L260.0,20.7";
 const VISITS_AREA = `${VISITS_PATH} L260,100 L0,100 Z`;
 const DID = [
+  "Web shop sa 4.275 proizvoda",
   "Novi identitet",
-  "Sajt za hiljade proizvoda",
-  "SEO na nivou šablona",
-  "Kalkulator toplotne pumpe",
+  "Kalkulatori",
+  "Praćenje cena konkurencije",
 ];
 
 function Thermiq({ c, closest, front }) {
   const ref = useRef(null);
   const run = useRun(ref, front);
-  const visits = { num: 2836, decimals: 0, thousands: true, suffix: "" };
+  const visits = { num: 4719, decimals: 0, thousands: true, suffix: "" };
   const small = [
-    ["51.773", "prikaza u pretrazi"],
-    ["3.157", "stranica u Google-u"],
-    ["7,1", "prosečna pozicija"],
+    ["106.019", "prikaza u pretrazi"],
+    ["376", "pretraga na prvoj strani"],
+    ["7×", "više poseta nedeljno"],
   ];
   return (
     <a
@@ -211,8 +203,8 @@ function Thermiq({ c, closest, front }) {
         <CardTop c={c} dark closest={closest} />
         <span className={w.nameBig}>{c.name}</span>
         <span className={w.subDark}>
-          Od praktično nevidljivog u pretrazi do stalnog toka poseta, za tri
-          meseca.
+          Prodavnica opreme za grejanje u Beogradu: web shop, brend, mreže i
+          oglasi, i sedam puta više poseta iz pretrage.
         </span>
 
         <span className={w.hero}>
@@ -247,7 +239,7 @@ function Thermiq({ c, closest, front }) {
         <span className={w.sparkLegend}>
           <span>
             <i data-k="visits" /> posete iz pretrage po nedeljama, jul do
-            septembar
+            novembar
           </span>
         </span>
 
@@ -323,6 +315,120 @@ function Klima({ c, closest, front }) {
   );
 }
 
+/* Ideal Keramika: a shop of 8.532 products, first sales after ten days.
+   Search Console (Fortress 5), weeks from 19 Oct: 90, 120, 204, 190. */
+const IK_WEEKS = [90, 120, 204, 190];
+const IK_DID = [
+  "Dizajn i izrada",
+  "Filteri i pretraga",
+  "Uvoz cena",
+  "SEO za svaki proizvod",
+];
+function Ideal({ c, closest, front }) {
+  const ref = useRef(null);
+  const run = useRun(ref, front);
+  const visits = { num: 611, decimals: 0, thousands: true, suffix: "" };
+  return (
+    <a
+      ref={ref}
+      href={c.href}
+      className={`${w.card} ${w.tMist} ${closest ? w.isClosest : ""}`}
+    >
+      <Shot c={c} />
+      <span className={w.body}>
+        <CardTop c={c} closest={closest} />
+        <span className={w.name}>{c.name}</span>
+        <span className={w.sub}>
+          Web shop sa 8.532 proizvoda za prodavnicu pločica i opreme za
+          kupatilo. Prve prodaje deset dana posle pokretanja.
+        </span>
+        <span className={w.hero}>
+          <span className={w.heroNum}>
+            <b>
+              <Counter metric={visits} run={run} ms={1600} />
+            </b>
+            <em>poseta iz Google pretrage za prvih 30 dana</em>
+          </span>
+          <span className={w.ikBars} aria-hidden="true">
+            {IK_WEEKS.map((v, i) => (
+              <motion.i
+                key={v}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: run ? v / 204 : 0 }}
+                transition={{
+                  delay: 0.3 + i * 0.18,
+                  duration: 0.7,
+                  ease: EASE,
+                }}
+              />
+            ))}
+          </span>
+        </span>
+        <span className={w.didLight}>
+          {IK_DID.map((d) => (
+            <i key={d}>{d}</i>
+          ))}
+        </span>
+      </span>
+    </a>
+  );
+}
+
+/* Four Elements: the owner's idea written down as a brand book, and the
+   site and Instagram that grew out of it. */
+const FE = [
+  ["#8E8D6C", "Zemlja"],
+  ["#6F898B", "Voda"],
+  ["#A6ACA7", "Vazduh"],
+  ["#A8684B", "Vatra"],
+];
+function Four({ c, closest, front }) {
+  const ref = useRef(null);
+  const run = useRun(ref, front);
+  return (
+    <a
+      ref={ref}
+      href={c.href}
+      className={`${w.card} ${w.tBlue} ${closest ? w.isClosest : ""}`}
+    >
+      <Shot c={c} />
+      <span className={w.body}>
+        <CardTop c={c} closest={closest} />
+        <span className={w.name}>{c.name}</span>
+        <span className={w.sub}>
+          Vlasnik je imao snažnu ideju iza imena. Zapisali smo je kao brend
+          knjigu, a iz nje su nastali sajt i Instagram.
+        </span>
+        <span className={w.feEls}>
+          {FE.map(([col, n], i) => (
+            <motion.span
+              key={n}
+              initial={{ opacity: 0, y: 12 }}
+              animate={run ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.2 + i * 0.15, duration: 0.5, ease: EASE }}
+            >
+              <i style={{ background: col }} />
+              {n}
+            </motion.span>
+          ))}
+          <motion.b
+            initial={{ opacity: 0 }}
+            animate={{ opacity: run ? 1 : 0 }}
+            transition={{ delay: 0.95, duration: 0.6 }}
+          >
+            Peti je vreme.
+          </motion.b>
+        </span>
+        <span className={w.didLight}>
+          {["Brend knjiga", "Sajt na dva jezika", "Instagram"].map((d) => (
+            <i key={d}>{d}</i>
+          ))}
+        </span>
+      </span>
+    </a>
+  );
+}
+
 /** The deck's last card on a phone: a bundle of the sites, the front one
     whole and the rest fading behind it, and one blue key in the middle.
     It says "there are more", not "here are four". */
@@ -389,10 +495,9 @@ function AllCases({ clients }) {
 }
 
 const CARDS = [
-  { re: /elektro/i, C: Elektro },
+  { re: /ideal/i, C: Ideal },
   { re: /thermiq/i, C: Thermiq },
-  { re: /moler/i, C: Moler },
-  { re: /klim/i, C: Klima },
+  { re: /four elements/i, C: Four },
 ];
 
 // How many cards show behind the front one, and how far each peeks out.

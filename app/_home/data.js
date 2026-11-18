@@ -50,7 +50,7 @@ export async function getClients() {
             label: m.subtitle,
             ...parseMetric(m.title),
           }));
-        if (!slug || !r.cover || metrics.length === 0) return null;
+        if (!slug || !r.cover) return null;
         return {
           slug,
           href: `/projects/${slug}`,

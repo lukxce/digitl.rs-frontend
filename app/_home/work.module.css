@@ -736,7 +736,7 @@
   font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: #fff;
+  color: var(--accent);
 }
 .smallStats em {
   font-style: normal;
@@ -994,7 +994,7 @@
   text-align: center;
   background:
     radial-gradient(rgb(11 11 22 / 0.07) 1.2px, transparent 1.6px) 0 0 / 14px
-      14px,
+    14px,
     radial-gradient(80% 50% at 50% 100%, rgb(42 41 255 / 0.1), transparent 70%),
     #fff;
   box-shadow: var(--ring);
@@ -1223,4 +1223,69 @@
   .deck .shot {
     aspect-ratio: 16 / 9;
   }
+}
+
+/* Ideal Keramika: four weekly bars beside the number */
+.ikBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 84px;
+  padding-bottom: 4px;
+}
+.ikBars i {
+  display: block;
+  width: 22px;
+  height: 100%;
+  border-radius: 6px 6px 3px 3px;
+  background: var(--accent);
+  transform-origin: 50% 100%;
+}
+.ikBars i:last-child {
+  background: var(--accent-mid);
+}
+
+/* Four Elements: the four elements, then the fifth */
+.feEls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.feEls span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--ring);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+.feEls span i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.feEls b {
+  flex-basis: 100%;
+  margin-top: 6px;
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+/* the big number on a light card (Ideal Keramika) */
+.tMist .heroNum b {
+  color: var(--ink);
+}
+.tMist .heroNum em {
+  color: var(--ink-3);
+}
+.tMist .hero {
+  background: #fff;
+  box-shadow: var(--ring);
 }

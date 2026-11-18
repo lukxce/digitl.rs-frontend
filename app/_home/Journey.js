@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import b from "./base.module.css";
 import { Check } from "./icons";
@@ -58,6 +58,8 @@ export default function Journey() {
     setPlays((p) => p.map((v, k) => (k === step ? v + 1 : v)));
   }, [step]);
   const [wide, setWide] = useState(true);
+  // phones: how far the swipe is between this card and the next (0 to 1)
+  const [frac, setFrac] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 900px)");
@@ -81,8 +83,11 @@ export default function Journey() {
     const el = listRef.current;
     const first = el.children[0];
     const pitch = el.children[1].offsetLeft - first.offsetLeft;
-    const i = Math.round(el.scrollLeft / pitch);
-    setStep(Math.max(0, Math.min(N - 1, i)));
+    const p = Math.max(0, Math.min(N - 1, el.scrollLeft / pitch));
+    // the number changes only once the next card has (almost) arrived
+    const i = Math.min(N - 1, Math.floor(p + 0.06));
+    setStep(i);
+    setFrac(Math.max(0, Math.min(1, p - i)));
   };
   const slide = (i) => {
     const el = listRef.current;
@@ -114,30 +119,35 @@ export default function Journey() {
           </div>
         </div>
 
-        {/* phones: the stepper that drives the swipe */}
-        <div className={j.stepper} role="tablist" aria-label="Koraci">
-          <span className={j.stepperRail} aria-hidden="true">
-            <motion.i
-              initial={false}
-              animate={{ scaleX: step / (N - 1) }}
-              transition={{ duration: 0.6, ease: EASE }}
-            />
+        {/* phones: one number in the middle, the line to the right fills as
+            the next card comes in, then the next number takes its place */}
+        <div className={j.stepper}>
+          <button
+            type="button"
+            className={j.stepNow}
+            onClick={() => slide((step + 1) % N)}
+            aria-label={`Korak ${step + 1} od ${N}: ${STEPS[step].name}. Sledeći korak`}
+          >
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                key={step}
+                className={j.stepNowIn}
+                initial={{ opacity: 0, y: -14, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.8 }}
+                transition={{ duration: 0.4, ease: EASE }}
+              >
+                <span className={j.dot}>{step + 1}</span>
+                <span className={j.stepperName}>{STEPS[step].name}</span>
+              </motion.span>
+            </AnimatePresence>
+          </button>
+          <span className={j.stepLine} aria-hidden="true">
+            <i style={{ transform: `scaleX(${step === N - 1 ? 1 : frac})` }} />
           </span>
-          {STEPS.map((s, i) => (
-            <button
-              key={s.name}
-              type="button"
-              role="tab"
-              aria-selected={i === step}
-              className={j.stepperItem}
-              data-on={i === step ? "true" : undefined}
-              data-done={i < step ? "true" : undefined}
-              onClick={() => slide(i)}
-            >
-              <span className={j.dot}>{i + 1}</span>
-              <span className={j.stepperName}>{s.name}</span>
-            </button>
-          ))}
+          <span className={j.stepCount} aria-hidden="true">
+            {step + 1} / {N}
+          </span>
         </div>
 
         <div className={j.track}>
