@@ -2,9 +2,12 @@
 
 import { motion } from "motion/react";
 import elektromil from "../assets/clients/elektromil.webp";
-import primaDental from "../assets/clients/prima-dental.webp";
-import startupsRs from "../assets/clients/startups-rs.webp";
+import fourElements from "../assets/clients/four-elements.webp";
+import idealKeramika from "../assets/clients/ideal-keramika.webp";
+import molerNis from "../assets/clients/moler-nis.webp";
+import planetResidence from "../assets/clients/planet-residence.webp";
 import thermiq from "../assets/clients/thermiq.webp";
+import vojvodaResidence from "../assets/clients/vojvoda-residence.webp";
 import b from "./base.module.css";
 import HeroShowcase from "./HeroShowcase";
 import h from "./hero.module.css";
@@ -22,21 +25,21 @@ function Line({ delay, children }) {
   );
 }
 
-function Logos({ clients }) {
-  const local = [
-    { src: thermiq.src, name: "ThermiQ" },
-    { src: elektromil.src, name: "ElektroMil" },
-    { src: primaDental.src, name: "Prima Dental" },
-    { src: startupsRs.src, name: "Startups.rs" },
-  ];
-  const cms = clients
-    .filter(
-      (c) =>
-        c.logo &&
-        !local.some((l) => l.name.toLowerCase() === c.name.toLowerCase()),
-    )
-    .map((c) => ({ src: c.logo, name: c.name, label: true }));
-  const items = [...local, ...cms];
+/* The clients Luka picked for the strip (18 Nov 2026). A mark without a
+   wordmark gets the name beside it; `h` evens out logos that read larger
+   than the rest at the same height (ElektroMil's is very wide). */
+const LOGOS = [
+  { src: molerNis.src, name: "Moler Niš", label: true },
+  { src: thermiq.src, name: "ThermiQ" },
+  { src: elektromil.src, name: "ElektroMil", h: 0.7 },
+  { src: vojvodaResidence.src, name: "Vojvoda Residence" },
+  { src: idealKeramika.src, name: "Ideal Keramika" },
+  { src: planetResidence.src, name: "Planet Residence" },
+  { src: fourElements.src, name: "Four Elements", label: true },
+];
+
+function Logos() {
+  const items = LOGOS;
   // The strip runs on a loop: four identical copies, moved left by one copy
   // per cycle, so there is never a gap even on wide screens. Only the first
   // copy is read by screen readers.
@@ -44,7 +47,11 @@ function Logos({ clients }) {
     items.map((l) => (
       <li key={`${copy}-${l.name}`} aria-hidden={copy > 0 || undefined}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={l.src} alt={copy > 0 ? "" : l.name} />
+        <img
+          src={l.src}
+          alt={copy > 0 ? "" : l.name}
+          style={l.h ? { "--h": l.h } : undefined}
+        />
         {l.label ? <span>{l.name}</span> : null}
       </li>
     ));
@@ -64,7 +71,7 @@ function Logos({ clients }) {
   );
 }
 
-export default function Hero({ clients, visual = null }) {
+export default function Hero({ visual = null }) {
   const { scrollTo, openBooking } = useApp();
 
   return (
@@ -117,7 +124,7 @@ export default function Hero({ clients, visual = null }) {
       </div>
 
       <div className={b.container}>
-        <Logos clients={clients} />
+        <Logos />
       </div>
     </section>
   );
