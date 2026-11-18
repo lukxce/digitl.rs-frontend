@@ -94,11 +94,6 @@ const story = {
           alt: "Stranica proizvoda",
           caption: "Stranica proizvoda.",
         },
-        {
-          src: img("thermiq/kategorija"),
-          alt: "Kategorija toplotne pumpe",
-          caption: "Kategorija sa filterima po marki i snazi.",
-        },
       ],
     },
     {
@@ -108,22 +103,8 @@ const story = {
         "Kategorije i filteri koji izlaze na pretragu po marki, vrsti i snazi.",
       body: [
         "Katalog je složen u 129 kategorija, i svaka je dobila svoj naslov, opis i artikle. Tako Thermiq izlazi i kada kupac još nije izabrao model, nego traži vrstu uređaja ili marku.",
-        "Isto važi i za filtere: kupac koji ukuca marku i snagu, kao „klima 24 btu“, stiže pravo na uređaje te snage. Izaberite pretragu ispod i pogledajte gde je Thermiq.",
+        "Isto važi i za filtere: kupac koji ukuca marku i snagu, kao „klima 24 btu“, stiže pravo na uređaje te snage.",
       ],
-      piece: {
-        kind: "serp",
-        title: "Gde je Thermiq kada kupac traži",
-        site: "thermiq.rs",
-        note: "Prosečna pozicija iz Google Search Console-a, 18. avgust do 16. novembar 2026. Ostali rezultati su šematski.",
-        queries: [
-          { q: "romstal kotao na drva", pos: "1,8" },
-          { q: "calidor radijatori", pos: "2,9" },
-          { q: "romstal radijatori", pos: "3,4" },
-          { q: "kotao na biomasu", pos: "4,6" },
-          { q: "vision kotao na pelet", pos: "4,7" },
-          { q: "romstal 12000 btu", pos: "5,8" },
-        ],
-      },
     },
     {
       id: "kalkulatori",
@@ -134,15 +115,20 @@ const story = {
         "Kalkulator traži nekoliko podataka o prostoru i za minut daje preporuku, sa proizvodima koji odgovaraju i brojem telefona prodavca. Kalkulatori su na prvoj strani Google-a za pretrage koje ljudi zaista kucaju, a 69 ljudi je do kraja izračunalo šta im treba.",
       ],
       viz: {
-        kind: "table",
-        title: "Kalkulatori u pretrazi",
-        note: "Search Console, 18. avgust do 16. novembar 2026.",
-        columns: ["Šta je kupac ukucao", "Prosečna pozicija"],
-        rows: [
-          ["kalkulator radijatora", "4,6"],
-          ["snaga radijatora po rebru", "3,9"],
-          ["kalkulator za toplotnu pumpu", "5,2"],
-          ["jačina toplotne pumpe za 200 kvadrata", "3,8"],
+        kind: "stat",
+        items: [
+          {
+            value: "2.822",
+            label: "prikaza kalkulatora u Google pretrazi za 91 dan",
+          },
+          {
+            value: "4,6",
+            label: "prosečna pozicija kalkulatora za radijatore",
+          },
+          {
+            value: "69",
+            label: "završenih proračuna, svaki sa preporukom proizvoda",
+          },
         ],
       },
       media: [
