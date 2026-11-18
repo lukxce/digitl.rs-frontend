@@ -54,11 +54,6 @@ const story = {
           alt: "Znak",
           caption: "Znak: list, vazduh, plamen i talas, a u sredini vreme.",
         },
-        {
-          src: img("four-elements/knjiga-43"),
-          alt: "Meni rituala",
-          caption: "Meni rituala, složen kao meni restorana.",
-        },
       ],
     },
     {
@@ -79,11 +74,6 @@ const story = {
           src: img("four-elements/arkada"),
           alt: "Spa arkada",
           caption: "Spa arkada sa temperaturom svake prostorije.",
-        },
-        {
-          src: img("four-elements/en"),
-          alt: "Engleska verzija",
-          caption: "Engleska verzija.",
         },
       ],
     },
@@ -111,14 +101,9 @@ const story = {
         title: "Iz prvih dvanaest objava",
         note: "Objave za početak profila.",
         cols: 3,
-        items: [
-          "grid-01",
-          "grid-06",
-          "grid-05",
-          "grid-10",
-          "grid-08",
-          "grid-12",
-        ].map((k) => img(`four-elements/v5-${k}`)),
+        items: ["grid-01", "grid-06", "grid-08"].map((k) =>
+          img(`four-elements/v5-${k}`),
+        ),
       },
     },
   ],

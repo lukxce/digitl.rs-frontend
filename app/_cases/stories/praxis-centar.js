@@ -62,18 +62,6 @@ const story = {
         beforeLabel: "Stari sajt",
         afterLabel: "Novi sajt",
       },
-      media: [
-        {
-          src: img("praxis-centar/usluga"),
-          alt: "Stranica usluge",
-          caption: "Usluga: kome je namenjena i ko je vodi.",
-        },
-        {
-          src: img("praxis-centar/doktor"),
-          alt: "Stranica lekara",
-          caption: "Stranica lekara sa zakazivanjem.",
-        },
-      ],
     },
     {
       id: "adrese",
@@ -135,48 +123,7 @@ const story = {
           alt: "Kalendar",
           caption: "Kalendar sa kolonom za svakog lekara.",
         },
-        {
-          src: img("praxis-centar/crm-zahtevi"),
-          alt: "Zahtevi sa sajta",
-          caption: "Zahtevi za termin sa sajta.",
-        },
-        {
-          src: img("praxis-centar/crm-izvestaji"),
-          alt: "Izveštaji",
-          caption:
-            "Izveštaji po lekaru i usluzi. Podaci na slikama su izmišljeni.",
-        },
       ],
-    },
-    {
-      id: "uloge",
-      kicker: "Ko šta vidi",
-      title: "Beleške sa terapije vidi samo lekar.",
-      body: [
-        "Recepcija zakazuje termine i naplaćuje preglede, pa vidi kalendar, kontakt i plaćanja. Beleške sa terapije vidi samo lekar koji ih je napisao, a beleška se posle potpisa zaključava. Zabranu za recepciju proverava server, pa ne zavisi od toga šta je prikazano na ekranu.",
-        "Izaberite ulogu i pogledajte isti karton.",
-      ],
-      piece: {
-        kind: "roles",
-        title: "Karton pacijenta",
-        note: "Primer sa izmišljenim podacima.",
-        roles: ["Recepcija", "Lekar"],
-        fields: [
-          { k: "Pacijent", v: "Ana Petrović, 34" },
-          { k: "Sledeći termin", v: "Četvrtak, 12:00, psihoterapija" },
-          { k: "Plaćanje", v: "Plaćeno, fiskalni račun 4471" },
-          {
-            k: "Beleška sa terapije",
-            v: "Potpisana i zaključana, 14. novembar",
-            hide: ["Recepcija"],
-          },
-          {
-            k: "Plan lečenja",
-            v: "Psihoterapija jednom nedeljno, kontrola kod nutricioniste",
-            hide: ["Recepcija"],
-          },
-        ],
-      },
     },
     {
       id: "blog",
@@ -191,11 +138,6 @@ const story = {
           src: img("praxis-centar/crm-blog"),
           alt: "Pisanje teksta u programu",
           caption: "Novi tekst se piše u programu.",
-        },
-        {
-          src: img("praxis-centar/blog"),
-          alt: "Blog na sajtu",
-          caption: "I pojavljuje se na sajtu.",
         },
       ],
     },

@@ -72,16 +72,6 @@ const story = {
           alt: "Usluge",
           caption: "Sve usluge na jednom mestu.",
         },
-        {
-          src: img("elektromil/ev"),
-          alt: "Punjači za električne automobile",
-          caption: "Stranica za punjače električnih automobila.",
-        },
-        {
-          src: img("elektromil/mobilni"),
-          alt: "Sajt na telefonu",
-          caption: "Na telefonu.",
-        },
       ],
     },
     {
@@ -104,13 +94,6 @@ const story = {
           { when: "Danas", pos: 1, text: "prvo mesto" },
         ],
       },
-      media: [
-        {
-          src: img("elektromil/brzina"),
-          alt: "Google PageSpeed 96",
-          caption: "Google PageSpeed na računaru: 96.",
-        },
-      ],
     },
   ],
   next: {

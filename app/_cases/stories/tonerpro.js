@@ -64,19 +64,9 @@ const story = {
       ],
       media: [
         {
-          src: img("tonerpro/logo-ploca"),
-          alt: "Znak TonerPro na četiri podloge",
-          caption: "Znak na četiri podloge.",
-        },
-        {
           src: img("tonerpro/kutije"),
           alt: "Kutije proizvoda nacrtane iz podataka",
           caption: "Kutije nacrtane iz podataka.",
-        },
-        {
-          src: img("tonerpro/boje"),
-          alt: "Boje brenda",
-          caption: "Mastilo nosi, žuta prodaje.",
         },
       ],
     },
@@ -93,11 +83,6 @@ const story = {
           src: img("tonerpro/stampac"),
           alt: "Stranica štampača",
           caption: "Stranica štampača sa tonerima koji mu odgovaraju.",
-        },
-        {
-          src: img("tonerpro/proizvod"),
-          alt: "Stranica tonera 85A",
-          caption: "Toner sa cenom po strani i proverom štampača.",
         },
       ],
     },
@@ -140,38 +125,13 @@ const story = {
       title: "Firma nalepi spisak, dobije korpu i predračun.",
       body: [
         "Kancelarija sa deset štampača ne kupuje toner po toner. Ima spisak šifara i treba joj predračun sa PDV-om, isti dan. Za takve kupce napravili smo brzu porudžbinu: firma nalepi spisak iz Excel-a, a sajt svaki red upari sa proizvodom, izračuna ukupno i stavi sve u korpu jednim klikom.",
-        "Ko želi ponudu, pošalje upit sa štampačima i količinama, a upit stiže u administraciju da prodavac odgovori predračunom. Probajte: promenite količine ili dodajte šifru.",
+        "Ko želi ponudu, pošalje upit sa štampačima i količinama, a upit stiže u administraciju da prodavac odgovori predračunom.",
       ],
-      piece: {
-        kind: "quickorder",
-        title: "Brza porudžbina po šiframa",
-        note: "Prave cene zamenskih tonera iz kataloga TonerPro, novembar 2026.",
-        start: "85A 5\nTN-2420 2\nTK-1110 x3\n106A 4\nCF259X 1",
-        items: {
-          "85A": { name: "HP 85A zamenski", price: 670 },
-          "17A": { name: "HP 17A zamenski", price: 670 },
-          "106A": { name: "HP 106A zamenski", price: 810 },
-          "106X": { name: "HP 106X zamenski", price: 1150 },
-          "12A": { name: "HP 12A zamenski", price: 670 },
-          "83A": { name: "HP 83A zamenski", price: 510 },
-          CF259X: { name: "HP 59X zamenski", price: 1820 },
-          "59X": { name: "HP 59X zamenski", price: 1820 },
-          "TN-2420": { name: "Brother TN-2420 zamenski", price: 1050 },
-          "TN-1050": { name: "Brother TN-1050 zamenski", price: 570 },
-          "TK-1110": { name: "Kyocera TK-1110 zamenski", price: 480 },
-          "TK-1150": { name: "Kyocera TK-1150 zamenski", price: 670 },
-        },
-      },
       media: [
         {
           src: img("tonerpro/brza"),
           alt: "Brza porudžbina na sajtu",
           caption: "Brza porudžbina na sajtu.",
-        },
-        {
-          src: img("tonerpro/firme"),
-          alt: "Upit za firme",
-          caption: "Upit za ponudu. Podaci u obrascu su primer.",
         },
       ],
     },
@@ -197,18 +157,6 @@ const story = {
           { q: "hp m130a toner", pos: "5,3" },
         ],
       },
-      media: [
-        {
-          src: img("tonerpro/blog"),
-          alt: "Blog TonerPro",
-          caption: "Blog o tonerima i štampačima.",
-        },
-        {
-          src: img("tonerpro/clanak"),
-          alt: "Tekst na blogu",
-          caption: "Tekst sa kratkim odgovorom na vrhu.",
-        },
-      ],
     },
     {
       id: "mreze",
@@ -224,15 +172,8 @@ const story = {
         title: "Predlog Instagram profila",
         note: "Objave za prvi mesec, novembar 2026.",
         cols: 3,
-        items: [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => img(`tonerpro/ig-${n}`)),
+        items: [1, 2, 4, 5, 7, 9].map((n) => img(`tonerpro/ig-${n}`)),
       },
-      media: [
-        {
-          src: img("tonerpro/nalepnice"),
-          alt: "Nalepnice u paketu",
-          caption: "Nalepnice koje idu u paket.",
-        },
-      ],
     },
   ],
   next: {

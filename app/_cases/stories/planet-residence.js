@@ -48,7 +48,7 @@ const story = {
         "Model je profil koji smo ranije radili za Vojvoda Residence: stan kao 3D model na pesku, život u zgradi kroz svakodnevne situacije i zgrada kroz činjenice. Za Planet Residence smo ga podigli za veće stanove: više vazduha, mornarsko plava i zlatna iz njihovog logotipa, i veliki brojevi kvadrata umesto reči „luksuzno“.",
         "Profil počinje sa dvanaest objava poređanih tako da od prvog dana kaže šta se prodaje, kako se živi i šta zgrada ima.",
       ],
-      extra: {
+      piece: {
         kind: "templates",
         title: "Četiri šablona objava",
         note: "Primeri iz predloga za Planet Residence, novembar 2026.",
@@ -74,15 +74,6 @@ const story = {
             src: img("planet-residence/raspored"),
           },
         ],
-      },
-      piece: {
-        kind: "feed",
-        title: "Prvih dvanaest objava",
-        note: "Redosled kako stoje na profilu: stan, život, zgrada.",
-        cols: 3,
-        items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) =>
-          img(`planet-residence/g-${n}`),
-        ),
       },
     },
     {
@@ -169,13 +160,6 @@ const story = {
           ],
         ],
       },
-      media: [
-        {
-          src: img("planet-residence/vodic"),
-          alt: "Ton, boje, copy i dizajn",
-          caption: "Pravila za ton, boje, tekst i šablone.",
-        },
-      ],
     },
   ],
   next: {

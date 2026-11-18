@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import p from "./pieces.module.css";
 import { useEnter } from "./Viz";
 
@@ -15,6 +15,35 @@ const fmt = (n) =>
   Math.round(n)
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+/* Plays on its own while on screen, like the blog's figures: steps through
+   n states every ms until the reader picks one, then stays where they put it. */
+function useAuto(n, ms, start = 0) {
+  const ref = useRef(null);
+  const [at, setAt] = useState(start);
+  const [held, setHeld] = useState(false);
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => setSeen(e.isIntersecting), {
+      threshold: 0.4,
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    if (!seen || held || n < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setTimeout(() => setAt((v) => (v + 1) % n), ms);
+    return () => clearTimeout(t);
+  }, [seen, held, at, n, ms]);
+  const pick = (i) => {
+    setHeld(true);
+    setAt(i);
+  };
+  return { ref, at, pick };
+}
 
 function Card({ title, sub, note, children, kind }) {
   return (
@@ -40,7 +69,7 @@ function Card({ title, sub, note, children, kind }) {
 /* data: { title, note, site, queries: [{ q, pos }] }. The other results are
    drawn as plain bars on purpose: only the client's place is the claim. */
 function Serp({ data }) {
-  const [at, setAt] = useState(0);
+  const { ref, at, pick: setAt } = useAuto(data.queries.length, 2600);
   const q = data.queries[at];
   const place = Math.max(
     1,
@@ -52,7 +81,7 @@ function Serp({ data }) {
   );
   return (
     <Card title={data.title} note={data.note} kind="serp">
-      <div className={p.chips} role="tablist" aria-label="Pretrage">
+      <div ref={ref} className={p.chips} role="tablist" aria-label="Pretrage">
         {data.queries.map((x, i) => (
           <button
             key={x.q}
@@ -120,7 +149,10 @@ function Serp({ data }) {
 /* ── finder: type the printer, get the toner ─────────────────────────── */
 /* data: { title, note, examples: [model], printers: { model: [{ code, pages, price }] } } */
 function Finder({ data }) {
-  const [q, setQ] = useState(data.examples[0]);
+  // cycles through the example printers until the reader types or picks one
+  const { ref, at } = useAuto(data.examples.length, 2600);
+  const [typed, setQ] = useState(null);
+  const q = typed ?? data.examples[at];
   const norm = (s) => s.toLowerCase().replace(/[\s-]+/g, "");
   const hit = useMemo(() => {
     const n = norm(q);
@@ -130,7 +162,7 @@ function Finder({ data }) {
   const list = hit ? data.printers[hit] : [];
   return (
     <Card title={data.title} note={data.note} kind="finder">
-      <label className={p.search}>
+      <label ref={ref} className={p.search}>
         <input
           aria-label="Model štampača"
           value={q}
@@ -259,10 +291,38 @@ function PriceTool({ data }) {
   const [rows, setRows] = useState(() =>
     data.rows.map((r) => ({ ...r, value: r.proposal, sent: false })),
   );
+  // on screen, the rows are approved one by one, as the seller would do it
+  const box = useRef(null);
+  useEffect(() => {
+    const el = box.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    let timers = [];
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        timers = data.rows.map((_, k) =>
+          setTimeout(
+            () =>
+              setRows((all) =>
+                all.map((x, n) => (n === k ? { ...x, sent: true } : x)),
+              ),
+            900 + k * 900,
+          ),
+        );
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      timers.forEach(clearTimeout);
+    };
+  }, [data.rows]);
   const sent = rows.filter((r) => r.sent).length;
   return (
     <Card title={data.title} sub={data.sub} note={data.note} kind="price">
-      <div className={p.ptable}>
+      <div ref={box} className={p.ptable}>
         <div className={p.prow} data-head="">
           <span>Artikal</span>
           <span>Cena sada</span>
@@ -453,12 +513,12 @@ function Reels({ data }) {
 /* ── climb: one search over time, the client's place in it ────────────── */
 /* data: { title, note, query, site, points: [{ when, pos, text }] } (pos null = not on page 1) */
 function Climb({ data }) {
-  const [at, setAt] = useState(data.points.length - 1);
+  const { ref, at, pick: setAt } = useAuto(data.points.length, 1800);
   const pt = data.points[at];
   const rows = 8;
   return (
     <Card title={data.title} note={data.note} kind="climb">
-      <div className={p.climb}>
+      <div ref={ref} className={p.climb}>
         <div className={p.when} role="tablist" aria-label="Vreme">
           {data.points.map((x, i) => (
             <button
@@ -520,11 +580,11 @@ function Climb({ data }) {
 /* ── templates: the post types of a feed, one at a time ───────────────── */
 /* data: { title, note, items: [{ name, text, src }] } */
 function Templates({ data }) {
-  const [at, setAt] = useState(0);
+  const { ref, at, pick: setAt } = useAuto(data.items.length, 2800);
   const it = data.items[at];
   return (
     <Card title={data.title} note={data.note} kind="templates">
-      <div className={p.tpl}>
+      <div ref={ref} className={p.tpl}>
         <div className={p.tplList} role="tablist">
           {data.items.map((x, i) => (
             <button
@@ -561,11 +621,12 @@ function Templates({ data }) {
 /* ── rewrite: a stock sentence crossed out and written again, plainly ─── */
 /* data: { title, note, pairs: [[from, to]] } */
 function Rewrite({ data }) {
-  const [at, setAt] = useState(0);
+  const { ref, at, pick } = useAuto(data.pairs.length, 4200);
+  const setAt = pick;
   const [from, to] = data.pairs[at];
   return (
     <Card title={data.title} note={data.note} kind="rewrite">
-      <div className={p.rw}>
+      <div ref={ref} className={p.rw}>
         <AnimatePresence mode="wait">
           <motion.div
             key={at}

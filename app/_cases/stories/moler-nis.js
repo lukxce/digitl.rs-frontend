@@ -72,16 +72,6 @@ const story = {
           alt: "Stranica usluge gletovanje",
           caption: "Stranica usluge sa cenom.",
         },
-        {
-          src: img("moler-nis/dekorativni"),
-          alt: "Dekorativne tehnike",
-          caption: "Dekorativni premazi i tehnike.",
-        },
-        {
-          src: img("moler-nis/pagespeed"),
-          alt: "PageSpeed 100 na telefonu",
-          caption: "Google PageSpeed na telefonu: 100.",
-        },
       ],
     },
     {
@@ -143,11 +133,6 @@ const story = {
           alt: "Cenovnik molerskih radova",
           caption: "Cenovnik po kvadratu i po komadu.",
         },
-        {
-          src: img("moler-nis/kalkulator"),
-          alt: "Rezultat kalkulatora boje",
-          caption: "Kalkulator: površina, boja i glet za sobu.",
-        },
       ],
     },
     {
@@ -156,13 +141,6 @@ const story = {
       title: "Tekstovi za one koji tek istražuju.",
       body: [
         "Pre nego što zovu molera, ljudi pitaju Google koliko košta krečenje stana ili šta znače pukotine na zidu. Firma koja na to odgovori ostaje u glavi. Tekst „Koliko košta krečenje stana u Nišu“ je treća stranica po posetama, odmah posle cenovnika i naslovne.",
-      ],
-      media: [
-        {
-          src: img("moler-nis/blog"),
-          alt: "Tekst na blogu",
-          caption: "„Koliko košta krečenje stana u Nišu“.",
-        },
       ],
     },
   ],

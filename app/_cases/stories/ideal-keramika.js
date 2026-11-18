@@ -61,9 +61,9 @@ const story = {
           caption: "Katalog kao izlog.",
         },
         {
-          src: img("ideal-keramika/tus"),
-          alt: "Stranica tuš sistema",
-          caption: "Stranica proizvoda sa stanjem na lageru.",
+          src: img("ideal-keramika/proizvod"),
+          alt: "Stranica pločice",
+          caption: "Pločica: format, svojstva i cena po m².",
         },
       ],
     },
@@ -81,11 +81,6 @@ const story = {
           alt: "Odeljenje pločica sa filterima",
           caption: "Pločice sa filterima i brojem artikala uz svaku opciju.",
         },
-        {
-          src: img("ideal-keramika/pretraga"),
-          alt: "Rezultati pretrage za calacatta",
-          caption: "Pretraga za „calacatta“.",
-        },
       ],
     },
     {
@@ -95,42 +90,6 @@ const story = {
       body: [
         "Pločice se kupuju po kvadratu, slavine po komadu, a investitor kupuje za celu zgradu. Kupovina je zato napravljena za sva tri: cena po m² ili po komadu sa stanjem na lageru, kupovina kao fizičko lice ili firma, dostava ili preuzimanje u salonu, nalog sa istorijom porudžbina i listom želja.",
         "Za investitore i izvođače prodavac u administraciji pravi ponudu i šalje je kao link i PDF, sa rokom važenja. Mejlovi za porudžbinu, upit i termin u salonu stižu i kupcu i prodaji.",
-      ],
-      piece: {
-        kind: "checkout",
-        title: "Naplata na idealkeramika.rs",
-        note: "Polja i načini preuzimanja kakvi su na sajtu, novembar 2026.",
-        buyers: {
-          "Fizičko lice": ["Ime i prezime", "Telefon", "E-pošta", "Adresa"],
-          Firma: [
-            "Naziv firme",
-            "PIB",
-            "Matični broj",
-            "Kontakt osoba",
-            "Telefon",
-            "Adresa",
-          ],
-        },
-        ways: [
-          {
-            name: "Dostava na adresu",
-            text: "Isporuka 2 do 4 radna dana, besplatno u Beogradu preko 60.000 RSD",
-          },
-          { name: "Salon Voždovac", text: "Bulevar oslobođenja 301" },
-          { name: "Salon i magacin Jajinci", text: "Bulevar JNA 144b" },
-        ],
-      },
-      media: [
-        {
-          src: img("ideal-keramika/proizvod"),
-          alt: "Stranica pločice",
-          caption: "Pločica: format, svojstva i cena po m².",
-        },
-        {
-          src: img("ideal-keramika/placanje"),
-          alt: "Naplata",
-          caption: "Naplata za fizičko lice ili firmu.",
-        },
       ],
     },
     {
@@ -189,43 +148,6 @@ const story = {
         "Iza sajta je administracija koju koriste prodavci u oba salona. Porudžbine, upiti, ponude i zakazani termini stižu na jedno mesto, a uz svaki piše odakle je kupac došao: iz Google pretrage, sa Instagrama ili direktno.",
         "Iz istog prozora prodavac odgovara na upit mejlom, pravi ponudu za investitora, menja akcije i banere i dodaje nove proizvode. Obrazac za proizvod se menja po vrsti robe: pločica ima format i pakovanje, slavina završnicu.",
       ],
-      piece: {
-        kind: "inbox",
-        title: "Prodaja u administraciji",
-        note: "Redovi su primer. Izvor posete se beleži uz svaku porudžbinu, upit i termin od 10. novembra 2026.",
-        rows: [
-          {
-            what: "Pločice 60×120, 32 m²",
-            kind: "Porudžbina",
-            source: "Google pretraga",
-            place: "Preuzimanje, Jajinci",
-          },
-          {
-            what: "Kupatilo na Vračaru",
-            kind: "Upit",
-            source: "Google pretraga",
-            place: "Voždovac",
-          },
-          {
-            what: "Savetovanje, četvrtak 11h",
-            kind: "Termin",
-            source: "Instagram",
-            place: "Voždovac",
-          },
-          {
-            what: "Stambena zgrada, 40 stanova",
-            kind: "Ponuda",
-            source: "Direktno",
-            place: "Jajinci",
-          },
-          {
-            what: "Tuš sistem Hansgrohe",
-            kind: "Porudžbina",
-            source: "Instagram",
-            place: "Dostava",
-          },
-        ],
-      },
     },
     {
       id: "rezultat",

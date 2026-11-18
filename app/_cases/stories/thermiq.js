@@ -200,11 +200,6 @@ const story = {
       ],
       media: [
         {
-          src: img("thermiq/knjiga-01"),
-          alt: "Brend knjiga 2.0",
-          caption: "Brend knjiga 2.0.",
-        },
-        {
           src: img("thermiq/kartice"),
           alt: "Kartice proizvoda",
           caption: "Kartice proizvoda: boja kaže da li greje ili hladi.",
@@ -248,15 +243,6 @@ const story = {
           { name: "Kupovine", value: 10 },
         ],
       },
-      extra: {
-        kind: "feed",
-        title: "Video oglasi",
-        note: "Kadrovi iz video oglasa, format 4:5 za Instagram i Facebook.",
-        cols: 4,
-        items: ["ad-hisense", "ad-bosch", "ad-ecovent", "ad-hisense80"].map(
-          (k) => img(`thermiq/${k}`),
-        ),
-      },
     },
     {
       id: "cene",
@@ -264,7 +250,7 @@ const story = {
       title: "Cene konkurencije, svakog ponedeljka, bez ijedne tabele.",
       body: [
         "Kada mnogo prodavaca nudi istu opremu, cena odlučuje brže nego bilo gde. Napravili smo alat koji svakog ponedeljka pročita cene konkurenata, upari ih sa Thermiqovim artiklima po šifri i predloži novu cenu po pravilu koje je zadao vlasnik.",
-        "Promene unutar dozvoljenog okvira odlaze pravo na sajt, a sve što odskače više od 15% čeka čoveka. U prvom prolazu usklađeno je 479 cena, a na 436 artikala Thermiq je prodavao jeftinije nego što je tržište tražilo. Probajte ispod: ispravite predlog i pošaljite cenu.",
+        "Promene unutar dozvoljenog okvira odlaze pravo na sajt, a sve što odskače više od 15% čeka čoveka. U prvom prolazu usklađeno je 479 cena, a na 436 artikala Thermiq je prodavao jeftinije nego što je tržište tražilo.",
       ],
       piece: {
         kind: "pricetool",
