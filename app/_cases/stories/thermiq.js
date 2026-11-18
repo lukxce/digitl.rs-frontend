@@ -192,11 +192,11 @@ const story = {
     },
     {
       id: "brend",
-      kicker: "Logo i dizajn",
-      title: "Znak koji kaže čime se firma bavi, i sistem koji iz njega raste.",
+      kicker: "Brend",
+      title:
+        "Novi vizuelni identitet, da sajt, mreže i radnja govore istim jezikom.",
       body: [
-        "Logotip spaja sunce i pahulju, a između njih su dva talasa: crveni za toplo i plavi za hladno. U drugoj verziji identiteta od ta dva talasa napravili smo ceo grafički jezik.",
-        "Polja se završavaju na talasu. Kartica proizvoda bojom podloge kaže da li uređaj greje ili hladi. Ista linija, ispravljena u cev, vodi kroz ponudu, katalog, mejl i objave. Sve je zapisano u brend knjizi, od pozicije „sve na jednom mestu“ do etikete na polici.",
+        "Uradili smo novu verziju identiteta i brend knjigu: od znaka sa crvenim i plavim talasom napravili smo sistem koji se koristi na sajtu, karticama proizvoda, ponudama, mejlovima i objavama. Kartica proizvoda bojom kaže da li uređaj greje ili hladi.",
       ],
       media: [
         {
@@ -205,26 +205,10 @@ const story = {
           caption: "Brend knjiga 2.0.",
         },
         {
-          src: img("thermiq/knjiga-03"),
-          alt: "Poglavlje brend knjige",
-          caption: "Pozicija i ton, iz brend knjige.",
-        },
-        {
           src: img("thermiq/kartice"),
           alt: "Kartice proizvoda",
           caption: "Kartice proizvoda: boja kaže da li greje ili hladi.",
         },
-        {
-          src: img("thermiq/geometrija"),
-          alt: "Geometrija talasa",
-          caption: "Talas i cev.",
-        },
-        {
-          src: img("thermiq/papir"),
-          alt: "Katalog i ponuda",
-          caption: "Katalog i ponuda.",
-        },
-        { src: img("thermiq/vizitke"), alt: "Vizitke", caption: "Vizitke." },
       ],
     },
     {
@@ -240,14 +224,9 @@ const story = {
         title: "Serija „Proizvodi i pitanja“",
         note: "Objave za Instagram, novembar 2026.",
         cols: 3,
-        items: [
-          "ig-hisense",
-          "ig-pritisak",
-          "ig-klima",
-          "ig-bosch",
-          "ig-pumpa",
-          "ig-podno",
-        ].map((k) => img(`thermiq/${k}`)),
+        items: ["ig-hisense", "ig-pritisak", "ig-klima"].map((k) =>
+          img(`thermiq/${k}`),
+        ),
       },
     },
     {
@@ -333,7 +312,7 @@ const story = {
     title:
       "Od kataloga koji se ne vidi do prodavnice koju nalaze i Google i ChatGPT.",
     body: [
-      "Za tri meseca Thermiq je dobio web shop koji se sam pojavljuje pred ljudima koji traže konkretan uređaj, brend koji se prepoznaje od sajta do vizitke, objave i oglase iz istog sistema, cene koje prate tržište bez ručnog rada i upite koji se ne gube. Rast iz pretrage došao je bez plaćenih oglasa.",
+      "Za tri meseca Thermiq je dobio web shop koji se sam pojavljuje pred ljudima koji traže konkretan uređaj, novi identitet, objave i oglase iz istog sistema, cene koje prate tržište bez ručnog rada i upite koji se ne gube. Rast iz pretrage došao je bez plaćenih oglasa.",
       "Sledeće je povratak kampanja na merenje koje zna šta je prodaja, stranice usluga za montažu i servis i nova sezona sadržaja po brend knjizi.",
     ],
   },

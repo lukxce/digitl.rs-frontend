@@ -266,6 +266,12 @@ const IMAGES = {
     "https://cdn.sanity.io/images/203ybdbh/production/7c3414e29497c8bf9c4f9bc528b10e3d23ca1292-538x674.jpg",
   "planet-residence/g-12":
     "https://cdn.sanity.io/images/203ybdbh/production/5b888c473660ae1fb1233b7d3b82a87c88c3d0e8-538x674.jpg",
+  "four-elements/v5-rituals-sr-01":
+    "https://cdn.sanity.io/images/203ybdbh/production/207e9c2f1f9d66bc73c8bb0bb87aaf85fba98976-1080x1350.jpg",
+  "four-elements/v5-arcade-01":
+    "https://cdn.sanity.io/images/203ybdbh/production/908b248731fad710c34306bd5914f151f9a63182-1080x1350.jpg",
+  "four-elements/v5-rituals-sr-04":
+    "https://cdn.sanity.io/images/203ybdbh/production/4046fc515925a734394080492275b0daba857a10-1080x1350.jpg",
 };
 
 export const img = (key) => IMAGES[key] ?? null;
