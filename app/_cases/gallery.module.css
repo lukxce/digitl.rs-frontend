@@ -199,3 +199,9 @@
   gap: 8px;
   cursor: default;
 }
+
+/* one picture on its own stays a picture, not a wall: about two thirds of
+   the column, so a screenshot never fills the whole screen */
+.gallery[data-layout="one"] {
+  max-width: 760px;
+}

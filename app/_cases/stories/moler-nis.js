@@ -67,13 +67,6 @@ const story = {
         "Ko traži molera, traži ga danas i želi da zna tri stvari: da li radite u njegovom delu grada, koliko košta i kako da vas pozove. Sajt to kaže na prvom ekranu, a dugme za poziv je uvek vidljivo.",
         "Krečenje, gletovanje, fasade, dekorativni premazi, tapete i sanacija vlage imaju svaka svoju stranicu, sa onim što je uključeno i sa cenom. Sajt ima ocenu 100 na Google PageSpeed testu za telefon, jer većina poziva stiže sa telefona.",
       ],
-      media: [
-        {
-          src: img("moler-nis/gletovanje"),
-          alt: "Stranica usluge gletovanje",
-          caption: "Stranica usluge sa cenom.",
-        },
-      ],
     },
     {
       id: "pretraga",
