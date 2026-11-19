@@ -101,7 +101,7 @@
 }
 .section {
   position: relative;
-  padding: clamp(64px, 8vw, 120px) 0;
+  padding: var(--section-y) 0;
 }
 /* A soft band of brand light behind a section: the hero's palette, quieter,
    faded out at the top and bottom so it meets its white neighbours without
@@ -433,12 +433,12 @@
   display: grid;
   justify-items: center;
   gap: 14px;
-  margin-top: clamp(40px, 5vw, 64px);
+  margin-top: clamp(32px, 4vw, 48px);
   text-align: center;
 }
 .bridgeLine {
   width: 1px;
-  height: 48px;
+  height: 32px;
   background: linear-gradient(transparent, var(--accent));
 }
 .bridge p {

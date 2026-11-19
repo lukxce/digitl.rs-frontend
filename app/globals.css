@@ -1,4 +1,8 @@
 :root {
+  /* One vertical rhythm for every section (19 Nov 2026): 48px a side on a
+     phone up to 64px on a wide screen, so two sections sit 96 to 128px apart,
+     on the 8px grid. */
+  --section-y: clamp(48px, 5vw, 64px);
   --background: #ffff;
   --foreground: #171717;
 }

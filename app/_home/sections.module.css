@@ -1,7 +1,7 @@
 /* the three questions */
 .plan {
   position: relative;
-  padding: clamp(56px, 7vw, 96px) 0;
+  padding: var(--section-y) 0;
   --glow-1: 92% 28%;
   --glow-2: 8% 62%;
   --dots-at: 50% 62%;
@@ -494,7 +494,7 @@
 /* site check */
 .check {
   position: relative;
-  padding: clamp(56px, 7vw, 96px) 0;
+  padding: var(--section-y) 0;
   --glow-1: 92% 28%;
   --glow-2: 8% 62%;
   --dots-at: 50% 62%;

@@ -1,23 +1,83 @@
 "use client";
 
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
+import Link from "next/link";
 import { useState } from "react";
 import b from "../_home/base.module.css";
 import { Newsletter } from "../_home/Blog";
-import { Search, X } from "../_home/icons";
+import { ArrowRight, Search, X } from "../_home/icons";
 import { EASE } from "../_home/ui";
 import Card from "./Card";
 import l from "./listing.module.css";
-import { fold, tekstova } from "./util";
+import Tie from "./Tie";
+import { fold, img, imgSet, tekstova } from "./util";
 
-/** The blog index: the head, then every article at once behind category
-    chips and a search by title, with the newsletter after the first row
-    (Luka, 19 Nov 2026: no featured article and newsletter before the list).
+/** The newest article, told large: the front page of the blog. */
+function Lead({ a }) {
+  return (
+    <Link
+      href={a.href}
+      className={`${l.lead} ${b.fadeUp}`}
+      style={{ animationDelay: "320ms" }}
+    >
+      <div className={l.leadCover}>
+        {a.cover
+          ? // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={img(a.cover, 1200)}
+              srcSet={imgSet(a.cover, [640, 960, 1200, 1600])}
+              sizes="(max-width: 899px) 100vw, 700px"
+              alt=""
+              width={1600}
+              height={900}
+              fetchPriority="high"
+              decoding="async"
+            />
+          : null}
+      </div>
+      <div className={l.leadBody}>
+        <p className={l.tags}>
+          <span className={l.new}>Najnovije</span>
+          {a.category ? <span className={l.tag}>{a.category}</span> : null}
+        </p>
+        <h2 className={l.leadTitle}>
+          <Tie>{a.title}</Tie>
+        </h2>
+        {a.description
+          ? <p className={l.excerpt}>
+              <Tie>{a.description}</Tie>
+            </p>
+          : null}
+        <p className={l.meta}>
+          {a.avatar
+            ? // eslint-disable-next-line @next/next/no-img-element
+              <img src={a.avatar} alt="" width={30} height={30} />
+            : null}
+          {a.author ? <b>{a.author}</b> : null}
+          {a.date ? <time dateTime={a.iso ?? undefined}>{a.date}</time> : null}
+          {a.minutes ? <span>{a.minutes} min čitanja</span> : null}
+        </p>
+        <span className={l.read}>
+          Pročitajte tekst <ArrowRight size={15} />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+/** The blog index: the head and the newest article told large, then the
+    others behind category chips and a search by title, with the newsletter
+    after their first row (Luka, 19 Nov 2026: newest article on top, no
+    newsletter between it and the list).
     `categories` arrive counted and ordered from the server. */
 export default function Listing({ articles, categories }) {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState(null);
   const needle = fold(q.trim());
+  const [lead, ...rest] = articles;
+  // Untouched, the grid is everything under the newest article. A category
+  // or a search looks through all of them, the newest included, so a chip
+  // that says one article always has one to show.
   const filtering = Boolean(cat || needle);
   const shown = filtering
     ? articles.filter(
@@ -25,7 +85,7 @@ export default function Listing({ articles, categories }) {
           (!cat || a.category === cat) &&
           (!needle || fold(a.title).includes(needle)),
       )
-    : articles;
+    : rest;
   const reset = () => {
     setQ("");
     setCat(null);
@@ -61,15 +121,15 @@ export default function Listing({ articles, categories }) {
             </p>
           </div>
 
-          {articles.length
-            ? null
+          {lead
+            ? <Lead a={lead} />
             : <p className={l.empty}>
                 Tekstovi trenutno nisu dostupni. Pokušajte ponovo za minut.
               </p>}
         </div>
       </section>
 
-      {articles.length
+      {rest.length
         ? <section className={l.more} data-section="Tekstovi">
             <div className={b.container}>
               <div className={l.moreTop}>

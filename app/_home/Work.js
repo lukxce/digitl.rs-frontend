@@ -28,24 +28,22 @@ function CardTop({ c, dark = false, closest = false }) {
   );
 }
 
-/** The client's site in a browser window: the address bar says whose site
-    it is, so the card reads as "a project" at a glance (Luka, 19 Nov 2026:
-    the mosaic with a sticker and a badge on top did not). */
-function Shot({ c, domain }) {
-  const home = caseImg(`${c.slug}/home`);
+/** The client's site in a browser window with the phone beside it, made
+    for this half of the card (public/work/<slug>.webp, 1000x1220), so
+    nothing is cut off (Luka, 19 Nov 2026: the mosaic confused people, a
+    cropped screenshot looked bad). Projects without one keep their cover. */
+const SHOTS = ["ideal-keramika", "thermiq", "four-elements"];
+function Shot({ c }) {
+  const own = SHOTS.includes(c.slug);
   return (
     <span className={w.shot}>
-      <span className={w.chrome} aria-hidden="true">
-        <i />
-        <i />
-        <i />
-        {domain ? <em>{domain}</em> : null}
-      </span>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className={w.shotImg}
-        src={home ? `${home}?w=1200&fm=webp&q=82` : c.cover}
-        alt={`Sajt koji smo uradili za ${c.name}`}
+        src={own ? `/work/${c.slug}.webp` : c.cover}
+        alt={`Sajt koji smo uradili za ${c.name}, na računaru i telefonu`}
+        width="1000"
+        height="1220"
         loading="lazy"
       />
     </span>
@@ -214,7 +212,7 @@ function Thermiq({ c, closest, front }) {
       href={c.href}
       className={`${w.card} ${w.dark} ${closest ? w.isClosest : ""}`}
     >
-      <Shot c={c} domain="thermiq.rs" />
+      <Shot c={c} />
       <span className={w.body}>
         <CardTop c={c} dark closest={closest} />
         <span className={w.nameBig}>{c.name}</span>
@@ -350,7 +348,7 @@ function Ideal({ c, closest, front }) {
       href={c.href}
       className={`${w.card} ${w.tMist} ${closest ? w.isClosest : ""}`}
     >
-      <Shot c={c} domain="idealkeramika.rs" />
+      <Shot c={c} />
       <span className={w.body}>
         <CardTop c={c} closest={closest} />
         <span className={w.name}>{c.name}</span>

@@ -1,6 +1,6 @@
 .section {
   background: #fff;
-  padding-bottom: clamp(56px, 7vw, 100px);
+  padding-bottom: var(--section-y);
 }
 
 .grid {
@@ -1290,56 +1290,21 @@
   box-shadow: var(--ring);
 }
 
-/* the site in a browser window (19 Nov 2026): an address bar on top, the
-   client's home page below it, nothing laid over the picture */
+/* the site in a browser window and on a phone, one picture made for this
+   half of the card (19 Nov 2026) */
 .shot {
   position: relative;
 }
 .deck .shot {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  box-shadow: var(--ring);
-}
-.chrome {
-  display: flex;
-  flex: none;
-  align-items: center;
-  gap: 6px;
-  height: 38px;
-  padding: 0 14px;
-  border-bottom: 1px solid rgb(11 11 22 / 0.08);
-  background: #f4f5f8;
-}
-.chrome i {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgb(11 11 22 / 0.16);
-}
-.chrome em {
-  flex: 1;
-  max-width: 260px;
-  margin: 0 auto;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: #fff;
-  box-shadow: inset 0 0 0 1px rgb(11 11 22 / 0.08);
-  color: var(--ink-3);
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 650;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  background: #eef0f6;
 }
 .deck .shot .shotImg {
-  flex: 1;
-  min-height: 0;
-  object-position: left top;
+  object-position: center top;
 }
 @media (min-width: 960px) {
+  .deck .shot .shotImg {
+    object-position: center;
+  }
   .deck .shot,
   .deck .thermiqShot .shot {
     align-self: stretch;
