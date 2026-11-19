@@ -12,8 +12,10 @@ const SIZES = {
   mini: "(max-width: 759px) 100vw, 420px",
 };
 
-/** One project: the client's real site, who it is, the headline of the
-    study and its numbers. `variant` sets the size, `tone` the ground. */
+/** One project: the client's real site, who it is and what we did for
+    them. The headline and the numbers live in the study itself (Luka, 19 Nov
+    2026: the list was too full of words and figures to scan).
+    `variant` sets the size, `tone` the ground. */
 export default function ProjectCard({
   p,
   variant = "tile",
@@ -23,9 +25,6 @@ export default function ProjectCard({
   as: Title = "h2",
   eager = false,
 }) {
-  const mini = variant === "mini";
-  const title = p.headline ?? p.name;
-  const numbers = mini ? p.numbers.slice(0, 2) : p.numbers;
   // The first card of a page is on screen at load: it comes in with CSS, so
   // its picture does not wait for the scripts.
   const Wrap = eager ? "div" : Reveal;
@@ -69,7 +68,6 @@ export default function ProjectCard({
                 : <b aria-hidden="true">{p.name.slice(0, 1)}</b>}
             </span>
             <p className={c.who}>
-              {p.headline ? <b>{p.name}</b> : null}
               {p.category ? <span>{p.category}</span> : null}
             </p>
             <span className={c.go} aria-hidden="true">
@@ -77,29 +75,14 @@ export default function ProjectCard({
             </span>
           </div>
 
-          <Title className={c.title} data-name={p.headline ? undefined : ""}>
+          <Title className={c.title} data-name="">
             <Link href={p.href} className={c.link}>
-              {title}
+              {p.name}
             </Link>
           </Title>
 
-          {p.blurb && (variant === "feature" || !p.headline)
-            ? <p className={c.blurb}>{p.blurb}</p>
-            : null}
-
-          {numbers.length
-            ? <ul className={c.stats}>
-                {numbers.map((n) => (
-                  <li key={`${n.value}-${n.label}`}>
-                    <b>{n.value}</b>
-                    <span>{n.label}</span>
-                  </li>
-                ))}
-              </ul>
-            : null}
-
           <div className={c.foot}>
-            {p.services.length && !mini
+            {p.services.length
               ? <ul className={c.chips} aria-label="Šta smo radili">
                   {p.services.map((s) => (
                     <li key={s}>{s}</li>

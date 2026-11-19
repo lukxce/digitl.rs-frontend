@@ -246,6 +246,11 @@
 /* the back: a short line on what we do, then what is in it */
 .back {
   gap: 18px;
+  cursor: pointer;
+}
+.back a,
+.back button {
+  cursor: pointer;
 }
 .backTop {
   display: flex;
@@ -263,35 +268,6 @@
   margin-right: 10px;
   font-style: normal;
   opacity: 0.6;
-}
-.unflip {
-  display: inline-flex;
-  flex: none;
-  align-items: center;
-  gap: 7px;
-  height: 30px;
-  padding: 0 12px;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 0.18);
-  font-size: 12.5px;
-  font-weight: 700;
-  color: inherit;
-  transition: background 0.25s var(--ease);
-}
-.unflip:hover {
-  background: rgb(255 255 255 / 0.3);
-}
-.back[data-tone="web"] .unflip,
-.back[data-tone="social"] .unflip,
-.back[data-tone="brand"] .unflip,
-.back[data-tone="ai"] .unflip {
-  background: rgb(11 11 22 / 0.08);
-}
-.back[data-tone="web"] .unflip:hover,
-.back[data-tone="social"] .unflip:hover,
-.back[data-tone="brand"] .unflip:hover,
-.back[data-tone="ai"] .unflip:hover {
-  background: rgb(11 11 22 / 0.14);
 }
 .backBody {
   flex: 1;

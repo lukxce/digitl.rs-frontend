@@ -3,7 +3,6 @@
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { img as caseImg } from "../_cases/stories/images";
-import { STICKERS } from "../_usluge/Stickers";
 import b from "./base.module.css";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, X } from "./icons";
 import { Bridge, Counter, EASE, Head, Roll, useApp, useVisible } from "./ui";
@@ -29,55 +28,26 @@ function CardTop({ c, dark = false, closest = false }) {
   );
 }
 
-/** The client's real site, filling its half of the card, with the service
-    sticker springing in at the corner and the result pinned to the image. */
-function Shot({ c, sticker, badge }) {
-  const Sticker = sticker ? STICKERS[sticker] : null;
+/** The client's site in a browser window: the address bar says whose site
+    it is, so the card reads as "a project" at a glance (Luka, 19 Nov 2026:
+    the mosaic with a sticker and a badge on top did not). */
+function Shot({ c, domain }) {
+  const home = caseImg(`${c.slug}/home`);
   return (
     <span className={w.shot}>
+      <span className={w.chrome} aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        {domain ? <em>{domain}</em> : null}
+      </span>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <picture>
-        {caseImg(`${c.slug}/card4`)
-          ? <source
-              media="(min-width: 960px)"
-              srcSet={`${caseImg(`${c.slug}/card4`)}?w=900&fm=webp&q=82`}
-            />
-          : null}
-        <img
-          className={w.shotImg}
-          src={c.cover}
-          alt={`Projekat za ${c.name}`}
-        />
-      </picture>
-      {Sticker
-        ? <motion.span
-            className={w.shotSticker}
-            aria-hidden="true"
-            initial={{ scale: 0, rotate: -30 }}
-            whileInView={{ scale: 1, rotate: 10 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{
-              type: "spring",
-              stiffness: 240,
-              damping: 14,
-              delay: 0.25,
-            }}
-          >
-            <Sticker size="100%" />
-          </motion.span>
-        : null}
-      {badge
-        ? <motion.span
-            className={w.shotBadge}
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.45 }}
-          >
-            <b>{badge[0]}</b>
-            <span>{badge[1]}</span>
-          </motion.span>
-        : null}
+      <img
+        className={w.shotImg}
+        src={home ? `${home}?w=1200&fm=webp&q=82` : c.cover}
+        alt={`Sajt koji smo uradili za ${c.name}`}
+        loading="lazy"
+      />
     </span>
   );
 }
@@ -244,11 +214,7 @@ function Thermiq({ c, closest, front }) {
       href={c.href}
       className={`${w.card} ${w.dark} ${closest ? w.isClosest : ""}`}
     >
-      <Shot
-        c={c}
-        sticker="seo"
-        badge={["7×", "više poseta iz Google pretrage"]}
-      />
+      <Shot c={c} domain="thermiq.rs" />
       <span className={w.body}>
         <CardTop c={c} dark closest={closest} />
         <span className={w.nameBig}>{c.name}</span>
@@ -384,11 +350,7 @@ function Ideal({ c, closest, front }) {
       href={c.href}
       className={`${w.card} ${w.tMist} ${closest ? w.isClosest : ""}`}
     >
-      <Shot
-        c={c}
-        sticker="web"
-        badge={["10 dana", "do prvih prodaja sa sajta"]}
-      />
+      <Shot c={c} domain="idealkeramika.rs" />
       <span className={w.body}>
         <CardTop c={c} closest={closest} />
         <span className={w.name}>{c.name}</span>
@@ -445,11 +407,7 @@ function Four({ c, closest, front }) {
       href={c.href}
       className={`${w.card} ${w.tBlue} ${closest ? w.isClosest : ""}`}
     >
-      <Shot
-        c={c}
-        sticker="brand"
-        badge={["SR + EN", "sajt na dva jezika i Instagram"]}
-      />
+      <Shot c={c} />
       <span className={w.body}>
         <CardTop c={c} closest={closest} />
         <span className={w.name}>{c.name}</span>

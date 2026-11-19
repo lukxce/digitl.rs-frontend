@@ -1,6 +1,6 @@
-/* Blog listing: the homepage's Blog section grown into a page. The head, the
-   newest article and the newsletter share one band of brand light; under it
-   every other article, as grey tiles on white, behind category chips. */
+/* Blog listing: the homepage's Blog section grown into a page. The head on
+   a band of brand light; under it every article, as grey tiles on white,
+   behind category chips, with the newsletter after the first row. */
 
 .hero {
   position: relative;
@@ -25,186 +25,23 @@ h1.title {
   font-size: clamp(44px, 4.8vw, 68px);
 }
 
-/* the newest article: a white card on the glow, cover beside the words */
-.lead {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  margin-top: clamp(28px, 4vw, 52px);
-  padding: 10px;
-  border-radius: 34px;
-  background: #fff;
-  box-shadow:
-    0 40px 80px -52px rgb(11 11 22 / 0.4),
-    var(--ring);
-  transition:
-    translate 0.45s var(--ease),
-    box-shadow 0.45s var(--ease);
-}
-@media (hover: hover) {
-  .lead:hover {
-    translate: 0 -4px;
-    box-shadow:
-      0 44px 80px -44px rgb(11 11 22 / 0.45),
-      var(--ring);
-  }
-}
-/* keyboard focus keeps each control's own shape (the shared rule rounds to 10px) */
-a.lead:focus-visible {
-  border-radius: 34px;
-}
-button.chip:focus-visible,
-button.clear:focus-visible,
-.none button:focus-visible {
-  border-radius: 999px;
-}
-@media (min-width: 900px) {
-  .lead {
-    grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
-    align-items: center;
-  }
-}
-.leadCover {
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
-  border-radius: 24px;
-  background: var(--mist);
-}
-.leadCover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: scale 0.7s var(--ease);
-}
-@media (hover: hover) {
-  .lead:hover .leadCover img {
-    scale: 1.03;
-  }
-}
-.leadBody {
-  display: grid;
-  align-content: center;
-  justify-items: start;
-  gap: 14px;
-  padding: clamp(18px, 3.2vw, 44px);
-}
-@media (max-width: 899px) {
-  .lead {
-    border-radius: 30px;
-  }
-  .leadCover {
-    border-radius: 20px;
-  }
-  .leadBody {
-    padding: 20px 12px 16px;
-    gap: 12px;
-  }
-}
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.new,
-.tag {
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  line-height: 1.3;
-}
-.new {
-  background: var(--secondary);
-  font-weight: 800;
-  color: var(--ink);
-}
-.tag {
-  background: var(--mist);
-  font-weight: 700;
-  color: var(--ink-2);
-}
-.leadTitle {
-  font-size: clamp(25px, 2.7vw, 38px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.08;
-  transition: color 0.3s var(--ease);
-}
-@media (hover: hover) {
-  .lead:hover .leadTitle {
-    color: var(--accent);
-  }
-}
-.excerpt {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  max-width: 36em;
-  font-size: clamp(16px, 1.2vw, 17px);
-  line-height: 1.55;
-  color: var(--ink-3);
-}
-.meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 10px;
-  font-size: 13.5px;
-  color: var(--ink-4);
-}
-/* the author's picture in a small white tile, as the client logos are */
-.meta img {
-  width: 30px;
-  height: 30px;
-  padding: 5px;
-  border-radius: 10px;
-  object-fit: contain;
-  background: #fff;
-  box-shadow: var(--ring);
-}
-.meta b {
-  font-weight: 700;
-  color: var(--ink-2);
-}
-.meta time::before,
-.meta span::before {
-  content: "·";
-  margin-right: 10px;
-}
-.meta > time:first-child::before {
-  content: none;
-}
-.read {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 6px;
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--accent);
-}
-.read svg {
-  transition: translate 0.3s var(--ease);
-}
-.lead:hover .read svg {
-  translate: 4px 0;
-}
 p.empty {
   margin-top: 28px;
   font-size: 17px;
   color: var(--ink-3);
 }
 
-/* ── every other article ──────────────────────────────────────────────── */
+/* ── the articles ──────────────────────────────────────────────── */
 .more {
   --gutter: clamp(16px, 3vw, 32px);
   position: relative;
-  padding: clamp(36px, 5vw, 72px) 0 clamp(8px, 2vw, 24px);
+  padding: clamp(8px, 1.4vw, 18px) 0 clamp(8px, 2vw, 24px);
   background: #fff;
 }
 .moreTop {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 18px 40px;
 }
@@ -400,6 +237,7 @@ button.chip {
 ul.grid {
   position: relative;
   display: grid;
+  grid-auto-flow: row dense;
   grid-template-columns: minmax(0, 1fr);
   gap: 12px;
   margin-top: clamp(16px, 2vw, 22px);
@@ -446,27 +284,21 @@ ul.grid {
   background: var(--accent);
 }
 
-/* The newsletter: under the newest article on wide screens; on phones it
-   waits until two articles from "Još sa bloga" have been seen. */
-.newsInline {
-  display: none;
+/* The newsletter: after the first row of articles, across the whole grid
+   (19 Nov 2026). */
+li.newsInline,
+div.newsInline {
+  grid-column: 1 / -1;
+  min-width: 0;
 }
-@media (max-width: 640px) {
-  .newsTop {
-    display: none;
-  }
-  li.newsInline,
-  div.newsInline {
-    display: block;
-    grid-column: 1 / -1;
-    min-width: 0;
-  }
-  li.newsInline > div,
-  div.newsInline > div {
-    margin-top: 0;
-  }
-  div.newsInline {
-    margin-top: 24px;
-    text-align: left;
-  }
+li.newsInline > div,
+div.newsInline > div {
+  margin-top: 0;
+}
+li.newsInline {
+  margin: clamp(8px, 1.6vw, 20px) 0;
+}
+div.newsInline {
+  margin-top: 24px;
+  text-align: left;
 }

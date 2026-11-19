@@ -1,82 +1,23 @@
 "use client";
 
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
-import Link from "next/link";
 import { useState } from "react";
 import b from "../_home/base.module.css";
 import { Newsletter } from "../_home/Blog";
-import { ArrowRight, Search, X } from "../_home/icons";
-import { EASE, Words } from "../_home/ui";
+import { Search, X } from "../_home/icons";
+import { EASE } from "../_home/ui";
 import Card from "./Card";
 import l from "./listing.module.css";
-import Tie from "./Tie";
-import { fold, img, imgSet, tekstova } from "./util";
+import { fold, tekstova } from "./util";
 
-/** The newest article, told large: the front page of the blog. */
-function Lead({ a }) {
-  return (
-    <Link
-      href={a.href}
-      className={`${l.lead} ${b.fadeUp}`}
-      style={{ animationDelay: "320ms" }}
-    >
-      <div className={l.leadCover}>
-        {a.cover
-          ? // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={img(a.cover, 1200)}
-              srcSet={imgSet(a.cover, [640, 960, 1200, 1600])}
-              sizes="(max-width: 899px) 100vw, 700px"
-              alt=""
-              width={1600}
-              height={900}
-              fetchPriority="high"
-              decoding="async"
-            />
-          : null}
-      </div>
-      <div className={l.leadBody}>
-        <p className={l.tags}>
-          <span className={l.new}>Najnovije</span>
-          {a.category ? <span className={l.tag}>{a.category}</span> : null}
-        </p>
-        <h2 className={l.leadTitle}>
-          <Tie>{a.title}</Tie>
-        </h2>
-        {a.description
-          ? <p className={l.excerpt}>
-              <Tie>{a.description}</Tie>
-            </p>
-          : null}
-        <p className={l.meta}>
-          {a.avatar
-            ? // eslint-disable-next-line @next/next/no-img-element
-              <img src={a.avatar} alt="" width={30} height={30} />
-            : null}
-          {a.author ? <b>{a.author}</b> : null}
-          {a.date ? <time dateTime={a.iso ?? undefined}>{a.date}</time> : null}
-          {a.minutes ? <span>{a.minutes} min čitanja</span> : null}
-        </p>
-        <span className={l.read}>
-          Pročitajte tekst <ArrowRight size={15} />
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-/** The blog index: the head and the newest article, the newsletter, then
-    every other article behind category chips and a search by title.
+/** The blog index: the head, then every article at once behind category
+    chips and a search by title, with the newsletter after the first row
+    (Luka, 19 Nov 2026: no featured article and newsletter before the list).
     `categories` arrive counted and ordered from the server. */
 export default function Listing({ articles, categories }) {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState(null);
   const needle = fold(q.trim());
-  const [lead, ...rest] = articles;
-
-  // Untouched, the grid is everything under the newest article. A category
-  // or a search looks through all of them, the newest included, so a chip
-  // that says one article always has one to show.
   const filtering = Boolean(cat || needle);
   const shown = filtering
     ? articles.filter(
@@ -84,12 +25,14 @@ export default function Listing({ articles, categories }) {
           (!cat || a.category === cat) &&
           (!needle || fold(a.title).includes(needle)),
       )
-    : rest;
+    : articles;
   const reset = () => {
     setQ("");
     setCat(null);
   };
-  const newsAfter = Math.min(2, shown.length) - 1;
+  // after the first row: three on a wide screen; on two columns the grid's
+  // dense flow pulls the fourth article up beside the third
+  const newsAfter = Math.min(3, shown.length) - 1;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -118,59 +61,18 @@ export default function Listing({ articles, categories }) {
             </p>
           </div>
 
-          {lead
-            ? <Lead a={lead} />
+          {articles.length
+            ? null
             : <p className={l.empty}>
                 Tekstovi trenutno nisu dostupni. Pokušajte ponovo za minut.
               </p>}
-
-          {/* wide screens: the newsletter right under the newest article;
-              phones get it further down, between the articles */}
-          <div className={l.newsTop}>
-            <Newsletter />
-          </div>
         </div>
       </section>
 
-      {rest.length
-        ? <section className={l.more} data-section="Još sa bloga">
+      {articles.length
+        ? <section className={l.more} data-section="Tekstovi">
             <div className={b.container}>
               <div className={l.moreTop}>
-                <Words text="Još sa bloga." className={b.h2} />
-                {/* biome-ignore lint/a11y/useSemanticElements: <search> is too new for the browsers this site supports */}
-                <form
-                  className={l.search}
-                  role="search"
-                  onSubmit={(e) => e.preventDefault()}
-                >
-                  <Search size={18} />
-                  <label className={b.srOnly} htmlFor="blog-search">
-                    Pretražite tekstove po naslovu
-                  </label>
-                  <input
-                    id="blog-search"
-                    type="search"
-                    inputMode="search"
-                    enterKeyHint="search"
-                    autoComplete="off"
-                    placeholder="Pretražite tekstove"
-                    value={q}
-                    onChange={(e) => setQ(e.target.value)}
-                  />
-                  {q
-                    ? <button
-                        type="button"
-                        className={l.clear}
-                        aria-label="Obriši pretragu"
-                        onClick={() => setQ("")}
-                      >
-                        <X size={15} />
-                      </button>
-                    : null}
-                </form>
-              </div>
-
-              <div className={l.tools}>
                 {categories.length > 1
                   ? // biome-ignore lint/a11y/useSemanticElements: a row of toggle buttons, not a form fieldset
                     <div
@@ -212,6 +114,39 @@ export default function Listing({ articles, categories }) {
                       ))}
                     </div>
                   : null}
+                {/* biome-ignore lint/a11y/useSemanticElements: <search> is too new for the browsers this site supports */}
+                <form
+                  className={l.search}
+                  role="search"
+                  onSubmit={(e) => e.preventDefault()}
+                >
+                  <Search size={18} />
+                  <label className={b.srOnly} htmlFor="blog-search">
+                    Pretražite tekstove po naslovu
+                  </label>
+                  <input
+                    id="blog-search"
+                    type="search"
+                    inputMode="search"
+                    enterKeyHint="search"
+                    autoComplete="off"
+                    placeholder="Pretražite tekstove"
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                  />
+                  {q
+                    ? <button
+                        type="button"
+                        className={l.clear}
+                        aria-label="Obriši pretragu"
+                        onClick={() => setQ("")}
+                      >
+                        <X size={15} />
+                      </button>
+                    : null}
+                </form>
+              </div>
+              <div className={l.tools}>
                 <output className={l.count}>
                   {filtering ? tekstova(shown.length) : ""}
                 </output>
@@ -239,8 +174,8 @@ export default function Listing({ articles, categories }) {
                             <Card a={a} />
                           </motion.li>
                         );
-                        // phones: the newsletter after the second article
-                        // (or after the last one, when fewer are shown)
+                        // the newsletter after the first row (or after the
+                        // last article, when fewer are shown)
                         return i === newsAfter
                           ? [
                               card,

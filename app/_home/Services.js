@@ -191,20 +191,26 @@ function Card({ x, i, rank, wide, onAsk, look }) {
 
           {/* The other side of the same card, in the same colour: what we
               do, what is in it, what we measure. */}
-          <div className={s.back} data-tone={x.id} aria-hidden={!flipped}>
+          {/* A click anywhere on the back turns the card again, like the
+              first click did; only the two links below do their own thing
+              (Luka, 19 Nov 2026: no "Nazad" button). Esc turns it back from
+              the keyboard. */}
+          <div
+            className={s.back}
+            data-tone={x.id}
+            aria-hidden={!flipped}
+            onClick={(e) => {
+              if (!e.target.closest("a, button")) setFlipped(false);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setFlipped(false);
+            }}
+          >
             <div className={s.backTop}>
               <span className={s.backName}>
                 <i>0{i + 1}</i>
                 {x.name}
               </span>
-              <button
-                type="button"
-                className={s.unflip}
-                onClick={() => setFlipped(false)}
-                tabIndex={flipped ? 0 : -1}
-              >
-                <Rotate size={13} /> Nazad
-              </button>
             </div>
             <div className={s.backBody}>
               <p className={s.lead}>{x.lead}</p>
