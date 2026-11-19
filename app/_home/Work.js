@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { img as caseImg } from "../_cases/stories/images";
 import { STICKERS } from "../_usluge/Stickers";
 import b from "./base.module.css";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, X } from "./icons";
@@ -35,7 +36,19 @@ function Shot({ c, sticker, badge }) {
   return (
     <span className={w.shot}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className={w.shotImg} src={c.cover} alt={`Projekat za ${c.name}`} />
+      <picture>
+        {caseImg(`${c.slug}/card`)
+          ? <source
+              media="(min-width: 960px)"
+              srcSet={`${caseImg(`${c.slug}/card`)}?w=900&fm=webp&q=82`}
+            />
+          : null}
+        <img
+          className={w.shotImg}
+          src={c.cover}
+          alt={`Projekat za ${c.name}`}
+        />
+      </picture>
       {Sticker
         ? <motion.span
             className={w.shotSticker}
