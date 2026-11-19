@@ -14,6 +14,7 @@ const reel = (n) => ({
 
 const story = {
   slug: "four-elements",
+  sticker: "brand",
   headline:
     "Za butik spa centar u Nišu zapisali smo vlasnikovu ideju u brend knjigu, a po njoj napravili sajt na dva jezika i Instagram.",
   standfirst:

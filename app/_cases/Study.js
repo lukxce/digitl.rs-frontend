@@ -9,6 +9,7 @@ import ProjectCard from "./Card";
 import ChapterNav from "./ChapterNav";
 import CaseCta from "./Cta";
 import Gallery from "./Gallery";
+import { NameSticker, Pins } from "./HeroBits";
 import { monthYear, sized, srcSet, widestEm } from "./lib";
 import Piece from "./Pieces";
 import s from "./study.module.css";
@@ -21,7 +22,7 @@ const isResult = (ch) => /^rezultat/i.test(ch.kicker ?? "");
 /* ── top of the page ──────────────────────────────────────────────────── */
 /* Laid out like a blog post: the client's name is the title, the story's
    one strong sentence sits under it, the cover is smaller and to the side. */
-function Hero({ showcase, headline, meta, services }) {
+function Hero({ showcase, headline, meta, services, sticker, pins = [] }) {
   const name = showcase.clientName || showcase.title;
   const logo =
     showcase.thumbSrc && showcase.thumbSrc !== showcase.coverUrl
@@ -46,6 +47,7 @@ function Hero({ showcase, headline, meta, services }) {
             style={{ animationDelay: "80ms" }}
           >
             {name}
+            <NameSticker kind={sticker} className={s.nameSticker} />
           </h1>
           {headline
             ? <p
@@ -96,22 +98,28 @@ function Hero({ showcase, headline, meta, services }) {
         </div>
 
         {showcase.coverUrl
-          ? <figure
-              className={`${a.cover} ${b.fadeUp}`}
-              style={{ animationDelay: "200ms", aspectRatio: "16 / 9" }}
+          ? <div
+              className={`${s.coverWrap} ${b.fadeUp}`}
+              style={{ animationDelay: "200ms" }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={sized(showcase.coverUrl, 1400)}
-                srcSet={srcSet(showcase.coverUrl, [700, 1000, 1400, 1600])}
-                sizes="(max-width: 959px) 100vw, 700px"
-                alt={`Projekat za ${name}`}
-                width="1600"
-                height="900"
-                fetchPriority="high"
-                decoding="async"
-              />
-            </figure>
+              <figure
+                className={`${a.cover} ${s.coverTilt}`}
+                style={{ aspectRatio: "16 / 9" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={sized(showcase.coverUrl, 1400)}
+                  srcSet={srcSet(showcase.coverUrl, [700, 1000, 1400, 1600])}
+                  sizes="(max-width: 959px) 100vw, 760px"
+                  alt={`Projekat za ${name}`}
+                  width="1600"
+                  height="900"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </figure>
+              <Pins pins={pins} className={s.pin} />
+            </div>
           : null}
       </div>
 
@@ -466,6 +474,8 @@ export default function Study({ showcase, story, more }) {
         <Hero
           showcase={showcase}
           headline={story?.headline ?? showcase.description}
+          sticker={story?.sticker}
+          pins={story?.numbers ?? []}
           meta={meta.filter((m) => m?.label && m?.value)}
           services={story?.services ?? []}
         />

@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { STICKERS } from "../_usluge/Stickers";
 import b from "./base.module.css";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, X } from "./icons";
 import { Bridge, Counter, EASE, Head, Roll, useApp, useVisible } from "./ui";
@@ -27,12 +28,43 @@ function CardTop({ c, dark = false, closest = false }) {
   );
 }
 
-/** The client's real site, shown whole. */
-function Shot({ c }) {
+/** The client's real site, filling its half of the card, with the service
+    sticker springing in at the corner and the result pinned to the image. */
+function Shot({ c, sticker, badge }) {
+  const Sticker = sticker ? STICKERS[sticker] : null;
   return (
     <span className={w.shot}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className={w.shotImg} src={c.cover} alt={`Sajt za ${c.name}`} />
+      <img className={w.shotImg} src={c.cover} alt={`Projekat za ${c.name}`} />
+      {Sticker
+        ? <motion.span
+            className={w.shotSticker}
+            aria-hidden="true"
+            initial={{ scale: 0, rotate: -30 }}
+            whileInView={{ scale: 1, rotate: 10 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{
+              type: "spring",
+              stiffness: 240,
+              damping: 14,
+              delay: 0.25,
+            }}
+          >
+            <Sticker size="100%" />
+          </motion.span>
+        : null}
+      {badge
+        ? <motion.span
+            className={w.shotBadge}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.45 }}
+          >
+            <b>{badge[0]}</b>
+            <span>{badge[1]}</span>
+          </motion.span>
+        : null}
     </span>
   );
 }
@@ -199,7 +231,11 @@ function Thermiq({ c, closest, front }) {
       href={c.href}
       className={`${w.card} ${w.dark} ${closest ? w.isClosest : ""}`}
     >
-      <Shot c={c} />
+      <Shot
+        c={c}
+        sticker="seo"
+        badge={["7×", "više poseta iz Google pretrage"]}
+      />
       <span className={w.body}>
         <CardTop c={c} dark closest={closest} />
         <span className={w.nameBig}>{c.name}</span>
@@ -335,7 +371,11 @@ function Ideal({ c, closest, front }) {
       href={c.href}
       className={`${w.card} ${w.tMist} ${closest ? w.isClosest : ""}`}
     >
-      <Shot c={c} />
+      <Shot
+        c={c}
+        sticker="web"
+        badge={["10 dana", "do prvih prodaja sa sajta"]}
+      />
       <span className={w.body}>
         <CardTop c={c} closest={closest} />
         <span className={w.name}>{c.name}</span>
@@ -392,7 +432,11 @@ function Four({ c, closest, front }) {
       href={c.href}
       className={`${w.card} ${w.tBlue} ${closest ? w.isClosest : ""}`}
     >
-      <Shot c={c} />
+      <Shot
+        c={c}
+        sticker="brand"
+        badge={["SR + EN", "sajt na dva jezika i Instagram"]}
+      />
       <span className={w.body}>
         <CardTop c={c} closest={closest} />
         <span className={w.name}>{c.name}</span>

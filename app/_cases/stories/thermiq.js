@@ -16,8 +16,9 @@ import { img } from "./images";
 
 const story = {
   slug: "thermiq",
+  sticker: "web",
   headline:
-    "Prodavnica opreme za grejanje koja za tri meseca dobija 4.719 poseta iz Google pretrage, i sve oko nje.",
+    "Web shop, brend, mreže i oglasi za prodavnicu opreme za grejanje u Beogradu, i 4.719 poseta iz Google pretrage za tri meseca.",
   standfirst:
     "Thermiq je prodavnica opreme za grejanje, klimatizaciju, vodovod i sanitarije u Beogradu: kotlova, toplotnih pumpi, klima uređaja, radijatora i bojlera. Za njih smo uradili sve: web shop od nule, pretragu i sadržaj, novi vizuelni identitet, društvene mreže, oglase i alate koji prodavnici štede rad.",
   meta: [
@@ -88,13 +89,6 @@ const story = {
           { label: "9. nov", value: 517 },
         ],
       },
-      media: [
-        {
-          src: img("thermiq/proizvod"),
-          alt: "Stranica proizvoda",
-          caption: "Stranica proizvoda.",
-        },
-      ],
     },
     {
       id: "kategorije",

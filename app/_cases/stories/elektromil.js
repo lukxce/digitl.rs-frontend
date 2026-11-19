@@ -11,8 +11,9 @@ import { img } from "./images";
 
 const story = {
   slug: "elektromil",
+  sticker: "seo",
   headline:
-    "Firma koja godinama radi velike projekte, a na internetu nije postojala. Danas je prva na Google-u za „električar Niš“.",
+    "Sajt za elektroinstalatersku firmu iz Niša koja je posao dobijala samo preporukom. Danas je prva na Google-u za „električar Niš“.",
   standfirst:
     "ElektroMil je elektroinstalaterska firma iz Niša sa velikim projektima iza sebe i imenom koje se prenosi preporukom. Ali ko nije znao nekoga ko je radio sa njima, nije imao kako da ih nađe. Uradili smo dizajn i sajt od nule i postavili ga za lokalnu pretragu. Danas je ElektroMil prvi za „električar Niš“.",
   meta: [

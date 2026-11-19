@@ -12,6 +12,7 @@ import { img } from "./images";
 
 const story = {
   slug: "moler-nis",
+  sticker: "seo",
   headline:
     "Od firme bez sajta do prvog mesta na Google-u za glavnu ključnu reč, za manje od dva meseca.",
   standfirst:

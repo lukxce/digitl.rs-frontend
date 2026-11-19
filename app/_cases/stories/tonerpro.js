@@ -15,6 +15,7 @@ const T = (code, pages, price) => ({ code, pages, price });
 
 const story = {
   slug: "tonerpro",
+  sticker: "web",
   headline:
     "Prodavnica tonera od nule za dve nedelje: 7 porudžbina u prva tri dana i prva strana Google-a prve sedmice.",
   standfirst:

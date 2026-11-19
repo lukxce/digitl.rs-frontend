@@ -11,8 +11,9 @@ import { img } from "./images";
 
 const story = {
   slug: "ideal-keramika",
+  sticker: "web",
   headline:
-    "Web shop sa 8.532 proizvoda: 611 poseta iz Google pretrage za 30 dana i prve prodaje posle deset.",
+    "Web shop sa 8.532 proizvoda koji je za 30 dana dobio 611 poseta iz Google pretrage, a prve prodaje deset dana posle pokretanja.",
   standfirst:
     "Ideal Keramika je prodavnica pločica, sanitarija i opreme za kupatilo u Beogradu, sa dva salona. Dizajnirali smo i napravili njihov novi web shop od nule: katalog, filtere, pretragu, kupovinu, administraciju i uvoz cena od dobavljača. Prve prodaje stigle su deset dana posle pokretanja, čim je Google indeksirao sajt.",
   meta: [

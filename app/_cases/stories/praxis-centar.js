@@ -11,6 +11,7 @@ import { img } from "./images";
 
 const story = {
   slug: "praxis-centar",
+  sticker: "ai",
   headline:
     "Novi sajt i program za termine, kartone i plaćanja za centar za psihijatriju i psihoterapiju u Beogradu.",
   standfirst:

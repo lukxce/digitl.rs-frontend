@@ -9,6 +9,7 @@ import { img } from "./images";
 
 const story = {
   slug: "planet-residence",
+  sticker: "social",
   headline:
     "Instagram koji prodaje poslednje i najveće stanove, i život u zgradi u kojoj je sve na dohvat ruke.",
   standfirst:
