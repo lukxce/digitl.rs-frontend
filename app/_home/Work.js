@@ -501,8 +501,7 @@ function AllBundle({ clients }) {
           <Roll value={50} run={run} ms={1600} suffix="+" />
         </span>
         <span className={w.bundleText}>
-          saradnji sa firmama iz cele Srbije, od lokalnih servisa do online
-          prodavnica sa hiljadama proizvoda i privatnih klinika.
+          saradnji, od malih firmi do online prodavnica, klinika i investitora.
         </span>
       </span>
       <span className={w.bundle} aria-hidden="true">
@@ -533,8 +532,7 @@ function AllCases({ clients }) {
         <Roll value={50} run={run} ms={1600} suffix="+" />
       </span>
       <span className={w.allText}>
-        saradnji sa firmama iz cele Srbije, od lokalnih servisa do online
-        prodavnica sa hiljadama proizvoda i privatnih klinika.
+        saradnji, od malih firmi do online prodavnica, klinika i investitora.
       </span>
       <span className={w.allSites}>
         {clients.slice(0, 4).map((c) => (

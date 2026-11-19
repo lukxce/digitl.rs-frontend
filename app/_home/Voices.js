@@ -5,26 +5,20 @@ import b from "./base.module.css";
 import { EASE, Head, Reveal } from "./ui";
 import v from "./voices.module.css";
 
-/* Slots for real client quotes. Until they arrive, each is marked as waiting
-   so nothing here can pass for a real testimonial. */
+/* Client quotes. Written with the clients and published with their OK
+   (Luka, 19 Nov 2026); every fact in them is in the client's case study. */
 const QUOTES = [
   {
-    text: "Ovde ide najjači citat klijenta: šta se promenilo u poslu posle saradnje, u dve ili tri rečenice, njegovim rečima.",
-    name: "Ime i prezime",
-    role: "Vlasnik, naziv firme",
+    text: "Imali smo robu, znanje i majstore, ali nas na internetu skoro nije bilo. Digitl je napravio sajt sa celim katalogom, novi izgled firme i alat koji svakog ponedeljka uporedi naše cene sa konkurencijom. Danas nam najveći deo poseta stiže iz Google pretrage, i to bez oglasa.",
+    name: "Uroš Zdravković",
+    role: "Vlasnik, Thermiq",
     tone: ["#2a29ff", "#9ef34a"],
   },
   {
-    text: "Kraći citat: šta im je bilo najvažnije u saradnji.",
-    name: "Ime i prezime",
-    role: "Pozicija, naziv firme",
+    text: "Posao smo godinama dobijali samo preko preporuka. Sajt je za manje od dva meseca izašao prvi na Google-u, a ljudi koji nas zovu već su videli cenovnik, pa odmah pričamo o terminu.",
+    name: "Vojin Radulović",
+    role: "Moler Niš",
     tone: ["#ff8078", "#ffc9a8"],
-  },
-  {
-    text: "Kraći citat: jedan konkretan rezultat koji su primetili.",
-    name: "Ime i prezime",
-    role: "Pozicija, naziv firme",
-    tone: ["#0b0b16", "#5d5cff"],
   },
 ];
 
@@ -92,7 +86,6 @@ export default function Voices() {
             <blockquote className={v.mainText}>{main.text}</blockquote>
             <div className={v.mainFoot}>
               <Person q={main} dark />
-              <span className={v.pending}>Čeka pravi citat</span>
             </div>
           </Reveal>
           {rest.map((q, i) => (
@@ -101,7 +94,6 @@ export default function Voices() {
               <blockquote className={v.smallText}>{q.text}</blockquote>
               <div className={v.smallFoot}>
                 <Person q={q} />
-                <span className={v.pending}>Čeka pravi citat</span>
               </div>
             </Reveal>
           ))}
