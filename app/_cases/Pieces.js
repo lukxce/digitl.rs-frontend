@@ -42,7 +42,7 @@ function useAuto(n, ms, start = 0) {
     setHeld(true);
     setAt(i);
   };
-  return { ref, at, pick };
+  return { ref, at, pick, held };
 }
 
 function Card({ title, sub, note, children, kind }) {
@@ -865,6 +865,74 @@ function Funnel({ data }) {
   );
 }
 
+/* ── deck: a hand of posts that deals itself, one to the front at a time ── */
+/* data: { title, note, ms, items: [{ src, label, sub }] } */
+function Deck({ data }) {
+  const n = data.items.length;
+  const ms = data.ms ?? 3200;
+  const { ref, at, pick, held } = useAuto(n, ms);
+  return (
+    <Card title={data.title} note={data.note} kind="deck">
+      <div ref={ref} className={p.deck}>
+        <div className={p.deckStage}>
+          {data.items.map((it, i) => {
+            const pos = (i - at + n) % n;
+            return (
+              <motion.button
+                key={it.src}
+                type="button"
+                className={p.deckCard}
+                style={{ zIndex: n - pos }}
+                initial={false}
+                animate={{
+                  x: `${pos * 9}%`,
+                  y: `${pos * -3}%`,
+                  rotate: pos === 0 ? -3 : pos * 4,
+                  scale: 1 - pos * 0.07,
+                  filter: pos === 0 ? "brightness(1)" : "brightness(0.93)",
+                }}
+                transition={{ duration: 0.8, ease: EASE }}
+                onClick={() => pick((at + 1) % n)}
+                aria-label={`${it.label}. Sledeća objava`}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`${it.src}?w=800&fm=webp&q=82`}
+                  alt={it.label}
+                  loading="lazy"
+                />
+              </motion.button>
+            );
+          })}
+        </div>
+        <ol className={p.deckList}>
+          {data.items.map((it, i) => (
+            <li key={it.src}>
+              <button
+                type="button"
+                data-on={i === at || undefined}
+                onClick={() => pick(i)}
+              >
+                <span className={p.deckBar} aria-hidden="true">
+                  <i
+                    key={`${at}-${held}`}
+                    style={{
+                      animationDuration: `${ms}ms`,
+                      animationPlayState: held ? "paused" : "running",
+                    }}
+                  />
+                </span>
+                <b>{it.label}</b>
+                {it.sub ? <span>{it.sub}</span> : null}
+              </button>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </Card>
+  );
+}
+
 const PIECES = {
   serp: Serp,
   finder: Finder,
@@ -881,6 +949,7 @@ const PIECES = {
   inbox: Inbox,
   checkout: Checkout,
   funnel: Funnel,
+  deck: Deck,
 };
 
 export default function Piece({ piece }) {

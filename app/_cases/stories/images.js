@@ -1,213 +1,427 @@
 /* Slike studija slučaja na Sanity CDN-u, napravljene sa studije-slucaja/prep.py. */
 const IMAGES = {
- "elektromil/brzina": "https://cdn.sanity.io/images/203ybdbh/production/4519630a28c97d1f172693c4d6b5f984c6709c20-1600x900.jpg",
- "elektromil/ev": "https://cdn.sanity.io/images/203ybdbh/production/be0b03fd4cad5c049ac3a0d7fbb1c437fa20cd8d-1600x900.jpg",
- "elektromil/home": "https://cdn.sanity.io/images/203ybdbh/production/4a802a2c3ad0159539ddd39edba089483d7f9c60-1600x900.jpg",
- "elektromil/mobilni": "https://cdn.sanity.io/images/203ybdbh/production/dd2703b245a8ab64ebf23a1dbb8055e6886b08be-1600x900.jpg",
- "elektromil/mockup": "https://cdn.sanity.io/images/203ybdbh/production/4deb65036d495e6ffeaab2c9852e7bb723d4beb1-1800x1013.jpg",
- "elektromil/usluge": "https://cdn.sanity.io/images/203ybdbh/production/41ef177f7fc0bbd0b4108b0b95c41a0be2d78387-1600x900.jpg",
- "four-elements/arkada": "https://cdn.sanity.io/images/203ybdbh/production/0f39581d114c728bf984bfc08bf3b30c1da73e13-2400x1583.jpg",
- "four-elements/cenovnik": "https://cdn.sanity.io/images/203ybdbh/production/8030471e845eeec8c2161fba70d5cf9332550485-2400x1667.jpg",
- "four-elements/clanstvo": "https://cdn.sanity.io/images/203ybdbh/production/e47fc8137c3e233e0f722d78025f55401a71d441-2400x1667.jpg",
- "four-elements/cover": "https://cdn.sanity.io/images/203ybdbh/production/849ecc65960428d7314ea8c64e19a57c34561001-3200x1800.png",
- "four-elements/en": "https://cdn.sanity.io/images/203ybdbh/production/e42c088878832418186724a1b75ee30102cbb037-2400x1500.jpg",
- "four-elements/home": "https://cdn.sanity.io/images/203ybdbh/production/147af73a098faac330ea6c8f2381e1d29de2e418-2400x1500.jpg",
- "four-elements/ig-arkada": "https://cdn.sanity.io/images/203ybdbh/production/bc56e468f06aa4a787deef5915772f4c4b86ac70-1080x1350.jpg",
- "four-elements/ig-clanstvo": "https://cdn.sanity.io/images/203ybdbh/production/59b7cf8177e49a269e050dab9d1f8ca87a07b144-1080x1350.jpg",
- "four-elements/ig-sauna": "https://cdn.sanity.io/images/203ybdbh/production/59e0e21a3a9afb5c334dd52d5cde3003398325cd-1080x1350.jpg",
- "four-elements/ig-tim": "https://cdn.sanity.io/images/203ybdbh/production/cbf2defc0fd4880ec4ac8fdaba10587f236e6a52-1080x1350.jpg",
- "four-elements/ig-vatra": "https://cdn.sanity.io/images/203ybdbh/production/f28bb073ee2708afdc727ecf6d8e127c29fa7f30-1080x1350.jpg",
- "four-elements/ig-zemlja": "https://cdn.sanity.io/images/203ybdbh/production/b2bcfda1752d6d6a052cd07f32ddd97dcb7afdc9-1080x1350.jpg",
- "four-elements/knjiga-01": "https://cdn.sanity.io/images/203ybdbh/production/b1cca6994886c580e3a68ccc66ed576c9869a324-2400x1500.jpg",
- "four-elements/knjiga-06": "https://cdn.sanity.io/images/203ybdbh/production/59ee71c9da67c21f3e83b53254c720cf6c0f8691-2400x1500.jpg",
- "four-elements/knjiga-15": "https://cdn.sanity.io/images/203ybdbh/production/6e8b703191d9d03dcfab4bc25d16b487f48be354-2400x1500.jpg",
- "four-elements/knjiga-20": "https://cdn.sanity.io/images/203ybdbh/production/5b37f5dc1c687e04128dedc46c582ec702839c8d-2400x1500.jpg",
- "four-elements/knjiga-28": "https://cdn.sanity.io/images/203ybdbh/production/42288e13874a3e98ee46c4d5632691874604f3ff-2400x1500.jpg",
- "four-elements/knjiga-43": "https://cdn.sanity.io/images/203ybdbh/production/8686b39b55b8e802a6c73fe63cca1a1c774d3fff-2400x1500.jpg",
- "four-elements/logo": "https://cdn.sanity.io/images/203ybdbh/production/f4fccb6ef2c1a8df3dd6e1565447cb918362cd85-512x512.png",
- "four-elements/m-home": "https://cdn.sanity.io/images/203ybdbh/production/b4be00e3d506b2496539e50c29cead02c2079486-1170x2532.jpg",
- "four-elements/reel-arkada": "https://cdn.sanity.io/images/203ybdbh/production/adbdf8708a21d1804301522fc7026997bc32de3b-1080x1920.jpg",
- "four-elements/reel-rituali": "https://cdn.sanity.io/images/203ybdbh/production/c819604558f002e03b82f0895b9b9fce4fd1a02f-1080x1920.jpg",
- "four-elements/rituali": "https://cdn.sanity.io/images/203ybdbh/production/b64eb3d79520804cad1ae924b6e414537c40f524-2400x1667.jpg",
- "ideal-keramika/blog": "https://cdn.sanity.io/images/203ybdbh/production/31512fa9612ebd9e6d98e7a37251c63bc34bc05b-2400x1417.jpg",
- "ideal-keramika/cover": "https://cdn.sanity.io/images/203ybdbh/production/d040c3635cb2d1894c20b1975c993b105098e2c2-3200x1800.png",
- "ideal-keramika/home": "https://cdn.sanity.io/images/203ybdbh/production/380d86e577cfc6330f2fc7c2394e14468b907022-2400x1500.jpg",
- "ideal-keramika/kategorija": "https://cdn.sanity.io/images/203ybdbh/production/39f56b3417b69c20ad64246ef56f28b9eb2aee7a-2400x1500.jpg",
- "ideal-keramika/knjiga": "https://cdn.sanity.io/images/203ybdbh/production/b124602309d008887d51d8c334152df718b24215-1600x1000.jpg",
- "ideal-keramika/korpa": "https://cdn.sanity.io/images/203ybdbh/production/e816a32b84a1f9f0ff3eb3adf3238aff9eedf4a9-2400x1417.jpg",
- "ideal-keramika/laptop": "https://cdn.sanity.io/images/203ybdbh/production/8bd2f152b22f0062df03c4f5274182bf27cece43-1600x1000.jpg",
- "ideal-keramika/logo": "https://cdn.sanity.io/images/203ybdbh/production/d6b4468b1f45085089cca471ea510ec070df3270-512x512.png",
- "ideal-keramika/m-home": "https://cdn.sanity.io/images/203ybdbh/production/667b460d563a69e9211a5de7f650ef051faef12e-1170x2532.jpg",
- "ideal-keramika/m-proizvod": "https://cdn.sanity.io/images/203ybdbh/production/5faf192d08feb73e142bd1c98b1bf814d65b6935-1170x2532.jpg",
- "ideal-keramika/placanje": "https://cdn.sanity.io/images/203ybdbh/production/1cb15ccaeabbcc2391592bdd08abae06e28041fd-2400x1417.jpg",
- "ideal-keramika/pretraga": "https://cdn.sanity.io/images/203ybdbh/production/8e7783a6b16a3b7958a804e651a2158d94629d89-2400x1500.jpg",
- "ideal-keramika/proizvod": "https://cdn.sanity.io/images/203ybdbh/production/e6f55f4052ac22606b5bf6f9ea740eca4f734b8b-2400x1500.jpg",
- "ideal-keramika/tus": "https://cdn.sanity.io/images/203ybdbh/production/f98b5458e04f5649a327b97e5a462ae49fcda204-2400x1417.jpg",
- "moler-nis/blog": "https://cdn.sanity.io/images/203ybdbh/production/ffa81fd61090e3e5217ad84cd52aa3f3e260f647-2400x1500.jpg",
- "moler-nis/cenovnik": "https://cdn.sanity.io/images/203ybdbh/production/8f3271e2b60a9ef8a970d6383bac01209ea5b553-2400x1667.jpg",
- "moler-nis/dekorativni": "https://cdn.sanity.io/images/203ybdbh/production/ba07f380050d36870948285b29974007d8267dad-2400x1500.jpg",
- "moler-nis/gletovanje": "https://cdn.sanity.io/images/203ybdbh/production/947629e937283a96bf5a449f944367a20a5f348b-2400x1500.jpg",
- "moler-nis/home": "https://cdn.sanity.io/images/203ybdbh/production/ae8000f18aac6df34e4352bb484bd5de4f036508-2400x1500.jpg",
- "moler-nis/kalkulator": "https://cdn.sanity.io/images/203ybdbh/production/7ea0d994289c6c1aba36da53736a1f59e054d425-2400x1500.jpg",
- "moler-nis/m-home": "https://cdn.sanity.io/images/203ybdbh/production/eb5d2b0f3b11ba9b85daef4ddb216b8bb45f0850-1170x2532.jpg",
- "moler-nis/pagespeed": "https://cdn.sanity.io/images/203ybdbh/production/464898421d08a6ed2b4bb4dd6c47b01ae73c3bf1-2400x1350.jpg",
- "planet-residence/brojevi": "https://cdn.sanity.io/images/203ybdbh/production/09c447f2be3c1a0132b6f557bbc18ea853d4bf5a-1080x1350.jpg",
- "planet-residence/cover": "https://cdn.sanity.io/images/203ybdbh/production/1244fe0803d030bc02a1813bc4b4491f147ff92a-3200x1800.png",
- "planet-residence/enterijer": "https://cdn.sanity.io/images/203ybdbh/production/b39675f578a3657963048dd22b54bb797cd47366-1080x1350.jpg",
- "planet-residence/garaza": "https://cdn.sanity.io/images/203ybdbh/production/80446547a115e86ec36d86e6144ac81957a970ea-1080x1350.jpg",
- "planet-residence/istaknute": "https://cdn.sanity.io/images/203ybdbh/production/81d6aed79737c7cb54a59cd3942b53377107d0d1-1980x400.jpg",
- "planet-residence/logo": "https://cdn.sanity.io/images/203ybdbh/production/18dd01d41c43b902d7c0a44b1fadd60dd855c0b4-512x512.png",
- "planet-residence/lokacija": "https://cdn.sanity.io/images/203ybdbh/production/b37316841771a4f869501fcd9b882787e911d629-1080x1350.jpg",
- "planet-residence/mreza": "https://cdn.sanity.io/images/203ybdbh/production/7b83ffc7acb78a350acee89d81dd228ce4055427-1632x2718.jpg",
- "planet-residence/pregled-mreza": "https://cdn.sanity.io/images/203ybdbh/production/70a7fb56070497a459f1dccd2c6c960c5016ebc2-2400x2083.jpg",
- "planet-residence/raspored": "https://cdn.sanity.io/images/203ybdbh/production/67b41d6fe2823bbabee2a4b6fafa125783ed8ce7-1080x1350.jpg",
- "planet-residence/reel-dan-noc": "https://cdn.sanity.io/images/203ybdbh/production/3b631c179870cbd2d9f6c68212494e19a035f415-1080x1920.jpg",
- "planet-residence/reel-simbol": "https://cdn.sanity.io/images/203ybdbh/production/01d7b03f940dc60568c557a6ae155f2de4db001e-1080x1920.jpg",
- "planet-residence/reel-stan": "https://cdn.sanity.io/images/203ybdbh/production/7776a64f6f807d2b4b56821ecb909658b0887b08-1080x1920.jpg",
- "planet-residence/simbol": "https://cdn.sanity.io/images/203ybdbh/production/a43e82efa1ed37382df4ede9ed176768d2f9dab5-1080x1350.jpg",
- "planet-residence/spa": "https://cdn.sanity.io/images/203ybdbh/production/6b41eacfd5f4a4ff4680d756dfe1cb3c5485e881-1080x1350.jpg",
- "planet-residence/stan-c3": "https://cdn.sanity.io/images/203ybdbh/production/c0f747c6d147629ccb20baadac42c459726a1db4-1080x1350.jpg",
- "planet-residence/stan-dv": "https://cdn.sanity.io/images/203ybdbh/production/ef849dd85df91cbcc3df31224b6dc86433474b0b-1080x1350.jpg",
- "planet-residence/stan-ph": "https://cdn.sanity.io/images/203ybdbh/production/e62e4239b5f3f5372bd947c91bbcc71f7f02058b-1080x1350.jpg",
- "planet-residence/story-anketa": "https://cdn.sanity.io/images/203ybdbh/production/41be177ff057977c2c92dbe436304fb0bd3f024a-1080x1920.jpg",
- "planet-residence/story-c3": "https://cdn.sanity.io/images/203ybdbh/production/7b3094b48aad32cdbb0c5b6cb3ea69f7a88c3d44-1080x1920.jpg",
- "planet-residence/story-dan-noc": "https://cdn.sanity.io/images/203ybdbh/production/64a3cf946c7499b7eb4ac92f1d337db354e3bb1b-1080x1920.jpg",
- "planet-residence/vodic": "https://cdn.sanity.io/images/203ybdbh/production/4ac0d8359b10f605ca3ae0ba019389ced0c992ed-2400x1583.jpg",
- "planet-residence/zakupci": "https://cdn.sanity.io/images/203ybdbh/production/42afa2c8773f6310c0e00036356cd59c7a58fc58-1080x1350.jpg",
- "thermiq/ad-bosch": "https://cdn.sanity.io/images/203ybdbh/production/d8c6e692f47a4f62c13fe486a951db4b4a06d78b-1080x1350.jpg",
- "thermiq/ad-ecovent": "https://cdn.sanity.io/images/203ybdbh/production/7acef533b263e19dab59b4de45d495ec9e6b5d85-1080x1350.jpg",
- "thermiq/ad-hisense": "https://cdn.sanity.io/images/203ybdbh/production/7e4aabbb1a990c5b17b0158cfc6a600011514301-1080x1350.jpg",
- "thermiq/ad-hisense80": "https://cdn.sanity.io/images/203ybdbh/production/22b5ebba115b701cb90470b3a019b92a78396729-1080x1350.jpg",
- "thermiq/geometrija": "https://cdn.sanity.io/images/203ybdbh/production/de0089fd8b57fac455c86527fe3a51d9f981dded-2400x1080.jpg",
- "thermiq/home": "https://cdn.sanity.io/images/203ybdbh/production/35bf092d79e2b2807543a8dc7e2bc05dea71c858-2400x1500.jpg",
- "thermiq/ig-bosch": "https://cdn.sanity.io/images/203ybdbh/production/c92f3f577e2e08d19538d04c6c88ba9958c52ca4-1080x1350.jpg",
- "thermiq/ig-hisense": "https://cdn.sanity.io/images/203ybdbh/production/90ce797ddc1350ed7290c89461c6c78197b381fc-1080x1350.jpg",
- "thermiq/ig-klima": "https://cdn.sanity.io/images/203ybdbh/production/efdb49b81256b3114d3fc0db649b38a404e0e03f-1080x1350.jpg",
- "thermiq/ig-podno": "https://cdn.sanity.io/images/203ybdbh/production/26035d26802047f30a9155be6f208a69bf34b246-1080x1350.jpg",
- "thermiq/ig-pritisak": "https://cdn.sanity.io/images/203ybdbh/production/c75ccdc8a19953d77755b8dbac999daaf8145d63-1080x1350.jpg",
- "thermiq/ig-pumpa": "https://cdn.sanity.io/images/203ybdbh/production/85e6686e786ba6be4d42a4073f4adb1ec2325779-1080x1350.jpg",
- "thermiq/kalkulator": "https://cdn.sanity.io/images/203ybdbh/production/3ca85551eda824859b14e87a167329c8fe0aea25-2400x1500.jpg",
- "thermiq/kartice": "https://cdn.sanity.io/images/203ybdbh/production/3909ef4cf5fc26225755c851126a084050cba1b5-2400x921.jpg",
- "thermiq/kategorija": "https://cdn.sanity.io/images/203ybdbh/production/fadfeeb7c32ebf947511e704b1662ecf2d2407fb-2400x1500.jpg",
- "thermiq/knjiga-01": "https://cdn.sanity.io/images/203ybdbh/production/a5e3b4e44b90dfd439c64a69b136c4e4c331b5a6-1600x1000.jpg",
- "thermiq/knjiga-03": "https://cdn.sanity.io/images/203ybdbh/production/6131e630256c58e2aa586713e1e8d7d6acc420f2-1600x1000.jpg",
- "thermiq/papir": "https://cdn.sanity.io/images/203ybdbh/production/3c3b746219fb72c8db738bcf6f0f9d46de6b1dc9-2400x1560.jpg",
- "thermiq/proizvod": "https://cdn.sanity.io/images/203ybdbh/production/7585ca15e568c5f8c9529d524398d4050130e2cb-2400x1500.jpg",
- "thermiq/vizitke": "https://cdn.sanity.io/images/203ybdbh/production/528c47cb17fa28c49f1b9a455546ff3d3b514d8d-2400x1500.jpg",
- "tonerpro/blog": "https://cdn.sanity.io/images/203ybdbh/production/325fc68c305c92a52de1af1f1c1d0d5e051a6535-2400x1583.jpg",
- "tonerpro/boje": "https://cdn.sanity.io/images/203ybdbh/production/ed6107ceff71de2fdb404171ff3c425c6ce8bab5-1600x1000.jpg",
- "tonerpro/brza": "https://cdn.sanity.io/images/203ybdbh/production/8feb9f735de4e6b365e1ff2025d831fbbb581dd2-2400x1583.jpg",
- "tonerpro/clanak": "https://cdn.sanity.io/images/203ybdbh/production/cc4464b8f31bbea987634972121bb465681f811d-2400x1583.jpg",
- "tonerpro/cover": "https://cdn.sanity.io/images/203ybdbh/production/077d3d431234f253f74b776f421e69150453e18d-3200x1800.png",
- "tonerpro/firme": "https://cdn.sanity.io/images/203ybdbh/production/8a39c85959db819de0f23e9f0a225701af385580-2400x1583.jpg",
- "tonerpro/home": "https://cdn.sanity.io/images/203ybdbh/production/9a6ca3a0857f731aa107bbb927d2b07f80c12338-2400x1500.jpg",
- "tonerpro/ig": "https://cdn.sanity.io/images/203ybdbh/production/31ee9c443726d760358db3ebd5bb07a0da7d613b-1088x1358.jpg",
- "tonerpro/kutije": "https://cdn.sanity.io/images/203ybdbh/production/8514f0793e0e811a4d928272c3feb59192def61e-1600x1000.jpg",
- "tonerpro/logo-ploca": "https://cdn.sanity.io/images/203ybdbh/production/b1f2fb3cf73ac0db10551cbe3c4a1be5473a68f7-1600x1000.jpg",
- "tonerpro/logo": "https://cdn.sanity.io/images/203ybdbh/production/2bf81397b764fff4d16c0974baa500b7785b4fb6-512x512.png",
- "tonerpro/m-home": "https://cdn.sanity.io/images/203ybdbh/production/878af2169ce6de617cb477170db5924291d7610d-1170x2532.jpg",
- "tonerpro/nalepnice": "https://cdn.sanity.io/images/203ybdbh/production/04aa9eaafaa00ff4e3df76bc51fa6f3d16b951ab-2400x1500.jpg",
- "tonerpro/pretraga": "https://cdn.sanity.io/images/203ybdbh/production/842aa9e0044bf876bd2ad58bfc94ccfe7a49e74e-2400x1500.jpg",
- "tonerpro/proizvod": "https://cdn.sanity.io/images/203ybdbh/production/4df0da07d86ac1220687d4961986c0e2231c3a67-2400x1833.jpg",
- "tonerpro/pronadji": "https://cdn.sanity.io/images/203ybdbh/production/1ba557782ddf254d7f7cd7c825e902667dd6e5c7-2400x1500.jpg",
- "tonerpro/provera": "https://cdn.sanity.io/images/203ybdbh/production/ff10d83832bcf505ba0a1f4ce0fe804a18b9ee1b-2400x1083.jpg",
- "tonerpro/stampac": "https://cdn.sanity.io/images/203ybdbh/production/d1afba01903e3d48120531c363104a42a62dda87-2400x1833.jpg",
- "tonerpro/ig-1": "https://cdn.sanity.io/images/203ybdbh/production/c0a92687a8e05e7aa0d58fb477b1ce68e0a9786b-359x449.jpg",
- "tonerpro/ig-2": "https://cdn.sanity.io/images/203ybdbh/production/b65fea902bfbe67855946af12ec31f1fcb399c95-358x449.jpg",
- "tonerpro/ig-3": "https://cdn.sanity.io/images/203ybdbh/production/7af4902710d066cdbb3824d72a8846142b59824f-359x449.jpg",
- "tonerpro/ig-4": "https://cdn.sanity.io/images/203ybdbh/production/74cc8aecc21d31e18b036584707f3eef6804c552-359x448.jpg",
- "tonerpro/ig-5": "https://cdn.sanity.io/images/203ybdbh/production/f98303436e134c5683d7b75836e68ffcbd59c688-358x448.jpg",
- "tonerpro/ig-6": "https://cdn.sanity.io/images/203ybdbh/production/12fb4a17db256e86a3a23f026afee9673dabd43a-359x448.jpg",
- "tonerpro/ig-7": "https://cdn.sanity.io/images/203ybdbh/production/3b1011268b518c9031f8545c4e43181479a1a4a3-359x449.jpg",
- "tonerpro/ig-8": "https://cdn.sanity.io/images/203ybdbh/production/47eb4d4c96d0833eabb1d9523b93d4bb5bd089d8-358x449.jpg",
- "tonerpro/ig-9": "https://cdn.sanity.io/images/203ybdbh/production/e80df2e2e7ebaf3c9d192205f773b03b904e467b-359x449.jpg",
- "planet-residence/g-1": "https://cdn.sanity.io/images/203ybdbh/production/e5bc7595e7449bc89e3eb4d7227a9c2b293a9f88-538x674.jpg",
- "planet-residence/g-2": "https://cdn.sanity.io/images/203ybdbh/production/b2c93b349e4c120a38664fca9f075bb82eb939ac-538x674.jpg",
- "planet-residence/g-3": "https://cdn.sanity.io/images/203ybdbh/production/1e8c62ba2645b1814a1f3b94f2371d099e89833a-538x674.jpg",
- "planet-residence/g-4": "https://cdn.sanity.io/images/203ybdbh/production/858a57bcff928b0537d54c5a207a61bef1dffc53-538x673.jpg",
- "planet-residence/g-5": "https://cdn.sanity.io/images/203ybdbh/production/f720f56a05042e5a67f36cbbdb0389b0afc2a446-538x673.jpg",
- "planet-residence/g-6": "https://cdn.sanity.io/images/203ybdbh/production/4aeb699eb0ceedccd113b41c1b0400076405852b-538x673.jpg",
- "planet-residence/g-7": "https://cdn.sanity.io/images/203ybdbh/production/73d54b986cb84d24f692cbb725e0b14ede750c17-538x673.jpg",
- "planet-residence/g-8": "https://cdn.sanity.io/images/203ybdbh/production/1fe46d5915b0d77c70d32778fe5f6bbb47b42662-538x673.jpg",
- "planet-residence/g-9": "https://cdn.sanity.io/images/203ybdbh/production/30365de4099e62f1dcf61e0fdad52f300bf05451-538x673.jpg",
- "planet-residence/g-10": "https://cdn.sanity.io/images/203ybdbh/production/e6777a9a9752bc1697d740a1923c8505f11a70ce-538x674.jpg",
- "planet-residence/g-11": "https://cdn.sanity.io/images/203ybdbh/production/7c3414e29497c8bf9c4f9bc528b10e3d23ca1292-538x674.jpg",
- "planet-residence/g-12": "https://cdn.sanity.io/images/203ybdbh/production/5b888c473660ae1fb1233b7d3b82a87c88c3d0e8-538x674.jpg",
- "four-elements/v5-rituals-sr-01": "https://cdn.sanity.io/images/203ybdbh/production/207e9c2f1f9d66bc73c8bb0bb87aaf85fba98976-1080x1350.jpg",
- "four-elements/v5-arcade-01": "https://cdn.sanity.io/images/203ybdbh/production/908b248731fad710c34306bd5914f151f9a63182-1080x1350.jpg",
- "four-elements/v5-rituals-sr-04": "https://cdn.sanity.io/images/203ybdbh/production/4046fc515925a734394080492275b0daba857a10-1080x1350.jpg",
- "praxis-centar/blog": "https://cdn.sanity.io/images/203ybdbh/production/39461e19395ee768305e8df3b1845956077811f4-2400x1500.jpg",
- "praxis-centar/cover": "https://cdn.sanity.io/images/203ybdbh/production/26728f07a46a94ed65643d9c1fe3afb3b831d5e2-3200x1800.png",
- "praxis-centar/crm-blog": "https://cdn.sanity.io/images/203ybdbh/production/a230db5f44b95c37c0329bf7fcbe7d2588adc261-2400x1500.jpg",
- "praxis-centar/crm-danas": "https://cdn.sanity.io/images/203ybdbh/production/c0f17c310fe116b03a8701a1dbf6ada811377b09-2400x1500.jpg",
- "praxis-centar/crm-izvestaji": "https://cdn.sanity.io/images/203ybdbh/production/46d1f73c6f4bb9b74c513ea85932531a328ff1ea-2400x1500.jpg",
- "praxis-centar/crm-kalendar": "https://cdn.sanity.io/images/203ybdbh/production/0b15d36212d0772db2acb4705dd9c701bde84a3f-2400x1500.jpg",
- "praxis-centar/crm-karton": "https://cdn.sanity.io/images/203ybdbh/production/8d45a646fbf7ed897e08095262de6338e13f0a28-2400x1500.jpg",
- "praxis-centar/crm-prijava": "https://cdn.sanity.io/images/203ybdbh/production/f6b013941f0717c724916bb54b55d4009367c3b1-2400x1500.jpg",
- "praxis-centar/crm-zahtevi": "https://cdn.sanity.io/images/203ybdbh/production/53e17cfb874c5e61190495e0eaadb8e3d7140258-2400x1500.jpg",
- "praxis-centar/doktor": "https://cdn.sanity.io/images/203ybdbh/production/89622dc3029eb8fd23494b1cbe0bd3f11c4f60be-2400x1500.jpg",
- "praxis-centar/home": "https://cdn.sanity.io/images/203ybdbh/production/bc8c66e2a4b52d3c0338ee8dec0ef2868274592e-2400x1500.jpg",
- "praxis-centar/logo": "https://cdn.sanity.io/images/203ybdbh/production/63e448062346bbbdd9c916b804646376bc58dbf7-512x512.png",
- "praxis-centar/staro": "https://cdn.sanity.io/images/203ybdbh/production/011699230440aa4ceff43488939f6d363d9cea89-2400x1500.jpg",
- "praxis-centar/tekst": "https://cdn.sanity.io/images/203ybdbh/production/8e5126c512cbf0880e78d36a9f01491633f1972e-2400x1500.jpg",
- "praxis-centar/tim": "https://cdn.sanity.io/images/203ybdbh/production/2f743dc25d8b5620736de96701edacdb957b7829-2400x1500.jpg",
- "praxis-centar/usluga": "https://cdn.sanity.io/images/203ybdbh/production/89cb5b73c4a90c95ed33f569b287b6b9d1da4c08-2400x1500.jpg",
- "four-elements/v5-grid-01": "https://cdn.sanity.io/images/203ybdbh/production/a6a4945f098916c7c81346bba3311ba85fa45676-1080x1350.jpg",
- "four-elements/v5-grid-03": "https://cdn.sanity.io/images/203ybdbh/production/a27c4691fb4963858d7cf0368d155354a90eafa9-1080x1350.jpg",
- "four-elements/v5-grid-06": "https://cdn.sanity.io/images/203ybdbh/production/5b99fbd38158f3a4fa266005d07708b23f0059cb-1080x1350.jpg",
- "four-elements/v5-grid-08": "https://cdn.sanity.io/images/203ybdbh/production/7f33c2a92e5a6c0344fe03a79fc608cece67b769-1080x1350.jpg",
- "four-elements/v5-grid-10": "https://cdn.sanity.io/images/203ybdbh/production/6d1b443de51d20da83e62e5cd4a1367a37efd356-1080x1350.jpg",
- "four-elements/v5-grid-07": "https://cdn.sanity.io/images/203ybdbh/production/abb67dd496cfcee29bf5dd0278d04589ecdb349e-1080x1350.jpg",
- "four-elements/v5-grid-05": "https://cdn.sanity.io/images/203ybdbh/production/9ddf728c0fb14020e126fb3e2f02f08c2b66425c-1080x1350.jpg",
- "four-elements/v5-grid-12": "https://cdn.sanity.io/images/203ybdbh/production/8f892516ff085ec0607f867d27243eae240c3f2b-1080x1350.jpg",
- "four-elements/reel-rituals-sr-poster": "https://cdn.sanity.io/images/203ybdbh/production/891e45da2b23314351903d89b01b47dc40c792be-720x1280.jpg",
- "four-elements/reel-rituals-sr": "https://cdn.sanity.io/files/203ybdbh/production/a47493abc9617ede93e87ec912c0b5bfc24b1421.mp4",
- "four-elements/reel-arcade-sr-poster": "https://cdn.sanity.io/images/203ybdbh/production/7f671b854e609d9a21d07450a9a95674556bdf4b-1080x1920.jpg",
- "four-elements/reel-arcade-sr": "https://cdn.sanity.io/files/203ybdbh/production/c2a0d4d7effb2eacdd383f45cc377b855ca32b30.mp4",
- "four-elements/reel-brand-sr-poster": "https://cdn.sanity.io/images/203ybdbh/production/966a243e9dc6991f15d5454522afe36be6b5ba55-720x1280.jpg",
- "four-elements/reel-brand-sr": "https://cdn.sanity.io/files/203ybdbh/production/5fa96876c4918a67a1cce485865da57e23c67cea.mp4",
- "four-elements/reel-team-sr-poster": "https://cdn.sanity.io/images/203ybdbh/production/f24edaf1c163a3e336d05e52f48012b3e71496d2-720x1280.jpg",
- "four-elements/reel-team-sr": "https://cdn.sanity.io/files/203ybdbh/production/587c4b0ce448d2f88dd01845e9380f6b5a7f4ac2.mp4",
- "ideal-keramika/cover2": "https://cdn.sanity.io/images/203ybdbh/production/e97ce011c32ac9ff3d60044f552f5eadcb63f880-3200x1800.png",
- "thermiq/cover2": "https://cdn.sanity.io/images/203ybdbh/production/a96a7ead06874efa9e9470c25bc53667c5d2c6e9-3200x1800.png",
- "praxis-centar/cover2": "https://cdn.sanity.io/images/203ybdbh/production/72cb6c7f2e9c586ff0808094f0b45f7dfaaa909c-3200x1800.png",
- "tonerpro/cover2": "https://cdn.sanity.io/images/203ybdbh/production/79ff8fa00f21f780a3fcd54133ba3cea0927fffe-3200x1800.png",
- "four-elements/cover2": "https://cdn.sanity.io/images/203ybdbh/production/a513e71262429d4f2c9fc73073f4faa1a90c66b3-3200x1800.png",
- "planet-residence/cover2": "https://cdn.sanity.io/images/203ybdbh/production/a7a1dc07e12a8e05d22dce51adbff3c5b179950d-3200x1800.png",
- "moler-nis/cover2": "https://cdn.sanity.io/images/203ybdbh/production/a643e93c8c3432a7685e0b22299034046f37302f-3200x1800.png",
- "elektromil/cover2": "https://cdn.sanity.io/images/203ybdbh/production/0a697dbefd27fe1ffb82be54f397570d68f7e84f-3200x1800.png",
- "ideal-keramika/cover3": "https://cdn.sanity.io/images/203ybdbh/production/7cab2f7dafc5801ed8a6ff0626e985022e657a65-3200x1800.jpg",
- "ideal-keramika/card": "https://cdn.sanity.io/images/203ybdbh/production/8f33d837ea8f7bc0f9f60b50bf966dc7a960f3b7-1500x1660.jpg",
- "thermiq/cover3": "https://cdn.sanity.io/images/203ybdbh/production/7f15c43807d0d02ed7509c4378f72c72b50ea83c-3200x1800.jpg",
- "thermiq/card": "https://cdn.sanity.io/images/203ybdbh/production/6ed1e93f386b12888d1fda7423c8e10c5a713bfa-1500x1660.jpg",
- "praxis-centar/cover3": "https://cdn.sanity.io/images/203ybdbh/production/e3e33fecf75c98e97b3d3db141a9296a529a2fcf-3200x1800.jpg",
- "praxis-centar/card": "https://cdn.sanity.io/images/203ybdbh/production/7377b3e66e8e3c71815ccbda9ea16046f23abdfe-1500x1660.jpg",
- "tonerpro/cover3": "https://cdn.sanity.io/images/203ybdbh/production/03fb72a741ef7293b87b498b462f6c3a7ec90284-3200x1800.jpg",
- "tonerpro/card": "https://cdn.sanity.io/images/203ybdbh/production/707bbb16e2c29613761293c03d5af52ac52aa529-1500x1660.jpg",
- "four-elements/cover3": "https://cdn.sanity.io/images/203ybdbh/production/c9e320cc51662715fdcae076043aad95f2ae8e84-3200x1800.jpg",
- "four-elements/card": "https://cdn.sanity.io/images/203ybdbh/production/18d1bf3407d1fb1b77aee34ccbc89dbf0640772a-1500x1660.jpg",
- "planet-residence/cover3": "https://cdn.sanity.io/images/203ybdbh/production/058c90f2b9494271fa04ba64fd9f5b0fc25ec203-3200x1800.jpg",
- "planet-residence/card": "https://cdn.sanity.io/images/203ybdbh/production/1303c026c6e5f7a17e58ba6adae3f51735da3d99-1500x1660.jpg",
- "moler-nis/cover3": "https://cdn.sanity.io/images/203ybdbh/production/ff15aa11133fa97de30057db2a44fcf81a8243db-3200x1800.jpg",
- "moler-nis/card": "https://cdn.sanity.io/images/203ybdbh/production/16d57d1087f72b28634e0f2ea57d677816d9c69d-1500x1660.jpg",
- "elektromil/cover3": "https://cdn.sanity.io/images/203ybdbh/production/cfd749cdee2e9f99d5ae7b44c0065aab17c1d91e-3200x1800.jpg",
- "elektromil/card": "https://cdn.sanity.io/images/203ybdbh/production/989e4414b8ec680bcefef8017264b69c3cef22a1-1500x1660.jpg",
- "ideal-keramika/cover4": "https://cdn.sanity.io/images/203ybdbh/production/3e02a881cbb91f6b67762d4915f5f80c66dd8ce8-3200x1800.jpg",
- "ideal-keramika/card4": "https://cdn.sanity.io/images/203ybdbh/production/de6f3fb5ba2c833ec36209f90edeecf3ff243135-1500x1660.jpg",
- "thermiq/cover4": "https://cdn.sanity.io/images/203ybdbh/production/4a0377f5bd39fb24670a70005783b008fb6e2b43-3200x1800.jpg",
- "thermiq/card4": "https://cdn.sanity.io/images/203ybdbh/production/39cd3e9069adf20d404c5ebe9fb910efb30733f6-1500x1660.jpg",
- "praxis-centar/cover4": "https://cdn.sanity.io/images/203ybdbh/production/b7ce077bf27d8f15572018ff31a97106d2cdd033-3200x1800.jpg",
- "praxis-centar/card4": "https://cdn.sanity.io/images/203ybdbh/production/a6e3b1a46072cada0a9e09c43054c02eee7d960f-1500x1660.jpg",
- "tonerpro/cover4": "https://cdn.sanity.io/images/203ybdbh/production/25d062de8dc21438c31e8bc1530b839d8767c9e6-3200x1800.jpg",
- "tonerpro/card4": "https://cdn.sanity.io/images/203ybdbh/production/7db6c2f480f0aff92e8e255c401740b575ea0925-1500x1660.jpg",
- "four-elements/cover4": "https://cdn.sanity.io/images/203ybdbh/production/ad25cd9e6f576a46a02a4aabfa34ba2339399746-3200x1800.jpg",
- "four-elements/card4": "https://cdn.sanity.io/images/203ybdbh/production/c94cb3b25ddd99493cdc0679d1c2030ccea38c79-1500x1660.jpg",
- "planet-residence/cover4": "https://cdn.sanity.io/images/203ybdbh/production/991439fd9e46a88cd2741ebe96430d96f46dd5a2-3200x1800.jpg",
- "planet-residence/card4": "https://cdn.sanity.io/images/203ybdbh/production/c49c8f3970ced28f57eea809484b4c5a1ce3095d-1500x1660.jpg",
- "moler-nis/cover4": "https://cdn.sanity.io/images/203ybdbh/production/15a65d9b70443a3aef7a6ba7325c68c7789b7d11-3200x1800.jpg",
- "moler-nis/card4": "https://cdn.sanity.io/images/203ybdbh/production/a1a85376ad9e6ea32c40969a5835135a086f4523-1500x1660.jpg",
- "elektromil/cover4": "https://cdn.sanity.io/images/203ybdbh/production/aba56d2f328341596474350ffaa7b8010d5777e7-3200x1800.jpg",
- "elektromil/card4": "https://cdn.sanity.io/images/203ybdbh/production/ba92e228c3a2c17e1747b69e827cbd81b2258b01-1500x1660.jpg"
+  "elektromil/brzina":
+    "https://cdn.sanity.io/images/203ybdbh/production/4519630a28c97d1f172693c4d6b5f984c6709c20-1600x900.jpg",
+  "elektromil/ev":
+    "https://cdn.sanity.io/images/203ybdbh/production/be0b03fd4cad5c049ac3a0d7fbb1c437fa20cd8d-1600x900.jpg",
+  "elektromil/home":
+    "https://cdn.sanity.io/images/203ybdbh/production/4a802a2c3ad0159539ddd39edba089483d7f9c60-1600x900.jpg",
+  "elektromil/mobilni":
+    "https://cdn.sanity.io/images/203ybdbh/production/dd2703b245a8ab64ebf23a1dbb8055e6886b08be-1600x900.jpg",
+  "elektromil/mockup":
+    "https://cdn.sanity.io/images/203ybdbh/production/4deb65036d495e6ffeaab2c9852e7bb723d4beb1-1800x1013.jpg",
+  "elektromil/usluge":
+    "https://cdn.sanity.io/images/203ybdbh/production/41ef177f7fc0bbd0b4108b0b95c41a0be2d78387-1600x900.jpg",
+  "four-elements/arkada":
+    "https://cdn.sanity.io/images/203ybdbh/production/0f39581d114c728bf984bfc08bf3b30c1da73e13-2400x1583.jpg",
+  "four-elements/cenovnik":
+    "https://cdn.sanity.io/images/203ybdbh/production/8030471e845eeec8c2161fba70d5cf9332550485-2400x1667.jpg",
+  "four-elements/clanstvo":
+    "https://cdn.sanity.io/images/203ybdbh/production/e47fc8137c3e233e0f722d78025f55401a71d441-2400x1667.jpg",
+  "four-elements/cover":
+    "https://cdn.sanity.io/images/203ybdbh/production/849ecc65960428d7314ea8c64e19a57c34561001-3200x1800.png",
+  "four-elements/en":
+    "https://cdn.sanity.io/images/203ybdbh/production/e42c088878832418186724a1b75ee30102cbb037-2400x1500.jpg",
+  "four-elements/home":
+    "https://cdn.sanity.io/images/203ybdbh/production/147af73a098faac330ea6c8f2381e1d29de2e418-2400x1500.jpg",
+  "four-elements/ig-arkada":
+    "https://cdn.sanity.io/images/203ybdbh/production/bc56e468f06aa4a787deef5915772f4c4b86ac70-1080x1350.jpg",
+  "four-elements/ig-clanstvo":
+    "https://cdn.sanity.io/images/203ybdbh/production/59b7cf8177e49a269e050dab9d1f8ca87a07b144-1080x1350.jpg",
+  "four-elements/ig-sauna":
+    "https://cdn.sanity.io/images/203ybdbh/production/59e0e21a3a9afb5c334dd52d5cde3003398325cd-1080x1350.jpg",
+  "four-elements/ig-tim":
+    "https://cdn.sanity.io/images/203ybdbh/production/cbf2defc0fd4880ec4ac8fdaba10587f236e6a52-1080x1350.jpg",
+  "four-elements/ig-vatra":
+    "https://cdn.sanity.io/images/203ybdbh/production/f28bb073ee2708afdc727ecf6d8e127c29fa7f30-1080x1350.jpg",
+  "four-elements/ig-zemlja":
+    "https://cdn.sanity.io/images/203ybdbh/production/b2bcfda1752d6d6a052cd07f32ddd97dcb7afdc9-1080x1350.jpg",
+  "four-elements/knjiga-01":
+    "https://cdn.sanity.io/images/203ybdbh/production/b1cca6994886c580e3a68ccc66ed576c9869a324-2400x1500.jpg",
+  "four-elements/knjiga-06":
+    "https://cdn.sanity.io/images/203ybdbh/production/59ee71c9da67c21f3e83b53254c720cf6c0f8691-2400x1500.jpg",
+  "four-elements/knjiga-15":
+    "https://cdn.sanity.io/images/203ybdbh/production/6e8b703191d9d03dcfab4bc25d16b487f48be354-2400x1500.jpg",
+  "four-elements/knjiga-20":
+    "https://cdn.sanity.io/images/203ybdbh/production/5b37f5dc1c687e04128dedc46c582ec702839c8d-2400x1500.jpg",
+  "four-elements/knjiga-28":
+    "https://cdn.sanity.io/images/203ybdbh/production/42288e13874a3e98ee46c4d5632691874604f3ff-2400x1500.jpg",
+  "four-elements/knjiga-43":
+    "https://cdn.sanity.io/images/203ybdbh/production/8686b39b55b8e802a6c73fe63cca1a1c774d3fff-2400x1500.jpg",
+  "four-elements/logo":
+    "https://cdn.sanity.io/images/203ybdbh/production/f4fccb6ef2c1a8df3dd6e1565447cb918362cd85-512x512.png",
+  "four-elements/m-home":
+    "https://cdn.sanity.io/images/203ybdbh/production/b4be00e3d506b2496539e50c29cead02c2079486-1170x2532.jpg",
+  "four-elements/reel-arkada":
+    "https://cdn.sanity.io/images/203ybdbh/production/adbdf8708a21d1804301522fc7026997bc32de3b-1080x1920.jpg",
+  "four-elements/reel-rituali":
+    "https://cdn.sanity.io/images/203ybdbh/production/c819604558f002e03b82f0895b9b9fce4fd1a02f-1080x1920.jpg",
+  "four-elements/rituali":
+    "https://cdn.sanity.io/images/203ybdbh/production/b64eb3d79520804cad1ae924b6e414537c40f524-2400x1667.jpg",
+  "ideal-keramika/blog":
+    "https://cdn.sanity.io/images/203ybdbh/production/31512fa9612ebd9e6d98e7a37251c63bc34bc05b-2400x1417.jpg",
+  "ideal-keramika/cover":
+    "https://cdn.sanity.io/images/203ybdbh/production/d040c3635cb2d1894c20b1975c993b105098e2c2-3200x1800.png",
+  "ideal-keramika/home":
+    "https://cdn.sanity.io/images/203ybdbh/production/380d86e577cfc6330f2fc7c2394e14468b907022-2400x1500.jpg",
+  "ideal-keramika/kategorija":
+    "https://cdn.sanity.io/images/203ybdbh/production/39f56b3417b69c20ad64246ef56f28b9eb2aee7a-2400x1500.jpg",
+  "ideal-keramika/knjiga":
+    "https://cdn.sanity.io/images/203ybdbh/production/b124602309d008887d51d8c334152df718b24215-1600x1000.jpg",
+  "ideal-keramika/korpa":
+    "https://cdn.sanity.io/images/203ybdbh/production/e816a32b84a1f9f0ff3eb3adf3238aff9eedf4a9-2400x1417.jpg",
+  "ideal-keramika/laptop":
+    "https://cdn.sanity.io/images/203ybdbh/production/8bd2f152b22f0062df03c4f5274182bf27cece43-1600x1000.jpg",
+  "ideal-keramika/logo":
+    "https://cdn.sanity.io/images/203ybdbh/production/d6b4468b1f45085089cca471ea510ec070df3270-512x512.png",
+  "ideal-keramika/m-home":
+    "https://cdn.sanity.io/images/203ybdbh/production/667b460d563a69e9211a5de7f650ef051faef12e-1170x2532.jpg",
+  "ideal-keramika/m-proizvod":
+    "https://cdn.sanity.io/images/203ybdbh/production/5faf192d08feb73e142bd1c98b1bf814d65b6935-1170x2532.jpg",
+  "ideal-keramika/placanje":
+    "https://cdn.sanity.io/images/203ybdbh/production/1cb15ccaeabbcc2391592bdd08abae06e28041fd-2400x1417.jpg",
+  "ideal-keramika/pretraga":
+    "https://cdn.sanity.io/images/203ybdbh/production/8e7783a6b16a3b7958a804e651a2158d94629d89-2400x1500.jpg",
+  "ideal-keramika/proizvod":
+    "https://cdn.sanity.io/images/203ybdbh/production/e6f55f4052ac22606b5bf6f9ea740eca4f734b8b-2400x1500.jpg",
+  "ideal-keramika/tus":
+    "https://cdn.sanity.io/images/203ybdbh/production/f98b5458e04f5649a327b97e5a462ae49fcda204-2400x1417.jpg",
+  "moler-nis/blog":
+    "https://cdn.sanity.io/images/203ybdbh/production/ffa81fd61090e3e5217ad84cd52aa3f3e260f647-2400x1500.jpg",
+  "moler-nis/cenovnik":
+    "https://cdn.sanity.io/images/203ybdbh/production/8f3271e2b60a9ef8a970d6383bac01209ea5b553-2400x1667.jpg",
+  "moler-nis/dekorativni":
+    "https://cdn.sanity.io/images/203ybdbh/production/ba07f380050d36870948285b29974007d8267dad-2400x1500.jpg",
+  "moler-nis/gletovanje":
+    "https://cdn.sanity.io/images/203ybdbh/production/947629e937283a96bf5a449f944367a20a5f348b-2400x1500.jpg",
+  "moler-nis/home":
+    "https://cdn.sanity.io/images/203ybdbh/production/ae8000f18aac6df34e4352bb484bd5de4f036508-2400x1500.jpg",
+  "moler-nis/kalkulator":
+    "https://cdn.sanity.io/images/203ybdbh/production/7ea0d994289c6c1aba36da53736a1f59e054d425-2400x1500.jpg",
+  "moler-nis/m-home":
+    "https://cdn.sanity.io/images/203ybdbh/production/eb5d2b0f3b11ba9b85daef4ddb216b8bb45f0850-1170x2532.jpg",
+  "moler-nis/pagespeed":
+    "https://cdn.sanity.io/images/203ybdbh/production/464898421d08a6ed2b4bb4dd6c47b01ae73c3bf1-2400x1350.jpg",
+  "planet-residence/brojevi":
+    "https://cdn.sanity.io/images/203ybdbh/production/09c447f2be3c1a0132b6f557bbc18ea853d4bf5a-1080x1350.jpg",
+  "planet-residence/cover":
+    "https://cdn.sanity.io/images/203ybdbh/production/1244fe0803d030bc02a1813bc4b4491f147ff92a-3200x1800.png",
+  "planet-residence/enterijer":
+    "https://cdn.sanity.io/images/203ybdbh/production/b39675f578a3657963048dd22b54bb797cd47366-1080x1350.jpg",
+  "planet-residence/garaza":
+    "https://cdn.sanity.io/images/203ybdbh/production/80446547a115e86ec36d86e6144ac81957a970ea-1080x1350.jpg",
+  "planet-residence/istaknute":
+    "https://cdn.sanity.io/images/203ybdbh/production/81d6aed79737c7cb54a59cd3942b53377107d0d1-1980x400.jpg",
+  "planet-residence/logo":
+    "https://cdn.sanity.io/images/203ybdbh/production/18dd01d41c43b902d7c0a44b1fadd60dd855c0b4-512x512.png",
+  "planet-residence/lokacija":
+    "https://cdn.sanity.io/images/203ybdbh/production/b37316841771a4f869501fcd9b882787e911d629-1080x1350.jpg",
+  "planet-residence/mreza":
+    "https://cdn.sanity.io/images/203ybdbh/production/7b83ffc7acb78a350acee89d81dd228ce4055427-1632x2718.jpg",
+  "planet-residence/pregled-mreza":
+    "https://cdn.sanity.io/images/203ybdbh/production/70a7fb56070497a459f1dccd2c6c960c5016ebc2-2400x2083.jpg",
+  "planet-residence/raspored":
+    "https://cdn.sanity.io/images/203ybdbh/production/67b41d6fe2823bbabee2a4b6fafa125783ed8ce7-1080x1350.jpg",
+  "planet-residence/reel-dan-noc":
+    "https://cdn.sanity.io/images/203ybdbh/production/3b631c179870cbd2d9f6c68212494e19a035f415-1080x1920.jpg",
+  "planet-residence/reel-simbol":
+    "https://cdn.sanity.io/images/203ybdbh/production/01d7b03f940dc60568c557a6ae155f2de4db001e-1080x1920.jpg",
+  "planet-residence/reel-stan":
+    "https://cdn.sanity.io/images/203ybdbh/production/7776a64f6f807d2b4b56821ecb909658b0887b08-1080x1920.jpg",
+  "planet-residence/simbol":
+    "https://cdn.sanity.io/images/203ybdbh/production/a43e82efa1ed37382df4ede9ed176768d2f9dab5-1080x1350.jpg",
+  "planet-residence/spa":
+    "https://cdn.sanity.io/images/203ybdbh/production/6b41eacfd5f4a4ff4680d756dfe1cb3c5485e881-1080x1350.jpg",
+  "planet-residence/stan-c3":
+    "https://cdn.sanity.io/images/203ybdbh/production/c0f747c6d147629ccb20baadac42c459726a1db4-1080x1350.jpg",
+  "planet-residence/stan-dv":
+    "https://cdn.sanity.io/images/203ybdbh/production/ef849dd85df91cbcc3df31224b6dc86433474b0b-1080x1350.jpg",
+  "planet-residence/stan-ph":
+    "https://cdn.sanity.io/images/203ybdbh/production/e62e4239b5f3f5372bd947c91bbcc71f7f02058b-1080x1350.jpg",
+  "planet-residence/story-anketa":
+    "https://cdn.sanity.io/images/203ybdbh/production/41be177ff057977c2c92dbe436304fb0bd3f024a-1080x1920.jpg",
+  "planet-residence/story-c3":
+    "https://cdn.sanity.io/images/203ybdbh/production/7b3094b48aad32cdbb0c5b6cb3ea69f7a88c3d44-1080x1920.jpg",
+  "planet-residence/story-dan-noc":
+    "https://cdn.sanity.io/images/203ybdbh/production/64a3cf946c7499b7eb4ac92f1d337db354e3bb1b-1080x1920.jpg",
+  "planet-residence/vodic":
+    "https://cdn.sanity.io/images/203ybdbh/production/4ac0d8359b10f605ca3ae0ba019389ced0c992ed-2400x1583.jpg",
+  "planet-residence/zakupci":
+    "https://cdn.sanity.io/images/203ybdbh/production/42afa2c8773f6310c0e00036356cd59c7a58fc58-1080x1350.jpg",
+  "thermiq/ad-bosch":
+    "https://cdn.sanity.io/images/203ybdbh/production/d8c6e692f47a4f62c13fe486a951db4b4a06d78b-1080x1350.jpg",
+  "thermiq/ad-ecovent":
+    "https://cdn.sanity.io/images/203ybdbh/production/7acef533b263e19dab59b4de45d495ec9e6b5d85-1080x1350.jpg",
+  "thermiq/ad-hisense":
+    "https://cdn.sanity.io/images/203ybdbh/production/7e4aabbb1a990c5b17b0158cfc6a600011514301-1080x1350.jpg",
+  "thermiq/ad-hisense80":
+    "https://cdn.sanity.io/images/203ybdbh/production/22b5ebba115b701cb90470b3a019b92a78396729-1080x1350.jpg",
+  "thermiq/geometrija":
+    "https://cdn.sanity.io/images/203ybdbh/production/de0089fd8b57fac455c86527fe3a51d9f981dded-2400x1080.jpg",
+  "thermiq/home":
+    "https://cdn.sanity.io/images/203ybdbh/production/35bf092d79e2b2807543a8dc7e2bc05dea71c858-2400x1500.jpg",
+  "thermiq/ig-bosch":
+    "https://cdn.sanity.io/images/203ybdbh/production/c92f3f577e2e08d19538d04c6c88ba9958c52ca4-1080x1350.jpg",
+  "thermiq/ig-hisense":
+    "https://cdn.sanity.io/images/203ybdbh/production/90ce797ddc1350ed7290c89461c6c78197b381fc-1080x1350.jpg",
+  "thermiq/ig-klima":
+    "https://cdn.sanity.io/images/203ybdbh/production/efdb49b81256b3114d3fc0db649b38a404e0e03f-1080x1350.jpg",
+  "thermiq/ig-podno":
+    "https://cdn.sanity.io/images/203ybdbh/production/26035d26802047f30a9155be6f208a69bf34b246-1080x1350.jpg",
+  "thermiq/ig-pritisak":
+    "https://cdn.sanity.io/images/203ybdbh/production/c75ccdc8a19953d77755b8dbac999daaf8145d63-1080x1350.jpg",
+  "thermiq/ig-pumpa":
+    "https://cdn.sanity.io/images/203ybdbh/production/85e6686e786ba6be4d42a4073f4adb1ec2325779-1080x1350.jpg",
+  "thermiq/kalkulator":
+    "https://cdn.sanity.io/images/203ybdbh/production/3ca85551eda824859b14e87a167329c8fe0aea25-2400x1500.jpg",
+  "thermiq/kartice":
+    "https://cdn.sanity.io/images/203ybdbh/production/3909ef4cf5fc26225755c851126a084050cba1b5-2400x921.jpg",
+  "thermiq/kategorija":
+    "https://cdn.sanity.io/images/203ybdbh/production/fadfeeb7c32ebf947511e704b1662ecf2d2407fb-2400x1500.jpg",
+  "thermiq/knjiga-01":
+    "https://cdn.sanity.io/images/203ybdbh/production/a5e3b4e44b90dfd439c64a69b136c4e4c331b5a6-1600x1000.jpg",
+  "thermiq/knjiga-03":
+    "https://cdn.sanity.io/images/203ybdbh/production/6131e630256c58e2aa586713e1e8d7d6acc420f2-1600x1000.jpg",
+  "thermiq/papir":
+    "https://cdn.sanity.io/images/203ybdbh/production/3c3b746219fb72c8db738bcf6f0f9d46de6b1dc9-2400x1560.jpg",
+  "thermiq/proizvod":
+    "https://cdn.sanity.io/images/203ybdbh/production/7585ca15e568c5f8c9529d524398d4050130e2cb-2400x1500.jpg",
+  "thermiq/vizitke":
+    "https://cdn.sanity.io/images/203ybdbh/production/528c47cb17fa28c49f1b9a455546ff3d3b514d8d-2400x1500.jpg",
+  "tonerpro/blog":
+    "https://cdn.sanity.io/images/203ybdbh/production/325fc68c305c92a52de1af1f1c1d0d5e051a6535-2400x1583.jpg",
+  "tonerpro/boje":
+    "https://cdn.sanity.io/images/203ybdbh/production/ed6107ceff71de2fdb404171ff3c425c6ce8bab5-1600x1000.jpg",
+  "tonerpro/brza":
+    "https://cdn.sanity.io/images/203ybdbh/production/8feb9f735de4e6b365e1ff2025d831fbbb581dd2-2400x1583.jpg",
+  "tonerpro/clanak":
+    "https://cdn.sanity.io/images/203ybdbh/production/cc4464b8f31bbea987634972121bb465681f811d-2400x1583.jpg",
+  "tonerpro/cover":
+    "https://cdn.sanity.io/images/203ybdbh/production/077d3d431234f253f74b776f421e69150453e18d-3200x1800.png",
+  "tonerpro/firme":
+    "https://cdn.sanity.io/images/203ybdbh/production/8a39c85959db819de0f23e9f0a225701af385580-2400x1583.jpg",
+  "tonerpro/home":
+    "https://cdn.sanity.io/images/203ybdbh/production/9a6ca3a0857f731aa107bbb927d2b07f80c12338-2400x1500.jpg",
+  "tonerpro/ig":
+    "https://cdn.sanity.io/images/203ybdbh/production/31ee9c443726d760358db3ebd5bb07a0da7d613b-1088x1358.jpg",
+  "tonerpro/kutije":
+    "https://cdn.sanity.io/images/203ybdbh/production/8514f0793e0e811a4d928272c3feb59192def61e-1600x1000.jpg",
+  "tonerpro/logo-ploca":
+    "https://cdn.sanity.io/images/203ybdbh/production/b1f2fb3cf73ac0db10551cbe3c4a1be5473a68f7-1600x1000.jpg",
+  "tonerpro/logo":
+    "https://cdn.sanity.io/images/203ybdbh/production/2bf81397b764fff4d16c0974baa500b7785b4fb6-512x512.png",
+  "tonerpro/m-home":
+    "https://cdn.sanity.io/images/203ybdbh/production/878af2169ce6de617cb477170db5924291d7610d-1170x2532.jpg",
+  "tonerpro/nalepnice":
+    "https://cdn.sanity.io/images/203ybdbh/production/04aa9eaafaa00ff4e3df76bc51fa6f3d16b951ab-2400x1500.jpg",
+  "tonerpro/pretraga":
+    "https://cdn.sanity.io/images/203ybdbh/production/842aa9e0044bf876bd2ad58bfc94ccfe7a49e74e-2400x1500.jpg",
+  "tonerpro/proizvod":
+    "https://cdn.sanity.io/images/203ybdbh/production/4df0da07d86ac1220687d4961986c0e2231c3a67-2400x1833.jpg",
+  "tonerpro/pronadji":
+    "https://cdn.sanity.io/images/203ybdbh/production/1ba557782ddf254d7f7cd7c825e902667dd6e5c7-2400x1500.jpg",
+  "tonerpro/provera":
+    "https://cdn.sanity.io/images/203ybdbh/production/ff10d83832bcf505ba0a1f4ce0fe804a18b9ee1b-2400x1083.jpg",
+  "tonerpro/stampac":
+    "https://cdn.sanity.io/images/203ybdbh/production/d1afba01903e3d48120531c363104a42a62dda87-2400x1833.jpg",
+  "tonerpro/ig-1":
+    "https://cdn.sanity.io/images/203ybdbh/production/c0a92687a8e05e7aa0d58fb477b1ce68e0a9786b-359x449.jpg",
+  "tonerpro/ig-2":
+    "https://cdn.sanity.io/images/203ybdbh/production/b65fea902bfbe67855946af12ec31f1fcb399c95-358x449.jpg",
+  "tonerpro/ig-3":
+    "https://cdn.sanity.io/images/203ybdbh/production/7af4902710d066cdbb3824d72a8846142b59824f-359x449.jpg",
+  "tonerpro/ig-4":
+    "https://cdn.sanity.io/images/203ybdbh/production/74cc8aecc21d31e18b036584707f3eef6804c552-359x448.jpg",
+  "tonerpro/ig-5":
+    "https://cdn.sanity.io/images/203ybdbh/production/f98303436e134c5683d7b75836e68ffcbd59c688-358x448.jpg",
+  "tonerpro/ig-6":
+    "https://cdn.sanity.io/images/203ybdbh/production/12fb4a17db256e86a3a23f026afee9673dabd43a-359x448.jpg",
+  "tonerpro/ig-7":
+    "https://cdn.sanity.io/images/203ybdbh/production/3b1011268b518c9031f8545c4e43181479a1a4a3-359x449.jpg",
+  "tonerpro/ig-8":
+    "https://cdn.sanity.io/images/203ybdbh/production/47eb4d4c96d0833eabb1d9523b93d4bb5bd089d8-358x449.jpg",
+  "tonerpro/ig-9":
+    "https://cdn.sanity.io/images/203ybdbh/production/e80df2e2e7ebaf3c9d192205f773b03b904e467b-359x449.jpg",
+  "planet-residence/g-1":
+    "https://cdn.sanity.io/images/203ybdbh/production/e5bc7595e7449bc89e3eb4d7227a9c2b293a9f88-538x674.jpg",
+  "planet-residence/g-2":
+    "https://cdn.sanity.io/images/203ybdbh/production/b2c93b349e4c120a38664fca9f075bb82eb939ac-538x674.jpg",
+  "planet-residence/g-3":
+    "https://cdn.sanity.io/images/203ybdbh/production/1e8c62ba2645b1814a1f3b94f2371d099e89833a-538x674.jpg",
+  "planet-residence/g-4":
+    "https://cdn.sanity.io/images/203ybdbh/production/858a57bcff928b0537d54c5a207a61bef1dffc53-538x673.jpg",
+  "planet-residence/g-5":
+    "https://cdn.sanity.io/images/203ybdbh/production/f720f56a05042e5a67f36cbbdb0389b0afc2a446-538x673.jpg",
+  "planet-residence/g-6":
+    "https://cdn.sanity.io/images/203ybdbh/production/4aeb699eb0ceedccd113b41c1b0400076405852b-538x673.jpg",
+  "planet-residence/g-7":
+    "https://cdn.sanity.io/images/203ybdbh/production/73d54b986cb84d24f692cbb725e0b14ede750c17-538x673.jpg",
+  "planet-residence/g-8":
+    "https://cdn.sanity.io/images/203ybdbh/production/1fe46d5915b0d77c70d32778fe5f6bbb47b42662-538x673.jpg",
+  "planet-residence/g-9":
+    "https://cdn.sanity.io/images/203ybdbh/production/30365de4099e62f1dcf61e0fdad52f300bf05451-538x673.jpg",
+  "planet-residence/g-10":
+    "https://cdn.sanity.io/images/203ybdbh/production/e6777a9a9752bc1697d740a1923c8505f11a70ce-538x674.jpg",
+  "planet-residence/g-11":
+    "https://cdn.sanity.io/images/203ybdbh/production/7c3414e29497c8bf9c4f9bc528b10e3d23ca1292-538x674.jpg",
+  "planet-residence/g-12":
+    "https://cdn.sanity.io/images/203ybdbh/production/5b888c473660ae1fb1233b7d3b82a87c88c3d0e8-538x674.jpg",
+  "four-elements/v5-rituals-sr-01":
+    "https://cdn.sanity.io/images/203ybdbh/production/207e9c2f1f9d66bc73c8bb0bb87aaf85fba98976-1080x1350.jpg",
+  "four-elements/v5-arcade-01":
+    "https://cdn.sanity.io/images/203ybdbh/production/908b248731fad710c34306bd5914f151f9a63182-1080x1350.jpg",
+  "four-elements/v5-rituals-sr-04":
+    "https://cdn.sanity.io/images/203ybdbh/production/4046fc515925a734394080492275b0daba857a10-1080x1350.jpg",
+  "praxis-centar/blog":
+    "https://cdn.sanity.io/images/203ybdbh/production/39461e19395ee768305e8df3b1845956077811f4-2400x1500.jpg",
+  "praxis-centar/cover":
+    "https://cdn.sanity.io/images/203ybdbh/production/26728f07a46a94ed65643d9c1fe3afb3b831d5e2-3200x1800.png",
+  "praxis-centar/crm-blog":
+    "https://cdn.sanity.io/images/203ybdbh/production/a230db5f44b95c37c0329bf7fcbe7d2588adc261-2400x1500.jpg",
+  "praxis-centar/crm-danas":
+    "https://cdn.sanity.io/images/203ybdbh/production/c0f17c310fe116b03a8701a1dbf6ada811377b09-2400x1500.jpg",
+  "praxis-centar/crm-izvestaji":
+    "https://cdn.sanity.io/images/203ybdbh/production/46d1f73c6f4bb9b74c513ea85932531a328ff1ea-2400x1500.jpg",
+  "praxis-centar/crm-kalendar":
+    "https://cdn.sanity.io/images/203ybdbh/production/0b15d36212d0772db2acb4705dd9c701bde84a3f-2400x1500.jpg",
+  "praxis-centar/crm-karton":
+    "https://cdn.sanity.io/images/203ybdbh/production/8d45a646fbf7ed897e08095262de6338e13f0a28-2400x1500.jpg",
+  "praxis-centar/crm-prijava":
+    "https://cdn.sanity.io/images/203ybdbh/production/f6b013941f0717c724916bb54b55d4009367c3b1-2400x1500.jpg",
+  "praxis-centar/crm-zahtevi":
+    "https://cdn.sanity.io/images/203ybdbh/production/53e17cfb874c5e61190495e0eaadb8e3d7140258-2400x1500.jpg",
+  "praxis-centar/doktor":
+    "https://cdn.sanity.io/images/203ybdbh/production/89622dc3029eb8fd23494b1cbe0bd3f11c4f60be-2400x1500.jpg",
+  "praxis-centar/home":
+    "https://cdn.sanity.io/images/203ybdbh/production/bc8c66e2a4b52d3c0338ee8dec0ef2868274592e-2400x1500.jpg",
+  "praxis-centar/logo":
+    "https://cdn.sanity.io/images/203ybdbh/production/63e448062346bbbdd9c916b804646376bc58dbf7-512x512.png",
+  "praxis-centar/staro":
+    "https://cdn.sanity.io/images/203ybdbh/production/011699230440aa4ceff43488939f6d363d9cea89-2400x1500.jpg",
+  "praxis-centar/tekst":
+    "https://cdn.sanity.io/images/203ybdbh/production/8e5126c512cbf0880e78d36a9f01491633f1972e-2400x1500.jpg",
+  "praxis-centar/tim":
+    "https://cdn.sanity.io/images/203ybdbh/production/2f743dc25d8b5620736de96701edacdb957b7829-2400x1500.jpg",
+  "praxis-centar/usluga":
+    "https://cdn.sanity.io/images/203ybdbh/production/89cb5b73c4a90c95ed33f569b287b6b9d1da4c08-2400x1500.jpg",
+  "four-elements/v5-grid-01":
+    "https://cdn.sanity.io/images/203ybdbh/production/a6a4945f098916c7c81346bba3311ba85fa45676-1080x1350.jpg",
+  "four-elements/v5-grid-03":
+    "https://cdn.sanity.io/images/203ybdbh/production/a27c4691fb4963858d7cf0368d155354a90eafa9-1080x1350.jpg",
+  "four-elements/v5-grid-06":
+    "https://cdn.sanity.io/images/203ybdbh/production/5b99fbd38158f3a4fa266005d07708b23f0059cb-1080x1350.jpg",
+  "four-elements/v5-grid-08":
+    "https://cdn.sanity.io/images/203ybdbh/production/7f33c2a92e5a6c0344fe03a79fc608cece67b769-1080x1350.jpg",
+  "four-elements/v5-grid-10":
+    "https://cdn.sanity.io/images/203ybdbh/production/6d1b443de51d20da83e62e5cd4a1367a37efd356-1080x1350.jpg",
+  "four-elements/v5-grid-07":
+    "https://cdn.sanity.io/images/203ybdbh/production/abb67dd496cfcee29bf5dd0278d04589ecdb349e-1080x1350.jpg",
+  "four-elements/v5-grid-05":
+    "https://cdn.sanity.io/images/203ybdbh/production/9ddf728c0fb14020e126fb3e2f02f08c2b66425c-1080x1350.jpg",
+  "four-elements/v5-grid-12":
+    "https://cdn.sanity.io/images/203ybdbh/production/8f892516ff085ec0607f867d27243eae240c3f2b-1080x1350.jpg",
+  "four-elements/reel-rituals-sr-poster":
+    "https://cdn.sanity.io/images/203ybdbh/production/891e45da2b23314351903d89b01b47dc40c792be-720x1280.jpg",
+  "four-elements/reel-rituals-sr":
+    "https://cdn.sanity.io/files/203ybdbh/production/a47493abc9617ede93e87ec912c0b5bfc24b1421.mp4",
+  "four-elements/reel-arcade-sr-poster":
+    "https://cdn.sanity.io/images/203ybdbh/production/7f671b854e609d9a21d07450a9a95674556bdf4b-1080x1920.jpg",
+  "four-elements/reel-arcade-sr":
+    "https://cdn.sanity.io/files/203ybdbh/production/c2a0d4d7effb2eacdd383f45cc377b855ca32b30.mp4",
+  "four-elements/reel-brand-sr-poster":
+    "https://cdn.sanity.io/images/203ybdbh/production/966a243e9dc6991f15d5454522afe36be6b5ba55-720x1280.jpg",
+  "four-elements/reel-brand-sr":
+    "https://cdn.sanity.io/files/203ybdbh/production/5fa96876c4918a67a1cce485865da57e23c67cea.mp4",
+  "four-elements/reel-team-sr-poster":
+    "https://cdn.sanity.io/images/203ybdbh/production/f24edaf1c163a3e336d05e52f48012b3e71496d2-720x1280.jpg",
+  "four-elements/reel-team-sr":
+    "https://cdn.sanity.io/files/203ybdbh/production/587c4b0ce448d2f88dd01845e9380f6b5a7f4ac2.mp4",
+  "ideal-keramika/cover2":
+    "https://cdn.sanity.io/images/203ybdbh/production/e97ce011c32ac9ff3d60044f552f5eadcb63f880-3200x1800.png",
+  "thermiq/cover2":
+    "https://cdn.sanity.io/images/203ybdbh/production/a96a7ead06874efa9e9470c25bc53667c5d2c6e9-3200x1800.png",
+  "praxis-centar/cover2":
+    "https://cdn.sanity.io/images/203ybdbh/production/72cb6c7f2e9c586ff0808094f0b45f7dfaaa909c-3200x1800.png",
+  "tonerpro/cover2":
+    "https://cdn.sanity.io/images/203ybdbh/production/79ff8fa00f21f780a3fcd54133ba3cea0927fffe-3200x1800.png",
+  "four-elements/cover2":
+    "https://cdn.sanity.io/images/203ybdbh/production/a513e71262429d4f2c9fc73073f4faa1a90c66b3-3200x1800.png",
+  "planet-residence/cover2":
+    "https://cdn.sanity.io/images/203ybdbh/production/a7a1dc07e12a8e05d22dce51adbff3c5b179950d-3200x1800.png",
+  "moler-nis/cover2":
+    "https://cdn.sanity.io/images/203ybdbh/production/a643e93c8c3432a7685e0b22299034046f37302f-3200x1800.png",
+  "elektromil/cover2":
+    "https://cdn.sanity.io/images/203ybdbh/production/0a697dbefd27fe1ffb82be54f397570d68f7e84f-3200x1800.png",
+  "ideal-keramika/cover3":
+    "https://cdn.sanity.io/images/203ybdbh/production/7cab2f7dafc5801ed8a6ff0626e985022e657a65-3200x1800.jpg",
+  "ideal-keramika/card":
+    "https://cdn.sanity.io/images/203ybdbh/production/8f33d837ea8f7bc0f9f60b50bf966dc7a960f3b7-1500x1660.jpg",
+  "thermiq/cover3":
+    "https://cdn.sanity.io/images/203ybdbh/production/7f15c43807d0d02ed7509c4378f72c72b50ea83c-3200x1800.jpg",
+  "thermiq/card":
+    "https://cdn.sanity.io/images/203ybdbh/production/6ed1e93f386b12888d1fda7423c8e10c5a713bfa-1500x1660.jpg",
+  "praxis-centar/cover3":
+    "https://cdn.sanity.io/images/203ybdbh/production/e3e33fecf75c98e97b3d3db141a9296a529a2fcf-3200x1800.jpg",
+  "praxis-centar/card":
+    "https://cdn.sanity.io/images/203ybdbh/production/7377b3e66e8e3c71815ccbda9ea16046f23abdfe-1500x1660.jpg",
+  "tonerpro/cover3":
+    "https://cdn.sanity.io/images/203ybdbh/production/03fb72a741ef7293b87b498b462f6c3a7ec90284-3200x1800.jpg",
+  "tonerpro/card":
+    "https://cdn.sanity.io/images/203ybdbh/production/707bbb16e2c29613761293c03d5af52ac52aa529-1500x1660.jpg",
+  "four-elements/cover3":
+    "https://cdn.sanity.io/images/203ybdbh/production/c9e320cc51662715fdcae076043aad95f2ae8e84-3200x1800.jpg",
+  "four-elements/card":
+    "https://cdn.sanity.io/images/203ybdbh/production/18d1bf3407d1fb1b77aee34ccbc89dbf0640772a-1500x1660.jpg",
+  "planet-residence/cover3":
+    "https://cdn.sanity.io/images/203ybdbh/production/058c90f2b9494271fa04ba64fd9f5b0fc25ec203-3200x1800.jpg",
+  "planet-residence/card":
+    "https://cdn.sanity.io/images/203ybdbh/production/1303c026c6e5f7a17e58ba6adae3f51735da3d99-1500x1660.jpg",
+  "moler-nis/cover3":
+    "https://cdn.sanity.io/images/203ybdbh/production/ff15aa11133fa97de30057db2a44fcf81a8243db-3200x1800.jpg",
+  "moler-nis/card":
+    "https://cdn.sanity.io/images/203ybdbh/production/16d57d1087f72b28634e0f2ea57d677816d9c69d-1500x1660.jpg",
+  "elektromil/cover3":
+    "https://cdn.sanity.io/images/203ybdbh/production/cfd749cdee2e9f99d5ae7b44c0065aab17c1d91e-3200x1800.jpg",
+  "elektromil/card":
+    "https://cdn.sanity.io/images/203ybdbh/production/989e4414b8ec680bcefef8017264b69c3cef22a1-1500x1660.jpg",
+  "ideal-keramika/cover4":
+    "https://cdn.sanity.io/images/203ybdbh/production/3e02a881cbb91f6b67762d4915f5f80c66dd8ce8-3200x1800.jpg",
+  "ideal-keramika/card4":
+    "https://cdn.sanity.io/images/203ybdbh/production/de6f3fb5ba2c833ec36209f90edeecf3ff243135-1500x1660.jpg",
+  "thermiq/cover4":
+    "https://cdn.sanity.io/images/203ybdbh/production/4a0377f5bd39fb24670a70005783b008fb6e2b43-3200x1800.jpg",
+  "thermiq/card4":
+    "https://cdn.sanity.io/images/203ybdbh/production/39cd3e9069adf20d404c5ebe9fb910efb30733f6-1500x1660.jpg",
+  "praxis-centar/cover4":
+    "https://cdn.sanity.io/images/203ybdbh/production/b7ce077bf27d8f15572018ff31a97106d2cdd033-3200x1800.jpg",
+  "praxis-centar/card4":
+    "https://cdn.sanity.io/images/203ybdbh/production/a6e3b1a46072cada0a9e09c43054c02eee7d960f-1500x1660.jpg",
+  "tonerpro/cover4":
+    "https://cdn.sanity.io/images/203ybdbh/production/25d062de8dc21438c31e8bc1530b839d8767c9e6-3200x1800.jpg",
+  "tonerpro/card4":
+    "https://cdn.sanity.io/images/203ybdbh/production/7db6c2f480f0aff92e8e255c401740b575ea0925-1500x1660.jpg",
+  "four-elements/cover4":
+    "https://cdn.sanity.io/images/203ybdbh/production/ad25cd9e6f576a46a02a4aabfa34ba2339399746-3200x1800.jpg",
+  "four-elements/card4":
+    "https://cdn.sanity.io/images/203ybdbh/production/c94cb3b25ddd99493cdc0679d1c2030ccea38c79-1500x1660.jpg",
+  "planet-residence/cover4":
+    "https://cdn.sanity.io/images/203ybdbh/production/991439fd9e46a88cd2741ebe96430d96f46dd5a2-3200x1800.jpg",
+  "planet-residence/card4":
+    "https://cdn.sanity.io/images/203ybdbh/production/c49c8f3970ced28f57eea809484b4c5a1ce3095d-1500x1660.jpg",
+  "moler-nis/cover4":
+    "https://cdn.sanity.io/images/203ybdbh/production/15a65d9b70443a3aef7a6ba7325c68c7789b7d11-3200x1800.jpg",
+  "moler-nis/card4":
+    "https://cdn.sanity.io/images/203ybdbh/production/a1a85376ad9e6ea32c40969a5835135a086f4523-1500x1660.jpg",
+  "elektromil/cover4":
+    "https://cdn.sanity.io/images/203ybdbh/production/aba56d2f328341596474350ffaa7b8010d5777e7-3200x1800.jpg",
+  "elektromil/card4":
+    "https://cdn.sanity.io/images/203ybdbh/production/ba92e228c3a2c17e1747b69e827cbd81b2258b01-1500x1660.jpg",
+  "praxis-centar/ig-pcos":
+    "https://cdn.sanity.io/images/203ybdbh/production/212a364a45b8a4d790662ea170c7bf8eacaf9af2-1080x1350.jpg",
+  "praxis-centar/ig-dismorfija":
+    "https://cdn.sanity.io/images/203ybdbh/production/0ef870877bd0f16856356306415696ae43f689df-1080x1350.jpg",
+  "praxis-centar/ig-telesna-slika":
+    "https://cdn.sanity.io/images/203ybdbh/production/3744bd4a2aa3697f6b52f372a419acdb3672f449-1080x1350.jpg",
 };
 
 export const img = (key) => IMAGES[key] ?? null;

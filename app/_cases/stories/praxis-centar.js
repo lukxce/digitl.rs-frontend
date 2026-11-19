@@ -6,7 +6,8 @@
    - Search Console, 16 Oct to 12 Nov 2026 (old site): /nas-tim doctor pages about 825 clicks in 28 days;
      "praxis centar" 1,03; the helikobakterija article 315 clicks in 28 days.
    - Platform screenshots: local DEMO, invented patients. Reception never sees clinical notes (server-side).
-   - Social media: Luka (19 Nov) will hand-pick posts; add a chapter when he sends them. */
+   - Social media: three posts Luka picked (19 Nov), cleaned of Instagram's buttons in
+     studije-slucaja/assets/praxis-centar/ig-*.png. No reach numbers claimed. */
 import { img } from "./images";
 
 const story = {
@@ -21,11 +22,11 @@ const story = {
     { label: "Delatnost", value: "Psihijatrija i psihoterapija" },
     {
       label: "Šta smo radili",
-      value: "Redizajn sajta, program za ordinaciju, blog",
+      value: "Redizajn sajta, program za ordinaciju, blog, Instagram",
     },
     { label: "Godina", value: "2026." },
   ],
-  services: ["Sajt", "CRM", "SEO"],
+  services: ["Sajt", "CRM", "SEO", "Društvene mreže"],
   source:
     "Izvor: Google Search Console, 28 dana pre prelaska na novi sajt (16. oktobar do 12. novembar 2026).",
   numbers: [
@@ -142,12 +143,44 @@ const story = {
         },
       ],
     },
+    {
+      id: "instagram",
+      kicker: "Društvene mreže",
+      title: "Na Instagramu se podatak crta, a ne piše.",
+      body: [
+        "Za Instagram pravimo karusele o temama kojima se lekari Praxisa bave, od PCOS-a i insulinske rezistencije do mišićne dismorfije. Svaki karusel potpisuje lekar čija je tema.",
+        "Broj iz istraživanja pretvaramo u sliku. Kad je reč o deset odsto bodibildera, na slajdu je sto figura i deset je obojeno. Kad je tema kako osoba vidi svoje telo, na slajdu je skala sa dve tačke: gde misli da je i gde zaista jeste.",
+        "Raspored je svuda isti: znak gore levo, tema i broj slajda gore desno, ime lekara dole. Objava Praxisa se prepozna među drugima pre nego što se pročita naslov.",
+      ],
+      piece: {
+        kind: "deck",
+        title: "Objave sa Instagrama",
+        note: "Izbor objava sa profila Praxis centra. Stručni sadržaj je od lekara, dizajn i karusel su naši.",
+        items: [
+          {
+            src: img("praxis-centar/ig-pcos"),
+            label: "PCOS i insulinska rezistencija",
+            sub: "Naslovni slajd karusela, tema kroz psihijatriju.",
+          },
+          {
+            src: img("praxis-centar/ig-dismorfija"),
+            label: "Mišićna dismorfija",
+            sub: "Deset od sto figura umesto rečenice o deset odsto.",
+          },
+          {
+            src: img("praxis-centar/ig-telesna-slika"),
+            label: "Kako vide sebe",
+            sub: "Treći od devet slajdova: skala sa dve tačke.",
+          },
+        ],
+      },
+    },
   ],
   next: {
     label: "Rezultat i sledeći koraci",
     title: "Novi sajt na starim adresama i program za celu ordinaciju.",
     body: [
-      "Praxis centar ima sajt koji objašnjava kako leči, stranice lekara na adresama koje Google već zna i program u kom su termini, pacijenti, plaćanja i blog.",
+      "Praxis centar ima sajt koji objašnjava kako leči, stranice lekara na adresama koje Google već zna, program u kom su termini, pacijenti, plaćanja i blog, i Instagram sa stručnim temama lekara.",
       "Sledeće je praćenje pretrage posle prelaska, stranice za opšte pretrage kao psihoterapija i psihijatar u Beogradu i zakazivanje termina sa sajta preko programa.",
     ],
   },
