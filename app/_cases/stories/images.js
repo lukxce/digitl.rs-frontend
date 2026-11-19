@@ -191,7 +191,23 @@ const IMAGES = {
  "moler-nis/cover3": "https://cdn.sanity.io/images/203ybdbh/production/ff15aa11133fa97de30057db2a44fcf81a8243db-3200x1800.jpg",
  "moler-nis/card": "https://cdn.sanity.io/images/203ybdbh/production/16d57d1087f72b28634e0f2ea57d677816d9c69d-1500x1660.jpg",
  "elektromil/cover3": "https://cdn.sanity.io/images/203ybdbh/production/cfd749cdee2e9f99d5ae7b44c0065aab17c1d91e-3200x1800.jpg",
- "elektromil/card": "https://cdn.sanity.io/images/203ybdbh/production/989e4414b8ec680bcefef8017264b69c3cef22a1-1500x1660.jpg"
+ "elektromil/card": "https://cdn.sanity.io/images/203ybdbh/production/989e4414b8ec680bcefef8017264b69c3cef22a1-1500x1660.jpg",
+ "ideal-keramika/cover4": "https://cdn.sanity.io/images/203ybdbh/production/3e02a881cbb91f6b67762d4915f5f80c66dd8ce8-3200x1800.jpg",
+ "ideal-keramika/card4": "https://cdn.sanity.io/images/203ybdbh/production/de6f3fb5ba2c833ec36209f90edeecf3ff243135-1500x1660.jpg",
+ "thermiq/cover4": "https://cdn.sanity.io/images/203ybdbh/production/4a0377f5bd39fb24670a70005783b008fb6e2b43-3200x1800.jpg",
+ "thermiq/card4": "https://cdn.sanity.io/images/203ybdbh/production/39cd3e9069adf20d404c5ebe9fb910efb30733f6-1500x1660.jpg",
+ "praxis-centar/cover4": "https://cdn.sanity.io/images/203ybdbh/production/b7ce077bf27d8f15572018ff31a97106d2cdd033-3200x1800.jpg",
+ "praxis-centar/card4": "https://cdn.sanity.io/images/203ybdbh/production/a6e3b1a46072cada0a9e09c43054c02eee7d960f-1500x1660.jpg",
+ "tonerpro/cover4": "https://cdn.sanity.io/images/203ybdbh/production/25d062de8dc21438c31e8bc1530b839d8767c9e6-3200x1800.jpg",
+ "tonerpro/card4": "https://cdn.sanity.io/images/203ybdbh/production/7db6c2f480f0aff92e8e255c401740b575ea0925-1500x1660.jpg",
+ "four-elements/cover4": "https://cdn.sanity.io/images/203ybdbh/production/ad25cd9e6f576a46a02a4aabfa34ba2339399746-3200x1800.jpg",
+ "four-elements/card4": "https://cdn.sanity.io/images/203ybdbh/production/c94cb3b25ddd99493cdc0679d1c2030ccea38c79-1500x1660.jpg",
+ "planet-residence/cover4": "https://cdn.sanity.io/images/203ybdbh/production/991439fd9e46a88cd2741ebe96430d96f46dd5a2-3200x1800.jpg",
+ "planet-residence/card4": "https://cdn.sanity.io/images/203ybdbh/production/c49c8f3970ced28f57eea809484b4c5a1ce3095d-1500x1660.jpg",
+ "moler-nis/cover4": "https://cdn.sanity.io/images/203ybdbh/production/15a65d9b70443a3aef7a6ba7325c68c7789b7d11-3200x1800.jpg",
+ "moler-nis/card4": "https://cdn.sanity.io/images/203ybdbh/production/a1a85376ad9e6ea32c40969a5835135a086f4523-1500x1660.jpg",
+ "elektromil/cover4": "https://cdn.sanity.io/images/203ybdbh/production/aba56d2f328341596474350ffaa7b8010d5777e7-3200x1800.jpg",
+ "elektromil/card4": "https://cdn.sanity.io/images/203ybdbh/production/ba92e228c3a2c17e1747b69e827cbd81b2258b01-1500x1660.jpg"
 };
 
 export const img = (key) => IMAGES[key] ?? null;

@@ -37,10 +37,10 @@ function Shot({ c, sticker, badge }) {
     <span className={w.shot}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <picture>
-        {caseImg(`${c.slug}/card`)
+        {caseImg(`${c.slug}/card4`)
           ? <source
               media="(min-width: 960px)"
-              srcSet={`${caseImg(`${c.slug}/card`)}?w=900&fm=webp&q=82`}
+              srcSet={`${caseImg(`${c.slug}/card4`)}?w=900&fm=webp&q=82`}
             />
           : null}
         <img
